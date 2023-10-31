@@ -282,6 +282,13 @@ body {
   padding: 10px 20px 10px 40px;
 }
 
+#buy1get1 .buy1get1_box1 button{
+  background-image: url("Assets/try1.png");
+  background-color: transparent;
+  border: 10px;
+  padding: 10px 20px 10px 40px;
+}
+
 #buy1get1 .buy1get1_box .button .h5{
 font-weight: 300px;
 }
