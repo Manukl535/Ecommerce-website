@@ -251,7 +251,7 @@ body {
 #buy1get1 {
   display: flex;
   justify-content: space-between;
- 
+  
 }
 #buy1get1 .buy1get1_box{
   
@@ -262,6 +262,7 @@ body {
   background-position: top 25% right 0;
   padding:  40px;
   text-align: start;
+  margin-right: -30px;
 }
 
 #buy1get1 .buy1get1_box1{
@@ -273,6 +274,21 @@ body {
   background-position: top 25% right 0;
   padding:  50px;
   text-align: start;
+  margin-left: -50px;
+  
+}
+
+#buy1get1 .buy1get1_box2{
+  
+  background-image: url("Assets/upcomingsale.png");
+  background-color: transparent;
+  height: 45vh;
+  width: 34%;
+  background-position: top 25% right 0;
+  padding:  50px;
+  text-align: start;
+  margin-left: -50px;
+  
 }
 
 #buy1get1 .buy1get1_box button{
