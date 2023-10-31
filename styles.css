@@ -250,7 +250,7 @@ body {
 /*Buy1get*/
 #buy1get1 {
   display: flex;
-  justify-self: unset;
+  justify-content: space-between;
  
 }
 #buy1get1 .buy1get1_box{
@@ -260,7 +260,18 @@ body {
   height: 45vh;
   width: 34%;
   background-position: top 25% right 0;
-  padding:  70px;
+  padding:  40px;
+  text-align: start;
+}
+
+#buy1get1 .buy1get1_box1{
+  
+  background-image: url("Assets/upcomingsale.png");
+  background-color: transparent;
+  height: 45vh;
+  width: 34%;
+  background-position: top 25% right 0;
+  padding:  50px;
   text-align: start;
 }
 
