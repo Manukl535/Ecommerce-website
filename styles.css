@@ -1,0 +1,276 @@
+@import url("https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Spartan", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/*css for all*/
+.checked {
+  color: orange;
+  }
+section{
+  padding: auto;
+}
+h1 {
+  font-size: 50px;
+  line-height: 64px;
+  color: #222;
+}
+
+h2 {
+  font-size: 46px;
+  line-height: 54px;
+  color: #222;
+}
+h3{
+  font-size: 20px;
+  font-weight: 300px;
+  padding-top: 14px;
+}
+
+h4 {
+  font-size: 20px;
+  color: #222;
+}
+
+h6 {
+  font-weight: 700;
+  font-size: 12px;
+}
+
+p {
+  font-size: 16px;
+  color: #465b52;
+  margin: 15px 0 20px 0;
+}
+
+.section-p1 {
+  padding: 20px 10px;
+}
+
+.section-m1 {
+  margin: 40px 0;
+}
+
+body {
+  width: 100%;
+}
+
+#top{
+  display: flex;
+  
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 80px;
+  background:white;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.10);
+  z-index: 100;
+  position:sticky;
+  top: 0;
+  left: 0;
+}
+
+
+#headings{
+  display: flex;
+  
+  align-items: center;
+  justify-content: space-between;
+}
+
+#headings li{
+  list-style-type: none;
+  
+  padding: 0 15px;
+}
+
+#headings li a{
+  text-decoration: none;
+  color: black;
+  font-weight: 550;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1) ease;
+
+}
+
+#headings li a:hover{
+  color:green;
+}
+
+#banner{
+  background-image: url("Assets/banner2.png");
+  background-color: transparent;
+  height: 99vh;
+  width: 100%;
+  background-position: top 25% right 0;
+  padding: 0 70px;
+  
+} 
+#banner .para{
+  font-family: "Times New Roman", Times, serif;
+  color: red;
+}
+
+#banner button{
+  background-image: url("Assets/try.png");
+  background-color: transparent;
+  color: #088178;
+  border: 0;
+  padding: 20px 30px 20px 50px;
+}
+#banner h1{
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Services*/
+
+#services{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+#services .servicon{
+  
+  width: 180px;
+  text-align: center;
+  padding: 25px 0;
+  box-shadow: 10px 1px 10px rgba(0,0,0,0.10);
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 5px ;
+}
+
+
+/* Top products*/
+
+#topproduct{
+  text-align: center;
+}
+
+#topproduct .product{
+  width: 23%;
+  min-width: 250px;
+  padding: 9px 5px;
+  border: 0 solid #cce7d0;
+  box-shadow: 20px;
+  margin: 20px;
+  position: relative;
+}
+
+#topproduct .product img{
+  width: 100%;
+  border-radius: 20px;
+}
+
+#topproduct .product .description{
+  text-align: start;
+  padding: 10px 0;
+}
+
+#topproduct .product h4{
+  color: #088178;  
+}
+
+#topproduct .product i{
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  background-color:white;
+  border-radius: 50px;
+  box-shadow: 10px;
+  font-weight: 500px;
+  position: absolute;
+  bottom: 30px;
+  right: 23px;
+}
+
+#topproduct .Collection{
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+  
+}
+
+/*Trending*/
+
+#Trending{
+  text-align: center;
+}
+
+#Trending .product2{
+  width: 23%;
+  min-width: 250px;
+  padding: 9px 5px;
+  border: 0 solid #cce7d0;
+  box-shadow: 20px;
+  margin: 20px;
+  position: relative;
+}
+
+#Trending .product2 img{
+  width: 100%;
+  border-radius: 20px;
+}
+
+#Trending .product2 .description{
+  text-align: start;
+  padding: 10px 0;
+}
+
+#Trending .product2 h4{
+  color: #088178;  
+}
+
+#Trending .product2 i{
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  background-color:white;
+  border-radius: 50px;
+  box-shadow: 10px;
+  font-weight: 500px;
+  position: absolute;
+  bottom: 30px;
+  right: 23px;
+}
+
+#Trending .Collection2{
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+  
+}
+
+/*Buy1get*/
+#buy1get1 {
+  display: flex;
+  justify-self: unset;
+ 
+}
+#buy1get1 .buy1get1_box{
+  
+  background-image: url("Assets/buy1get1.png");
+  background-color: transparent;
+  height: 45vh;
+  width: 34%;
+  background-position: top 25% right 0;
+  padding:  70px;
+  text-align: start;
+}
+
+#buy1get1 .buy1get1_box button{
+  background-image: url("Assets/try1.png");
+  background-color: transparent;
+  border: 10px;
+  padding: 10px 20px 10px 40px;
+}
+
+#buy1get1 .buy1get1_box .button .h5{
+font-weight: 300px;
+}
