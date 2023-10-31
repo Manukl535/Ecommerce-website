@@ -111,10 +111,8 @@ body {
   padding: 0 70px;
   
 } 
-#banner .para{
-  font-family: "Times New Roman", Times, serif;
-  color: red;
-}
+
+
 
 #banner button{
   background-image: url("Assets/try.png");
@@ -265,7 +263,7 @@ body {
   margin-right: -30px;
 }
 
-#buy1get1 .buy1get1_box1{
+#buy1get1 .buy1get1_box1 {
   
   background-image: url("Assets/upcomingsale.png");
   background-color: transparent;
@@ -288,7 +286,14 @@ body {
   padding:  50px;
   text-align: start;
   margin-left: -50px;
-  
+}
+
+#buy1get1 .buy1get1_box1 h4{
+ color:white;
+}
+#buy1get1 .buy1get1_box1 img{
+  width: 100%;
+  align-content: center;
 }
 
 #buy1get1 .buy1get1_box button{
