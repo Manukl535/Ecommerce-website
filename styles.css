@@ -64,7 +64,6 @@ body {
 
 #top{
   display: flex;
-  
   align-items: center;
   justify-content: space-between;
   padding: 10px 80px;
@@ -115,11 +114,16 @@ body {
 
 
 #banner button{
-  background-image: url("Assets/try.png");
-  background-color: transparent;
-  color: #088178;
-  border: 0;
-  padding: 20px 30px 20px 50px;
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 20px 22px;
+  border-radius: 48%;
 }
 #banner h1{
   font-family: 'Times New Roman', Times, serif;
@@ -256,7 +260,7 @@ body {
   background-image: url("Assets/buy1get1.png");
   background-color: transparent;
   height: 45vh;
-  width: 34%;
+  width: 32%;
   background-position: top 25% right 0;
   padding:  40px;
   text-align: start;
@@ -287,10 +291,18 @@ body {
 }
 
 #buy1get1 .buy1get1_box button{
-  background-image: url("Assets/try1.png");
+  text-decoration: none;
   background-color: transparent;
   border: 10px;
   padding: 10px 20px 10px 40px;
+  
+  border: 2px double black; 
+  list-style-type: none; 
+  margin: 5px;
+  padding-top: 10px;
+  padding-right: 20px; 
+  padding-bottom: 10px;
+  padding-left: 20px; 
 }
 
 #buy1get1 .buy1get1_box1 button{
