@@ -123,7 +123,7 @@ body {
   display: inline-block;
   font-size: 16px;
   margin: 20px 22px;
-  border-radius: 48%;
+  border-radius: 100%;
 }
 #banner h1{
   font-family: 'Times New Roman', Times, serif;
