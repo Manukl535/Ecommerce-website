@@ -332,8 +332,18 @@ color: white;
 padding: 140px 40px 50px 50px;
 }
 
-
 #buy1get1 .buy1get1_box3{
+  
+  background-image: url("Assets/sunglass1.png");
+  background-color: transparent;
+  height: 38vh;
+  width: 28%;
+  background-position: top 25% right 0;
+  padding:  50px;
+  text-align: start;
+  
+}
+#buy1get1 .buy1get1_box4{
   
   background-image: url("Assets/footware21.png");
   background-color: transparent;
@@ -345,14 +355,5 @@ padding: 140px 40px 50px 50px;
   margin-left: -50px;
 }
 
-#buy1get1 .buy1get1_box4{
-  
-  background-image: url("Assets/sunglass1.png");
-  background-color: transparent;
-  height: 38vh;
-  width: 30%;
-  background-position: top 25% right 0;
-  padding:  50px;
-  text-align: start;
-  margin-left: -50px;
+margin-left: -50px;
 }
