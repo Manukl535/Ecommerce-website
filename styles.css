@@ -6,6 +6,7 @@
   font-family: "Spartan", sans-serif;
 }
 
+
 html {
   scroll-behavior: smooth;
 }
@@ -125,6 +126,7 @@ body {
   margin: 20px 22px;
   border-radius: 100%;
 }
+
 #banner h1{
   font-family: 'Times New Roman', Times, serif;
 }
@@ -302,15 +304,25 @@ body {
   padding-top: 10px;
   padding-right: 20px; 
   padding-bottom: 10px;
-  padding-left: 20px; 
+  padding-left: 20px;
+  background-color: blue;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  opacity: 0.8;
+  transition: 0.3s; 
 }
-
+#buy1get1 .buy1get1_box button:hover{
+  opacity: 1;
+}
 #buy1get1 .buy1get1_box1 button{
   text-decoration: none;
   background-color: transparent;
   border: 10px;
   padding: 10px 20px 10px 40px;
-  
   border: 2px double black; 
   list-style-type: none; 
   margin: 5px;
@@ -318,7 +330,11 @@ body {
   padding-right: 20px; 
   padding-bottom: 10px;
   padding-left: 20px;
-
+  opacity: 0.8;
+  color: black;
+}
+#buy1get1 .buy1get1_box1 button:hover{
+  opacity: 10;
 }
 
 #buy1get1 .buy1get1_box .button .h5{
