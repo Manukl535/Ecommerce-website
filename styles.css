@@ -353,6 +353,21 @@ font-weight: 300px;
   text-align: start;
   margin-left: -50px;
 }
+#buy1get1 .buy1get1_box2 button{
+  text-decoration: none;
+  background: color 0; ;
+  border: 10px;
+  padding: 10px 20px 10px 40px;
+  border: 2px double black; 
+  list-style-type: none; 
+  margin: 5px;
+  padding-top: 10px;
+  padding-right: 20px; 
+  padding-bottom: 10px;
+  padding-left: 20px;
+  opacity: 0.9;
+  color: black;
+}
 
 #buy1get1 .buy1get1_box2 h4{
 padding-bottom: 10px;
@@ -372,6 +387,21 @@ color:black;
   text-align: start;
   
 }
+#buy1get1 .buy1get1_box3 button{
+  text-decoration: none;
+  background: color 0; ;
+  border: 10px;
+  padding: 10px 20px 10px 40px;
+  border: 2px double black; 
+  list-style-type: none; 
+  margin: 5px;
+  padding-top: 10px;
+  padding-right: 20px; 
+  padding-bottom: 10px;
+  padding-left: 20px;
+  opacity: 0.9;
+  color: black;
+}
 #buy1get1 .buy1get1_box4{
   
   background-image: url("Assets/footware21.png");
@@ -382,6 +412,21 @@ color:black;
   padding:  50px;
   text-align: start;
   margin-left: -50px;
+}
+#buy1get1 .buy1get1_box4 button{
+  text-decoration: none;
+  background: color 0; ;
+  border: 10px;
+  padding: 10px 20px 10px 40px;
+  border: 2px double black; 
+  list-style-type: none; 
+  margin: 5px;
+  padding-top: 10px;
+  padding-right: 20px; 
+  padding-bottom: 10px;
+  padding-left: 20px;
+  opacity: 0.9;
+  color: black;
 }
 
 
