@@ -484,6 +484,12 @@ color:black;
   color:red
 }
 
+#subscribe .form{
+  display: flex;
+  width: 30%;
+  
+}
+
 #subscribe input{
   height: 3rem;
   padding: 0 1.24em;
@@ -495,9 +501,12 @@ color:black;
 
 }
 
-#subscribe button{
+#subscribe .form button{
   background-color: #04AA6D;
-  color: #088178;
+  color: #eef7f6;
   white-space: inherit;
+  padding:  13px;
+  border :1px double black;
+
 }
 
