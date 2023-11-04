@@ -361,7 +361,7 @@ font-weight: 300px;
 
 #buy1get1 .buy1get1_box2{
   
-  background-image: url("Assets/ts-removebg-preview.png");
+  background-image: url("Assets/tshirt-removebg-preview1.png");
   background-color: transparent;
   flex-direction: column;
   justify-content: center;
@@ -401,7 +401,7 @@ color:black;
 
 #buy1get1 .buy1get1_box3{
   
-  background-image: url("Assets/sung.png");
+  background-image: url("Assets/sunglass.png");
   background-color: transparent;
   flex-direction: column;
   justify-content: center;
@@ -411,8 +411,9 @@ color:black;
   background-position: top 25% right 0;
   padding:  50px;
   text-align: start;
-  margin-left: -50px;
+  
   min-width: 20%;
+  text-align: right;
   
 }
 #buy1get1 .buy1get1_box3 button{
