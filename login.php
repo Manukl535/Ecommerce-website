@@ -231,7 +231,29 @@
           <div class="slider-tab"></div>
         </div>
         <div class="form-inner">
-          <form action="#" class="login">
+        <?php
+        if (isset($_POST["login"])) {
+           $email = $_POST["email"];
+           $password = $_POST["password"];
+            require_once "database.php";
+            $sql = "SELECT * FROM users WHERE email = '$email'";
+            $result = mysqli_query($conn, $sql);
+            $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
+            if ($user) {
+                if (password_verify($password, $user["password"])) {
+                    session_start();
+                    $_SESSION["user"] = "yes";
+                    header("Location: index.php");
+                    die();
+                }else{
+                    echo "<div class='alert alert-danger'>Password does not match</div>";
+                }
+            }else{
+                echo "<div class='alert alert-danger'>Email does not match</div>";
+            }
+        }
+        ?>
+          <form action="login.php" class="login">
             <div class="field">
               <input type="text" placeholder="Email Address" required>
             </div>
@@ -245,8 +267,63 @@
             </div>
             <div class="signup-link">Not a member? <a href="">Signup now</a></div>
           </form>
-          <form action="#" class="signup">
+          <form action="login.php" method="post" class="signup">
+          <?php
+            if  (isset($_POST["submit"]))
+            {
+              $full_name = $_POST["fullname"];
+              $email = $_POST["email"];
+              $password = $_POST["password"];
+              $password = $_POST["cofirm password"];
+              $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+           $errors = array();
+           
+           if (empty($fullName) OR empty($email) OR empty($password) OR empty($confirmpassword)) {
+            array_push($errors,"All fields are required");
+           }
+           if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            array_push($errors, "Email is not valid");
+           }
+           if (strlen($password)<8) {
+            array_push($errors,"Password must be at least 8 charactes long");
+           }
+           if ($password!==$passwordRepeat) {
+            array_push($errors,"Password does not match");
+           }
+           require_once "database.php";
+           $sql = "SELECT * FROM users WHERE email = '$email'";
+           $result = mysqli_query($conn, $sql);
+           $rowCount = mysqli_num_rows($result);
+           if ($rowCount>0) {
+            array_push($errors,"Email already exists!");
+           }
+           if (count($errors)>0) {
+            foreach ($errors as  $error) {
+                echo "<div class='alert alert-danger'>$error</div>";
+            }
+           }else{
+            
+            $sql = "INSERT INTO users (full_name, email, password) VALUES ( ?, ?, ? )";
+            $stmt = mysqli_stmt_init($conn);
+            $prepareStmt = mysqli_stmt_prepare($stmt,$sql);
+            if ($prepareStmt) {
+                mysqli_stmt_bind_param($stmt,"sss",$fullName, $email, $passwordHash);
+                mysqli_stmt_execute($stmt);
+                echo "<div class='alert alert-success'>You are registered successfully.</div>";
+            }else{
+                die("Something went wrong");
+            }
+           }
+          
+
+        }
+        ?>
+            
             <div class="field">
+              <input type="text" placeholder="Enter name" required>
+              </div>
+              <div class="field">
               <input type="text" placeholder="Email Address" required>
             </div>
             <div class="field">
