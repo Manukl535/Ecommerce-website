@@ -553,6 +553,9 @@ color:#222;
 margin-bottom: 10px;
 }
 
+footer a:hover{
+  color: #04AA6D;
+}
 footer .follow{
   margin-top: 20px;
 
@@ -563,6 +566,9 @@ footer .follow i{
   padding-right: 4px;
   cursor: pointer;
   
+}
+footer .follow i:hover{
+  color: #04AA6D;
 }
 
 footer .copyright {
