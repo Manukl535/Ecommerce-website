@@ -502,11 +502,15 @@ color:black;
 }
 
 #subscribe .form button{
+  height: 3rem;
+  padding: 0 1.24em;
   background-color: #04AA6D;
   color: #eef7f6;
   white-space: inherit;
   padding:  13px;
   border :1px double black;
+  width: 100%;
+  border-radius: 4px;
 
 }
 
