@@ -472,7 +472,7 @@ color:black;
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
-  background-image: url(Assets/sub.png);
+  background-image: url(Assets/newsletter-background.webp);
   background-repeat: no-repeat;
 
 }
@@ -516,4 +516,3 @@ color:black;
   border-radius: 4px;
 
 }
-
