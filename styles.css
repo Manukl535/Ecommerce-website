@@ -293,11 +293,11 @@ body {
   background-position: top 25% right 0;
   padding:  40px;
   text-align: start;
-  margin-right: -30px;
+  margin-right: 0;
   flex-direction: column;
   background-size:cover;
-  background-position: center;
-  min-width: 530px;
+  
+  min-width: 500px;
   
 }
 #buy1get1 .buy1get1_box1:hover button{
