@@ -35,14 +35,49 @@
             </section>
             <br><br></br/>
 
-            <section id="contct" class="contact_us">
-               <h4>Meet Us</h4>    
-               <div>
-                  
-               </div>
+            <section id="contact" class="contact_us">
+                <div class="">              
+                     <h4>Meet Us</h4> <br/> 
+                     <h5>Head Office:</h5>
+                <p>Address:223 Main Street Electonic City Bengaluru 562107</p>
+                <p>Phone:+91 98765 43210</p>
+                <p>Email:posh.com</p>
+               
+               
+            </div>
+               <div id="map" style="width:50%; height: 300px;"></div>
+                <script>
+                    function myMap() {
+                      var mapCanvas = document.getElementById("map");
+                      var mapOptions = {
+                        center: new google.maps.LatLng(51.5, -0.2), zoom: 10
+                      };
+                      var map = new google.maps.Map(mapCanvas, mapOptions);
+                    }
+                    </script>
+                    
+                    <script src="https://maps.googleapis.com/maps/api/js?key=&callback=myMap"></script>
+               
 
             </section>
-            <br><br><br/>
+            <section>
+                <div class="follow">
+                    <h4>Follow Us</h4>
+                    <div class="col">
+                        <ul>
+                        <i class="fa fa-facebook-official" style="font-size:36px"></i>
+                        <i class="fa fa-instagram" style="font-size:36px"></i>
+                        <i class="fa fa-twitter-square" style="font-size:36px"></i>
+                    </ul>
+                    </div>
+                </div>
+            </section>
+            <footer class="section-p1">
+                <div class="copyright">
+                    <p>2023 &#169; All Rights Reserved</p><p>Designed and Maintained by <b>Manu </b>and <b>Srisha</b></p>
+                </div>
+            
+            </footer>
        
             
          

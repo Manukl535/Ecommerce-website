@@ -662,6 +662,7 @@ margin-bottom: 10px;
   }
 /*contactus*/
 #contact_us{
+ 
   background-image: url("Assets/contactus.jpg");
   width: 100%;
   height: 35vh;
@@ -679,6 +680,10 @@ margin-bottom: 10px;
 #contact_us p{
   text-align:center ;
   color: black;
-
-
 }
+#contact{
+  display: flex;
+  justify-content: space-between;
+}
+
+
