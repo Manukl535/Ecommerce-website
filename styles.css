@@ -630,3 +630,33 @@ margin-bottom: 10px;
     font-weight: 600;
     width: 40%; 
   }
+
+  /*About us*/
+
+  #aboutus_header{
+    background-image: url("Assets/about.jpg");
+    height: 20vh;
+    background-position: center;
+   }
+
+
+  #aboutus_header h2{
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 20px;
+    text-align:center;
+    color:white;
+  }
+ 
+  #header{
+    display: flex;
+    align-items: center;
+  }
+  #header img{
+    width: 50%;
+    height: auto;
+  }
+
+  #header div {
+    padding-left: 40px;
+  }
