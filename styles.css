@@ -120,6 +120,10 @@ body {
   
 } 
 
+#header marquee{
+  background: linear-gradient(to right, #33ccff 0%, #ff99cc 100%)
+}
+
 
 
 #banner button{
