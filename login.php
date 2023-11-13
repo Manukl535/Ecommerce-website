@@ -26,6 +26,7 @@ if ($result->num_rows > 0) {
             // Authentication successful, redirect to home page
             header("C:/xampp/htdocs/Ecom/index.html");
             exit();
+            
         }
 } else {
     echo "Login failed. Invalid username or password.";
