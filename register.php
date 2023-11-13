@@ -1,10 +1,5 @@
 <?php
-// register.php
-// function function_alert($message) { 
-      
-//     // Display the alert box  
-//     echo "<script>alert('$message');</script>"; 
-// } 
+ 
 $host = "localhost";
 $username = "root";
 $password = "";
@@ -25,9 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Insert new user into the database
     $insertQuery = "INSERT INTO users (username, password) VALUES ('$regUsername', '$regPassword')";
     if ($conn->query($insertQuery) === TRUE) {
-        //function_alert("Registration successful!"); 
-        echo "Registration successful!";
-        //header("Location:login.html");
+         
+        echo "Registration successful! Kindly Go Back & Login With Your Credentials";
+       
         
     } else {
         echo "Error: " . $insertQuery . "<br>" . $conn->error;
