@@ -19,18 +19,22 @@ $query = "SELECT * FROM users WHERE username='$enteredUsername' AND password='$e
 $result = $conn->query($query);
 
 if ($result->num_rows > 0) {
-    echo "Login successful!";
-	$row = $result->fetch_assoc();
+    echo "Login succesfull";
+ 
+
+   
         // Verify the entered password against the hashed password in the database
-        if (password_verify($enteredPassword, $row['password'])) {
-            // Authentication successful, redirect to home page
-            header("C:/xampp/htdocs/Ecom/index.html");
-            exit();
-            
+        //if ($enteredPassword ==='username' &&  $enteredPassword ==='password') {
+            // Authentication successful, redirect to index page
+            header("Location:index.html");
+            exit;
+           
         }
-} else {
-    echo "Login failed. Invalid username or password.";
+ //}
+        else {
+            echo "Login failed. Invalid username or password.";
 }
+
 
 $conn->close();
 ?>
