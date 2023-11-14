@@ -20,21 +20,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $regUsername = $_POST['first_name'];
     $regPassword = $_POST['password'];
 
-
-
+ // Check if the username is available
+ $checkQuery = "SELECT * FROM users WHERE username = '$regUsername'";
+ $result = $conn->query($checkQuery);
+ if ($result->num_rows > 0) {
+     $message = "Username not available! Please choose a different username.";
+     $redirectUrl = "register.html";
+     function_alert($message, $redirectUrl);
+ }
+else{
     // Insert new user into the database
     $insertQuery = "INSERT INTO users (username, password) VALUES ('$regUsername', '$regPassword')";
     if ($conn->query($insertQuery) === TRUE) {
         
         //echo "Registration successful! Kindly Go Back & Login With Your Credentials";
        
-        $message = "Registration successful! Redirecting to Login";
+        $message = "Registration successful! Redirecting to Login Page";
         $redirectUrl = "login.html";
         function_alert($message, $redirectUrl);
   }
 }
+}
+
  else {
-        echo "Error: " . $insertQuery . "<br>" . $conn->error;
+
     }
 
 
