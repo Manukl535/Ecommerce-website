@@ -1,5 +1,6 @@
 <?php
 // login.php
+
 function function_alert($message, $redirectUrl) {
     // Display the alert box
     echo "<script>alert('$message');</script>";
@@ -21,6 +22,7 @@ $enteredUsername = $_POST['username'];
 $enteredPassword = $_POST['password'];
 
 $query = "SELECT * FROM users WHERE username='$enteredUsername' AND password='$enteredPassword'";
+
 $result = $conn->query($query);
 
 if ($result->num_rows > 0) {
@@ -38,5 +40,7 @@ if ($result->num_rows > 0) {
         $redirectUrl = "login.html";
         function_alert($message, $redirectUrl);
 }
+
+
 $conn->close();
 ?>

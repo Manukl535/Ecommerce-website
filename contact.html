@@ -4,7 +4,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
@@ -30,7 +29,7 @@
 
 
              <section id ="contact_us" class="contact">
-                <h2>let's_meet</h2>
+                <h2>#let's_meet</h2>
                 <p>We are happy to hear from you...</p>
             </section>
             <br><br></br/>
@@ -60,20 +59,59 @@
                
 
             </section>
-            <section>
-                <div class="follow">
-                    <h4>Follow Us</h4>
-                    <div class="col">
-                        <ul>
-                        <i class="fa fa-facebook-official" style="font-size:36px"></i>
-                        <i class="fa fa-instagram" style="font-size:36px"></i>
-                        <i class="fa fa-twitter-square" style="font-size:36px"></i>
-                        
-                        
-                    </ul>
-                    </div>
-                </div>
-            </section>
+           <br/>
+          <form> <p>&nbsp;&nbsp;<b>Leave a Message</b></p>
+           <style>
+           textarea {
+                width: 40%;
+                height: 150px;
+                padding: 10px 20px;
+                box-sizing: border-box;
+                border: 2px solid #ccc;
+                border-radius: 4px;
+                background-color: #f8f8f8;
+                font-size: 16px;
+                resize: none;  
+          }
+          
+            .center {
+           padding: 0 20px 70px 220px;   
+         }
+         input{
+            background-color: #04AA6D; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 50px;
+         }
+          
+        </style>
+<form>
+    <p>&nbsp;<textarea id="feedback" name="text" rows="4" cols="50"></textarea></p>
+    <div class="center">
+        <p><input type="submit" style="width: fit-content;" onclick="showPopup(event)" value="SUBMIT"/></p>
+    </div>
+</form>
+<script>
+    function showPopup(event) {
+        event.preventDefault(); // Prevent form submission
+
+        let feedback = document.getElementById("feedback");
+        let feedbackValue = feedback.value.trim();
+
+        if (feedbackValue === "") {
+            alert("Feedback can't be empty!");
+        } else {
+            alert("Thanks..!\nWe Received Your Feedback!"); // Perform form submission or other actions here
+            feedback.value = ""; // Reset the textarea
+           
+        }
+    }
+</script>
             <footer class="section-p1">
                 <div class="copyright">
                     <p>2023 &#169; All Rights Reserved</p><p>Designed and Maintained by <b>Manu </b>and <b>Srisha</b></p>
