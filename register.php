@@ -41,11 +41,8 @@ else{
   }
 }
 }
-
  else {
-
-    }
-
-
+        //Future Use with appropriate message
+    } 
 $conn->close();
 ?>
