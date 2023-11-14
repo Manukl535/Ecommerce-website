@@ -380,17 +380,26 @@
         </div>
         </section>
 
-        <!--Subscribe-->
-        <section id = "subscribe">
-            <div class="updates">
-            <h4><b>Signup for updates</b></h4>
-            <p><b>Get updates on Sale and <span>Special offers</span></b></p>
-            </div>
+<!--Subscribe-->
+<section id = "subscribe">
+    <div class="updates">
+    <h4><b>Signup for updates</b></h4>
+    <p><b>Get updates on Sale and <span>Special offers</span></b></p>
+    </div>
 
-            <div class="form">
-                <input type="text" placeholder="Enter your mail"><a href="#"><button class="normal">Signup</button></a>
-            </div>
-        </section>
+    <div class="form">
+        <input type="text" id="emailInput" placeholder="Enter your mail"/><button class="normal" style="width: fit-content;" onclick="showPopup()" >Signup</button>
+    </div>
+</section>
+
+<script>
+function showPopup() {
+var email = document.getElementById("emailInput").value;
+if (email !== "") {
+    alert("Thanks for your interest!");
+}
+}
+</script>
 
            <footer class="section-p1">
             <div class="col">
@@ -425,7 +434,7 @@
             </div>
             <div class="payment">
                 <h4>Secured Payment Gateways</h4>
-                <img src="Assets/payment.jpg">
+                <img src="Assets/payment.png">
             </div>
             <div class="copyright">
                 <p>2023 &#169; All Rights Reserved</p><p>Designed and Maintained by <b>Manu </b>and <b>Srisha</b></p>
