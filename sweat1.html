@@ -58,9 +58,18 @@
             </div>
 
             <div class="form">
-                <input type="text" placeholder="Enter your mail"><a href="#"><button class="normal">Signup</button></a>
+                <input type="text" id="emailInput" placeholder="Enter your mail"/><button class="normal" style="width: fit-content;" onclick="showPopup()" >Signup</button>
             </div>
         </section>
+        
+<script>
+    function showPopup() {
+        var email = document.getElementById("emailInput").value;
+        if (email !== "") {
+            alert("Thanks for your interest!");
+        }
+    }
+    </script>
 
            <footer class="section-p1">
             <div class="col">

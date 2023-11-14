@@ -62,12 +62,18 @@
 </section>
 
 <script>
-function showPopup() {
-var email = document.getElementById("emailInput").value;
-if (email !== "") {
-    alert("Thanks for your interest!");
-}
-}
+    function showPopup() {
+        var email = document.getElementById("emailInput").value;
+        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        if (email !== "") {
+            if (emailPattern.test(email)) {
+                alert("Thanks for your interest!");
+            } else {
+                alert("Invalid email format!");
+            }
+        }
+    }
 </script>
 <!--Footer-->
            <footer class="section-p1">
