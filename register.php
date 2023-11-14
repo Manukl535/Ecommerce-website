@@ -1,5 +1,10 @@
 <?php
- 
+ function function_alert($message, $redirectUrl) {
+    // Display the alert box
+    echo "<script>alert('$message');</script>";
+    // Redirect to the specified URL after the alert is closed
+    echo "<script>window.location.href = '$redirectUrl';</script>";
+}
 $host = "localhost";
 $username = "root";
 $password = "";
@@ -20,14 +25,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Insert new user into the database
     $insertQuery = "INSERT INTO users (username, password) VALUES ('$regUsername', '$regPassword')";
     if ($conn->query($insertQuery) === TRUE) {
-         
-        echo "Registration successful! Kindly Go Back & Login With Your Credentials";
-       
         
-    } else {
+        //echo "Registration successful! Kindly Go Back & Login With Your Credentials";
+       
+        $message = "Registration successful! Redirecting to Login";
+        $redirectUrl = "login.html";
+        function_alert($message, $redirectUrl);
+  }
+}
+ else {
         echo "Error: " . $insertQuery . "<br>" . $conn->error;
     }
-}
+
 
 $conn->close();
 ?>
