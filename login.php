@@ -1,6 +1,9 @@
 <?php
 // login.php
 
+// Start the session
+session_start();
+
 function function_alert($message, $redirectUrl) {
     // Display the alert box
     echo "<script>alert('$message');</script>";
@@ -30,7 +33,11 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
-    // Authentication successful, redirect to index page
+    // Authentication successful, set session variables
+    $_SESSION['username'] = $enteredUsername;
+    $_SESSION['loggedin'] = true;
+
+    // Redirect to the index page
     header("Location: index.html");
     exit;
 } else {
