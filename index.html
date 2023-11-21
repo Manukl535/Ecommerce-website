@@ -8,45 +8,67 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
          <link rel="stylesheet" href="styles.css">
          <style>
-            .dropdown {
-              position: relative;
-              display: inline-block;
-              text-decoration: none;
-              padding-bottom: 6px;
-             
-              
-              
-            }
-            
-            .dropdown-content {
-              display: none;
-              position: absolute;
-              background-color: #f9f9f9;
-              min-width: 160px;
-              box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-              z-index: 1;
-              
-            }
+           .dropdown {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 3px;
+}
 
-            
-            .dropdown-content a {
-              color: black;
-              padding: 12px 16px;
-              text-decoration: none;
-              display: block;
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  margin: 0 0 0 10px;
+  
+}
 
-              
-            }
-            
-            .dropdown:hover .dropdown-content {
-              display: block;
-              
-              
-            }
-            .dropdown:hover{
-                color:green;
-                
-            }
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropbtn::before {
+    
+    content: "";
+  position: absolute;
+  top: 60%;
+  right: 10px;
+  transform: translateY(-50%);
+  /* border: solid #000; */
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+.test{
+    padding-bottom: 2px;
+    border: 1px solid #fff;
+    padding: 10px; 
+    border-radius: 25px;
+    
+    
+    
+}
+.test:hover{
+    background-color:green;
+    border-radius: 25px; 
+    color: #fff;
+}
+
+
+
             </style>
      </head>
     <body>
@@ -63,20 +85,25 @@
                     <li><a href="shop.html">Shop</a></li>
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="contact.html">Contact Us</a></li>
-                    <li><div class="dropdown">
-                        <i class="dropbtn"><a href="login.html"><i style="font-size:24px" class="fa">&#xf007;</i></i></a>
-                        <div class="dropdown-content">
-                          <a href="#">My Profile</a>
-                          <a href="#">Logout</a>
-                         
+                    <li>
+                        <div class="dropdown">
+                          <a href="login.html">
+                            <div class="dropbtn">
+                              <div class="test" ><i style="font-size:20px" class="fa" >&#xf2be;&nbsp;</i>Login</div> 
+                          </a></div>
+                          <div class="dropdown-content">
+                            <a href="#"><img src="Assets/dashboard.png">&nbsp;Dashboard</a>
+                            <a href="#"><i style="font-size:24px" class="fa">&#xf08b;</i>Logout</a>
+                          </div>
                         </div>
-                      </div></li>
-                    <li><a href="cart.html"><i style="font-size:24px" class="fa">&#xf07a;</i></a></li>
                     
-                   
+                      </li>
+                    <li><a href="cart.html"><i style="font-size:24px" class="fa">&#xf07a;</i></a></li>
                 </ul>
             </div>
+            
              </section>
+             
              
              <section id="banner">
                 <img src="Assets/sale.gif">
