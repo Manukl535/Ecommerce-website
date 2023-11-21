@@ -1,0 +1,187 @@
+
+
+<html>
+    <head>
+        <title>Index</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+         <link rel="stylesheet" href="styles.css">
+     </head>
+    <body>
+               
+        
+            <!--Header Section-->
+
+            <section id="top">
+                <img src="Assets/image_2023-10-26_135129918-PhotoRoom.png-PhotoRoom.png"></a>
+            
+            <div>
+                <ul id="headings">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="login.html"><i style="font-size:24px" class="fa">&#xf007;</i></a></li>
+                    <li><a href="cart.html"><i style="font-size:24px" class="fa">&#xf07a;</i></a></li>
+                    
+                </ul>
+            </div>
+             </section>
+
+                <section id="cart" class="section-p1">
+                    <table width="100%">
+                        <thead>
+                            <tr>
+                                <td>Remove</td>
+                                <td>Product</td>
+                                <td>Description</td>
+                                <td>Price</td>
+                                <td>Quantity</td>
+                                <td>Total</td>
+                            </tr>
+                        </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="#"><i style='font-size:20px' class='fa'>&#xf057;</i></a></td>
+                                <td><img src="Assets/sweat1-removebg-preview.png" alt=""></td>
+                                <td>Men Blue Relaxed Hoodie</td>
+                                <td>&#8377; 2,499</td>
+                                <td><input type="number" min="1" value="1"></td>
+                                <td>&#8377; 2,499</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><a href="#"><i style='font-size:20px' class='fa'>&#xf057;</i></a></td>
+                                <td><img src="Assets/sweat2.png" alt=""></td>
+                                <td>Men Blue Relaxed Hoodie</td>
+                                <td>&#8377; 2,499</td>
+                                <td><input type="number" min="1" value="1"></td>
+                                <td>&#8377; 2,499</td>
+                                </tr>
+
+                                <tr>
+                                    <td><a href="#"><i style='font-size:20px' class='fa'>&#xf057;</i></a></td>
+                                <td><img src="Assets/sweat3.png" alt=""></td>
+                                <td>Men Blue Relaxed Hoodie</td>
+                                <td>&#8377; 2,499</td>
+                                <td><input type="number" min="1" value="1"></td>
+                                <td>&#8377; 2,499</td>
+                                </tr>
+                            </tbody>
+                    </table>
+                </section><br><br/>
+
+                <section id="add2cart" class="section-p1">
+                    <div id="coupon">
+                        <h3>Apply Coupon</h3>
+
+                  <div>
+                    <input type="text" placeholder="Enter your coupon">
+                    <button class="normal">Apply</button>
+
+                    </div>
+                </div>
+                <div id="Total">
+                    <h3>Cart Total</h3>
+                    <table>
+                        <tr>
+                            <td>Total</td>
+                            <td>&#8377;2,456</td>
+                        </tr>
+                        <tr>
+                            <td>Shipping</td>
+                            <td>Free</td>
+                        </tr>
+                        <tr>
+                            <td><b>Grand Total</b></td>
+                            <td>&#8377;2,456</td>
+                        </tr>
+                    </table>
+                    <button><strong>PROCEED TO CHECKOUT</strong></button>
+                </div>
+                </section>
+
+
+
+
+
+
+
+
+
+           <!--Subscribe-->
+        <section id = "subscribe">
+            <div class="updates">
+            <h4><b>Signup for updates</b></h4>
+            <p><b>Get updates on Sale and <span>Special offers</span></b></p>
+            </div>
+
+            <div class="form">
+                <input type="text" id="emailInput" placeholder="Enter your mail"/><button class="normal" style="width: fit-content;" onclick="showPopup()" >Signup</button>
+            </div>
+        </section>
+        
+        <script>
+            function showPopup() {
+                let email = document.getElementById("emailInput").value;
+                let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        
+                if (email !== "") {
+                    if (emailPattern.test(email)) {
+                        alert("Thanks for your interest!");
+                    } else {
+                        alert("Invalid email format!");
+                    }
+                }
+            }
+        </script>
+
+           <footer class="section-p1">
+            <div class="col">
+                <img src="Assets/image_2023-10-26_135129918-PhotoRoom.png-PhotoRoom.png"><br/>
+                <h4>Contact Us</h4>
+                <p>Address:223 Main Street Electonic City Bengaluru 562107</p>
+                <p>Phone:+91 98765 43210</p>
+                <p>Email:posh.com</p>
+                <div class="follow">
+                    <h4>Follow Us</h4>
+                    <div class="col">
+                        <ul>
+                        <i class="fa fa-facebook-official" style="font-size:36px"></i>
+                        <i class="fa fa-instagram" style="font-size:36px"></i>
+                        <i class="fa fa-twitter-square" style="font-size:36px"></i>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <h4>About </h4>
+                <a href="about.html">About Us</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+            <div class="col">
+                <h4>My Account</h4>
+                <a href="login.html">Signin</a>
+                <a href="cart.html">Cart</a>
+                <a href="contact.html">Help</a>
+            </div>
+            <div class="payment">
+                <h4>Secured Payment Gateways</h4>
+                <img src="Assets/payment.png">
+            </div>
+            <div class="copyright">
+                <p>2023 &#169; All Rights Reserved</p><p>Designed and Maintained by <b>Manu </b>and <b>Srisha</b></p>
+            </div>
+        
+
+           </footer>
+            
+         
+            
+</body>
+</html> 

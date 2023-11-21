@@ -620,7 +620,7 @@ margin-bottom: 10px;
 }
 
 #productdetails .pro1 input{
-  width: 50px;
+  width: 70px;
   height: 47px;
   padding-left: 5px;
   padding-right: 10px;
@@ -673,6 +673,7 @@ margin-bottom: 10px;
   #header div {
     padding-left: 40px;
   }
+
 /*contactus*/
 #contact_us{
  
@@ -700,7 +701,127 @@ margin-bottom: 10px;
 }
 
 
+#cart table{
+width: 100%;
+border-collapse: collapse;
+table-layout: fixed;
+white-space: nowrap;
+}
 
 
+#cart table thead{
+  border:1px solid black;
+  border-left: none;
+  border-right: none;
+}
+
+#cart table thead td{
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 13px;
+  padding: 18px 0;
+}
+
+#cart table tbody tr td{
+ padding-top: 15px;
+}
+
+#cart table tbody  td{
+  font-size: 13px;
+}
+
+#cart table img{
+  width: 70px;
+}
+
+#cart table td:nth-child(1){
+  width: 100%;
+  text-align: center;
+}
+
+#cart table td:nth-child(2){
+  width: 150%;
+  text-align: center;
+}
+
+#cart table td:nth-child(3){
+  width: 250%;
+  text-align: center;
+}
+
+#cart table td:nth-child(4),#cart table td:nth-child(5),#cart table td:nth-child(6){
+  width: 150%;
+  text-align: center;
+}
+
+#cart table td:nth-child(5) input{
+width: 70px;
+padding: 10px 5px 10px 15px;
+}
+
+#add2cart{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+#coupon{
+width: 50%;
+margin-bottom: 30px;
 
 
+}
+#coupon h3,#Total h3{
+  padding-bottom: 15px;
+}
+
+#coupon input{
+  padding: 10px 20px;
+  outline: none;
+  width: 60%;
+  margin-right: 10px;
+  border: 1px solid black;
+}
+
+#coupon button{
+
+  height: 2.4rem;
+  padding: 0 1.24em;
+  background-color: #04AA6D;
+  color: #eef7f6;
+  white-space: inherit;
+  padding:  9px 10px ;
+  border :1px double black;
+  border-radius: 2px;
+  
+}
+
+#Total{
+  width: 50%;
+  margin-bottom: 30px;
+  border:1px solid #a0a0a0;
+  padding:30px;
+}
+
+#Total table{
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+#Total table td{
+  width:50%;
+  border: 2px solid #dcdcdc;
+  padding: 10px;
+  font-size: 13px;
+}
+#Total button{
+height: 2.4rem;
+  padding: 0 1.24em;
+  background-color: #04AA6D;
+  color: #eef7f6;
+  white-space: inherit;
+  padding:  9px 10px ;
+  border :1px double black;
+  border-radius: 2px;
+}
