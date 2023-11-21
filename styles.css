@@ -379,6 +379,9 @@ font-weight: 300px;
   min-width: 20%;
   text-decoration: none;
 }
+#buy1get1 .buy1get1_box2 a{
+  text-decoration: none;
+}
 
 #buy1get1 .buy1get1_box2 button{
   text-decoration: none;
@@ -420,6 +423,9 @@ color:black;
   min-width: 20%;
   text-align: right;  
 }
+#buy1get1 .buy1get1_box3 a{
+  text-decoration: none;
+}
 
 
 #buy1get1 .buy1get1_box3 button{
@@ -451,6 +457,9 @@ color:black;
   text-align: start;
   margin-left: -50px;
   min-width: 20%;
+}
+#buy1get1 .buy1get1_box4 a{
+  text-decoration: none;
 }
 #buy1get1 .buy1get1_box4 button{
   text-decoration: none;
