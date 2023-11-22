@@ -148,7 +148,70 @@ body {
 #fashion{
   display: flex;
   justify-content: space-between;
-  padding:25px 0;;
+  
+}
+
+#fashion .fashicon1{
+  background-image: url("Assets/men's.png");
+  background-color: transparent;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 40vh;
+  width: 30%;
+  background-position: top 48% right 0;
+  padding:  50px;
+  text-align: start;
+  min-width: 20%;
+  text-align: right; 
+}
+
+.fashicon1 h3{
+  color: #fff;
+  text-align: center;
+  padding: 150px 0 0 0;
+}
+
+#fashion .fashicon2{
+  background-image: url("Assets/women's.png");
+  background-color: transparent;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 40vh;
+  width: 29%;
+  background-position: top 48% right 0;
+  padding:  50px;
+  text-align: start;
+  min-width: 20%;
+  text-align: right; 
+}
+
+.fashicon2 h3{
+  color: #fff;
+  text-align: center;
+  padding: 150px  10px 0 0;
+}
+
+#fashion .fashicon3{
+  background-image: url("Assets/axc's.png");
+  background-color: transparent;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 40vh;
+  width: 29%;
+  background-position: top 48% right 0;
+  padding:  50px;
+  text-align: start;
+  min-width: 20%;
+  text-align: right; 
+}
+
+.fashicon3 h3{
+  color:#fff;
+  text-align: center;
+  padding: 150px  0 0;
 }
 
 /* Services*/
