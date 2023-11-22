@@ -94,8 +94,9 @@ body {
 
 #headings li{
   list-style-type: none;
-  
-  padding: 10px 15px;
+  padding-bottom: 20px;
+  padding: 10px;
+
 }
 
 #headings li a{
@@ -141,6 +142,13 @@ body {
 
 #banner h1{
   font-family: 'Times New Roman', Times, serif;
+}
+
+/* Fashion */
+#fashion{
+  display: flex;
+  justify-content: space-between;
+  padding:25px 0;;
 }
 
 /* Services*/
@@ -340,7 +348,7 @@ body {
 }
 #buy1get1 .buy1get1_box1 button{
   text-decoration: none;
-  background: color 0; ;
+  background: color 0; 
   border: 10px;
   padding: 10px 20px 10px 40px;
   border: 2px double black; 
