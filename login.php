@@ -33,10 +33,11 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
-    // Authentication successful, set session variables
-    // $_SESSION['username'] = $enteredUsername;
-    // $_SESSION['loggedin'] = true;
-
+    $row = $result->fetch_assoc();
+    // Set session variables
+    $_SESSION['username'] = $row['username']; 
+    $username = $_SESSION['username'];
+    echo "Username: $username<br>";
     // Redirect to the index page
     header("Location: index.html");
     exit;
@@ -48,4 +49,5 @@ if ($result->num_rows > 0) {
 
 $stmt->close();
 $conn->close();
+session_destroy();
 ?>
