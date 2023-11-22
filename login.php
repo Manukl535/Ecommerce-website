@@ -34,8 +34,8 @@ $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
     // Authentication successful, set session variables
-    $_SESSION['username'] = $enteredUsername;
-    $_SESSION['loggedin'] = true;
+    // $_SESSION['username'] = $enteredUsername;
+    // $_SESSION['loggedin'] = true;
 
     // Redirect to the index page
     header("Location: index.html");
