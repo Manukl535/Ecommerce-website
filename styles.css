@@ -158,12 +158,13 @@ body {
   justify-content: center;
   align-items: flex-start;
   height: 40vh;
-  width: 30%;
+  width: 27.5%;
   background-position: top 48% right 0;
   padding:  50px;
   text-align: start;
   min-width: 20%;
-  text-align: right; 
+  text-align: right;
+  margin: 8px;
 }
 
 .fashicon1 h3{
@@ -179,12 +180,13 @@ body {
   justify-content: center;
   align-items: flex-start;
   height: 40vh;
-  width: 29%;
+  width: 27.5%;
   background-position: top 48% right 0;
   padding:  50px;
   text-align: start;
   min-width: 20%;
-  text-align: right; 
+  text-align: right;
+  
 }
 
 .fashicon2 h3{
@@ -200,7 +202,7 @@ body {
   justify-content: center;
   align-items: flex-start;
   height: 40vh;
-  width: 29%;
+  width: 27.5%;
   background-position: top 48% right 0;
   padding:  50px;
   text-align: start;
@@ -436,14 +438,14 @@ font-weight: 300px;
 
 #buy1get1 .buy1get1_box2{
   
-  background-image: url("Assets/tshirt.png");
+  background-image: url("Assets/wallets.png");
   background-color: transparent;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   height: 40vh;
-  width: 35%;
-  background-position: top 25% right 19 ;
+  width: 42.6%;
+  background-position: top 190% right 25%  ;
   padding:  50px;
   text-align: start;
   margin-left: -50px;
@@ -479,20 +481,19 @@ color:black;
 }
 
 #buy1get1 .buy1get1_box3{
-  
   background-image: url("Assets/sunglass.png");
-  
   background-color: transparent;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   height: 40vh;
-  width: 30%;
-  background-position: top 48% right 0;
+  width: 2%;
+  background-position: top 170% right 9%;
   padding:  50px;
   text-align: start;
-  min-width: 20%;
-  text-align: right;  
+  min-width: 30%;
+  text-align: left;  
+  
 }
 #buy1get1 .buy1get1_box3 a{
   text-decoration: none;
@@ -516,7 +517,7 @@ color:black;
 }
 #buy1get1 .buy1get1_box4{
   
-  background-image: url("Assets/footware21.png");
+  background-image: url("Assets/footware.png");
   background-color: transparent;
   flex-direction: column;
   justify-content: center;
@@ -556,7 +557,7 @@ color:black;
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
-  background-image: url("Assets/newsletter-background.webp");
+  background-image: url("Assets/newsletter-background.png");
   background-repeat: no-repeat;
 
 }
