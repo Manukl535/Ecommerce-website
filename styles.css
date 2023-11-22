@@ -168,7 +168,7 @@ body {
 }
 
 .fashicon1 h3{
-  color: #fff;
+  
   text-align: center;
   padding: 150px 0 0 0;
 }
@@ -190,7 +190,7 @@ body {
 }
 
 .fashicon2 h3{
-  color: #fff;
+  /* color: #fff; */
   text-align: center;
   padding: 150px  10px 0 0;
 }
@@ -211,7 +211,7 @@ body {
 }
 
 .fashicon3 h3{
-  color:#fff;
+  /* color:#fff; */
   text-align: center;
   padding: 150px  0 0;
 }
