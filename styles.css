@@ -438,19 +438,18 @@ font-weight: 300px;
 
 #buy1get1 .buy1get1_box2{
   
-  background-image: url("Assets/wallets.png");
+  background-image: url("Assets/tshirt.png");
   background-color: transparent;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   height: 40vh;
-  width: 42.6%;
-  background-position: top 190% right 25%  ;
+  width: 35%;
+  background-position: top 38% right 0;
   padding:  50px;
   text-align: start;
   margin-left: -50px;
   min-width: 20%;
-  text-decoration: none;
 }
 #buy1get1 .buy1get1_box2 a{
   text-decoration: none;
@@ -487,12 +486,12 @@ color:black;
   justify-content: center;
   align-items: flex-start;
   height: 40vh;
-  width: 2%;
-  background-position: top 170% right 9%;
+  width: 35%;
+  background-position: top 38% right 0;
   padding:  50px;
-  text-align: start;
-  min-width: 30%;
-  text-align: left;  
+  text-align: right;
+  margin-left: -50px;
+  min-width: 20%; 
   
 }
 #buy1get1 .buy1get1_box3 a{
