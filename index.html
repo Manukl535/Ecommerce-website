@@ -475,33 +475,24 @@
                 </section>
 <!--Subscribe-->
     
-       <section id = "subscribe">
+<form action="email.php" method="post">
+    <section id = "subscribe">
         
-            <div class="updates">
-            <h4><b>Signup for updates</b></h4>
-            <p><b>Get updates on Sale and <span>Special offers</span></b></p>
-            </div>
-
-            <div class="form">
-                <input type="text" id="emailInput" placeholder="Enter your mail"/><button class="normal" style="width: fit-content;" onclick="showPopup()" >Signup</button>
-            </div>
-              
-        </section>
+        <div class="updates">
+        <h4><b>Signup for updates</b></h4>
+        <p><b>Get updates on Sale and <span>Special offers</span></b></p>
+        </div>
+    
+        <div class="form">
+            <input type="text" name="email" id="emailInput" placeholder="Enter your mail"/><button class="normal" style="width: fit-content;" >Signup</button>
+        </div>
+          
+    </form>
+    </section>
+        
+    
             
-        <script>
-            function showPopup() {
-                let email = document.getElementById("emailInput").value;
-                let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        
-                if (email !== "") {
-                    if (emailPattern.test(email)) {
-                        alert("Thanks for your interest!");
-                    } else {
-                        alert("Invalid email format!");
-                    }
-                }
-            }
-        </script>
+      <!-- Footer -->
        
 
            <footer class="section-p1">
