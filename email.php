@@ -34,10 +34,8 @@ else{
     // Insert new user into the database
     $insertQuery = "INSERT INTO email VALUES ('$regemail')";
     if ($conn->query($insertQuery) === TRUE) {
-        
-        //echo "Registration successful! Kindly Go Back & Login With Your Credentials";
-       
-        $message = "Thanks for interest";
+             
+        $message = "Thanks for your interest!";
         $redirectUrl = "index.html";
         function_alert($message, $redirectUrl);
   }

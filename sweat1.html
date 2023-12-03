@@ -50,17 +50,23 @@
         Hoodie in sweatshirt fabric made from a cotton blend. Relaxed fit with a jersey-lined, Soft brushed inside.</div> 
     </section>
     <br><br><br><br>
-        <!--Subscribe-->
-        <section id = "subscribe">
-            <div class="updates">
-            <h4><b>Signup for updates</b></h4>
-            <p><b>Get updates on Sale and <span>Special offers</span></b></p>
-            </div>
-
-            <div class="form">
-                <input type="text" id="emailInput" placeholder="Enter your mail"/><button class="normal" style="width: fit-content;" onclick="showPopup()" >Signup</button>
-            </div>
-        </section>
+    
+       <!--Subscribe-->
+    
+<form action="email.php" method="post">
+    <section id = "subscribe">
+        
+        <div class="updates">
+        <h4><b>Signup for updates</b></h4>
+        <p><b>Get updates on Sale and <span>Special offers</span></b></p>
+        </div>
+    
+        <div class="form">
+            <input type="text" name="email" id="emailInput" placeholder="Enter your mail"/><button class="normal" style="width: fit-content;" >Signup</button>
+        </div>
+          
+    </form>
+    </section>
         
 <script>
     function showPopup() {
