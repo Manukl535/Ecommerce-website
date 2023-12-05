@@ -6,7 +6,7 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-         <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="styles.css">
          <style>
 
 .dropdown {
@@ -74,11 +74,56 @@
     color: #fff;
 }
 
+#myModal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
 
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+        }
+</style>
 
-            </style>
-     </head>
-    <body bgcolor="#F5F5DC">
+</head>
+    <body>
+        <h1>This is the Index Page</h1>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>This is a modal popup.</p>
+        </div>
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById('myModal');
+
+        // When the page is fully loaded
+        window.onload = function() {
+            // Display the modal
+            modal.style.display = "block";
+        }
+
+        // Close the modal when the user clicks on the close button
+        var closeBtn = document.querySelector(".close");
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+    </script>
+        
                
         
             <!--Header Section-->
