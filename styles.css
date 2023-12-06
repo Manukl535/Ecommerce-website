@@ -928,3 +928,17 @@ height: 2.4rem;
   border :1px double black;
   border-radius: 2px;
 }
+
+.modal-content{
+  display: flex; /* Use flexbox */
+  align-items: center; /* Center items vertically */
+}
+
+.modal-content img{
+  max-width: 100%; /* Ensure the image doesn't exceed its container */
+}
+
+.newsletter {
+  flex: 1; /* Fill remaining space */
+  padding: 0 20px; /* Add some padding */
+}
