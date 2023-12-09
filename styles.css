@@ -281,10 +281,11 @@ body {
   width: 23%;
   min-width: 250px;
   padding: 9px 5px;
-  border: 0 solid #cce7d0;
+  border:3px solid black;
   box-shadow: 20px;
   margin: 20px;
   position: relative;
+  border-radius: 50px;
 }
 
 #topproduct .product img{
@@ -331,10 +332,11 @@ body {
   width: 23%;
   min-width: 250px;
   padding: 9px 5px;
-  border: 0 solid #cce7d0;
+  border: 3px solid black;
   box-shadow: 20px;
   margin: 20px;
   position: relative;
+  border-radius: 50px;
 }
 
 #Trending .product2 img{
