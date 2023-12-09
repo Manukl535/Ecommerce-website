@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <!--Header Section-->
+  <section id="top">
+    <img src="Assets/logo.png" alt="logo">
+    <div>
+      <ul id="headings">
+        <li>
+          <a href="index.html">Home</a>
+        </li>
+        <li>
+          <a href="shop.html">Shop</a>
+        </li>
+        <li>
+          <a href="about.html">About Us</a>
+        </li>
+        <li>
+          <a href="contact.html">Contact Us</a>
+        </li><!-- <li><a href="login.php"><i style="font-size:24px" class="fa">&#xf007;</i></a></li>
+                    <li><a href="cart.html"><i style="font-size:24px" class="fa">&#xf07a;</i></a></li> -->
+      </ul>
+    </div>
+  </section>
+  <section id="contact_us" class="contact">
+    <h2>#let's_meet</h2>
+    <p>We are happy to hear from you...</p>
+  </section>
+  <section id="contact" class="contact_us">
+    <div class="">
+      <h4>Meet Us</h4><br>
+      <h5>Head Office:</h5>
+      <p>Address:223 Main Street Electonic City Bengaluru 562107</p>
+      <p>Phone:+91 98765 43210</p>
+      <p>Email:posh.com</p>
+    </div>
+    <div id="map" style="width:50%; height: 300px;"></div>
+    <script>
+                    function myMap() {
+                      var mapCanvas = document.getElementById("map");
+                      var mapOptions = {
+                        center: new google.maps.LatLng(12.840711, 77.676369), zoom: 10
+                      };
+                      var map = new google.maps.Map(mapCanvas, mapOptions);
+                    }
+    </script> 
+    <script src="https://maps.googleapis.com/maps/api/js?key=&amp;callback=myMap"></script>
+  </section>
+  <form action="submit_feedback.php" method="post">
+    <p>&nbsp; 
+    <textarea id="feedback" name="feedback" rows="4" cols="50"></textarea></p>
+    <div class="center">
+      <p><input type="submit" style="width: fit-content;" value="SUBMIT"></p>
+    </div>
+  </form>
+  <footer class="section-p1">
+    <div class="copyright">
+      <p>2023 © All Rights Reserved</p>
+      <p>Designed and Maintained by <b>Manu</b> and <b>Srisha</b></p>
+    </div>
+  </footer>
+</body>
+</html>

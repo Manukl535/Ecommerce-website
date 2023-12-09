@@ -1,3 +1,4 @@
+
 <html>
     <head>
         <title>Contact</title>
@@ -56,11 +57,10 @@
                     </script>
                     
                     <script src="https://maps.googleapis.com/maps/api/js?key=&callback=myMap"></script>
-               
 
             </section>
            <br/>
-          <form> <p>&nbsp;&nbsp;<b>Leave a Message</b></p>
+           <p>&nbsp;&nbsp;<b>Leave a Message</b></p>
            <style>
            textarea {
                 width: 40%;
@@ -90,37 +90,23 @@
          }
           
         </style>
-<form>
-    <p>&nbsp;<textarea id="feedback" name="text" rows="4" cols="50"></textarea></p>
+        
+ <form action="submit_feedback.php" method="post">
+    <p>&nbsp; 
+    <textarea id="feedback" name="feedback" rows="4" cols="50" required="required"></textarea></p>
     <div class="center">
-        <p><input type="submit" style="width: fit-content;" onclick="showPopup(event)" value="SUBMIT"/></p>
+      <p><input type="submit" style="width: fit-content;"  value="SUBMIT"></p>
     </div>
-</form>
-<script>
-    function showPopup(event) {
-        event.preventDefault(); // Prevent form submission
+  </form>
 
-        let feedback = document.getElementById("feedback");
-        let feedbackValue = feedback.value.trim();
+ 
 
-        if (feedbackValue === "") {
-            alert("Feedback can't be empty!");
-        } else {
-            alert("Thanks..!\nWe Received Your Feedback!"); // Perform form submission or other actions here
-            feedback.value = ""; // Reset the textarea
-           
-        }
-    }
-</script>
+<!-- Footer -->
             <footer class="section-p1">
                 <div class="copyright">
                     <p>2023 &#169; All Rights Reserved</p><p>Designed and Maintained by <b>Manu </b>and <b>Srisha</b></p>
                 </div>
             
-            </footer>
-       
-            
-         
-            
+            </footer>           
 </body>
 </html>

@@ -111,7 +111,7 @@ body {
 }
 
 #banner{
-  background-image: url("Assets/banner2.png");
+  background-image: url("Assets/banner.png");
   background-color: transparent;
   height: 99vh;
   width: 100%;
@@ -136,11 +136,12 @@ body {
   display: inline-block;
   font-size: 16px;
   margin: 20px 22px;
-  border-radius: 100%;
+  border-radius: 50%;
 }
 
 #banner h1{
   font-family: 'Times New Roman', Times, serif;
+  
 }
 
 /* Fashion */
@@ -942,3 +943,4 @@ height: 2.4rem;
   flex: 1; /* Fill remaining space */
   padding: 0 20px; /* Add some padding */
 }
+

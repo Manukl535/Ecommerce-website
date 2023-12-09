@@ -6,8 +6,6 @@ function function_alert($message, $redirectUrl) {
     echo "<script>window.location.href = '$redirectUrl';</script>";
 }
 
-// Assuming you have already established a connection to your database
-// Replace <link>DB_HOST</link>, <link>DB_USER</link>, <link>DB_PASSWORD</link>, and <link>DB_NAME</link> with your actual database credentials
 $host = "localhost";
 $username = "root";
 $password = "";
@@ -24,25 +22,26 @@ if ($conn->connect_error) {
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the feedback is not empty
-    if (empty($_POST["feedback"])) {
+    if (empty(trim($_POST["feedback"]))) {
+        
         $message = "Feedback can't be empty";
         $redirectUrl = "index.html";
         function_alert($message, $redirectUrl);
-    } else {
+    }
+  else {
         $feedback = $_POST["feedback"];
+        
         // Prepare and bind the INSERT statement to avoid SQL injection
-        $stmt = $conn->prepare("INSERT INTO feedback_table (feedback) VALUES (?)");
+        $stmt = $conn->prepare("INSERT INTO feedback (feedback) VALUES (?)");
         $stmt->bind_param("s", $feedback);
 
         if ($stmt->execute()) {
-            $message = "Thanks for your interest";
+            $message = "Thanks..!\\nWe Received Your Feedback";
             $redirectUrl = "index.html";
             function_alert($message, $redirectUrl);
         } else {
-            echo "Error: " . $conn->error;
+                
         }
         $stmt->close();
     }
 }
-$conn->close();
-?>

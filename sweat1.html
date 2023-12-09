@@ -3,9 +3,22 @@
     <title>Shoping</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
-        
-        <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .image-zoom {
+  overflow: hidden; /* Hide the overflow of the container */
+}
+
+.zoom-img {
+  transition: transform 0.5s; /* Add a smooth transition for the zoom effect */
+}
+
+.zoom-img:hover {
+  transform: scale(1.2); /* Apply the zoom effect when the image is hovered */
+}
+    </style>
 </head>
 <body>
      <!--Header Section-->
@@ -23,13 +36,16 @@
             <li><a href="cart.html"><i style="font-size:24px" class="fa">&#xf07a;</i></a></li> -->
         </ul>
     </div>
+    
      </section>
 
      <section id="productdetails" class="section-p1">
       
-        <div class="product1">
-          <img src="Assets/sweat1.png" width="100%">
-        </div>  
+      <div class="product1">
+  <div class="image-zoom">
+    <img src="Assets/sweat1.png" width="100%" class="zoom-img">
+  </div>
+</div>
 
 
        <div class="pro1">
@@ -108,13 +124,7 @@
             <div class="copyright">
                 <p>2023 &#169; All Rights Reserved</p><p>Designed and Maintained by <b>Manu </b>and <b>Srisha</b></p>
             </div>
-        
-
-           </footer>
-            
-         
-            
-
     
+           </footer> 
 </body>
 </html>
