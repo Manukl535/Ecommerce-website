@@ -479,12 +479,13 @@ font-weight: 300px;
   justify-content: center;
   align-items: flex-start;
   height: 40vh;
-  width: 35%;
-  background-position: top 38% right 0;
+  width: 33%;
+  background-position: top 25% right 0;
   padding:  50px;
   text-align: start;
   margin-left: -50px;
   min-width: 20%;
+  text-decoration: none;
 }
 #buy1get1 .buy1get1_box2 a{
   text-decoration: none;
@@ -520,13 +521,13 @@ color:black;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  height: 40vh;
-  width: 35%;
-  background-position: top 38% right 0;
+  height: 35vh;
+  width: 30%;
+  background-position: top 25% right 0;
   padding:  50px;
-  text-align: right;
-  margin-left: -50px;
-  min-width: 20%; 
+  text-align: start;
+  min-width: 20%;
+  text-align: right; 
   
 }
 #buy1get1 .buy1get1_box3 a{
