@@ -32,8 +32,8 @@
             <li><a href="shop.html">Shop</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact Us</a></li>
-            <!-- <li><a href="login.html"><i style="font-size:24px" class="fa">&#xf007;</i></a></li>
-            <li><a href="cart.html"><i style="font-size:24px" class="fa">&#xf07a;</i></a></li> -->
+            <!-- <li><a href="login.html"><i style="font-size:24px" class="fa">&#xf007;</i></a></li>-->
+            <li><a href="cart.html"><i style="font-size:24px" class="fa">&#xf07a;</i> Cart</a></li>
         </ul>
     </div>
     
@@ -52,7 +52,7 @@
         <h6>Posh</h6>
         <h4>Men Blue Relaxed Hoodie</h4>
         <h3>&#8377; 2,499</h3>
-        <select>
+        <select required="required">
           <option>Select Size</option>
           <option>S</option>
           <option>M</option>
@@ -60,12 +60,31 @@
           <option>XL</option>
         </select>
         <input type="number" min="1" value="1">
-        <button class="normal">ADD TO CART</button>
+        <button class="normal" onclick="addToCart()">ADD TO CART</button>
         <br/><br/>
         <h4>Product Description</h4>
         Hoodie in sweatshirt fabric made from a cotton blend. Relaxed fit with a jersey-lined, Soft brushed inside.</div> 
     </section>
     <br><br><br><br>
+    <script>
+    function addToCart() {
+  var selectedSize = document.querySelector('select').value;
+  if (selectedSize === 'Select Size') {
+    alert('Please select a size before adding to cart');
+  } else {
+    var productDescription = document.querySelector('.pro1 h4').textContent;
+    var productPrice = document.querySelector('.pro1 h3').textContent;
+    var productImage = document.querySelector('.product1 img').src;
+
+    // Now you have the product description, price, image, and size
+    // You can use this information to add the item to the cart or display it to the user
+    console.log("Description: " + productDescription);
+    console.log("Price: " + productPrice);
+    console.log("Size: " + selectedSize);
+    console.log("Image: " + productImage);
+  }
+}
+      </script>
     
  <!--Subscribe-->
     

@@ -1,6 +1,7 @@
 <?php
 // login.php
 
+
 // Start the session
 session_start();
 
@@ -39,7 +40,7 @@ if ($result->num_rows > 0) {
     $username = $_SESSION['username'];
     echo "Username: $username<br>";
     // Redirect to the index page
-    header("Location: index.html");
+    header("Location: index.php");
     exit;
 } else {
     $message = "Invalid Username or Password";
