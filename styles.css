@@ -199,6 +199,7 @@ body {
   text-align: start;
   min-width: 20%;
   text-align: right;
+  margin: 8px;
   box-shadow: 10px 1px 10px rgba(0,0,0,0.10);
   border: 1px solid #cce7d0;
   border-radius: 1px;
@@ -497,15 +498,18 @@ font-weight: 300px;
   justify-content: center;
   align-items: flex-start;
   height: 40vh;
-  width: 33%;
-  background-position: top 25% right 0;
+  width: 30%;
+  background-position: top 48% right 0;
   padding:  50px;
   text-align: start;
-  margin-left: -50px;
   min-width: 20%;
-  text-decoration: none;
-  border: 2px solid beige;
-  border-radius: 10px;
+  text-align: right;
+  margin: 8px;
+  box-shadow: 10px 1px 10px rgba(0,0,0,0.10);
+  border: 1px solid #cce7d0;
+  border-radius: 1px;
+  margin: 5px ;
+  border-radius: 15px;
 }
 
 #buy1get1 .buy1get1_box2 h4{
@@ -547,15 +551,17 @@ color:black;
   justify-content: center;
   align-items: flex-start;
   height: 40vh;
-  width: 33%;
-  background-position: top 25% right 10%;
+  width: 32%;
+  background-position: top 48% right 0;
   padding:  50px;
   text-align: start;
-  margin-left: -50px;
   min-width: 20%;
-  text-decoration: none;
-  border: 2px solid beige;
-  border-radius: 10px;
+  text-align: right;
+  box-shadow: 10px 1px 10px rgba(0,0,0,0.10);
+  border: 1px solid #cce7d0;
+  border-radius: 1px;
+  margin: 5px ;
+  border-radius: 15px;
   
 }
 
@@ -591,20 +597,24 @@ color:black;
   justify-content: center;
   align-items: flex-start;
   height: 40vh;
-  width: 35%;
-  background-position: top 38% right 0;
+  width: 32%;
+  background-position: top 48% right 0;
   padding:  50px;
   text-align: start;
-  margin-left: -50px;
   min-width: 20%;
-  border: 2px solid beige;
-  border-radius: 10px;
+  text-align: center;
+  margin: 8px;
+  box-shadow: 10px 1px 10px rgba(0,0,0,0.10);
+  border: 1px solid #cce7d0;
+  border-radius: 1px;
+  margin: 5px ;
+  border-radius: 15px;
   
   
 }
 
 #buy1get1 .buy1get1_box4 h4{
-  padding: 225px 60px 90px 170px;
+  padding: 225px 60px 90px 110px;
 }
 
 #buy1get1 .buy1get1_box4 a{
