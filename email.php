@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  $result = $conn->query($checkQuery);
  if ($result->num_rows > 0) {
      $message = "Email already used";
-     $redirectUrl = "index.html";
+     $redirectUrl = "index.php";
      function_alert($message, $redirectUrl);
  }
 else{
@@ -36,14 +36,14 @@ else{
     if ($conn->query($insertQuery) === TRUE) {
              
         $message = "Thanks for your interest!";
-        $redirectUrl = "index.html";
+        $redirectUrl = "index.php";
         function_alert($message, $redirectUrl);
   }
 }
 else
 {
     $message = "Invalid Email Format";
-    $redirectUrl = "index.html";
+    $redirectUrl = "index.phpf";
     function_alert($message, $redirectUrl);
 }
 }

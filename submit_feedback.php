@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty(trim($_POST["feedback"]))) {
         
         $message = "Feedback can't be empty";
-        $redirectUrl = "index.html";
+        $redirectUrl = "index.php";
         function_alert($message, $redirectUrl);
     }
   else {
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($stmt->execute()) {
             $message = "Thanks..!\\nWe Received Your Feedback";
-            $redirectUrl = "index.html";
+            $redirectUrl = "index.php";
             function_alert($message, $redirectUrl);
         } else {
                 
