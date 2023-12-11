@@ -43,7 +43,7 @@ else{
 else
 {
     $message = "Invalid Email Format";
-    $redirectUrl = "index.phpf";
+    $redirectUrl = "index.php";
     function_alert($message, $redirectUrl);
 }
 }

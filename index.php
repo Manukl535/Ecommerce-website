@@ -196,7 +196,7 @@
             <div>
                
                 <ul id="headings">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.php">Home</a></li>
                     <li>
                         <div class="dropdown">
                           
