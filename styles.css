@@ -1005,6 +1005,7 @@ height: 2.4rem;
   display: flex;
   justify-content: center;
   
+  
 }
 
 .pagination a {
@@ -1018,6 +1019,12 @@ height: 2.4rem;
 .pagination a.active {
   background-color: #4CAF50;
   color: white;
+  border: 1px solid #fff;
+  border-radius: 30px;
 }
 
-.pagination a:hover:not(.active) {background-color: #ddd;}
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+  border: 1px solid #fff;
+  border-radius: 30px;
+}
