@@ -6,19 +6,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
     <link rel="stylesheet" href="styles.css">
 
-    <!-- <style>
-        .image-zoom {
-  overflow: hidden; /* Hide the overflow of the container */
+    <style>
+* {box-sizing: border-box;}
+
+.img-magnifier-container {
+  position:relative;
 }
 
-.zoom-img {
-  transition: transform 0.5s; /* Add a smooth transition for the zoom effect */
+.img-magnifier-glass {
+  position: absolute;
+  border: 1px solid #000;
+  /* border-radius: 20%; */
+  cursor: none;
+  /*Set the size of the magnifier glass:*/
+  width: 200px;
+  height: 100px;
 }
 
-.zoom-img:hover {
-  transform: scale(1.2); /* Apply the zoom effect when the image is hovered */
-}
-    </style> -->
+    </style> 
+
 </head>
 <body>
      <!--Header Section-->
@@ -42,9 +48,14 @@
      <section id="productdetails" class="section-p1">
       
       <div class="product1">
-
-    <img src="Assets/sweat1.png" width="100%" class="zoom-img">
-  
+        <div class="img-zoom-container">
+   
+          <div class="img-magnifier-container">
+            <img id="myimage" src="Assets/sweat1.png" width="300" height="400">
+          </div>
+          
+    
+  </div>
   </div>
 
 
@@ -61,6 +72,7 @@
           <div class="swatch" style="background-color: gray" onclick="selectColor('gray')"></div>
       </div>
       <br/>
+      
         <select required="required">
           <option>Select Size</option>
           <option>S</option>
@@ -73,10 +85,76 @@
         <br/><br/>
         <h4>Product Description</h4>
         Hoodie in sweatshirt fabric made from a cotton blend. Relaxed fit with a jersey-lined, Soft brushed inside.</div>
-      
+        
     </section>
     <br><br><br><br>
     <script>
+      
+// Initiate zoom effect:
+document.getElementById('myimage').addEventListener('mouseenter', function() {
+  magnify('myimage', 3);
+});
+
+ 
+function magnify(imgID, zoom) {
+  var img, glass, w, h, bw;
+  img = document.getElementById(imgID);
+  /*create magnifier glass:*/
+  glass = document.createElement("DIV");
+  glass.setAttribute("class", "img-magnifier-glass");
+  /*insert magnifier glass:*/
+  img.parentElement.insertBefore(glass, img);
+  /*set background properties for the magnifier glass:*/
+  glass.style.backgroundImage = "url('" + img.src + "')";
+  glass.style.backgroundRepeat = "no-repeat";
+  glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
+  bw = 3;
+  w = glass.offsetWidth / 2;
+  h = glass.offsetHeight / 2;
+  
+  /*execute a function when someone moves the magnifier glass over the image:*/
+  glass.addEventListener("mousemove", moveMagnifier);
+  img.addEventListener("mousemove", moveMagnifier);
+  /*and also for touch screens:*/
+  glass.addEventListener("touchmove", moveMagnifier);
+  img.addEventListener("touchmove", moveMagnifier);
+
+
+  function moveMagnifier(e) {
+    var pos, x, y;
+    /*prevent any other actions that may occur when moving over the image*/
+    e.preventDefault();
+    /*get the cursor's x and y positions:*/
+    pos = getCursorPos(e);
+    x = pos.x;
+    y = pos.y;
+    /*prevent the magnifier glass from being positioned outside the image:*/
+    if (x > img.width - (w / zoom)) {x = img.width - (w / zoom);}
+    if (x < w / zoom) {x = w / zoom;}
+    if (y > img.height - (h / zoom)) {y = img.height - (h / zoom);}
+    if (y < h / zoom) {y = h / zoom;}
+    /*set the position of the magnifier glass:*/
+    glass.style.left = (x - w) + "px";
+    glass.style.top = (y - h) + "px";
+    /*display what the magnifier glass "sees":*/
+    glass.style.backgroundPosition = "-" + ((x * zoom) - w + bw) + "px -" + ((y * zoom) - h + bw) + "px";
+  }
+  function getCursorPos(e) {
+    var a, x = 0, y = 0;
+    e = e || window.event;
+    /*get the x and y positions of the image:*/
+    a = img.getBoundingClientRect();
+    /*calculate the cursor's x and y coordinates, relative to the image:*/
+    x = e.pageX - a.left;
+    y = e.pageY - a.top;
+    /*consider any page scrolling:*/
+    x = x - window.pageXOffset;
+    y = y - window.pageYOffset;
+    return {x : x, y : y};
+    }
+}
+
+
     function addToCart() {
   var selectedSize = document.querySelector('select').value;
   if (selectedSize === 'Select Size') {
