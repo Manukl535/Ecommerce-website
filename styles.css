@@ -1028,3 +1028,21 @@ height: 2.4rem;
   border: 1px solid #fff;
   border-radius: 30px;
 }
+
+.color-swatches {
+  display: flex; /* This will align the swatches horizontally */
+}
+
+.swatch{
+  width: 30px; /* Set the width of each swatch */
+  height: 30px; /* Set the height of each swatch */
+  border: 1px solid #ccc; /* Add a border to the swatches */
+  margin-right: 5px; /* Add some margin between swatches */
+  cursor: pointer; /* Change the cursor to a pointer when hovering over swatches */
+  border-radius: 20px;
+}
+
+/* You may want to add additional styles such as hover effects or transitions */
+.swatch:hover {
+  transform: scale(1.1); /* Example: Enlarge the swatch on hover */
+}

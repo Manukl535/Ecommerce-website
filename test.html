@@ -1,36 +1,22 @@
-
-
-// Execute the query to retrieve popular products
-
-
-// Check if the query was successful
-if ($result) {
-    // Loop through the result set and display the popular products
-    while ($row = $result->fetch_assoc()) {
-        echo '<div class="product">';
-        echo '<a href="sweat1.html"><img src="Assets/' . $row['product_image'] . '"></a>';
-        echo '<div class="description">';
-        echo 'Posh';
-        echo '<h5>' . $row['product_name'] . '</h5>';
-        echo '<div class="rating">';
-        // Assuming the rating is stored in the database, you can use it here
-        // Generate the star ratings based on the database value
-        echo "<div class='rating'>";
-        echo "<span class='fa fa-star checked'></span>";
-        echo "<span class='fa fa-star checked'></span>";
-        echo "<span class='fa fa-star checked'></span>";
-        echo "<span class='fa fa-star checked'></span>";
-        echo "<span class='fa fa-star checked'></span>";
-        echo "</div>";
-        echo '</div>';
-        echo '<h4>&#8377; ' . $row['product_price'] . '</h4>';
-        echo '</div>';
-        echo '</div>';
-    }
-} else {
-    echo "Error executing the query: " . $conn->error;
-}
-
-// Close the database connection
-$conn->close();
-?>
+<div class="pro1">
+  <h6>Posh</h6>
+  <h4>Men Blue Relaxed Hoodie</h4>
+  <h3>&#8377; 2,499</h3>
+  <div class="color-swatches">
+      <div class="swatch" style="background-color: blue" onclick="selectColor('blue')"></div>
+      <div class="swatch" style="background-color: red" onclick="selectColor('red')"></div>
+      <div class="swatch" style="background-color: gray" onclick="selectColor('gray')"></div>
+  </div>
+  <select required="required">
+      <option>Select Size</option>
+      <option>S</option>
+      <option>M</option>
+      <option>L</option>
+      <option>XL</option>
+  </select>
+  <input type="number" min="1" value="1">
+  <button class="normal" onclick="addToCart()">ADD TO CART</button>
+  <br/><br/>
+  <h4>Product Description</h4>
+  Hoodie in sweatshirt fabric made from a cotton blend. Relaxed fit with a jersey-lined, Soft brushed inside.
+</div>
