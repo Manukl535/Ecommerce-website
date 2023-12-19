@@ -81,7 +81,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `product_name`, `product_category`, `product_description`, `product_image`, `product_image2`, `product_image3`, `product_image4`, `product_price`, `product_special offer`, `product_color`) VALUES
-(2, 'Men Relaxed Hoodie', 'Apperal', 'Hoodie in sweatshirt fabric made from a cotton blend. Relaxed fit with a jersey-lined, Soft brushed inside', 'sweat1.png\r\n', 'sweat2.jpeg', 'sweat3.jpeg', 'sweat4.jpeg', 2499.00, 0, 'Blue');
+(2, 'Men Relaxed Hoodie', 'Apperal', 'Hoodie in sweatshirt fabric made from a cotton blend. Relaxed fit with a jersey-lined, Soft brushed inside', 'sweat1.png\r\n', 'sweat2.png', 'sweat3.png', 'sweat4.png', 2499.00, 0, 'Blue');
 
 -- --------------------------------------------------------
 
