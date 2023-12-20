@@ -47,7 +47,7 @@
                     <?php while($row = $popular_products->fetch_assoc()) { ?>
                         <div class="product">
                            <a href="sweat1.html"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
-                            <div class="description">
+                           <div class="description">
                                 
                                 <h5><?php echo $row['product_name']; ?></h5>
 
@@ -59,7 +59,7 @@
                                         <span class="fa fa-star checked"></span>
                                 </div>
 
-                            <h4>&#8377; <?php echo $row['product_price']; ?></h4>
+                            <h4>&#8377;<?php echo $row['product_price']; ?></h4>
                             </div>
 
                          
@@ -75,11 +75,14 @@
                     <p><b>New Collection With Eligant Designs</b></p>
                 
                 <div class="Collection2">
+                <?php include('Includes/popular_products.php'); ?>
+                    <?php while($row = $popular_products->fetch_assoc()) { ?>
+
                         <div class="product2">
-                            <a href="sweat1.html"> <img src="Assets/shirt1.png"></a>
-                            <div class="description">
-                                <span>Posh</span>
-                                <h5>Men Black Printed Casual Shirt</h5>
+                        <a href="sweat1.html"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                           <div class="description">
+                                
+                                <h5><?php echo $row['product_name']; ?></h5>
 
                                 <div class="rating">
                                         <span class="fa fa-star checked"></span>
@@ -89,13 +92,12 @@
                                         <span class="fa fa-star checked"></span>
                                 </div>
 
-                            <h4>&#8377; 1,499 </h4>
+                            <h4>&#8377;<?php echo $row['product_price']; ?></h4>
                             </div>
 
-                         
-                    </div>
                     
                 </div>
+                <?php } ?>
             </section>
 
       <!--Buy1 Get 1-->
