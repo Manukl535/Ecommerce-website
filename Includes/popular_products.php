@@ -1,17 +1,11 @@
 <?php
 
-include("connection.php");
+include('connection.php');
 
-// Assuming <link>$conn</link> is the database connection object
-$sql = "SELECT * FROM products";
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT * FROM products LIMIT 4");
 
-if ($result) {
-    $popular_products = $result->fetch_all(MYSQLI_ASSOC);
-    // Now $popular_products contains the fetched data from the database
-} else {
-    // Handle the case where the query fails
-    echo "Error executing the query: " . $conn->error;
-}
+$stmt->execute();
+
+$popular_products = $stmt->get_result();
 
 ?>

@@ -14,11 +14,13 @@
                     <p><b>Winter Collection With New Designs</b></p>
                 
                 <div class="Collection">
+                    <?php include('Includes/popular_products.php'); ?>
+                    <?php while($row = $popular_products->fetch_assoc()) { ?>
                         <div class="product">
-                           <a href="sweat1.html"> <img src="Assets/sweat1.png"></a>
+                           <a href="sweat1.html"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
                             <div class="description">
-                                <span>Posh</span>
-                                <h5>Men Blue Relaxed Hoodie</h5>
+                                
+                                <h5><?php echo $row['product_name']; ?></h5>
 
                                 <div class="rating">
                                         <span class="fa fa-star checked"></span>
@@ -28,12 +30,42 @@
                                         <span class="fa fa-star checked"></span>
                                 </div>
 
-                            <h4>&#8377; 2,499 </h4>
+                            <h4>&#8377; <?php echo $row['product_price']; ?></h4>
                             </div>
 
                          
-                   
+                  
                 </div>
+                <?php } ?> 
+                </section>
+
+                <section id="topproduct" class="section-p1">
+                    
+                
+                <div class="Collection">
+                    <?php include('Includes/popular_products.php'); ?>
+                    <?php while($row = $popular_products->fetch_assoc()) { ?>
+                        <div class="product">
+                           <a href="sweat1.html"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                            <div class="description">
+                                
+                                <h5><?php echo $row['product_name']; ?></h5>
+
+                                <div class="rating">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                </div>
+
+                            <h4>&#8377; <?php echo $row['product_price']; ?></h4>
+                            </div>
+
+                         
+                  
+                </div>
+                <?php } ?> 
                 </section>
 
                 <!--Trending section-->
