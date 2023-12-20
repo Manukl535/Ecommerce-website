@@ -75,8 +75,8 @@
                     <p><b>New Collection With Eligant Designs</b></p>
                 
                 <div class="Collection2">
-                <?php include('Includes/popular_products.php'); ?>
-                    <?php while($row = $popular_products->fetch_assoc()) { ?>
+                <?php include('Includes/trending_products.php'); ?>
+                    <?php while($row = $trending_products->fetch_assoc()) { ?>
 
                         <div class="product2">
                         <a href="sweat1.html"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
