@@ -1,3 +1,20 @@
+<?php 
+include('Includes/connection.php');
+if(isset($_GET['product_id'])){
+  
+    $product_id = $_GET['product_id'];
+    $stmt = $conn->prepare("SELECT * FROM products WHERE product_id=?");
+    $stmt->bind_param("i",$product_id);
+
+    $stmt->execute();
+
+    $product = $stmt->get_result();
+
+}else{
+  header('location:index.php');
+}
+
+?>
 <html>
 <head>
     <title>Shoping</title>
@@ -49,9 +66,10 @@
       
       <div class="product1">
         <div class="img-zoom-container">
-   
+          <?php while($row = $product->fetch_assoc()){ ?>
+          
           <div class="img-magnifier-container">
-            <img id="myimage" src="Assets/sweat1.png" width="300" height="400">
+            <img id="myimage" src="Assets/<?php echo $row['product_image']; ?>" width="300" height="400">
           </div>
           
     
@@ -60,11 +78,12 @@
 
 
 
+
        <div class="pro1">
      
-        <h6>Posh</h6>
-        <h4>Men Blue Relaxed Hoodie</h4>
-        <h3>&#8377; 2,499</h3><br/>
+     
+        <h4><?php echo $row['product_name']; ?></h4>
+        <h3>&#8377;<?php echo $row['product_price']; ?></h3><br/>
 
         <div class="color-swatches">
           <div class="swatch" style="background-color: blue" onclick="selectColor('blue')"></div>
@@ -83,9 +102,10 @@
         <input type="number" min="1" value="1">
         <button class="normal" onclick="addToCart()">ADD TO CART</button>
         <br/><br/>
-        <h4>Product Description</h4>
-        Hoodie in sweatshirt fabric made from a cotton blend. Relaxed fit with a jersey-lined, Soft brushed inside.</div>
+        <h4>Product Description</h4><?php echo $row['product_description']; ?>
         
+      </div>
+        <?php } ?>
     </section>
     <br><br><br><br>
     <script>
