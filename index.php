@@ -49,7 +49,7 @@
                         <a href="<?php echo "sweat1.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
                            <div class="description">
                                 
-                                <h5><?php echo $row['product_name']; ?></h5>
+                                <h5>    </h5>
 
                                 <div class="rating">
                                         <span class="fa fa-star checked"></span>
@@ -89,7 +89,7 @@
                                         <span class="fa fa-star checked"></span>
                                         <span class="fa fa-star checked"></span>
                                         <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star-half-o checked"></span>
                                 </div>
 
                             <h4>&#8377; <?php echo $row['product_price']; ?></h4>
