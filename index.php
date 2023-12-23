@@ -59,7 +59,7 @@
                                         <span class="fa fa-star checked"></span>
                                 </div>
 
-                            <h4>&#8377;<?php echo $row['product_price']; ?></h4>
+                            <h4>&#8377; <?php echo $row['product_price']; ?></h4>
                             </div>
 
                          
@@ -92,7 +92,7 @@
                                         <span class="fa fa-star checked"></span>
                                 </div>
 
-                            <h4>&#8377;<?php echo $row['product_price']; ?></h4>
+                            <h4>&#8377; <?php echo $row['product_price']; ?></h4>
                             </div>
 
                     
