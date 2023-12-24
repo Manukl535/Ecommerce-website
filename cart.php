@@ -219,9 +219,13 @@ function calculatecart(){
           <td><b>Total</b></td>
           <td>&#8377; <?php echo $_SESSION['total']; ?></td>
         </tr>
-      </table><button><strong>PROCEED TO CHECKOUT</strong></button>
+      </table><a href="checkout.html"><button><strong>PROCEED TO CHECKOUT</strong></button></a>
+     
     </div>
-  </section><!--Subscribe-->
+
+  </section>
+  
+  <!--Subscribe-->
   <form action="email.php" method="post">
     <section id="subscribe">
       <div class="updates">

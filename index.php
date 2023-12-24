@@ -83,7 +83,7 @@
                         <div class="product2">
                         <a href="<?php echo "sweat1.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
                            <div class="description">
-                                
+                                <span>Posh</span>
                                 <h5><?php echo $row['product_name']; ?></h5>
 
                                 <div class="rating">
