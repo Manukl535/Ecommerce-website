@@ -24,21 +24,7 @@ if(isset($_GET['product_id'])){
     <link rel="stylesheet" href="styles.css">
 
     <style>
-* {box-sizing: border-box;}
 
-.img-magnifier-container {
-  position:relative;
-}
-
-.img-magnifier-glass {
-  position: absolute;
-  border: 1px solid #000;
-  /* border-radius: 20%; */
-  cursor: none;
-  /*Set the size of the magnifier glass:*/
-  width: 200px;
-  height: 100px;
-}
 
     </style> 
 
@@ -56,7 +42,7 @@ if(isset($_GET['product_id'])){
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact Us</a></li>
             <!-- <li><a href="login.html"><i style="font-size:24px" class="fa">&#xf007;</i></a></li>-->
-            <li><a href="cart.html"><i style="font-size:24px" class="fa">&#xf07a;</i> Cart </a></li>
+            <li><a href="cart.php"><i style="font-size:24px" class="fa">&#xf07a;</i> Cart </a></li>
         </ul>
     </div>
     
@@ -67,6 +53,12 @@ if(isset($_GET['product_id'])){
       <div class="product1">
         <div class="img-zoom-container">
           <?php while($row = $product->fetch_assoc()){ ?>
+            <form method="POST" action="cart.php">
+              
+              <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?> "/>
+              <input type="hidden" name="product_image" value="<?php echo $row['product_image']; ?> "/>
+              <input type="hidden" name="product_name" value="<?php echo $row['product_name']; ?> "/>
+              <input type="hidden" name="product_price" value="<?php echo $row['product_price']; ?> "/>
           
           <div class="img-magnifier-container">
             <img id="myimage" src="Assets/<?php echo $row['product_image']; ?>" width="300" height="400">
@@ -81,8 +73,15 @@ if(isset($_GET['product_id'])){
 
        <div class="pro1">
      
-     
-        <h4><?php echo $row['product_name']; ?></h4>
+                               
+        <h4><?php echo $row['product_name']; ?></h4><br/>
+        <div class="rating">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star-half-o checked"></span>
+                                </div>
         <h3>&#8377;<?php echo $row['product_price']; ?></h3><br/>
 
         <div class="color-swatches">
@@ -99,12 +98,13 @@ if(isset($_GET['product_id'])){
           <option>L</option>
           <option>XL</option>
         </select>
-        <input type="number" min="1" value="1">
-        <button class="normal" onclick="addToCart()">ADD TO CART</button>
+        <input type="number" min="1" name="product_quantity" value="1">
+        <button class="normal" onclick="addToCart()" type="submit" name="add_to_cart">ADD TO CART</button>
         <br/><br/>
         <h4>Product Description</h4><?php echo $row['product_description']; ?>
         
       </div>
+      </form>
         <?php } ?>
     </section>
     <br><br><br><br>

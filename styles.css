@@ -869,6 +869,7 @@ white-space: nowrap;
 }
 
 
+
 #cart table thead{
   border:1px solid black;
   border-left: none;
@@ -884,6 +885,10 @@ white-space: nowrap;
 
 #cart table tbody tr td{
  padding-top: 15px;
+}
+
+#cart tbody input[type="number"] {
+  margin-right: 100px; /* Adjust this value as needed */
 }
 
 #cart table tbody  td{
@@ -1063,3 +1068,4 @@ height: 2.4rem;
 .zoom:hover img {
   transform: scale(1.5);
 }
+
