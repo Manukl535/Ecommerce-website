@@ -56,7 +56,7 @@
                                         <span class="fa fa-star checked"></span>
                                         <span class="fa fa-star checked"></span>
                                         <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star-half-o checked"></span>
                                 </div>
 
                             <h4>&#8377; <?php echo $row['product_price']; ?></h4>

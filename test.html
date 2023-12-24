@@ -1,22 +1,10 @@
-<div class="pro1">
-  <h6>Posh</h6>
-  <h4>Men Blue Relaxed Hoodie</h4>
-  <h3>&#8377; 2,499</h3>
-  <div class="color-swatches">
-      <div class="swatch" style="background-color: blue" onclick="selectColor('blue')"></div>
-      <div class="swatch" style="background-color: red" onclick="selectColor('red')"></div>
-      <div class="swatch" style="background-color: gray" onclick="selectColor('gray')"></div>
-  </div>
-  <select required="required">
-      <option>Select Size</option>
-      <option>S</option>
-      <option>M</option>
-      <option>L</option>
-      <option>XL</option>
-  </select>
-  <input type="number" min="1" value="1">
-  <button class="normal" onclick="addToCart()">ADD TO CART</button>
-  <br/><br/>
-  <h4>Product Description</h4>
-  Hoodie in sweatshirt fabric made from a cotton blend. Relaxed fit with a jersey-lined, Soft brushed inside.
-</div>
+<form method="POST" action="cart.php">
+                                
+  <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>" />
+  <input type="number"  value = "<?php echo $value['product_quantity']; ?>" />
+  <input type="submit" class="update_btn"  value="Update" name="edit_quantity"/>
+
+ 
+</form>
+<tr>
+<td>&#8377;23</td></tr>

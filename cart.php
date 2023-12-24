@@ -1,0 +1,225 @@
+<?php
+session_start();
+
+if(isset($_POST['add_to_cart'])){
+    
+    // if cart is not empty
+    if(isset($_SESSION['cart'])){
+
+        $product_array_ids = array_column($_SESSION['cart'],"product_id");
+        if( !in_array($_POST['product_id'],$product_array_ids))
+        {
+                $product_id = $_POST['product_id'];    
+
+                $product_array = array(
+                    'product_id' => $_POST['product_id'], 
+                    'product_image' =>$_POST['product_image'], 
+                    'product_name' => $_POST['product_name'], 
+                    'product_price' => $_POST['product_price'], 
+                    'product_quantity' => $_POST['product_quantity']
+                );
+        
+                $_SESSION['cart'][$product_id] = $product_array;
+
+        }else{
+            echo '<script>alert ("Product was already added"); </script>';
+            
+
+        }
+    }
+    // if cart is empty
+    else{
+        $product_id = $_POST['product_id'];
+        $product_image = $_POST['product_image'];
+        $product_name = $_POST['product_name'];
+        $product_price = $_POST['product_price'];
+        $product_quantity = $_POST['product_quantity'];
+
+        $product_array = array('product_id' => $product_id, 'product_image' => $product_image, 'product_name' => $product_name, 'product_price' => $product_price, 'product_quantity' => $product_quantity);
+
+        $_SESSION['cart'][$product_id] = $product_array;
+    }
+
+}
+//Remove the product
+else if(isset($_POST['remove_product'])){
+    $product_id = $_POST['product_id'];
+    unset($_SESSION['cart'][$product_id]);
+}
+else{
+    header("location:index.php");
+}
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Index</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+            .remove_btn{
+                border: 1px solid #00a36f;
+                border-radius: 40px;
+                background-color: #fff;
+                text-align: center;
+                padding: 10px;
+                font-weight: bold;
+                font-size: 10px;
+                font-family: Arial, Helvetica, sans-serif;
+                text-decoration-color: red;
+
+            }
+            .remove_btn:hover{
+                background-color: red;
+            }
+
+            .update_btn{
+            border: 1px solid black;
+            padding-left: 10px;
+            padding-top: 20px;
+            font-size: 12px;
+            text-align: center;
+            border-radius: 20px;
+            color: solid black;
+        
+            }
+            .update_btn:hover{
+                background-color:#00A36C;
+
+            }
+
+         
+
+            
+            
+
+          
+  </style>
+</head>
+<body>
+  <!--Header Section-->
+  <section id="top">
+    <img src="Assets/logo.png" alt="logo">
+    <div>
+      <ul id="headings">
+        <li>
+          <a href="index.php">Home</a>
+        </li>
+        <li>
+          <a href="shop.html">Shop</a>
+        </li>
+        <li>
+          <a href="about.html">About Us</a>
+        </li>
+        <li>
+          <a href="contact.html">Contact Us</a>
+        </li><!-- <li><a href="login.html"><i style="font-size:24px" class="fa">&#xf007;</i></a></li>
+                    <li><a href="cart.html"><i style="font-size:24px" class="fa">&#xf07a;</i></a></li> -->
+      </ul>
+    </div>
+  </section>
+  <section id="cart" class="section-p1">
+    <table width="100%">
+      <thead>
+        <tr>
+          <td>Remove</td>
+          <td>Product</td>
+          <td>Description</td>
+          <td>Price</td>
+          <td>Quantity</td>
+          <td>Total</td>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach($_SESSION['cart'] as $key =>$value){ ?>
+        <tr>
+          <!-- Remove Button -->
+          <td>
+            <form method="post" action="cart.php">
+              <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>"> <input type="submit" class="remove_btn" name="remove_product" value="❌">
+            </form>
+          </td>
+          <td><img src="Assets/<?php echo $value['product_image'];?>" alt=""></td>
+          <td><?php echo $value['product_name']; ?></td>
+          <td>&#8377; <?php echo $value['product_price']; ?></td>
+          <td >
+          <form method="post" action="cart.php">
+            
+                <input type="number" value="<?php echo $value['product_quantity']; ?>">
+                <input type="submit" class="update_btn" value="Update " name="edit_quantity">
+                <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>">
+           
+            </form>
+          </td>
+          <td>₹ 2,499</td>
+        </tr><?php } ?>
+      </tbody>
+    </table>
+  </section><br>
+  <br>
+  <section id="add2cart" class="section-p1">
+    <div id="coupon">
+      <h3>Apply Coupon</h3>
+      <div>
+        <input type="text" placeholder="Enter your coupon"> <button class="normal">Apply</button>
+      </div>
+    </div>
+    <div id="Total">
+      <h3>Cart Total</h3>
+      <table>
+        <tr>
+          <td>Total</td>
+          <td>₹2,456</td>
+        </tr>
+        <tr>
+          <td>Shipping</td>
+          <td>Free</td>
+        </tr>
+        <tr>
+          <td><b>Grand Total</b></td>
+          <td>₹2,456</td>
+        </tr>
+      </table><button><strong>PROCEED TO CHECKOUT</strong></button>
+    </div>
+  </section><!--Subscribe-->
+  <form action="email.php" method="post">
+    <section id="subscribe">
+      <div class="updates">
+        <h4><b>Signup for updates</b></h4>
+        <p><b>Get updates on Sale and <span>Special offers</span></b></p>
+      </div>
+      <div class="form">
+        <input type="text" name="email" id="emailInput" placeholder="Enter your mail"><button class="normal" style="width: fit-content;">subscribe</button>
+      </div>
+    </section>
+  </form><!-- Footer -->
+  <footer class="section-p1">
+    <div class="col">
+      <img src="Assets/logo.png" alt="logo"><br>
+      <h4>Contact Us</h4>
+      <p>Address:223 Main Street Electonic City Bengaluru 562107</p>
+      <p>Phone:+91 98765 43210</p>
+      <p>Email:posh.com</p>
+      <div class="follow">
+        <h4>Follow Us</h4>
+        <div class="col"></div>
+      </div>
+    </div>
+    <div class="col">
+      <h4>About</h4><a href="about.html">About Us</a> <a href="#">Privacy Policy</a> <a href="#">Terms & Conditions</a> <a href="contact.html">Contact Us</a>
+    </div>
+    <div class="col">
+      <h4>My Account</h4><a href="login.html">Signin</a> <a href="cart.html">Cart</a> <a href="contact.html">Help</a>
+    </div>
+    <div class="payment">
+    <h4>Secured Payment Gateways</h4><img src="Assets/payment.png" alt="payment"></div>
+    <div class="copyright">
+      <p>2023 © All Rights Reserved</p>
+      <p>Designed and Maintained by <b>Manu</b> and <b>Srisha</b></p>
+    </div>
+  </footer>
+</body>
+</html>
