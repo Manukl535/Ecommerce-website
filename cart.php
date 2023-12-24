@@ -40,11 +40,20 @@ if(isset($_POST['add_to_cart'])){
         $_SESSION['cart'][$product_id] = $product_array;
     }
 
+
+
+//calculatetotal
+calculatecart();
+
 }
+
 //Remove the product
 else if(isset($_POST['remove_product'])){
     $product_id = $_POST['product_id'];
     unset($_SESSION['cart'][$product_id]);
+
+    //calculatecart
+    calculatecart();
 }
 else if(isset($_POST['edit_quantity'])){
    
@@ -57,9 +66,24 @@ else if(isset($_POST['edit_quantity'])){
     $product_array['product_quantity'] = $product_quantity;
 
     $_SESSION['cart'][$product_id] = $product_array;
+
+    //calculatecart
+    calculatecart();
 }
 else{
     header("location:index.php");
+}
+//cart Total
+
+function calculatecart(){
+    $total = 0;
+    foreach($_SESSION['cart'] as $key=>$value){
+        $product = $_SESSION['cart'][$key];
+        $price = $product['product_price'];
+        $quantity = $product['product_quantity'];
+        $total = $total + ($price * $quantity);
+    }
+    $_SESSION['total'] = $total;
 }
 
 ?>
@@ -161,13 +185,13 @@ else{
           <td >
           <form method="POST" action="cart.php">
             
-                <input type="number" name="product_quantity" value="<?php echo $value['product_quantity']; ?>">
+                <input type="number" name="product_quantity" min="1" value="<?php echo $value['product_quantity']; ?>">
                 <input type="submit" class="update_btn" value="Update " name="edit_quantity">
                 <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>">
            
             </form>
           </td>
-          <td>₹ 2,499</td>
+          <td>&#8377; <?php echo $value['product_quantity'] * $value['product_price']; ?></td>
         </tr><?php } ?>
       </tbody>
     </table>
@@ -183,17 +207,17 @@ else{
     <div id="Total">
       <h3>Cart Total</h3>
       <table>
-        <tr>
+        <!-- <tr>
           <td>Total</td>
           <td>₹2,456</td>
-        </tr>
+        </tr> -->
         <tr>
           <td>Shipping</td>
           <td>Free</td>
         </tr>
         <tr>
-          <td><b>Grand Total</b></td>
-          <td>₹2,456</td>
+          <td><b>Total</b></td>
+          <td>&#8377; <?php echo $_SESSION['total']; ?></td>
         </tr>
       </table><button><strong>PROCEED TO CHECKOUT</strong></button>
     </div>
