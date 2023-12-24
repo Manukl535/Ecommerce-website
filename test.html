@@ -1,10 +1,31 @@
-<form method="POST" action="cart.php">
-                                
-  <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>" />
-  <input type="number"  value = "<?php echo $value['product_quantity']; ?>" />
-  <input type="submit" class="update_btn"  value="Update" name="edit_quantity"/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout Page with Live Location Pinning</title>
+  <script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
 
- 
-</form>
-<tr>
-<td>&#8377;23</td></tr>
+    function showPosition(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      // Here you can use the latitude and longitude to display a live map or pin on the checkout page
+      // Example: You can use a mapping API like Google Maps to display the live location
+      console.log("Latitude: " + latitude + " Longitude: " + longitude);
+    }
+  </script>
+</head>
+<body>
+  <h1>Checkout Page</h1>
+  <p>Enter your shipping details:</p>
+  <!-- Your form elements here -->
+  <button onclick="getLocation()">Use My Current Location</button>
+</body>
+</html>

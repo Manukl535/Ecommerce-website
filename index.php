@@ -14,12 +14,13 @@
                     <p><b>Winter Collection With New Designs</b></p>
                 
                 <div class="Collection">
-                    <?php include('Includes/popular_products.php'); ?>
-                    <?php while($row = $popular_products->fetch_assoc()) { ?>
+                    <?php include('Includes/index_men.php'); ?>
+                    <?php while($row = $index_men->fetch_assoc()) { ?>
                         <div class="product">
+                           
                            <a href="<?php echo "sweat1.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
                             <div class="description">
-                                
+                            <span>Posh</span>
                                 <h5><?php echo $row['product_name']; ?></h5>
 
                                 <div class="rating">
@@ -43,13 +44,14 @@
                     
                 
                 <div class="Collection">
-                    <?php include('Includes/popular_products.php'); ?>
-                    <?php while($row = $popular_products->fetch_assoc()) { ?>
+                    <?php include('Includes/index_women.php'); ?>
+                    <?php while($row = $index_women->fetch_assoc()) { ?>
                         <div class="product">
                         <a href="<?php echo "sweat1.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
                            <div class="description">
                                 
-                                <h5>    </h5>
+                           <span>Posh</span>
+                                <h5><?php echo $row['product_name']; ?></h5>
 
                                 <div class="rating">
                                         <span class="fa fa-star checked"></span>

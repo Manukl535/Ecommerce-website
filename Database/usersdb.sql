@@ -90,6 +90,9 @@ INSERT INTO `products` (`product_id`, `product_name`, `product_category`, `produ
 (7, 'Black Printed Shirt ', 'shirts', 'Men\'s Black Printed Shirt', 'shirt3.png', 'shirt3.png', 'shirt3.png', 'shirt3.png', 1299.00, 0, 'Black'),
 (8, 'Black Printed Shirt ', 'shirts', 'Men\'s Black Printed Shirt', 'shirt4.png', 'shirt4.png', 'shirt4.png', 'shirt4.png', 1299.00, 0, 'Black');
 
+INSERT INTO `products` (`product_id`, `product_name`, `product_category`, `product_description`, `product_image`, `product_image2`, `product_image3`, `product_image4`, `product_price`, `product_special offer`, `product_color`) VALUES
+(1, 'Men Relaxed Hoodie', 'Hoodie', 'Hoodie in sweatshirt fabric made from a cotton blend. Relaxed fit with a jersey-lined, Soft brushed inside', 'women1.png', 'women1.png', 'women1.png', 'women1.png', 2499.00, 0, 'Blue');
+
 -- --------------------------------------------------------
 
 --
