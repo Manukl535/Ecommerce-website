@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 
 <style>
 body {
@@ -172,9 +172,11 @@ input[type=submit]{
              
               <label for="email"><i class="fa fa-envelope"></i> Email</label>
               <input type="text" id="email" name="email" placeholder="srisha@example.com">
-              <label for="btn"><i class="fa">&#xf041;</i> Live Location</label>
-              <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Use My Location</button>
-              <label for="exp_date"><i class="fa"></i> Expiry Date</label>
+              <label for="btn"><i class="fa">&#xf041;</i> State</label>
+              <input type="text" id="state" name="state" placeholder="Karnataka">              
+              <!-- <label for="btn"><i class="fa">&#xf041;</i> Live Location</label>
+              <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Use My Location</button>-->
+              <label for="exp_date"><i class="fa"></i> Expiry Date</label> 
               <input type="text" id="city" name="city" placeholder="27/01/2024">
   
               
@@ -198,13 +200,14 @@ input[type=submit]{
   </div>  
 </div>
 </div>
+<br><br/>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog">
-  <div class="modal-dialog">
+<!-- <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog"> -->
   
     <!-- Modal content-->
-    <div class="modal-content">
+    <!-- <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Select Your Location</h4>
@@ -221,14 +224,16 @@ input[type=submit]{
                   }
                   </script>
                   
-                  <script src="https://maps.googleapis.com/maps/api/js?key=&callback=myMap"></script>
+                  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCIRoC23VBrHHRJbgQosiK-SfHLm74JWQ&callback=myMap"></script>
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
-    </div>
-    
-
+    </div> -->
+    <center>
+    <div class="copyright">
+        <p>2023 &#169; All Rights Reserved</p><p>Designed and Maintained by <b>Manu </b>and <b>Srisha</b></p>
+    </div></center>
 </body>
 </html>
