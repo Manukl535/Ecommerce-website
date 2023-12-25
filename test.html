@@ -1,42 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <style>
-    form {
-      display: flex;
-      justify-content: space-around;
-    }
-    form > div {
-      flex: 1;
-    }
-  </style>
-</head>
-<body>
-  <center><h2>Checkout</h2></center>
-  <h3>Shipping Address</h3> 
-  <form>
-    <div>
-     
-      <label for="name">Name:</label><br>
-      <input type="text" id="name" name="name"><br>
-      <label for="address">Address:</label><br>
-      <input type="text" id="address" name="address"><br>
-      <label for="cardnum">Card Number:</label><br>
-      <input type="text" id="cardnum" name="cardnum"><br>
-      <label for="cvv">CVV:</label><br>
-      <input type="text" id="cvv" name="cvv"><br>
-    </div>
- 
-    <div>
-      <h3>Cart Qty:4</h3>
-      <label for="email">Email:</label><br>
-      <input type="text" id="email" name="email"><br>
-      <input type="button" value="Use My Location"><br>
-      <label for="exp">Expiration Date:</label><br>
-      <input type="text" id="exp" name="exp"><br>
-      <label for="deliverydate">Date of Delivery:</label><br>
-      <input type="text" id="deliverydate" name="deliverydate"><br>
-    </div>
-  </form>
-</body>
-</html>
+<!-- Include the <link>Google Maps JavaScript API</link> -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
+
+<!-- Your HTML form -->
+<h3>Shipping Address</h3>
+<!-- ... (other form elements) ... -->
+<label for="btn"><i class="fa">&#xf041;</i> Live Location</label>
+<input type="button" class="location" name="address" value="Use My Location">
+<!-- ... (other form elements) ... -->
+
+<!-- JavaScript to handle the button click and open the map -->
+<script>
+  document.querySelector('.location').addEventListener('click', function() {
+    // Open a <link>Bootstrap modal</link> or a separate section of the page to display the map
+    // Use the <link>Google Maps JavaScript API</link> to create and display the map
+    // Capture the selected real-time location and print it into the address text area
+  });
+</script>

@@ -1,8 +1,12 @@
 
 <html><body>
+
 <?php include_once("includes/head.html"); ?>
 
 <?php include_once("includes/headbanner.html"); ?>
+
+
+
 
 
 

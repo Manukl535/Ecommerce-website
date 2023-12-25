@@ -127,6 +127,17 @@ function calculatecart(){
 
             }
 
+            .proceed{
+              height: 2.4rem;
+              padding: 0 1.24em;
+              background-color: #04AA6D;
+              color: #eef7f6;
+              white-space: inherit;
+              padding:  9px 10px ;
+              border :1px double black;
+              border-radius: 2px;
+          
+              }
          
 
             
@@ -218,14 +229,17 @@ function calculatecart(){
         <tr>
           <td><b>Total</b></td>
           <td>&#8377; <?php echo $_SESSION['total']; ?></td>
+          
         </tr>
-      </table><a href="checkout.html"><button><strong>PROCEED TO CHECKOUT</strong></button></a>
-     
+      </table>
+      
+      <a href="checkout.php"><input type="submit" class="proceed" value="PROCEED TO CHECKOUT"></a>
     </div>
 
   </section>
   
   <!--Subscribe-->
+
   <form action="email.php" method="post">
     <section id="subscribe">
       <div class="updates">
@@ -236,7 +250,9 @@ function calculatecart(){
         <input type="text" name="email" id="emailInput" placeholder="Enter your mail"><button class="normal" style="width: fit-content;">subscribe</button>
       </div>
     </section>
-  </form><!-- Footer -->
+  </form>
+
+  <!-- Footer -->
   <footer class="section-p1">
     <div class="col">
       <img src="Assets/logo.png" alt="logo"><br>

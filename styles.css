@@ -961,6 +961,8 @@ margin-bottom: 30px;
   
 }
 
+
+
 #Total{
   width: 50%;
   margin-bottom: 30px;
@@ -1068,4 +1070,5 @@ height: 2.4rem;
 .zoom:hover img {
   transform: scale(1.5);
 }
+
 

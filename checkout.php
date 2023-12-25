@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <style>
 body {
   font-family: Arial;
@@ -72,11 +77,12 @@ input[type=date] {
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 3px;
-  background-color: #04AA6D;
+  background-color:blue;
   color: white;
+  font-size: 17px;
 }
 .location:hover{
-    background-color: #45a049; 
+    background-color: blue; 
 }
 label {
   margin-bottom: 10px;
@@ -90,7 +96,7 @@ label {
 }
 
 .btn {
-  background-color: #04AA6D;
+  background-color: 	rgb(87, 158, 238);
   color: white;
   padding: 9px;
   margin: 10px 0;
@@ -104,6 +110,8 @@ label {
 
 .btn:hover {
   background-color: #45a049;
+  color: #fff;
+  
 }
 
 a {
@@ -128,6 +136,11 @@ span.price {
     margin-bottom: 20px;
   }
 }
+
+input[type=submit]{
+  
+
+}
 </style>
 </head>
 <body>
@@ -147,10 +160,10 @@ span.price {
             
               <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
               <input type="text" id="adr" name="address" placeholder="#123,15th Street">
-              <label for="city"><i class="fa">&#xf1f0;</i> Card Number</label>
+              <label for="card"><i class="fa">&#xf1f0;</i> Card Number</label>
               <input type="text" id="city" name="city" placeholder="9342-5328-7870-2201">
   
-              <label for="city"><i class="fa"></i> CVV</label>
+              <label for="cvv"><i class="fa"></i> CVV</label>
               <input type="text" id="city" name="city" placeholder="123">
             </div>
   
@@ -160,16 +173,15 @@ span.price {
               <label for="email"><i class="fa fa-envelope"></i> Email</label>
               <input type="text" id="email" name="email" placeholder="srisha@example.com">
               <label for="btn"><i class="fa">&#xf041;</i> Live Location</label>
-              <input type="button" class="location" name="address" value="Use My Location">
-              <label for="city"><i class="fa"></i> Expiry Date</label>
+              <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Use My Location</button>
+              <label for="exp_date"><i class="fa"></i> Expiry Date</label>
               <input type="text" id="city" name="city" placeholder="27/01/2024">
   
               
-                <label for="city"><i class="fa">&#xf274;</i> Date Of Delivery</label>
+                <label for="deliverydate"><i class="fa">&#xf274;</i> Date Of Delivery</label>
                 <input type="date" id="birthday" name="birthday">
                 <div class="col-50">
-                  <label for="zip">Total Amount</label>
-                  &#8377; 2540
+                  <label for="zip">Total Amount: &#8377; 2540</label>
                 </div>
               </div>
             </div>
@@ -178,14 +190,45 @@ span.price {
           
           <input type="submit" value="Place Order" class="btn">
         </form>
+                
       </div>
     </div>
  
     </div>
   </div>  
 </div>
+</div>
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+  
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Select Your Location</h4>
+      </div>
+      <div class="modal-body">
+        <div id="map" style="width:100%; height: 300px;"></div>
+              <script>
+                  function myMap() {
+                    var mapCanvas = document.getElementById("map");
+                    var mapOptions = {
+                      center: new google.maps.LatLng(12.840711, 77.676369), zoom: 10
+                    };
+                    var map = new google.maps.Map(mapCanvas, mapOptions);
+                  }
+                  </script>
+                  
+                  <script src="https://maps.googleapis.com/maps/api/js?key=&callback=myMap"></script>
 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    
 
 </body>
 </html>
