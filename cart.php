@@ -218,10 +218,7 @@ function calculatecart(){
     <div id="Total">
       <h3>Cart Total</h3>
       <table>
-        <!-- <tr>
-          <td>Total</td>
-          <td>₹2,456</td>
-        </tr> -->
+     
         <tr>
           <td>Shipping</td>
           <td>Free</td>
@@ -232,8 +229,8 @@ function calculatecart(){
           
         </tr>
       </table>
-      
-      <a href="checkout.php"><input type="submit" class="proceed" value="PROCEED TO CHECKOUT"></a>
+      <form action="checkout.php" method="post">
+     <input type="submit" name="checkout" class="proceed" value="PROCEED TO CHECKOUT"></form>
     </div>
 
   </section>

@@ -1,3 +1,14 @@
+<?php
+
+session_start();
+if( !empty($_SESSION['cart']) && isset($_POST['checkout'])){
+
+}else{
+  header('location:index.php');
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -150,7 +161,7 @@ input[type=submit]{
 <div class="row">
     <div class="col-75">
       <div class="container">
-        <form action="">
+        <form action="place_order.php" method="POST">
         
           <div class="row">
             <div class="col-50">
@@ -183,14 +194,14 @@ input[type=submit]{
                 <label for="deliverydate"><i class="fa">&#xf274;</i> Date Of Delivery</label>
                 <input type="date" id="birthday" name="birthday">
                 <div class="col-50">
-                  <label for="zip">Total Amount: &#8377; 2540</label>
+                  <p>Total Amount: &#8377; <?php echo $_SESSION['total']; ?></p>
                 </div>
               </div>
             </div>
                       
                 
           
-          <input type="submit" value="Place Order" class="btn">
+          <input type="submit" value="Place Order" name ="palce_order" class="btn">
         </form>
                 
       </div>
