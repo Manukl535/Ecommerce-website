@@ -167,30 +167,30 @@ input[type=submit]{
 <div class="row">
     <div class="col-75">
       <div class="container">
-        <form action="place_order.php" method="POST">
+        <form action="Includes/place_order.php" method="POST">
         
           <div class="row">
             <div class="col-50">
               <h3>Shipping Address</h3>
               <label for="fname"><i class="fa fa-user"></i> Full Name</label>
 
-              <input type="text" id="fname" name="name" placeholder="SRISHA L">
+              <input type="text" id="fname" name="name" placeholder="SRISHA L" required>
             
               <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
 
-              <input type="text" id="adr" name="address" placeholder="#123,15th Street">
+              <input type="text" id="adr" name="address" placeholder="#123,15th Street" required>
 
               <label for="card"><i class="fa">&#xf1f0;</i> Card Number</label>
 
-              <input type="text" id="city" name="cardno" placeholder="9342-5328-7870-2201">
+              <input type="text" id="city" name="cardno" placeholder="9342-5328-7870-2201" required>
   
               <label for="cvv"><i class="fa"></i> CVV</label>
 
-              <input type="text" id="city" name="cvv" placeholder="123">
+              <input type="text" id="city" name="cvv" placeholder="123" required>
 
               <label for="email"><i class="fa fa-envelope"></i> Email</label>
 
-              <input type="text" id="email" name="email" placeholder="srisha@example.com">
+              <input type="text" id="email" name="email" placeholder="srisha@example.com" required>
             </div>
   
             <div class="col-50">
@@ -200,28 +200,28 @@ input[type=submit]{
 
               <label for="btn"><i class="fa">&#xf041;</i> State</label>
 
-              <input type="text" id="state" name="state" placeholder="Karnataka">
+              <input type="text" id="state" name="state" placeholder="Karnataka" required>
               
               <label for="btn"><i class="fa">	&#xf08d;</i> City</label>
 
-              <input type="text" id="state" name="city" placeholder="Bengaluru"> 
+              <input type="text" id="state" name="city" placeholder="Bengaluru" required> 
 
               <!-- <label for="btn"><i class="fa">&#xf041;</i> Live Location</label>
               <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Use My Location</button>-->
               
               <label for="exp_date"><i class="fa"></i> Expiry Date</label> 
 
-              <input type="text" id="city" name="expdate" placeholder="27/01/2024">
+              <input type="text" id="city" name="expdate" placeholder="19/01/2024" required>
   
               
                 <label for="deliverydate" ><i class="fa">&#xf274;</i> Date Of Delivery</label>
 
-                <input type="date" id="birthday" name="dod">
+                <input type="date" id="birthday" name="dod" required>
          
                  
               <label for="phone"><i class="fa">&#xf095;</i> Phone</label> 
 
-              <input type="text" id="city" name="amount" placeholder="93425 32878">
+              <input type="text" id="phone" name="phone" placeholder="93425 32878" required>
               
               <label for="total_amount"><b><i class="fa"></i></b> Total Amount: &#8377; <?php echo $_SESSION['total']; ?></label> 
 
