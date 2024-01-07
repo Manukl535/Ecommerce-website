@@ -86,6 +86,15 @@ function calculatecart(){
     $_SESSION['total'] = $total;
 }
 
+function calculateTotalItems($cart) {
+  $totalQuantity = 0;
+  foreach ($cart as $item) {
+      $totalQuantity += $item['product_quantity'];
+  }
+  return $totalQuantity;
+}
+
+$_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -220,14 +229,21 @@ function calculatecart(){
       <table>
      
         <tr>
-          <td>Shipping</td>
-          <td>Free</td>
+          <td><b>Shipping</b></td>
+          <td style="color:red;"><b>Free</b></td>
         </tr>
         <tr>
           <td><b>Total</b></td>
           <td>&#8377; <?php echo $_SESSION['total']; ?></td>
+
+          </tr>
+
+          <td><b>Total Items</b></td>
+    <td><?php echo "". calculateTotalItems($_SESSION['cart']); ?></td>
+</tr>
+   
           
-        </tr>
+        
       </table>
       <form action="checkout.php" method="post">
      <input type="submit" name="checkout" class="proceed" value="PROCEED TO CHECKOUT"></form>
