@@ -104,10 +104,10 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
             .remove_btn{
-                border: 1px solid #00a36f;
-                border-radius: 40px;
+                
                 background-color: #fff;
                 text-align: center;
                 padding: 10px;
@@ -117,7 +117,7 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
                 text-decoration-color: red;
 
             }
-            .remove_btn:hover{
+            .material-icons:hover{
                 background-color: red;
             }
 
@@ -196,7 +196,7 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
           <td>
             <form method="post" action="cart.php">
                <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>">
-               <input type="submit" class="remove_btn" name="remove_product" value="❌">
+             <input type="submit" class="material-icons"  name="remove_product" style="font-size:48px" value="&#xe872" >
             </form>
           </td>
           <td><img src="Assets/<?php echo $value['product_image'];?>" alt=""></td>
