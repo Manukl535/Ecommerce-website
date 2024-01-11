@@ -180,13 +180,13 @@ input[type=submit]{
 
               <input type="text" id="adr" name="address" placeholder="#123,15th Street" required>
 
-              <label for="card"><i class="fa">&#xf1f0;</i> Card Number</label>
+              <!-- <label for="card"><i class="fa">&#xf1f0;</i> Card Number</label>
 
               <input type="text" id="city" name="cardno" placeholder="9342-5328-7870-2201" required>
   
               <label for="cvv"><i class="fa"></i> CVV</label>
 
-              <input type="text" id="city" name="cvv" placeholder="123" required>
+              <input type="text" id="city" name="cvv" placeholder="123" required> -->
 
               <label for="email"><i class="fa fa-envelope"></i> Email</label>
 
@@ -198,9 +198,9 @@ input[type=submit]{
              
             
 
-              <label for="btn"><i class="fa">&#xf041;</i> State</label>
+              <!-- <label for="btn"><i class="fa">&#xf041;</i> State</label>
 
-              <input type="text" id="state" name="state" placeholder="Karnataka" required>
+              <input type="text" id="state" name="state" placeholder="Karnataka" required> -->
               
               <label for="btn"><i class="fa">	&#xf08d;</i> City</label>
 
@@ -209,7 +209,7 @@ input[type=submit]{
               <!-- <label for="btn"><i class="fa">&#xf041;</i> Live Location</label>
               <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Use My Location</button>-->
               
-              <label for="exp_date"><i class="fa"></i> Expiry Date</label> 
+              <!-- <label for="exp_date"><i class="fa"></i> Expiry Date</label> 
 
               <input type="text" id="city" name="expdate" placeholder="19/01/2024" required>
   
@@ -217,7 +217,7 @@ input[type=submit]{
                 <label for="deliverydate" ><i class="fa">&#xf274;</i> Date Of Delivery</label>
 
                 <input type="date" id="birthday" name="dod" required>
-         
+          -->
                  
               <label for="phone"><i class="fa">&#xf095;</i> Phone</label> 
 
@@ -230,7 +230,7 @@ input[type=submit]{
                 
                 </div>
               </div>
-              <input type="submit" value="Place Order" name ="palce_order" class="btn">
+              <input type="submit" value="Place Order" name ="place_order" class="btn">
             </div>
                       
                 
