@@ -108,19 +108,15 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
-            .remove_btn{
-                
-                background-color: #fff;
-                text-align: center;
-                padding: 10px;
-                font-weight: bold;
-                font-size: 10px;
-                font-family: Arial, Helvetica, sans-serif;
-                text-decoration-color: red;
-
-            }
+            .material-icons{
+              color:black;
+              border-radius: 50px;
+              background-color: #fff;
+              
+            }  
             .material-icons:hover{
-                background-color: red;
+                color:red;
+                background-color: #fff;
             }
 
             .update_btn{
@@ -208,7 +204,7 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
           <td>
             <form method="post" action="cart.php">
                <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>">
-             <input type="submit" class="material-icons"  name="remove_product" style="font-size:48px" value="&#xe872" >
+             <input type="submit" class="material-icons"  name="remove_product" style="font-size:30px" value="&#xe872" >
             </form>
           </td>
           <td><img src="Assets/<?php echo $value['product_image'];?>" alt=""></td>
