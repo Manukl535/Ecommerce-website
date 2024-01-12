@@ -3,6 +3,7 @@ session_start();
 include('connection.php');
 
 if (isset($_POST['place_order'])) {
+
     //user information
     $name = $_POST['name'];
     $address = $_POST['address'];
@@ -13,22 +14,38 @@ if (isset($_POST['place_order'])) {
     $order_status = "on_hold";
     $user_id = 1;
     $order_date = date('Y-m-d H:i:s');
-
-    // $cardno = $_POST['cardno'];
-    // $cvv = $_POST['cvv'];
-    // $state = $_POST['state'];
-    // $expdate = $_POST['expdate'];
-    // $dod = $_POST['dod'];
+    $state = $_POST['state'];
+    $dod = $_POST['dod'];
 
     $stmt = $conn->prepare("INSERT INTO orders (order_cost, order_status, user_id, user_phone, user_city, user_address, order_date) VALUES (?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param('issssss', $order_cost, $order_status, $user_id, $phone, $city, $address, $order_date);
     $stmt->execute();
 
-    if ($stmt->error) {
-        echo "Error: " . $stmt->error; // Print any errors
-    } else {
-        $order_id = $stmt->insert_id;
-        echo $order_id;
-    }
+    $order_id = $conn->insert_id;
+
+   //get product
+
+   $_SESSION['cart'];
+   foreach ($_SESSION['cart'] as $key => $value){
+    
+    $product = $_SESSION['cart'][$key];
+
+    $product_id = $product['product_id'];
+    
+    $product_name = $product['product_name'];
+
+    $product_image = $product['product_image'];
+
+    $product_price = $product['product_price'];
+
+    $product_quantity = $product['product_quantity'];
+
+    $stmt1 = $conn->prepare("INSERT INTO order_item (order_id, product_id, product_name, product_image, product_price, product_quantity, user_id, order_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt1->bind_param('isssiiss', $order_id, $product_id, $product_name, $product_image, $product_price, $product_quantity, $user_id, $order_date);
+    $stmt1->execute();
+}   
+
+   
+
 }
 ?>

@@ -71,7 +71,7 @@ else if(isset($_POST['edit_quantity'])){
     calculatecart();
 }
 else{
-    header("location:index.php");
+    // header("location:index.php");
 }
 //cart Total
 
@@ -95,6 +95,8 @@ function calculateTotalItems($cart) {
 }
 
 $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -147,7 +149,16 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
               border-radius: 2px;
           
               }
-         
+     
+
+    .centered {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 20vh;
+      padding-bottom: 100px;
+      /* background-image: url("Assets/empty_cart.png");       */
+    }
 
             
             
@@ -192,6 +203,7 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
       <tbody>
         <?php foreach($_SESSION['cart'] as $key =>$value){ ?>
         <tr>
+
           <!-- Remove Button -->
           <td>
             <form method="post" action="cart.php">
@@ -217,6 +229,16 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
     </table>
   </section><br>
   <br>
+  <div class="centered">
+    <?php
+      // Check if the total items are zero and display message
+      if ($_SESSION['total_items'] === 0) {
+       
+        echo "Your cart is empty";
+      }
+    ?>
+  </div>
+
   <section id="add2cart" class="section-p1">
     <div id="coupon">
       <h3>Apply Coupon</h3>
