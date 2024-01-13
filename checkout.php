@@ -180,13 +180,13 @@ input[type=submit]{
 
               <input type="text" id="adr" name="address" placeholder="#123,15th Street" required>
 
-               <label for="card"><i class="fa">&#xf1f0;</i> Card Number</label>
+               <!-- <label for="card"><i class="fa">&#xf1f0;</i> Card Number</label>
 
               <input type="text" id="city" name="cardno" placeholder="9342-5328-7870-2201" required>
   
               <label for="cvv"><i class="fa"></i> CVV</label>
 
-              <input type="text" id="city" name="cvv" placeholder="123" required> 
+              <input type="text" id="city" name="cvv" placeholder="123" required>  -->
 
               <label for="email"><i class="fa fa-envelope"></i> Email</label>
 
@@ -209,28 +209,41 @@ input[type=submit]{
               <label for="btn"><i class="fa">&#xf041;</i> Live Location</label>
               <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Use My Location</button>-->
                
-               <label for="exp_date"><i class="fa"></i> Expiry Date</label> 
+               <!-- <label for="exp_date"><i class="fa"></i> Expiry Date</label> 
 
-              <input type="text" id="city" name="expdate" placeholder="19/01/2024" required>
+              <input type="text" id="city" name="expdate" placeholder="19/01/2024" required> -->
   
+              <label for="deliverydate"><i class="fa">&#xf274;</i> Date Of Delivery</label>
               
-                <label for="deliverydate" ><i class="fa">&#xf274;</i> Date Of Delivery</label>
+              <input type="date" id="deliverydate" name="dod" required>
 
-                <input type="date" id="birthday" name="dod" required>
-         
-                 
-              <label for="phone"><i class="fa">&#xf095;</i> Phone</label> 
+<script>
+  // Get the current date
+  var today = new Date();
+  // Get tomorrow's date
+  var tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
 
-              <input type="text" id="phone" name="phone" placeholder="93425 32878" required>
-              
-              <label for="total_amount"><b><i class="fa"></i></b> Total Amount: &#8377; <?php echo $_SESSION['total']; ?></label> 
+  // Get the last day of the current month
+  var lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
-             
+  // Set the minimum and maximum attributes of the input element
+  document.getElementById("deliverydate").setAttribute("min", tomorrow.toISOString().split('T')[0]);
+  document.getElementById("deliverydate").setAttribute("max", lastDay.toISOString().split('T')[0]);
+</script>      
               
                 
                 </div>
               </div>
-              <input type="submit" value="Place Order" name ="place_order" class="btn">
+              <label for="phone"><i class="fa">&#xf095;</i> Phone</label> 
+
+            <input type="text" id="phone" name="phone" placeholder="93425 32878" required>
+
+            <center><label for="total_amount"><b><i class="fa"></i></b> Total Amount: &#8377; <?php echo $_SESSION['total']; ?><center></label><br/> 
+
+             
+              <a href="test.html"><input type="submit" value="Place Order" name ="place_order" class="btn"></a>
+   
             </div>
                       
                 

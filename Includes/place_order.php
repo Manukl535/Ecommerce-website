@@ -45,7 +45,7 @@ if (isset($_POST['place_order'])) {
     $stmt1->execute();
 }   
 
-   
+ 
 
 }
 ?>

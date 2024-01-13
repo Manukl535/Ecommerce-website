@@ -112,6 +112,7 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
               color:black;
               border-radius: 50px;
               background-color: #fff;
+              border:none;
               
             }  
             .material-icons:hover{
@@ -153,9 +154,12 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
       align-items: center;
       height: 20vh;
       padding-bottom: 100px;
-      /* background-image: url("Assets/empty_cart.png");       */
+    
     }
 
+    tr > td:nth-child(5) {
+      padding-left: 30px; /* Adjust the padding as needed */
+    }
             
             
 
@@ -172,10 +176,10 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
           <a href="index.php">Home</a>
         </li>
         <li>
-          <a href="shop.html">Shop</a>
+          <a href="shop.php">Shop</a>
         </li>
         <li>
-          <a href="about.html">About Us</a>
+          <a href="about.php">About Us</a>
         </li>
         <li>
           <a href="contact.html">Contact Us</a>
@@ -197,31 +201,32 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
         </tr>
       </thead>
       <tbody>
-        <?php foreach($_SESSION['cart'] as $key =>$value){ ?>
-        <tr>
-
-          <!-- Remove Button -->
-          <td>
-            <form method="post" action="cart.php">
-               <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>">
-             <input type="submit" class="material-icons"  name="remove_product" style="font-size:30px" value="&#xe872" >
-            </form>
-          </td>
-          <td><img src="Assets/<?php echo $value['product_image'];?>" alt=""></td>
-          <td><?php echo $value['product_name']; ?></td>
-          <td>&#8377; <?php echo $value['product_price']; ?></td>
-          <td >
-          <form method="POST" action="cart.php">
-            
-                <input type="number" name="product_quantity" min="1" value="<?php echo $value['product_quantity']; ?>">
-                <input type="submit" class="update_btn" value="Update " name="edit_quantity">
-                <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>">
-           
-            </form>
-          </td>
-          <td>&#8377; <?php echo $value['product_quantity'] * $value['product_price']; ?></td>
-        </tr><?php } ?>
-      </tbody>
+  <?php foreach($_SESSION['cart'] as $key => $value) { ?>
+    <tr>
+      <td>
+        <form method="post" action="cart.php">
+          <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>">
+          <input type="submit" class="material-icons" name="remove_product" style="font-size:30px" value="&#xe872">
+        </form>
+      </td>
+      <td><img src="Assets/<?php echo $value['product_image']; ?>" alt=""></td>
+      <td><?php echo $value['product_name']; ?></td>
+      <td>&#8377; <?php echo $value['product_price']; ?></td>
+      <td>
+        <form method="POST" action="cart.php">
+        
+        <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>">
+        <input type="number" name="product_quantity" min="1" value="<?php echo $value['product_quantity']; ?>">
+        
+        <input type="submit" class="update_btn" value="Update" name="edit_quantity">
+ 
+  
+</form>
+      </td>
+      <td>&#8377; <?php echo $value['product_quantity'] * $value['product_price']; ?></td>
+    </tr>
+  <?php } ?>
+</tbody>
     </table>
   </section><br>
   <br>
