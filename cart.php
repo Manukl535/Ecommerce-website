@@ -105,6 +105,7 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
@@ -160,6 +161,8 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
     tr > td:nth-child(5) {
       padding-left: 30px; /* Adjust the padding as needed */
     }
+
+   
             
             
 
@@ -231,13 +234,22 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
   </section><br>
   <br>
   <div class="centered">
-    <?php
-      // Check if the total items are zero and display message
-      if ($_SESSION['total_items'] === 0) {
-       
-        echo "Your cart is empty";
-      }
-    ?>
+  <?php
+  // Check if the total items are zero and display message
+  if ($_SESSION['total_items'] === 0) {
+    echo '<html>
+            <body>
+            <div style="text-align: center;">
+              <img src="Assets/empty_cart.png" alt="Empty Cart Image" style="display: block; margin: 0 auto;">
+            </div>
+            <br>
+            <div style="text-align: center;">
+             <h3>Your cart is empty</h3>
+            </div>
+            </body>
+          </html>';
+  }
+?>
   </div>
 
   <section id="add2cart" class="section-p1">

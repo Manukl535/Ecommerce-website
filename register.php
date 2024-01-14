@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  $result = $conn->query($checkQuery);
  if ($result->num_rows > 0) {
      $message = "Username not available! Please choose a different username.";
-     $redirectUrl = "register.html";
+     $redirectUrl = "register_user.php";
      function_alert($message, $redirectUrl);
  }
 else{
@@ -36,7 +36,7 @@ else{
         //echo "Registration successful! Kindly Go Back & Login With Your Credentials";
        
         $message = "Registration successful! Redirecting to Login Page";
-        $redirectUrl = "login.html";
+        $redirectUrl = "login_user.php";
         function_alert($message, $redirectUrl);
   }
 }

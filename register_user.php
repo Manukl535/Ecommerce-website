@@ -113,23 +113,26 @@
 				<div class="col-xs-6"><input type="text" class="form-control" name="last_name" placeholder="Last Name" required="required"></div>
 			</div>        	
         </div>
+		<div class="form-group">
+        	<input type="phone" class="form-control" name="phone" placeholder="70220 15320" required="required">
+        </div>
         <div class="form-group">
         	<input type="email" class="form-control" name="email" placeholder="Email" required="required">
         </div>
 		<div class="form-group">
             <input type="password" class="form-control" name="password" placeholder="Password" required="required">
         </div>
-		<div class="form-group">
-            <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">
-        </div>        
+			<!-- <div class="form-group">
+				<input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">
+			</div>         -->
         <div class="form-group">
 			<label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="T&C.html">Terms of Use &amp; Privacy Policy</a></label>
 		</div>
 		<div class="form-group">
-            <button type="submit" class="btn btn-success btn-lg btn-block">Register Now</button>
+            <button type="submit" name="register" class="btn btn-success btn-lg btn-block">Register Now</button>
         </div>
     </form>
-	<div class="text-center">Already have an account? <a href="login.html">Sign in</a></div>
+	<div class="text-center">Already have an account? <a href="login_user.php">Sign in</a></div>
 </div>
 <center>
 <footer class="section-p1">

@@ -44,7 +44,7 @@ if ($result->num_rows > 0) {
     exit;
 } else {
     $message = "Invalid Username or Password";
-    $redirectUrl = "login.html";
+    $redirectUrl = "login_user.php";
     function_alert($message, $redirectUrl);
 }
 

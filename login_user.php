@@ -5,6 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Login</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -116,12 +117,16 @@
         </div>
         <div class="form-group small clearfix">
             <label class="checkbox-inline"><input type="checkbox"> Remember me</label>
+            
             <a href="#" class="forgot-link">Forgot Password?</a>
         </div> 
-        <br>
+        <div class="form-group">
+            <a href="index.php" class="go_back"><center><i style="font-size:20px" class="fa">&#xf015;</i> Go To Home</center></a>
+        </div>
+        
         <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login">              
     </form>			
-    <div class="text-center small1">Don't have an account? <a href="register.html">Sign up</a></div>
+    <div class="text-center small1">Don't have an account? <a href="register_user.php">Sign up</a></div>
 </div><br/>
 <style>
     .copyright{
