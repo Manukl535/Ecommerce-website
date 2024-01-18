@@ -24,6 +24,10 @@ if( !empty($_SESSION['cart']) && isset($_POST['checkout'])){
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <style>
 body {
@@ -242,8 +246,7 @@ input[type=submit]{
             <center><label for="total_amount"><b><i class="fa"></i></b> Total Amount: &#8377; <?php echo $_SESSION['total']; ?><center></label><br/> 
 
              
-              <a href="test.html"><input type="submit" value="Place Order" name ="place_order" class="btn"></a>
-   
+             <input type="submit" value="Place Order" name ="place_order" class="btn" data-target="#paymentModal" data-toggle="modal">
             </div>
                       
                 
@@ -256,6 +259,32 @@ input[type=submit]{
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="paymentModalLabel">Payment Status</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <img src="Assets/qr.png" class="img-fluid" alt="Centered Image">
+        <p>Is Payment successful?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $('#paymentModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+  })
+</script>
 <br><br/>
 
 <!-- Modal -->
