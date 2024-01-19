@@ -106,6 +106,7 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
@@ -128,7 +129,11 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
             font-size: 12px;
             text-align: center;
             border-radius: 20px;
-            color: solid black;
+            color: #fff;
+            background-color: #55c2da;
+            font-weight: bold;
+            
+            
         
             }
             .update_btn:hover{
@@ -159,9 +164,17 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
     }
 
     tr > td:nth-child(5) {
-      padding-left: 30px; /* Adjust the padding as needed */
+      padding-left:155px; 
     }
 
+          .input-group {
+          display: flex;
+          align-items: center;
+      }
+
+      .input-group input {
+          margin: -90px;
+      }
    
             
             
@@ -219,9 +232,10 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
         <form method="POST" action="cart.php">
         
         <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>">
+    <div class="input-group">
         <input type="number" name="product_quantity" min="1" value="<?php echo $value['product_quantity']; ?>">
-        
         <input type="submit" class="update_btn" value="Update" name="edit_quantity">
+    </div>
  
   
 </form>
@@ -244,7 +258,7 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
             </div>
             <br>
             <div style="text-align: center;">
-             <h3>Your cart is empty</h3>
+             <h3>Your cart is empty!</h3>
             </div>
             </body>
           </html>';
@@ -287,44 +301,13 @@ $_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
   </section>
   
   <!--Subscribe-->
-
-  <form action="email.php" method="post">
-    <section id="subscribe">
-      <div class="updates">
-        <h4><b>Signup for updates</b></h4>
-        <p><b>Get updates on Sale and <span>Special offers</span></b></p>
-      </div>
-      <div class="form">
-        <input type="text" name="email" id="emailInput" placeholder="Enter your mail"><button class="normal" style="width: fit-content;">subscribe</button>
-      </div>
-    </section>
-  </form>
-
-  <!-- Footer -->
-  <footer class="section-p1">
-    <div class="col">
-      <img src="Assets/logo.png" alt="logo"><br>
-      <h4>Contact Us</h4>
-      <p>Address:223 Main Street Electonic City Bengaluru 562107</p>
-      <p>Phone:+91 98765 43210</p>
-      <p>Email:posh.com</p>
-      <div class="follow">
-        <h4>Follow Us</h4>
-        <div class="col"></div>
-      </div>
-    </div>
-    <div class="col">
-      <h4>About</h4><a href="about.html">About Us</a> <a href="#">Privacy Policy</a> <a href="#">Terms & Conditions</a> <a href="contact.html">Contact Us</a>
-    </div>
-    <div class="col">
-      <h4>My Account</h4><a href="login.html">Signin</a> <a href="cart.html">Cart</a> <a href="contact.html">Help</a>
-    </div>
-    <div class="payment">
-    <h4>Secured Payment Gateways</h4><img src="Assets/payment.png" alt="payment"></div>
-    <div class="copyright">
-      <p>2023 © All Rights Reserved</p>
-      <p>Designed and Maintained by <b>Manu</b> and <b>Srisha</b></p>
-    </div>
-  </footer>
+    
+  <?php include_once("includes/subscribe.html"); ?> 
+        
+    
+            
+        <!-- Footer -->
+      
+        <?php include_once("includes/footer.html"); ?> 
 </body>
 </html>
