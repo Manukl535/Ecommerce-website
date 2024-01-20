@@ -5,6 +5,11 @@
 // Start the session
 session_start();
 
+if(isset($_SESSION['logged_in'])){
+    header('location:account.php');
+    exit;
+}
+
 function function_alert($message, $redirectUrl) {
     // Display the alert box
     echo "<script>alert('$message');</script>";
@@ -39,12 +44,13 @@ if ($result->num_rows > 0) {
     $_SESSION['username'] = $row['username']; 
     $username = $_SESSION['username'];
     echo "Username: $username<br>";
+    $_SESSION['loggedin'] = true;
     // Redirect to the index page
-    header("Location: account.php");
+    header("Location: account.php?message=Logged in Successfully");
     exit;
 } else {
     $message = "Invalid Username or Password";
-    $redirectUrl = "login_user.php";
+    $redirectUrl = "index.php";
     function_alert($message, $redirectUrl);
 }
 

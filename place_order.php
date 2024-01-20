@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('connection.php');
+include('Includes/connection.php');
 include('payment.php');
 
 if (isset($_POST['place_order'])) {
@@ -45,8 +45,8 @@ if (isset($_POST['place_order'])) {
     $stmt1->bind_param('isssiiss', $order_id, $product_id, $product_name, $product_image, $product_price, $product_quantity, $user_id, $order_date);
     $stmt1->execute();
 }   
-
- 
+//Remove
+// unset($_SESSION['cart']);
 
 }
 ?>

@@ -163,7 +163,7 @@ input[type=submit]{
 <div class="row">
     <div class="col-75">
         <div class="container">
-            <form action="Includes/place_order.php" method="POST">
+            <form action="place_order.php" method="POST">
             <button onclick="history.back()"  style='background-color:white'><span style='font-size:20px; background-color:white'>&#129092;</span></button>
                 <div class="row">
                     <div class="col-50">

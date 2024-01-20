@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -124,7 +125,7 @@
             <a href="index.php" class="go_back"><center><i style="font-size:20px" class="fa">&#xf015;</i> Go To Home</center></a>
         </div>
         
-        <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login">              
+        <input type="submit" class="btn btn-primary btn-block btn-lg" name="login-btn" value="Login">              
     </form>			
     <div class="text-center small1">Don't have an account? <a href="register_user.php">Sign up</a></div>
 </div><br/>

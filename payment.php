@@ -1,3 +1,8 @@
+<?php 
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +10,69 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Place Order</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    <style>
+  /* Custom CSS for Confirmation Modal */
+  #successModal .modal-content {
+    background-color: #f8f9fa; /* Light background color */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+
+  #successModal .modal-body {
+    padding: 40px; /* Increased padding for better spacing */
+  }
+
+  #successModal .modal-title {
+    font-size: 24px; /* Larger title font size */
+    color: #28a745; /* Green color for success */
+  }
+
+  #successModal.modal-title h5{
+    text-align: center;
+  }
+
+  #successModal .btn-primary {
+    background-color: #007bff; /* Blue color for the "Continue Shopping" button */
+    border-color: #007bff;
+  }
+
+  #successModal .btn-primary:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    border-color: #0056b3;
+  }
+
+
+  #failureModal .modal-content {
+    background-color: #f8f9fa; /* Light background color */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+
+  #failureModal .modal-body {
+    padding: 40px; /* Increased padding for better spacing */
+  }
+
+  #failureModal .modal-title {
+    font-size: 24px; /* Larger title font size */
+    color: red; /* Green color for success */
+  }
+
+  #successModal.modal-title h5{
+    text-align: center;
+  }
+
+  #failureModal .btn-primary {
+    background-color: #007bff; /* Blue color for the "Continue Shopping" button */
+    border-color: #007bff;
+  }
+
+  #failureModal .btn-primary:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    border-color: #0056b3;
+  }
+</style>
+  </style>
 </head>
 <body>
 
@@ -13,19 +81,22 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
+        <button onclick="history.back()"  style='background-color:white'><span style='font-size:20px; background-color:white'>&#129092;</span></button>
           <h5 class="modal-title" id="paymentModalLabel">Payment Status</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body text-center">
           <h4>Scan The QR Code to Make Payment</h4>
+          <p>Total Payment: &#8377; <?php echo $_SESSION['total'] ?></p>
           <img src="qr.png" class="img-fluid" alt="Centered Image">
-          <p>Is Payment successful?</p>
+          <p>Is Payment Successful?</p>
         </div>
         <div class="modal-footer">
           <button id="noBtn" type="button" class="btn btn-danger" style="background-color: red;" data-dismiss="modal">No</button>
           <button id="yesBtn" type="button" class="btn btn-success" style="background-color: green;" data-dismiss="modal">Yes</button>
+         
         </div>
       </div>
     </div>
@@ -36,14 +107,18 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="successModalLabel">Payment Success</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        
+          <h5 class="modal-title" text="center" id="successModalLabel">Payment Success</h5>
+          
+          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body text-center">
           <p>Payment was successful!</p>
-          
+          <p>"Order Placed Successfully"</p>
+          <p>Amount Paid: &#8377; <?php echo $_SESSION['total'] ?></p>
+          <a href="shop.php"><button class="btn btn-primary">Continue Shopping</button></a>
           </div>
       </div>
     </div>
@@ -55,13 +130,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="failureModalLabel">Payment Failure</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body text-center">
         <p>Payment was not successful.</p>
-        <a href="shop.php"><button class="btn btn-primary">Continue Shopping</button></a>
+        
+        <a href="cart.php"><button class="btn btn-primary">Try again</button></a>
       </div>
     </div>
   </div>

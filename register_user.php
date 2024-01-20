@@ -1,19 +1,83 @@
+<?php
+session_start();
+include("Includes/connection.php");
+if(isset($_POST['register']))
+{
+$name = $_POST['name'];
+$phone = $_POST['phone'];
+$email = $_POST['email'];
+$password = $_POST['password'];
+$confirm_password = $_POST['confirm_password'];
+
+//password match
+if($password !== $confirm_password){
+	header("location:register.php?error=Password doesn't mactch");
+}
+//length of password
+else if(strlen($password)<8){
+	header("location:register.php?error=Password must contain 8 charactes");
+}
+else
+{	
+			//for checking existing user
+			
+			$stmt1 =$conn->prepare("SELECT COUNT(*) FROM users WHERE email=?");
+			
+			$stmt1->bind_param('s',$email);
+
+			$stmt1->execute();
+
+			$stmt1->bind_result($num_rows);
+
+			$stmt1->store_result();
+
+			$stmt1->fetch();
+
+		if($num_rows != 0)
+		{
+			header("location:register.php?error=User name not available");
+		}
+		else{
+
+				//for new user
+
+				$stmt = $conn->prepare("INSERT INTO users (user_name,phone,email,password) VALUES (?,?,?,?)");
+
+				$stmt->bind_param('ssss',$name,$phone,$email,md5($password));
+
+				//if account created
+				if($stmt->execute()){
+
+					$_SESSION['email'] = $email;
+					$_SESSION['user_name']= $name;
+					$_SESSION['logged_in'] = true;
+					header("location:account.php?register=You Registered Successfully");
+				}
+				//if not account created
+				else{
+					header('location:register.php?error=Account Not Created');
+				}
+
+			}
+	}
+}
+// else{
+// 	header("location:register.php?error=Please fill the form");
+// }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-<title>Registration</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<style>
-	body {
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <title>Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+       	body {
 		color: #fff;
 		background: #63738a;
 		font-family: 'Varela Round', sans-serif;
@@ -99,41 +163,45 @@
 	}	
 	.signup-form form a:hover{
 		text-decoration: underline;
-	}  
-</style>
-</head>
+	} 
+    </style>
 <body>
 <div class="signup-form">
-    <form action="register.php" method="post">
-		<h2>Register</h2>
-		<p class="hint-text">Create your account. It's free and only takes a minute.</p>
-        <div class="form-group">
-			<div class="row">
-				<div class="col-xs-6"><input type="text" class="form-control" name="first_name" placeholder="First Name" required="required"></div>
-				<div class="col-xs-6"><input type="text" class="form-control" name="last_name" placeholder="Last Name" required="required"></div>
-			</div>        	
-        </div>
-		<div class="form-group">
-        	<input type="phone" class="form-control" name="phone" placeholder="70220 15320" required="required">
-        </div>
+        <form id="register-form" action="register_user.php" method="POST">
+            <h2>Register</h2>
+            <p class="hint-text">Create your account. It's free and only takes a minute.</p>
+            <p style="color:red;"><?php if(isset($_GET['error'])) { echo $_GET['error']; } ?></p>
+            <!-- Display error message here -->
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-6">  </div>
+                                  
+                </div>  
+				<input type="text" class="form-control" name="name" placeholder="Name" required="required">        
+            </div>
+            <div class="form-group">
+                <input type="phone" class="form-control" name="phone" placeholder="70220 15320" required="required">
+            </div>
         <div class="form-group">
         	<input type="email" class="form-control" name="email" placeholder="Email" required="required">
         </div>
 		<div class="form-group">
             <input type="password" class="form-control" name="password" placeholder="Password" required="required">
         </div>
-			<!-- <div class="form-group">
+			<div class="form-group">
 				<input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">
-			</div>         -->
+			</div>        
         <div class="form-group">
 			<label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="T&C.html">Terms of Use &amp; Privacy Policy</a></label>
 		</div>
 		<div class="form-group">
-            <button type="submit" name="register" class="btn btn-success btn-lg btn-block">Register Now</button>
+            <button type="submit"  class="btn btn-success btn-lg btn-block" name="register">Register Now</button>
         </div>
     </form>
 	<div class="text-center">Already have an account? <a href="login_user.php">Sign in</a></div>
 </div>
+
+
 <center>
 <footer class="section-p1">
     <div class="copyright">
