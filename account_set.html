@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Information</title>
+  <title>Change Password</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -41,19 +41,21 @@
 </head>
 <body>
   <div class="container">
-    <h2>User Information</h2>
-    <p>Name: <link>John Doe</link></p>
-    <p>Email: <link>johndoe@example.com</link></p>
-    <p>Address: <link>123 Main St, City, Country</link></p>
-    <p>Phone: <link>123-456-7890</link></p>
-    <button onclick="removeAccount()">Remove my account</button>
+    <h2>Change Password</h2>
+    <form action="/change_password" method="post">
+      <label for="current_password">Current Password</label>
+      <input type="password" id="current_password" name="current_password" required>
+      
+      <label for="new_password">New Password</label>
+      <input type="password" id="new_password" name="new_password" required>
+      
+      <label for="confirm_password">Confirm New Password</label>
+      <input type="password" id="confirm_password" name="confirm_password" required>
+      
+      <button type="submit">Change Password</button>
+    </form>
+  
   </div>
-
-  <script>
-    function removeAccount() {
-      // Add logic to remove the user's account
-      alert('Are you sure you want to remove your account?'); // Example alert, replace with actual logic
-    }
-  </script>
+  
 </body>
 </html>

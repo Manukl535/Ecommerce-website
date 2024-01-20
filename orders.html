@@ -4,8 +4,26 @@
 <head>
   <title>Orders</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <link rel="stylesheet" href="styles.css">
   <style>
+   table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+   
+      text-align: center;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #fff;
+      border:1px solid black;
+      border-left: none;
+      border-right: none;
+}
            
             
 
@@ -13,52 +31,24 @@
   </style>
 </head>
 <body>
-  <!--Header Section-->
-  <section id="top">
-    <img src="Assets/logo.png" alt="logo">
-    <div>
-      <ul id="headings">
-        <li>
-          <a href="index.php">Home</a>
-        </li>
-        <li>
-          <a href="shop.php">Shop</a>
-        </li>
-        <li>
-          <a href="about.php">About Us</a>
-        </li>
-        <li>
-          <a href="contact.html">Contact Us</a>
-        </li><!-- <li><a href="login.html"><i style="font-size:24px" class="fa">&#xf007;</i></a></li>
-                    <li><a href="cart.html"><i style="font-size:24px" class="fa">&#xf07a;</i></a></li> -->
-      </ul>
-    </div>
-  </section>
+  
   <section id="cart" class="section-p1">
-    <table width="100%">
-      <thead>
-        <tr>
-          
-          <td>Product</td>
-          <td>Description</td>
-          <td>Date</td>
-          <td>Quantity</td>
-         
-        </tr>
-      </thead>
-      <tbody>
-
-    <tr>
-      <td>
-       
- 
-  
-</form>
-      </td>
-     
-</tbody>
+    <h4 style="text-align: center;">Your Orders</h4><br/>
+    <table>
+      <tr>
+        <th>Product</th>
+        <th>Description</th>
+        <th>Ordered Date</th>
+        <th>Order Staus</th>
+      </tr>
+      <tr>
+        <td><img src="Assets/frock6.jpg" alt="Product 1"></td>
+        <td>Description of Product </td>
+        <td>2024-01-23</td>
+        <td>Delivered</td>
+      </tr>
+    
     </table>
-  
   
  
 </body>
