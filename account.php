@@ -303,7 +303,7 @@
  
 <div class="acct-links-container" style="display: flex;">
   <div class="acct-userbox">
-    <p><img src="Assets/Mediamodifier-Design-Template.png" alt="Mediamodifier-Design-Template"></p>
+    <p><img src="Assets/user_icon.png"></p>
     <p>Hello,<b>SRISHA L</b></p>
   </div>
   <div class="acct-links-container" style="display: flex; flex-direction: column;">
