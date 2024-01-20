@@ -132,8 +132,8 @@
            <!-- Pagination -->
            <div class="pagination">
             <a href="shop.php">&laquo;</a>
-            <a class="active" href="shop.php">1</a>
-            <a class="" href="shop2.php">2</a>
+            <a class="" href="shop.php">1</a>
+            <a class="active" href="shop2.php">2</a>
             <a href="#"> . . .</a>
            
             

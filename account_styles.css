@@ -1,0 +1,52 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+  h3 {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .acct-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px 0;
+    text-decoration: none;
+  }
+
+  .acct-userbox {
+    width: 200px;
+    background-color: #fff;
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 40px;
+
+  }
+
+  .acct-box {
+    width: 220px;
+    background-color: #fff;
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 40px;
+
+  }
+
+  .acct-box p {
+    font-size: 18px;
+  }
+
+  
+
+  .acct-container a {
+    text-decoration: none; 
+    color: inherit;
+  }
