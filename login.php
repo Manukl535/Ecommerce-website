@@ -40,7 +40,7 @@ if ($result->num_rows > 0) {
     $username = $_SESSION['username'];
     echo "Username: $username<br>";
     // Redirect to the index page
-    header("Location: index.php");
+    header("Location: account.php");
     exit;
 } else {
     $message = "Invalid Username or Password";
