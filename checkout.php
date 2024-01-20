@@ -164,9 +164,10 @@ input[type=submit]{
     <div class="col-75">
         <div class="container">
             <form action="Includes/place_order.php" method="POST">
-
+            <button onclick="history.back()"  style='background-color:white'><span style='font-size:20px; background-color:white'>&#129092;</span></button>
                 <div class="row">
                     <div class="col-50">
+                        
                         <h3>Shipping Address</h3>
                         <label for="fname"><i class="fa fa-user"></i> Full Name</label>
                         <input type="text" id="fname" name="name" placeholder="SRISHA L" required>

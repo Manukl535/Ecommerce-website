@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('connection.php');
+include('payment.php');
 
 if (isset($_POST['place_order'])) {
 
