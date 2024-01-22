@@ -1,69 +1,62 @@
 <?php
 session_start();
 include("Includes/connection.php");
-if(isset($_POST['register']))
-{
-$name = $_POST['name'];
-$phone = $_POST['phone'];
-$email = $_POST['email'];
-$password = $_POST['password'];
-$confirm_password = $_POST['confirm_password'];
 
-//password match
-if($password !== $confirm_password){
-	header("location:register.php?error=Password doesn't mactch");
+if(isset($_SESSION['logged-in'])){
+	header('location:account.php?');
+	exit;
 }
-//length of password
-else if(strlen($password)<8){
-	header("location:register.php?error=Password must contain 8 charactes");
-}
-else
-{	
-			//for checking existing user
-			
-			$stmt1 =$conn->prepare("SELECT COUNT(*) FROM users WHERE email=?");
-			
+
+if(isset($_POST['register'])){
+
+	$name = $_POST['name'];
+	$phone = $_POST['phone'];
+	$email = $_POST['email'];
+	$password = $_POST['password'];
+	$confirm_password = $_POST['confirm_password'];
+
+	//pass=confirm pass
+	if($password !== $confirm_password){
+		header('location:register_user.php?error=Password did not match');
+		
+	}
+	//length of pass
+	else if(strlen($password) < 6){
+		header('location:register_user.php?error=Password must have 6 characters');
+	//if all correct
+	}else{
+			//for existing email
+			$stmt1 = $conn->prepare("SELECT COUNT(*) FROM users WHERE email=?");
 			$stmt1->bind_param('s',$email);
-
 			$stmt1->execute();
-
 			$stmt1->bind_result($num_rows);
-
 			$stmt1->store_result();
-
 			$stmt1->fetch();
 
-		if($num_rows != 0)
-		{
-			header("location:register.php?error=User name not available");
-		}
-		else{
-
-				//for new user
-
-				$stmt = $conn->prepare("INSERT INTO users (user_name,phone,email,password) VALUES (?,?,?,?)");
-
-				$stmt->bind_param('ssss',$name,$phone,$email,md5($password));
-
-				//if account created
-				if($stmt->execute()){
-
-					$_SESSION['email'] = $email;
-					$_SESSION['user_name']= $name;
-					$_SESSION['logged_in'] = true;
-					header("location:account.php?register=You Registered Successfully");
-				}
-				//if not account created
-				else{
-					header('location:register.php?error=Account Not Created');
-				}
-
+			if($num_rows != 0){
+				header('location:register_user.php?error=Email Already Taken, Try Again');
 			}
-	}
+			//for new user
+			else{
+			$stmt = $conn->prepare("INSERT INTO users (user_name,phone,email,password) VALUES (?,?,?,?)");
+
+			$stmt->bind_param('ssss',$name,$phone,$email,$password);
+
+			if($stmt->execute()){
+				$_SESSION['email']=$email;
+				$_SESSION['name']=$name;
+				$_SESSION['logged-in']=true;
+				header('location:account.php?message=You registered succesfully');
+			}
+			else{
+				header('location:register_user.php?error=Account cannot be created');
+			}
+		}
+			
+
+		}
+		
 }
-// else{
-// 	header("location:register.php?error=Please fill the form");
-// }
 
 ?>
 
@@ -170,8 +163,8 @@ else
         <form id="register-form" action="register_user.php" method="POST">
             <h2>Register</h2>
             <p class="hint-text">Create your account. It's free and only takes a minute.</p>
-            <p style="color:red;"><?php if(isset($_GET['error'])) { echo $_GET['error']; } ?></p>
-            <!-- Display error message here -->
+            <center><p style="color:red;"><?php if(isset($_GET['error'])) { echo $_GET['error']; } ?></p></center>
+            
             <div class="form-group">
                 <div class="row">
                     <div class="col-xs-6">  </div>
