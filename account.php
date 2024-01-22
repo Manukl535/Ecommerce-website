@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['logged-in'])){
+  header('location:login_user.php');
+  exit;
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -125,17 +134,17 @@
         outline: none;
         }
         .newsletter  button{
-  height: 3rem;
-  padding: 0 1.24em;
-  background-color: #04AA6D;
-  color: #eef7f6;
-  white-space: inherit;
-  padding:  13px;
-  border :1px double black;
-  width: 30%;
-  border-radius: 4px;
-}
- .close {
+        height: 3rem;
+        padding: 0 1.24em;
+        background-color: #04AA6D;
+        color: #eef7f6;
+        white-space: inherit;
+        padding:  13px;
+        border :1px double black;
+        width: 30%;
+        border-radius: 4px;
+      }
+       .close {
             position:left;
             top:10px;
             right: 10px;
@@ -143,7 +152,7 @@
             padding-left: 500px;
             font-size: 30px;
             cursor: pointer;
- }
+          }
 
  .search-container {
   position: relative;
@@ -227,10 +236,10 @@
   }
 
 
-  </style>
+</style>
 </head>
 
-<body bgcolor="#fff">
+<body>
       <!--Header Section-->
 
       <section id="top">
@@ -305,7 +314,9 @@
 <div class="acct-links-container" style="display: flex;">
   <div class="acct-userbox">
     <p><img src="Assets/user_icon.png"></p>
-    <p>Hello,<b>SRISHA L</b></p>
+   
+    <p>Hello, <b><?php echo $_SESSION['user_name']; ?></b></p>
+
   </div>
   <div class="acct-links-container" style="display: flex; flex-direction: column;">
     <a href="orders.html" target="content">
@@ -326,7 +337,7 @@
   </div>
   <iframe name="content" style="width: 60%; margin-left: 20px;" id="content" src="Personal_info.html"></iframe>
 </div>
-<br/><br/>
+<!-- <br/><br/>
 <form action="email.php" method="post">
     <section id = "subscribe">
         
@@ -384,6 +395,6 @@
 
    </footer>
     
- 
+  -->
 </body>
 </html>

@@ -46,7 +46,8 @@ if(isset($_POST['register'])){
 				$_SESSION['email']=$email;
 				$_SESSION['name']=$name;
 				$_SESSION['logged-in']=true;
-				header('location:account.php?message=You registered succesfully');
+				echo '<script>alert("Redirecting to Login page");</script>';
+				header('location:login_user.php?message=You registered successfully');
 			}
 			else{
 				header('location:register_user.php?error=Account cannot be created');
@@ -164,7 +165,6 @@ if(isset($_POST['register'])){
             <h2>Register</h2>
             <p class="hint-text">Create your account. It's free and only takes a minute.</p>
             <center><p style="color:red;"><?php if(isset($_GET['error'])) { echo $_GET['error']; } ?></p></center>
-            
             <div class="form-group">
                 <div class="row">
                     <div class="col-xs-6">  </div>
