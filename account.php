@@ -337,64 +337,6 @@ if(!isset($_SESSION['logged-in'])){
   </div>
   <iframe name="content" style="width: 60%; margin-left: 20px;" id="content" src="Personal_info.html"></iframe>
 </div>
-<!-- <br/><br/>
-<form action="email.php" method="post">
-    <section id = "subscribe">
-        
-        <div class="updates">
-        <h4><b>Signup for updates</b></h4>
-        <p><b>Get updates on Sale and <span>Special offers</span></b></p>
-        </div>
-    
-        <div class="form">
-            <input type="text" name="email" id="emailInput" placeholder="Enter your mail"/><button class="normal" style="width: fit-content;" >subscribe</button>
-        </div>
-          
-    </form>
-    </section>
-<footer class="section-p1">
-    <div class="col">
-        <img src="Assets/logo.png"><br/>
-        <h4>Contact Us</h4>
-        <p>Address:223 Main Street Electonic City Bengaluru 562107</p>
-        <p>Phone:+91 98765 43210</p>
-        <p>Email:posh.com</p>
-        <div class="follow">
-            <h4>Follow Us</h4>
-            <div class="col">
-                <ul>
-                <i class="fa fa-facebook-official" style="font-size:36px"></i>
-                <i class="fa fa-instagram" style="font-size:36px"></i>
-                <i class="fa fa-twitter-square" style="font-size:36px"></i>
-            </ul>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col">
-        <h4>About </h4>
-        <a href="about.php">About Us</a>
-        <a href="T&C.html">Privacy Policy</a>
-        <a href="T&C.html">Terms & Conditions</a>
-        <a href="contact.html">Contact Us</a>
-    </div>
-    <div class="col">
-        <h4>My Account</h4>
-        <a href="login.html">Signin</a>
-        <a href="cart.php">Cart</a>
-        <a href="contact.html">Help</a>
-    </div>
-    <div class="payment">
-            <h4>Secured Payment Gateways</h4>
-        <img src="Assets/payment.png">
-    </div>
-    <div class="copyright">
-        <p>2023 &#169; All Rights Reserved</p><p>Designed and Maintained by <b>Manu </b>and <b>Srisha</b></p>
-    </div>
 
-
-   </footer>
-    
-  -->
 </body>
 </html>
