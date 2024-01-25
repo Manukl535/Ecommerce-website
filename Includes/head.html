@@ -192,9 +192,13 @@
         // Get the modal
         var modal = document.getElementById('myModal');
       
-        // Function to display the modal after 2 or 3 seconds
+        // Check if the modal should be displayed
         function displayModal() {
-          modal.style.display = "block";
+          // Check if the modal has been displayed before
+          if (!localStorage.getItem('modalDisplayed')) {
+            modal.style.display = "block";
+            localStorage.setItem('modalDisplayed', true); // Set a flag in local storage to indicate that the modal has been displayed
+          }
         }
       
         // Call the displayModal function after 2 seconds (2000 milliseconds)
