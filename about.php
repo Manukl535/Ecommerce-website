@@ -229,7 +229,7 @@ if(!isset($_SESSION['logged-in'])){
 
 iframe {
   flex: 1;
-  height: 80vh;
+  height: 70vh;
   border: 1px solid beige;
   border-radius: 20px;
 }
