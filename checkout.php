@@ -1,6 +1,7 @@
 <?php
   session_start();
   if (!empty($_SESSION['cart']) && isset($_POST['checkout'])) {
+   
   } else {
     header('location:index.php');
   }

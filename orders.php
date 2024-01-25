@@ -56,7 +56,7 @@
     <script>
       function navigateToPage() {
         // Replace 'page-url' with the actual URL of the page you want to navigate to
-        window.location.href = 'page-url';
+        window.location.href = 'Assets/Invoice_Format.pdf';
       }
     </script>
  

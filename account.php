@@ -5,336 +5,278 @@ if(!isset($_SESSION['logged-in'])){
   header('location:login_user.php');
   exit;
 }
+if(isset($_POST['Change_Password'])){
+  $password = $_POST['new_password'];
+  $confirm_password = $_POST['confirm_password'];
+  $user_name = $_SESSION['$user_name'];
+
+  //pass=confirm pass
+  if($password !== $confirm_password){
+    header('location:account.php?error=Password did not match');
+    
+  }
+  //length of pass
+  else if(strlen($password) < 6){
+    header('location:account.php?error=Password must have 6 characters');
+  //if all correct
+  }
+  else{
+    $stmt=$conn->prepare("UPDATE users SET password=? WHERE user_name=?");
+    $stmt->bind_param('ss',$password,$user_name);
+    if($strmt->execute()){
+      header("location:account.php?message=Password Updated Successfully");
+    }
+    else{
+      header("location:account.php?error=Couldn't Update the Password");
+    }
+  }
+}
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="styles.css">
-  <title></title>
+  <title>User Profile</title>
   <style>
-
-    
-.dropdown {
-  position: relative;
-  display: inline-block;
-  padding-bottom: 3px;
-  
-  
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  margin: 0 0 0 10px;
-  
-}
-
-.dropdown:hover .dropdown-content {
-  display:block;
-  
-  
-  
-}
-
-.dropbtn::before {
-    
-  content: "";
-  position: absolute;
-  top: 60%;
-  right: 10px;
-  transform: translateY(-50%);
-  /* border: solid #000; */
-  border-width: 0 2px 2px 0;
-  display: inline-block;
-  padding: 3px;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  
-}
-
-.dropdown-content a:hover {
-  background-color: #f1f1f1;
-}
-.test{
-    padding-bottom: 2px;
-    border: 1px solid #fff;
-    padding: 10px; 
-    border-radius: 25px;
-    
-    
-    
-}
-.test:hover{
-    background-color:green;
-    border-radius: 25px; 
-    color: #fff;
-}
-
-#myModal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            
+            width: 100%;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            
+            
             
         }
+      
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-section {
+            margin-bottom: 30px;
+        }
+        .profile-section h2 {
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        table {
+      border-collapse: collapse;
+      width: 100%;
+    }
 
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto; /* 15% from the top and centered */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%; /* Could be more or less, depending on screen size */
-            border-radius: 20px;
-        }
-        .modal-content  {
-            display: flex; /* Use flexbox */
-            align-items: center; /* Center items vertically */
-        }
+    th, td {
+   
+      text-align: center;
+      padding: 8px;
+    }
 
-         .modal-content img  {
-            max-width: 100%; /* Ensure the image doesn't exceed its container */
-            border :1px double pink;
-            border-radius: 13px;
+    th {
+      background-color: #fff;
+      border:1px solid black;
+      border-left: none;
+      border-right: none;
+  }
+        form {
+            display: flex;
+            flex-direction: column;
         }
-
-         .newsletter  {
-            flex: 1; /* Fill remaining space */
-            padding: 0 20px; /* Add some padding */
+        label {
+            margin-bottom: 8px;
         }
-        .newsletter h3{
-         text-align: center;
-         }
-
-         .newsletter input{
-         height: 3rem;
-         padding: 0 1.24em;
-         width: 60%;
-         border :1px double black;
-        font-size: 14px;
-        border-radius: 4px;
-        outline: none;
+        input[type="password"] {
+            padding: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
         }
-        .newsletter  button{
-        height: 3rem;
-        padding: 0 1.24em;
-        background-color: #04AA6D;
-        color: #eef7f6;
-        white-space: inherit;
-        padding:  13px;
-        border :1px double black;
-        width: 30%;
-        border-radius: 4px;
-      }
-       .close {
-            position:left;
-            top:10px;
-            right: 10px;
-            padding-bottom: 300px;
-            padding-left: 500px;
-            font-size: 30px;
+        input[type="submit"] {
+            padding: 10px;
+            border: none;
+            background-color: #4caf50;
+            color: white;
             cursor: pointer;
-          }
-
- .search-container {
-  position: relative;
-  display: inline-block;
-}
-
-.search-input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  outline: none;
-
-}
-.search-btn{
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  outline: none;
-  color: #04AA6D;
-  background-color: #eef7f6;
-}
-
+            border-radius: 4px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        body {
+      font-family: Arial, sans-serif;
+    }
     .container {
-    display: flex;
-  }
+      width: 90%;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      
+    }
+    .container h2{
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 50%;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
 
-  .user-container {
-    display: flex;
-    align-items: center; 
-  }
-
-  user-icon {
-    margin-right: 20px; 
-  }
-
-  body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-}
-
-.acct-userbox {
+  .acct-userbox {
   width: 200px;
   height: 180px;
-  background: linear-gradient(to bottom, #e5eeff, #f9f9f9);
+  background: linear-gradient(to right, #4CAF50, #2196F3);
   margin: 10px;
   padding: 10px;
   text-align: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 30px;
-}
+  }
 
-.acct-box {
-  width: 200px;
-  background: linear-gradient(to bottom, #e5eeff, #f9f9f9);
-  margin: 10px;
-  padding: 10px;
-  text-align: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 50px;
-}
-
-.acct-box p {
-  font-size: 18px;
-  margin: 5px 0; /* Adjust the margin to reduce line spacing */
-}
-
-.acct-links-container a {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  margin-bottom: 10px;
-}
-
-iframe {
-  flex: 1;
-  height: 80vh;
-  border: 1px solid beige;
-  border-radius: 20px;
-}
-
-</style>
+  </style>
 </head>
-
 <body>
-      <!--Header Section-->
-
-      <section id="top">
-        <img src="Assets/logo.png">
-                         
+  <section id="top">
+    <img src="Assets/logo.png" alt="logo">
     <div>
-       
-        <ul id="headings">
-       
-            <li><a href="index.php">Home</a></li>
-            <li>
-                <div class="dropdown">
-                  
-                    <div class="dropbtn">
-                      <div><a>Men's</a></div> 
-                  
-                </div>   
-                  <div class="dropdown-content">
-                    <a href="mens_app.html">Apperal</a>
-                    
-                    <a href="mens_foot.html">Footwear</a>
-                    <a href="mens_acc.html">Accessories</a>
-                  </div>
-                
-                
-              </li>
-              <li>
-                <div class="dropdown">
-                  
-                    <div class="dropbtn">
-                      <div><a>Women's</a></div> 
-                  
-                </div>   
-                  <div class="dropdown-content">
-                    <a href="mens_app.html">Apperal</a>
-                    <a href="mens_foot.html">Footwear</a>
-                    <a href="mens_acc.html">Accessories</a>
-                  </div>
-                
-                
-              </li>
-           
-            <li><a href="about.php">About Us</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-            <li>
-                <div class="dropdown">
-                  <a href="login_user.php">
-                    <div class="dropbtn">
-                      <div class="test" ><i style="font-size:20px" class="fa" >&#xf2be;&nbsp;</i>Login&nbsp;&#11167;</div> 
-                  </a>
-                </div>   
-                  <div class="dropdown-content">
-                    <a href="account.php"><img src="Assets/dashboard.png">&nbsp;Dashboard</a>
-                    <a href="logout.php"><i style="font-size:24px" class="fa">&#xf08b;</i>Logout</a>
-                  </div>
-                
-                
-              </li>
-            <li><a href="cart.php"><i style="font-size:24px" class="fa">&#xf07a; </i> Cart</a></li>
-           <input type="text" class="search-input" placeholder="Search..."><button class="search-btn">Search</button>
-           
-        </ul>
-    
+      <ul id="headings">
+        <li>
+          <a href="index.php">Home</a>
+        </li>
+        <li>
+          <a href="shop.php">Shop</a>
+        </li>
+        <li>
+          <a href="about.php">About Us</a>
+        </li>
+        <li>
+          <a href="contact.html">Contact Us</a>
+        </li><!-- <li><a href="login.php"><i style="font-size:24px" class="fa">&#xf007;</i></a></li>-->
+        <li>
+          <a href="cart.php"><i style="font-size:24px" class="fa"></i></a>
+        </li>
+      </ul>
     </div>
-
-     
-</section>
-<br/>
-
-  
+  </section>
+  <div class="acct-links-container" style="display: flex;justify-content: center;">
+    <div class="acct-userbox">
+      <p><img src="Assets/user_icon.png" alt="user_icon"></p>
+      <p>Hello, <b><?php echo $_SESSION['user_name']; ?></b></p>
+    </div>
+  </div>
+  <div class="container" style="display: flex;">
+    <div class="profile-section" style="flex: 1;">
+      <!-- User info -->
+      <div class="container">
+        <center>
+          <h3>Personal Information</h3><button onclick="toggleEdit()">Edit</button>
+        </center>
+        <form id="userInfoForm" style="display: none;" name="userInfoForm">
+          <label for="name">Name:</label> <input type="text" id="name" name="name" value="SRISHA L" required=""> <label for="email">Email:</label> <input type="text" id="email" name="email" value="srisha@gmail.com" required=""> <label for="phone">Phone:</label> <input type="text" id="phone" name="phone" pattern="[0-9]*" required="" value="9342532878">
+          <center>
+            <button type="submit">Save Changes</button>
+          </center>
+        </form>
+        <div id="userInfoDisplay">
+          <label for="name">Name:</label> <input type="text" id="name" name="name" value="SRISHA L" readonly> <label for="email">Email:</label> <input type="text" id="email" name="email" value="srisha@gmail.com" readonly>  <label for="phone">Phone:</label> <input type="text" id="phone" name="phone" pattern="[0-9]*" value="9342532878" readonly>
+        </div>
+        <form action="/remove_account" method="post">
+          <center>
+            <button type="submit" style="background-color: #f44336;">Remove My Account</button>
+          </center>
+        </form>
+      </div>
+    </div>
+    <script>
+            function toggleEdit() {
+              var form = document.getElementById('userInfoForm');
+              var display = document.getElementById('userInfoDisplay');
+              var editButton = document.querySelector('button');
+              
+              if (form.style.display === 'none') {
+                form.style.display = 'block';
+                display.style.display = 'none';
+                editButton.textContent = 'Cancel';
+              } else {
+                form.style.display = 'none';
+                display.style.display = 'block';
+                editButton.textContent = 'Edit';
+              }
+            }
+    </script>
+    <div class="profile-section" style="flex: 1;">
+      <!-- Change password -->
+      <div class="container" style="height: 63.5vh;">
+        <center>
+          <h3>Change Password</h3>
+          <p style="color:red;"><?php if(isset($_GET['error'])) { echo $_GET['error']; } ?></p>
+          <p style="color:green;"><?php if(isset($_GET['message'])) { echo $_GET['message']; } ?></p>
+        </center>
+        <form id="account-form" action="account.php" method="POST">
+          <label for="new_password">New Password</label> <input type="password" id="new_password" name="new_password" required=""> <label for="confirm_password">Confirm New Password</label> <input type="password" id="confirm_password" name="confirm_password" required="">
+          <center>
+            <button type="submit" name="Change_Password">Change Password</button>
+          </center>
+        </form>
+      </div>
+    </div>
+    </div>
+    <div class="profile-section">
+      <section id="cart" class="section-p1">
+        <h4 style="text-align: center;">Your Orders</h4><br>
+        <table>
+          <tr>
+            <th>Product</th>
+            <th>Description</th>
+            <th>Ordered Date</th>
+            <th>Order Staus</th>
+            <th>Invoice</th>
+          </tr>
+          <tr>
+            <td><img src="Assets/frock6.jpg" alt="Product 1"></td>
+            <td>Description of Product</td>
+            <td>2024-01-23</td>
+            <td>Delivered</td>
+            <td><button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 50%; height: 7vh;color: black;font-weight:bold;border: 1px solid black;border-radius: 50px;" onclick="navigateToPage()"><i style="font-size:18px" class="fa"></i> Download</button></td>
+          </tr>
+        </table>
+        <script>
+              function navigateToPage() {
+                // Replace 'page-url' with the actual URL of the page you want to navigate to
+                window.location.href = 'Assets/Invoice_Format.pdf';
+              }
+        </script>
+      </section>
+    </div>
  
-<div class="acct-links-container" style="display: flex;">
-  <div class="acct-userbox">
-    <p><img src="Assets/user_icon.png"></p>
-   
-    <p>Hello, <b><?php echo $_SESSION['user_name']; ?></b></p>
-
-  </div>
-  <div class="acct-links-container" style="display: flex; flex-direction: column;">
-    <a href="orders.html" target="content">
-      <div class="acct-box">
-        My Orders
-      </div>
-    </a>
-    <a href="account_set.html" target="content">
-      <div class="acct-box">
-        Account Settings
-      </div>
-    </a>
-    <a href="Personal_info.html" target="content">
-      <div class="acct-box">
-        Personal Information
-      </div>
-    </a>
-  </div>
-  <iframe name="content" style="width: 60%; margin-left: 20px;" id="content" src="orders.html"></iframe>
-</div>
-
 </body>
 </html>
