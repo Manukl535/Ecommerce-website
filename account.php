@@ -188,52 +188,51 @@ if(!isset($_SESSION['logged-in'])){
   }
 
   body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    
-  }
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
 
-  .acct-userbox {
+.acct-userbox {
   width: 200px;
-  height: 180px; 
-  background-color: white;
+  height: 180px;
+  background: linear-gradient(to bottom, #e5eeff, #f9f9f9);
   margin: 10px;
   padding: 10px;
   text-align: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  
+  border-radius: 30px;
 }
 
-  .acct-box {
-    width: 200.5px;
-    background-color: white;
-    margin: 10px;
-    padding: 10px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+.acct-box {
+  width: 200px;
+  background: linear-gradient(to bottom, #e5eeff, #f9f9f9);
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+}
 
-  .acct-box p {
-    font-size: 18px;
-    margin: 5px 0; /* Adjust the margin to reduce line spacing */
-  }
+.acct-box p {
+  font-size: 18px;
+  margin: 5px 0; /* Adjust the margin to reduce line spacing */
+}
 
-  .acct-links-container a {
-    text-decoration: none; 
-    color: inherit;
-    display: block; 
-    margin-bottom: 10px; 
-  }
+.acct-links-container a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  margin-bottom: 10px;
+}
 
-  iframe {
-    flex: 1; 
-    height: 80vh;
-    border: beige;
-    border-radius: 20px; 
-  }
-
+iframe {
+  flex: 1;
+  height: 80vh;
+  border: 1px solid beige;
+  border-radius: 20px;
+}
 
 </style>
 </head>
