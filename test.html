@@ -1,2 +1,56 @@
+<!DOCTYPE html>
 <html>
-  
+<head>
+  <title>User Account</title>
+  <style>
+    .acct-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      height: 100vh;
+    }
+    .acct-userbox {
+      flex: 0 1 20%;
+      margin-right: 20px;
+    }
+    .acct-links {
+      flex: 0 1 20%;
+      display: flex;
+      flex-direction: column;
+    }
+    .acct-box {
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+    .content {
+      flex: 1 1 60%;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="acct-container">
+    <div class="acct-userbox">
+      <p><img src="Assets/user_icon.png"></p>
+      <p>Hello, <b><?php echo $_SESSION['user_name']; ?></b></p>
+    </div>
+    <div class="acct-links">
+      <div class="acct-box" onclick="loadContent('orders.html')">My Orders</div>
+      <div class="acct-box" onclick="loadContent('account_set.html')">Account Settings</div>
+      <div class="acct-box" onclick="loadContent('Personal_info.html')">Personal Information</div>
+    </div>
+    <div class="content" id="content"></div>
+  </div>
+
+  <script>
+    function loadContent(url) {
+      fetch(url)
+        .then(response => response.text())
+        .then(data => document.getElementById('content').innerHTML = data);
+    }
+  </script>
+</body>
+</html>

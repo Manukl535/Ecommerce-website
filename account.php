@@ -335,7 +335,7 @@ if(!isset($_SESSION['logged-in'])){
       </div>
     </a>
   </div>
-  <iframe name="content" style="width: 60%; margin-left: 20px;" id="content" src="Personal_info.html"></iframe>
+  <iframe name="content" style="width: 60%; margin-left: 20px;" id="content" src="orders.html"></iframe>
 </div>
 
 </body>
