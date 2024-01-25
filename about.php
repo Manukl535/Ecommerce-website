@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 
@@ -197,7 +198,7 @@ if(!isset($_SESSION['logged-in'])){
 .acct-userbox {
   width: 200px;
   height: 180px;
-  background: linear-gradient(to bottom, #e5eeff, #f9f9f9);
+  background: ;
   margin: 10px;
   padding: 10px;
   text-align: center;
@@ -229,7 +230,7 @@ if(!isset($_SESSION['logged-in'])){
 
 iframe {
   flex: 1;
-  height: 70vh;
+  height: 80vh;
   border: 1px solid beige;
   border-radius: 20px;
 }
