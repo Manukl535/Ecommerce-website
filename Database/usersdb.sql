@@ -56,7 +56,7 @@ CREATE TABLE `orders` (
   `user_city` varchar(50) DEFAULT NULL,
   `user_address` varchar(50) DEFAULT NULL,
   `order_date` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ;ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `orders`

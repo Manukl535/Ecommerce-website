@@ -13,13 +13,14 @@ if (isset($_POST['place_order'])) {
     $city = $_POST['city'];
     $order_cost = $_SESSION['total'];
     $order_status = "on_hold";
-    $user_id = 1;
+    $user_id = $_SESSION['user_id'];
     $order_date = date('Y-m-d H:i:s');
     $state = $_POST['state'];
     $dod = $_POST['dod'];
+    $product_quantity=$_SESSION['total_items'];
 
-    $stmt = $conn->prepare("INSERT INTO orders (order_cost, order_status, user_id, user_phone, user_city, user_address, order_date) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param('issssss', $order_cost, $order_status, $user_id, $phone, $city, $address, $order_date);
+    $stmt = $conn->prepare("INSERT INTO orders (order_cost, order_status, user_id, user_phone, user_city, user_address, order_date,order_quantity) VALUES (?, ?, ?, ?, ?, ?, ?,?)");
+    $stmt->bind_param('isssssss', $order_cost, $order_status, $user_id, $phone, $city, $address, $order_date,$product_quantity);
     $stmt->execute();
 
     $order_id = $conn->insert_id;

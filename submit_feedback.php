@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty(trim($_POST["feedback"]))) {
         
         $message = "Feedback can't be empty";
-        $redirectUrl = "index.php";
+        $redirectUrl = "login_user.php";
         function_alert($message, $redirectUrl);
     }
   else {

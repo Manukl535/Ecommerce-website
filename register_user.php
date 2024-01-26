@@ -1,5 +1,11 @@
 <?php
 session_start();
+function function_alert($message, $redirectUrl) {
+    // Display the alert box
+    echo "<script>alert('$message');</script>";
+    // Redirect to the specified URL after the alert is closed
+    echo "<script>window.location.href = '$redirectUrl';</script>";
+}
 include("Includes/connection.php");
 
 if(isset($_SESSION['logged-in'])){
@@ -7,7 +13,7 @@ if(isset($_SESSION['logged-in'])){
 	exit;
 }
 
-if(isset($_POST['register'])){
+if(isset($_POST['register-btn'])){
 
 	$name = $_POST['name'];
 	$phone = $_POST['phone'];
@@ -15,7 +21,7 @@ if(isset($_POST['register'])){
 	$password = $_POST['password'];
 	$confirm_password = $_POST['confirm_password'];
 
-	//pass=confirm pass
+	//pass_confirm pass
 	if($password !== $confirm_password){
 		header('location:register_user.php?error=Password did not match');
 		
@@ -23,8 +29,9 @@ if(isset($_POST['register'])){
 	//length of pass
 	else if(strlen($password) < 6){
 		header('location:register_user.php?error=Password must have 6 characters');
+	}
 	//if all correct
-	}else{
+	else{
 			//for existing email
 			$stmt1 = $conn->prepare("SELECT COUNT(*) FROM users WHERE email=?");
 			$stmt1->bind_param('s',$email);
@@ -43,11 +50,17 @@ if(isset($_POST['register'])){
 			$stmt->bind_param('ssss',$name,$phone,$email,$password);
 
 			if($stmt->execute()){
+				$user_id = $stmt->insert_id;
+				$_SESSION['user_id'] = $user_id;
 				$_SESSION['email']=$email;
 				$_SESSION['name']=$name;
-				$_SESSION['logged-in']=true;
-				echo '<script>alert("Redirecting to Login page");</script>';
-				header('location:login_user.php?message=You registered successfully');
+				// $_SESSION['logged-in']=true;
+			
+				// echo '<script>alert("Redirecting to Login page");</script>';
+				// header('location:login_user.php?message=You registered successfully');
+				$message = "You registered successfully..!\\nRedirecting to Login page";
+				$redirectUrl = "login_user.php";
+				function_alert($message, $redirectUrl);
 			}
 			else{
 				header('location:register_user.php?error=Account cannot be created');
@@ -173,7 +186,7 @@ if(isset($_POST['register'])){
 				<input type="text" class="form-control" name="name" placeholder="Name" required="required">        
             </div>
             <div class="form-group">
-                <input type="phone" class="form-control" name="phone" placeholder="70220 15320" required="required">
+                <input type="phone" class="form-control" name="phone" pattern="[0-9]*" placeholder="7022015320" required="required">
             </div>
         <div class="form-group">
         	<input type="email" class="form-control" name="email" placeholder="Email" required="required">
@@ -188,7 +201,7 @@ if(isset($_POST['register'])){
 			<label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="T&C.html">Terms of Use &amp; Privacy Policy</a></label>
 		</div>
 		<div class="form-group">
-            <button type="submit"  class="btn btn-success btn-lg btn-block" name="register">Register Now</button>
+            <button type="submit"  class="btn btn-success btn-lg btn-block" name="register-btn">Register Now</button>
         </div>
     </form>
 	<div class="text-center">Already have an account? <a href="login_user.php">Sign in</a></div>

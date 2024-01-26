@@ -5,6 +5,8 @@
   } else {
     header('location:index.php');
   }
+
+  
 ?>
 
 <!DOCTYPE html>
@@ -70,6 +72,13 @@ input[type=text] {
   border: 1px solid #ccc;
   border-radius: 3px;
 }
+input[type=date] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
 input[type=email] {
   width: 100%;
   margin-bottom: 20px;
@@ -77,7 +86,15 @@ input[type=email] {
   border: 1px solid #ccc;
   border-radius: 3px;
 }
-input[type=date] {
+#states{
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+#cities{
   width: 100%;
   margin-bottom: 20px;
   padding: 12px;
@@ -183,11 +200,23 @@ input[type=submit]{
                     <div class="col-50">
                         <?php echo "<h3>Cart Qty: " . $_SESSION['total_items'] . "</h3>";?>
 
-                        <label for="btn"><i class="fa">&#xf041;</i> State</label>
-                        <input type="text" id="state" name="state" placeholder="Karnataka" required>
+                    <label for="btn"><i class="fa">&#xf041;</i> State</label>
+                    <select type="select" id="states" name="state" onchange="populateCities()">
+                      <option value="karnataka">Karnataka</option>
+                      <option value="maharashtra">Maharashtra</option>
+                      <!-- Add more states as needed -->
+                    </select>
 
-                        <label for="btn"><i class="fa">	&#xf08d;</i> City</label>
-                        <input type="text" id="state" name="city" placeholder="Bengaluru" required>
+                    <label for="btn"><i class="fa">	&#xf08d;</i> City</label>
+                    <select id="cities" name="city">
+                      <!-- Cities for <link>Karnataka</link> -->
+                      <option value="bengaluru" data-state="karnataka"><link>Bengaluru</link></option>
+                      <option value="mysuru" data-state="karnataka"><link>Mysuru</link></option>
+                      <!-- Cities for <link>Maharashtra</link> -->
+                      <option value="mumbai" data-state="maharashtra"><link>Mumbai</link></option>
+                      <option value="pune" data-state="maharashtra"><link>Pune</link></option>
+                      <!-- Add more cities as needed -->
+                    </select>
 
                         <label for="deliverydate"><i class="fa">&#xf274;</i> Date Of Delivery</label>
                         <input type="date" id="deliverydate" name="dod" required>
@@ -204,8 +233,24 @@ input[type=submit]{
         </div>
     </div>
 </div>
-
 <script>
+  function populateCities() {
+  var stateSelect = document.getElementById("states");
+  var citySelect = document.getElementById("cities");
+  var selectedState = stateSelect.options[stateSelect.selectedIndex].value;
+
+  for (var i = 0; i < citySelect.options.length; i++) {
+    var option = citySelect.options[i];
+    if (option.getAttribute("data-state") === selectedState || option.getAttribute("data-state") === null) {
+      option.style.display = "block";
+    } else {
+      option.style.display = "none";
+    }
+  }
+}
+</script>
+<script>
+ 
   // Get the current date
   var today = new Date();
   // Get tomorrow's date
@@ -219,6 +264,10 @@ input[type=submit]{
   document.getElementById("deliverydate").setAttribute("min", tomorrow.toISOString().split('T')[0]);
   document.getElementById("deliverydate").setAttribute("max", lastDay.toISOString().split('T')[0]);
 </script>
+
+<script>
+    
+  </script>
 
 <br>
 <br/>

@@ -7,23 +7,26 @@ if(isset($_SESSION['logged-in'])){
 	exit;
 }
 if(isset($_POST['login-btn'])){
-    $user_name = $_POST['user_name'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $stmt = $conn->prepare("SELECT user_id,user_name,email,password FROM users WHERE user_name=? AND password=? LIMIT 1");
-    $stmt->bind_param('ss',$user_name,$password);
+    $stmt = $conn->prepare("SELECT user_id,phone,user_name,email,password FROM users WHERE email=? AND password=? LIMIT 1");
+    $stmt->bind_param('ss',$email,$password);
      
     if($stmt->execute()){
-        $stmt->bind_result($user_id,$user_name,$email,$password);
+        $stmt->bind_result($user_id,$phone,$user_name,$email,$password);
         $stmt->store_result();
 
         if($stmt->num_rows() == 1){
+          $stmt->fetch();
+          
           $_SESSION['user_id']=$user_id;
           $_SESSION['user_name']=$user_name;
           $_SESSION['email']=$email;
+          $_SESSION['phone']=$phone;
           $_SESSION['logged-in']=true;
 
-          header('location:account.php?message=Logged in Successfully');
+          header('location:account.php?messages=Logged in Successfully');
         }
         else{
             header('location:login_user.php?error=Invalid Email or Password');
@@ -146,7 +149,7 @@ if(isset($_POST['login-btn'])){
     	<h4 class="modal-title">Login to Your Account</h4>
         <center><p style="color:red;"><?php if(isset($_GET['error'])) { echo $_GET['error']; } ?></p></center>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Username" id="username" name="user_name" required="required">
+            <input type="email" class="form-control" placeholder="Email" id="Email" name="email" required="required">
         </div>
         <div class="form-group">
             <input type="password" class="form-control" placeholder="Password" id="password" name="password" required="required">
