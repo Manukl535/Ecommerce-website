@@ -235,7 +235,7 @@ if(isset($_POST['Change_Password'])){
     </script>
     <div class="profile-section" style="flex: 1;">
       <!-- Change password -->
-      <div class="container" style="height: 63.5vh;">
+      <div class="container" style="height: 61vh;">
         <center>
           <h3>Change Password</h3>
           <p style="color:red;"><?php if(isset($_GET['error'])) { echo $_GET['error']; } ?></p>
