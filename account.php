@@ -297,16 +297,21 @@ if(isset($_SESSION['logged-in'])){
             <td><?php echo $row['order_status']; ?></td>
             <td>&#8377; <?php echo $row['order_cost']; ?></td>
             <td><?php echo $row['order_quantity']; ?></td>
-            <td><button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 50%; height: 7vh;color: black;font-weight:bold;border: 1px solid black;border-radius: 50px;" onclick="navigateToPage()">Invoice</button></td>
+
+            <form method="GET" action="invoice.php">
+              <input type="hidden" value="<?php echo $row['order_id'];?>" name="order_id">
+            <td><button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 50%; height: 7vh;color: black;font-weight:bold;border: 1px solid black;border-radius: 50px;"  name="invoice_btn">Invoice</button></td>
             </tr>
+          </form>
           <?php } ?>
         </table>
-        <script>
+        <!-- <script>
+          onclick="navigateToPage()"
               function navigateToPage() {
                 // Replace 'page-url' with the actual URL of the page you want to navigate to
                 window.location.href = 'invoice.php';
               }
-        </script>
+        </script> -->
       </section>
     </div>
  

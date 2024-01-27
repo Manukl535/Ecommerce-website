@@ -2,10 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Invoice</title>
+    <title>Simple Invoice</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,8 +11,7 @@
             padding: 20px;
         }
         .invoice {
-            width: 90%;
-            height:85vh;
+            width: 60%;
             margin: 20px auto;
             border: 1px solid #ccc;
             padding: 20px;
@@ -22,33 +19,20 @@
             background-color: #fff;
         }
         .invoice-header {
-            text-align: right;
+            text-align: center;
             margin-bottom: 20px;
-            margin-right:10px;
-            font-weight:bold;
-            
-            
         }
         .invoice-header h1 {
             margin: 0;
             color: #333;
         }
-        .invoice-header p {
-            margin: 5px 0;
-            color: #555;
-        }
         .invoice-body {
             margin-top: 20px;
-        }
-        .invoice-body p {
-            margin: 5px 0;
-            color: #333;
         }
         .invoice-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
-           
         }
         .invoice-table th, .invoice-table td {
             border: 1px solid #ccc;
@@ -59,74 +43,64 @@
             margin-top: 20px;
             text-align: right;
         }
-        .company-profile {
-            margin-top: 20px;
-            border-top: 1px solid #ccc;
-            padding-top: 20px;
-            style="display:flex; 
-            justify-content:center"
-        }
-        .company-profile h2 {
-            margin: 0;
-            color: #333;
-        }
-        .company-profile p {
-            margin: 5px 0;
-            color: #333;
-        }
     </style>
 </head>
 <body>
 
+<?php
+// Sample data (replace this with your actual data retrieval logic)
+$orderDetails = [
+    'order_id' => 'OD123',
+    'order_date' => '2024-01-27',
+    'products' => [
+        ['name' => 'Product A', 'quantity' => 2, 'price' => 50],
+        ['name' => 'Product B', 'quantity' => 1, 'price' => 30],
+        ['name' => 'Product C', 'quantity' => 3, 'price' => 20],
+    ],
+];
+
+$totalAmount = 0;
+?>
+
 <div class="invoice">
-<center><h1>Invoice</h1></center>
-<div class="invoice-header" >
-            <p>Invoice No:1122</p>
-            <p>Date:26-Jan-2024</p>
-        </div>
-        <div class="company-profile">
-            <h2>Posh Botique</h2>
-            <p>223 Main Street,</p>
-            <p>Electonic City,</p> Bengaluru-07
-            <p>posh.com</p>
-            <p>+91 98765 43210</p>
-        </div>
-       
-        <div class="invoice-body">
-            <p><strong>Bill To:</strong> 
-            <p>SRISHA L</p>
-            <p><strong></strong> 123 Main Street</p>
-
-            <table class="invoice-table">
-                <thead>
-                    <tr>
-                        <th>Order Id</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Item 1</td>
-                        <td>2</td>
-                        <td>$10.00</td>
-                        <td>$20.00</td>
-                    </tr>
-                    <tr>
-                        <td>Item 2</td>
-                        <td>1</td>
-                        <td>$15.00</td>
-                        <td>$15.00</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="invoice-total">
-                <p><strong>Total:</strong> $35.00</p>
-            </div>
-        </div>
-        <center><button onclick="window.print()"><i style="font-size:24px" class="fa">&#xf02f;</i></button></center>
+    <div class="invoice-header">
+        <h1>Invoice</h1>
+        <p>Invoice No: <?php echo $orderDetails['order_id'];?></p>
+        <p>Date: <?php echo $orderDetails['order_date'];?></p>
     </div>
+    <div class="invoice-body">
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th>Order Id</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($orderDetails['products'] as $product) : ?>
+                    <tr>
+                        <td><?php echo $orderDetails['order_id'];?></td>
+                        <td><?php echo $product['name'];?></td>
+                        <td><?php echo $product['quantity'];?></td>
+                        <td><?php echo $product['price'];?></td>
+                        <td><?php
+                            $productTotal = $product['quantity'] * $product['price'];
+                            $totalAmount += $productTotal;
+                            echo $productTotal;
+                        ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <div class="invoice-total">
+            <p><strong>Total: </strong>&#8377; <?php echo $totalAmount;?></p>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
