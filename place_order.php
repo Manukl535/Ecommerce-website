@@ -13,7 +13,7 @@ if (isset($_POST['place_order'])) {
     $city = $_POST['city'];
     $state = $_POST['state'];
     $order_cost = $_SESSION['total'];
-    $order_status = "on_hold";
+    $order_status = "Not Paid";
     $user_id = $_SESSION['user_id'];
     $order_date = date('Y-m-d H:i:s');
     $state = $_POST['state'];
