@@ -99,10 +99,9 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
 <head>
   <title>Index</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel="shortcut icon" type="image/x-icon" href="Assets/logo2.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>

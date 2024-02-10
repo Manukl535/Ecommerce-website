@@ -210,11 +210,11 @@ input[type=submit]{
                     <label for="btn"><i class="fa">	&#xf08d;</i> City</label>
                     <select id="cities" name="city">
                       <!-- Cities for <link>Karnataka</link> -->
-                      <option value="Bengaluru" data-state="karnataka"><link>Bengaluru</link></option>
-                      <option value="Mysuru" data-state="karnataka"><link>Mysuru</link></option>
+                      <option value="Bengaluru" data-state="Karnataka"><link>Bengaluru</link></option>
+                      <option value="Mysuru" data-state="Karnataka"><link>Mysuru</link></option>
                       <!-- Cities for <link>Maharashtra</link> -->
-                      <option value="Mumbai" data-state="maharashtra"><link>Mumbai</link></option>
-                      <option value="Pune" data-state="maharashtra"><link>Pune</link></option>
+                      <option value="Mumbai" data-state="Maharashtra"><link>Mumbai</link></option>
+                      <option value="Pune" data-state="Maharashtra"><link>Pune</link></option>
                       <!-- Add more cities as needed -->
                     </select>
 

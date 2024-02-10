@@ -111,7 +111,7 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
 while($row = $order_details->fetch_assoc()) {
 ?>
 <div class="invoice">
-    <center><h1>Invoice</h1></center>
+    <center><h1>Tax Invoice</h1></center>
     <div class="invoice-header" >
         <p>Invoice No: OD00<?php echo $row['order_id'];?></p>
         <p>Date:<?php echo $row['order_date'];?></p>
