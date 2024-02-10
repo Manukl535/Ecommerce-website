@@ -30,6 +30,11 @@ $stmt4->execute();
 
 $men_up3 = $stmt4->get_result();
 
+//footwear
+$stmt5 = $conn->prepare("SELECT * FROM products WHERE Gender='Men' AND product_category='Apparal/footwear' LIMIT 4");
 
+$stmt5->execute();
+
+$men_footwear = $stmt5->get_result();
 
 ?>

@@ -18,7 +18,7 @@
                     <p><b>Winter Collection With New Designs</b></p>
                 
                 <div class="Collection">
-                    <?php include('Includes/index_men.php'); ?>
+                    <?php include('Includes/index_products.php'); ?>
                     <?php while($row = $index_men->fetch_assoc()) { ?>
                         <div class="product">
                            
@@ -48,7 +48,7 @@
                     
                 
                 <div class="Collection">
-                    <?php include('Includes/index_women.php'); ?>
+                    <?php include('Includes/index_products.php'); ?>
                     <?php while($row = $index_women->fetch_assoc()) { ?>
                         <div class="product">
                         <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
@@ -81,7 +81,7 @@
                     <p><b>New Collection With Eligant Designs</b></p>
                 
                 <div class="Collection2">
-                <?php include('Includes/trending_products.php'); ?>
+                <?php include('Includes/index_products.php'); ?>
                     <?php while($row = $trending_products->fetch_assoc()) { ?>
 
                         <div class="product2">

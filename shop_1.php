@@ -41,7 +41,7 @@
                   
                 
                 <div class="Collection">
-                    <?php include('Includes/index_men.php'); ?>
+                    <?php include('Includes/index_products.php'); ?>
                     <?php while($row = $index_men->fetch_assoc()) { ?>
                         <div class="product">
                            
@@ -67,35 +67,6 @@
                 <?php } ?> 
                 </section>
 
-                <section id="topproduct" class="section-p1">
-                    
-                
-                <div class="Collection">
-                    <?php include('Includes/index_women.php'); ?>
-                    <?php while($row = $index_women->fetch_assoc()) { ?>
-                        <div class="product">
-                        <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
-                           <div class="description">
-                                
-                           <span>Posh</span>
-                                <h5><?php echo $row['product_name']; ?></h5>
-
-                                <div class="rating">
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star-half-o checked"></span>
-                                </div>
-
-                            <h4>&#8377; <?php echo $row['product_price']; ?></h4>
-                            </div>
-
-                         
-                  
-                </div>
-                <?php } ?> 
-                </section>
 
                 <!--Trending section-->
 
@@ -103,7 +74,7 @@
                     
                 
                 <div class="Collection2">
-                <?php include('Includes/trending_products.php'); ?>
+                <?php include('Includes/index_products.php'); ?>
                     <?php while($row = $trending_products->fetch_assoc()) { ?>
 
                         <div class="product2">
@@ -127,6 +98,234 @@
                 </div>
                 <?php } ?>
             </section>
+            
+            <!-- tshirts -->
+
+            <section id="topproduct" class="section-p1">
+                  
+                
+                  <div class="Collection">
+                      <?php include('Includes/men_up.php'); ?>
+                      <?php while($row = $men_up2->fetch_assoc()) { ?>
+                          <div class="product">
+                             
+                             <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                              <div class="description">
+                              <span>Posh</span>
+                                  <h5><?php echo $row['product_name']; ?></h5>
+  
+                                  <div class="rating">
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                  </div>
+  
+                              <h4>&#8377; <?php echo $row['product_price']; ?></h4>
+                              </div>
+  
+                           
+                    
+                  </div>
+                  <?php } ?> 
+                  </section>
+
+                  <!-- polo_tshirts -->
+                  
+                  <section id="topproduct" class="section-p1">
+                  
+                
+                  <div class="Collection">
+                      <?php include('Includes/men_up.php'); ?>
+                      <?php while($row = $men_up3->fetch_assoc()) { ?>
+                          <div class="product">
+                             
+                             <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                              <div class="description">
+                              <span>Posh</span>
+                                  <h5><?php echo $row['product_name']; ?></h5>
+  
+                                  <div class="rating">
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                  </div>
+  
+                              <h4>&#8377; <?php echo $row['product_price']; ?></h4>
+                              </div>
+  
+                           
+                    
+                  </div>
+                  <?php } ?> 
+                  </section>
+
+                  
+                <section id="topproduct" class="section-p1">
+                    
+                
+                    <div class="Collection">
+                        <?php include('Includes/index_products.php'); ?>
+                        <?php while($row = $index_women->fetch_assoc()) { ?>
+                            <div class="product">
+                            <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                               <div class="description">
+                                    
+                               <span>Posh</span>
+                                    <h5><?php echo $row['product_name']; ?></h5>
+    
+                                    <div class="rating">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star-half-o checked"></span>
+                                    </div>
+    
+                                <h4>&#8377; <?php echo $row['product_price']; ?></h4>
+                                </div>
+    
+                             
+                      
+                    </div>
+                    <?php } ?> 
+                    </section>
+
+                       
+               <!-- frocks -->
+                        
+               <section id="topproduct" class="section-p1">
+                  
+                
+                  <div class="Collection">
+                      <?php include('Includes/women_up.php'); ?>
+                      <?php while($row = $frocks->fetch_assoc()) { ?>
+                          <div class="product">
+                             
+                             <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                              <div class="description">
+                              <span>Posh</span>
+                                  <h5><?php echo $row['product_name']; ?></h5>
+  
+                                  <div class="rating">
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                  </div>
+  
+                              <h4>&#8377; <?php echo $row['product_price']; ?></h4>
+                              </div>
+  
+                           
+                    
+                  </div>
+                  <?php } ?> 
+                  </section>
+
+                 
+                  <!-- Sweaters -->
+                        
+                  <section id="topproduct" class="section-p1">
+                  
+                
+                  <div class="Collection">
+                      <?php include('Includes/women_up.php'); ?>
+                      <?php while($row = $sweater->fetch_assoc()) { ?>
+                          <div class="product">
+                             
+                             <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                              <div class="description">
+                              <span>Posh</span>
+                                  <h5><?php echo $row['product_name']; ?></h5>
+  
+                                  <div class="rating">
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                  </div>
+  
+                              <h4>&#8377; <?php echo $row['product_price']; ?></h4>
+                              </div>
+  
+                           
+                    
+                  </div>
+                  <?php } ?> 
+                  </section>
+
+                <!-- Croptops -->
+                        
+                <section id="topproduct" class="section-p1">
+                  
+                
+                  <div class="Collection">
+                      <?php include('Includes/women_up.php'); ?>
+                      <?php while($row = $croptop->fetch_assoc()) { ?>
+                          <div class="product">
+                             
+                             <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                              <div class="description">
+                              <span>Posh</span>
+                                  <h5><?php echo $row['product_name']; ?></h5>
+  
+                                  <div class="rating">
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                  </div>
+  
+                              <h4>&#8377; <?php echo $row['product_price']; ?></h4>
+                              </div>
+  
+                           
+                    
+                  </div>
+                  <?php } ?> 
+                  </section>
+
+                  
+                <!-- onepiece -->
+                        
+                <section id="topproduct" class="section-p1">
+                  
+                
+                  <div class="Collection">
+                      <?php include('Includes/women_up.php'); ?>
+                      <?php while($row = $onepiece->fetch_assoc()) { ?>
+                          <div class="product">
+                             
+                             <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                              <div class="description">
+                              <span>Posh</span>
+                                  <h5><?php echo $row['product_name']; ?></h5>
+  
+                                  <div class="rating">
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                  </div>
+  
+                              <h4>&#8377; <?php echo $row['product_price']; ?></h4>
+                              </div>
+  
+                           
+                    
+                  </div>
+                  <?php } ?> 
+                  </section>
+                
+                  
               <!-- Pagination -->
               <div class="pagination">
             <a href="shop_1.php">&laquo;</a>
