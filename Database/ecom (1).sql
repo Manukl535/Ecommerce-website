@@ -1,0 +1,269 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Feb 10, 2024 at 11:23 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `ecom`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `email`
+--
+
+CREATE TABLE `email` (
+  `email` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `email`
+--
+
+INSERT INTO `email` (`email`) VALUES
+('MANUKLMANU2@GMAIL.COM');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `feedback`
+--
+
+CREATE TABLE `feedback` (
+  `feedback` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `order_id` int(10) NOT NULL,
+  `order_cost` varchar(50) DEFAULT NULL,
+  `order_status` varchar(50) DEFAULT NULL,
+  `user_id` varchar(50) DEFAULT NULL,
+  `user_name` varchar(10) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `user_phone` varchar(50) DEFAULT NULL,
+  `user_city` varchar(50) DEFAULT NULL,
+  `user_state` varchar(20) NOT NULL,
+  `user_address` varchar(50) DEFAULT NULL,
+  `order_date` timestamp NULL DEFAULT NULL,
+  `order_quantity` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `order_cost`, `order_status`, `user_id`, `user_name`, `email`, `user_phone`, `user_city`, `user_state`, `user_address`, `order_date`, `order_quantity`) VALUES
+(3, '899', 'Not Paid', '35', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-10 11:14:57', '1'),
+(4, '889', 'Not Paid', '35', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-10 13:14:54', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_item`
+--
+
+CREATE TABLE `order_item` (
+  `item_id` int(10) NOT NULL,
+  `order_id` int(10) NOT NULL,
+  `product_id` varchar(50) DEFAULT NULL,
+  `product_name` varchar(50) DEFAULT NULL,
+  `product_image` varchar(50) DEFAULT NULL,
+  `product_price` varchar(50) DEFAULT NULL,
+  `product_quantity` varchar(50) DEFAULT NULL,
+  `user_id` varchar(50) DEFAULT NULL,
+  `order_date` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_item`
+--
+
+INSERT INTO `order_item` (`item_id`, `order_id`, `product_id`, `product_name`, `product_image`, `product_price`, `product_quantity`, `user_id`, `order_date`) VALUES
+(6, 3, '11 ', 'Women white relaxed hoodie ', 'women3.png ', '899', '1', '35', '2024-02-10 11:14:57'),
+(7, 4, '3 ', 'Men football printed Hoodie ', 'sweat3.png ', '889', '1', '35', '2024-02-10 13:14:54');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `product_id` int(11) NOT NULL,
+  `Gender` varchar(10) NOT NULL,
+  `product_name` varchar(100) NOT NULL,
+  `product_category` varchar(100) NOT NULL,
+  `product_description` varchar(255) NOT NULL,
+  `product_image` varchar(255) NOT NULL,
+  `product_price` decimal(6,2) NOT NULL,
+  `product_special offer` int(2) NOT NULL,
+  `product_color` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`product_id`, `Gender`, `product_name`, `product_category`, `product_description`, `product_image`, `product_price`, `product_special offer`, `product_color`) VALUES
+(1, 'Men', 'Men Relaxed blue Hoodie', 'Apperal/Hoodie', 'Hoodie in sweatshirt fabric made from a cotton blend. Relaxed fit with a jersey-lined, Soft brushed inside', 'sweat1.png', 899.00, 0, 'Blue'),
+(2, 'Men', 'Men turtle neck hoodie', 'Apperal/Hoodie', 'Turtle neck sweatshirt hoodie fabric made from a cotton blend.  Soft brushed inside', 'sweat2.png\r\n', 799.00, 0, 'Blue'),
+(3, 'Men', 'Men football printed Hoodie', 'Apperal/Hoodie', 'Men football printed fire hoodie.Made with cotton blend,soft brushed inside.', 'sweat3.png', 889.00, 0, 'Blue'),
+(4, 'Men', 'Men printed hoodie', 'Apperal/Hoodie', 'Hoodie with boom prints ,made with cotton blend .Relaxed fit with soft brushed inside', 'sweat4.png', 999.00, 0, 'Blue'),
+(5, 'Men', 'Black Printed Shirt ', 'Apperal/shirt', 'Men\'s Black Printed Shirt', 'shirt1.png', 1199.00, 0, 'Black'),
+(6, 'Men', 'White Printed Shirt', 'Apperal/shirt', 'Men\'s Black Printed Shirt', 'shirt2.png', 1399.00, 0, 'Blue'),
+(7, 'Men', 'Orange Grpahic Shirt', 'Apperal/shirt', 'Men\'s Black Printed Shirt', 'shirt3.png', 1299.00, 0, 'Black'),
+(8, 'Men', 'Green Graphic Shirt', 'Apperal/shirt', 'Men\'s Black Printed Shirt', 'shirt4.png', 699.00, 0, 'Black'),
+(9, 'Women', 'Women hoodie', 'Apperal/Hoodie', 'Women hoodie with soft bruised inside,made with cooton and silk blend.', 'women1.png', 999.00, 0, 'Blue'),
+(10, 'Women', 'Women lavender Hoodie', 'Apperal/Hoodie', 'Hoodie in sweatshirt fabric made from a cotton blend. Relaxed fit with a jersey-lined, Soft brushed inside', 'women2.png', 799.00, 0, 'Blue'),
+(11, 'Women', 'Women white relaxed hoodie', 'Apperal/Hoodie', 'White women Hoodie in sweatshirt fabric made from a cotton blend. Soft brushed inside', 'women3.png', 899.00, 0, 'Blue'),
+(12, 'Women', 'Women printed croptop', 'Apperal/Hoodie', 'Women stylish printed croptop made with cotton and silk blend.Most comfortable as soft brushed inside', 'women4.png', 1299.00, 0, 'Blue'),
+(13, 'Men', 'Men T Shirt', 'Apparal/tshirt', 'T Shirt', 'tshirt1.png', 899.00, 0, 'White'),
+(14, 'Men', 'Men T Shirt', 'Apparal/tshirt', 'T Shirt', 'tshirt2.png', 899.00, 0, 'White'),
+(15, 'Men', 'Men T Shirt', 'Apparal/tshirt', 'T Shirt', 'tshirt3.png', 899.00, 0, 'White'),
+(16, 'Men', 'Men T Shirt', 'Apparal/tshirt', 'T Shirt', 'tshirt4.png', 899.00, 0, 'White'),
+(17, 'Men', 'Men T Shirt', 'Apparal/polo_tshirt', 'T Shirt', 'polot1.png', 899.00, 0, 'White'),
+(18, 'Men', 'Men T Shirt', 'Apparal/polo_tshirt', 'T Shirt', 'polot2.png', 899.00, 0, 'White'),
+(19, 'Men', 'Men T Shirt', 'Apparal/polo_tshirt', 'T Shirt', 'polot3.png', 899.00, 0, 'White'),
+(20, 'Men', 'Men T Shirt', 'Apparal/polo_tshirt', 'T Shirt', 'polot4.png', 899.00, 0, 'White'),
+(21, 'Women', 'Women Frock', 'Apparal/frocks', 'Frock', 'frock1.png', 899.00, 0, 'Gold'),
+(22, 'Women', 'Women Frock', 'Apparal/frocks', 'Frock', 'frock2.jpg', 899.00, 0, 'Gold'),
+(23, 'Women', 'Women Frock', 'Apparal/frocks', 'Frock', 'frock3.jpg', 899.00, 0, 'Gold'),
+(24, 'Women', 'Women Frock', 'Apparal/frocks', 'Frock', 'frock4.jpg', 899.00, 0, 'Gold'),
+(25, 'Women', 'Women Sweater', 'Apparal/sweater', 'Sweater', 'sweat_1.png', 899.00, 0, 'White'),
+(26, 'Women', 'Women Sweater', 'Apparal/sweater', 'Sweater', 'sweat_2.png', 899.00, 0, 'White'),
+(27, 'Women', 'Women Sweater', 'Apparal/sweater', 'Sweater', 'sweat_3.png', 899.00, 0, 'White'),
+(28, 'Women', 'Women Sweater', 'Apparal/sweater', 'Sweater', 'sweat_4.png', 899.00, 0, 'White'),
+(29, 'Women', 'Women Crop Top', 'Apparal/croptop', 'Crop Top', 'crop1.png', 899.00, 0, 'White'),
+(30, 'Women', 'Women Crop Top', 'Apparal/croptop', 'Crop Top', 'crop2.png', 899.00, 0, 'White'),
+(31, 'Women', 'Women Crop Top', 'Apparal/croptop', 'Crop Top', 'crop3.png', 899.00, 0, 'White'),
+(32, 'Women', 'Women Crop Top', 'Apparal/croptop', 'Crop Top', 'crop4.png', 899.00, 0, 'White'),
+(33, 'Women', 'Women Onepiece Dress', 'Apparal/onepiece', 'Onepiece', 'onepiece1.png', 899.00, 0, 'White'),
+(34, 'Women', 'Women Onepiece Dress', 'Apparal/onepiece', 'Onepiece', 'onepiece2.png', 899.00, 0, 'White'),
+(35, 'Women', 'Women Onepiece Dress', 'Apparal/onepiece', 'Onepiece', 'onepiece3.png', 899.00, 0, 'White'),
+(36, 'Women', 'Women Onepiece Dress', 'Apparal/onepiece', 'Onepiece', 'onepiece4.png', 899.00, 0, 'White'),
+(37, 'Women', 'Women Sandal', 'Footwear/sandals', 'Sandal', 'Girls_sandals1.png', 899.00, 0, 'White'),
+(38, 'Women', 'Women Sandal', 'Footwear/sandals', 'Sandal', 'Girls_sandals2.png', 899.00, 0, 'White'),
+(39, 'Women', 'Women Sandal', 'Footwear/sandals', 'Sandal', 'Girls_sandals3.png', 899.00, 0, 'White'),
+(40, 'Women', 'Women Sandal', 'Footwear/sandals', 'Sandal', 'Girls_sandals4.png', 899.00, 0, 'White'),
+(41, 'Women', 'Women Shoes', 'Footwear/shoes', 'Shoes', 'Girl_Shoe1.png', 899.00, 0, 'White'),
+(42, 'Women', 'Women Shoes', 'Footwear/shoes', 'Shoes', 'Girl_Shoe2.png', 899.00, 0, 'White'),
+(43, 'Women', 'Women Shoes', 'Footwear/shoes', 'Shoes', 'Girl_Shoe3.png', 899.00, 0, 'White'),
+(44, 'Women', 'Women Shoes', 'Footwear/shoes', 'Shoes', 'Girl_Shoe4.png', 899.00, 0, 'White'),
+(45, 'Women', 'Women Flats', 'Footwear/flats', 'Flats', 'Flat1.png', 899.00, 0, 'White'),
+(46, 'Women', 'Women Flats', 'Footwear/flats', 'Flats', 'Flat2.png', 899.00, 0, 'White'),
+(47, 'Women', 'Women Flats', 'Footwear/flats', 'Flats', 'Flat3.png', 899.00, 0, 'White'),
+(48, 'Women', 'Women Flats', 'Footwear/flats', 'Flats', 'Flat4.png', 899.00, 0, 'White'),
+(49, 'Women', 'Women Boots', 'Footwear/boots', 'Flats', 'Boots1.png', 899.00, 0, 'White'),
+(50, 'Women', 'Women Boots', 'Footwear/boots', 'Flats', 'Boots2.png', 899.00, 0, 'White'),
+(51, 'Women', 'Women Boots', 'Footwear/boots', 'Flats', 'Boots3.png', 899.00, 0, 'White'),
+(52, 'Women', 'Women Boots', 'Footwear/boots', 'Flats', 'Boots4.png', 899.00, 0, 'White');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `user_id` int(10) NOT NULL,
+  `user_name` varchar(50) NOT NULL,
+  `phone` varchar(10) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `user_name`, `phone`, `email`, `password`) VALUES
+(34, 'TEST', '9876543210', 'TEST@GMAIL.COM', '112233'),
+(35, 'MANU', '7022015320', 'MANU@GMAIL.COM', '112233');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `email`
+--
+ALTER TABLE `email`
+  ADD PRIMARY KEY (`email`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`order_id`);
+
+--
+-- Indexes for table `order_item`
+--
+ALTER TABLE `order_item`
+  ADD PRIMARY KEY (`item_id`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`product_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`user_id`,`email`) USING BTREE;
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `order_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `order_item`
+--
+ALTER TABLE `order_item`
+  MODIFY `item_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
