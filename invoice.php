@@ -42,12 +42,12 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
         }
         .invoice {
             width: 95%;
-            height:84vh;
+            height:100%;
             margin: 20px auto;
-            border: 1px solid #ccc;
+            /* border: 1px solid #ccc; */
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
+            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+            /* background-color: #fff; */
         }
         .invoice-header {
             text-align: right;
@@ -73,11 +73,11 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
             color: #333;
         }
         .invoice-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-           
-        }
+        width: 100%; 
+        border-collapse: collapse;
+        margin: 0 auto; 
+        margin-top: 10px;
+    }
         .invoice-table th, .invoice-table td {
             border: 1px solid #ccc;
             padding: 10px;
@@ -115,6 +115,7 @@ while($row = $order_details->fetch_assoc()) {
     <div class="invoice-header" >
         <p>Invoice No: OD00<?php echo $row['order_id'];?></p>
         <p>Date:<?php echo $row['order_date'];?></p>
+        
     </div>
     <div class="company-profile">
         <h2>Posh Botique</h2>
@@ -130,26 +131,32 @@ while($row = $order_details->fetch_assoc()) {
         <p><?php echo $order_info['user_address']; ?></p>
         <p><?php echo $order_info['user_city']; ?></p>
         <p><?php echo $order_info['user_state']; ?></p>
-        <p><?php echo $order_info['user_phone']; ?></p>
+        <p><?php echo $order_info['user_phone']; ?></p><br/>
         
 
         <table class="invoice-table">
+            
             <thead>
                 <tr>
-                    <th>Order Id</th>
+                    
                     <th>Product Name</th>
                     <th>Quantity</th>
                     <th>Price</th>
-                    <th>Total</th>
+                    <th>Total (Included Tax)</th>
                 </tr>
             </thead>
             <tbody>
+                
+        
+   <center> <p><b>Order Number: OD00<?php echo $row['order_id'];?></b></p></center><br/>
+    
                 <?php
                 // Loop through each product
                 do {
                 ?>
+                
                 <tr>
-                    <td>OD00<?php echo $row['order_id'];?></td>
+                   
                     <td><?php echo $row['product_name'];?></td>
                     <td><?php echo $row['product_quantity'];?></td>
                     <td><?php echo $row['product_price'];?></td>
@@ -170,17 +177,29 @@ while($row = $order_details->fetch_assoc()) {
                 $totalAmount += $row['product_quantity'] * $row['product_price'];
             }
             ?>
-            <p><strong>Total: </strong>&#8377; <?php echo $totalAmount;?></p>
+            <p><strong>Grand Total: </strong>&#8377; <?php echo $totalAmount;?></p>
         </div>
     </div>
 
     
 </div>
 
-<center><button onclick="window.print()"><i style="font-size:24px" class="fa">&#xf02f;</i></button></center>
+<div style="text-align: right;">
+<p><img src="Assets/signature.png" alt="Digital Signature" style="width: 100px; height: auto;"></p>
+    <p>Authorised Sign</p>
+</div>
+<div class="footer" style="text-align: center; margin-top: 20px; border-top: 1px solid #ccc; padding-top: 20px;">
+    <p>Thank you for shopping with Posh Boutique!</p>
+    <p>For any inquiries, please contact support @ <a href="contact.html" style="text-decoration: none; color: black;">posh.com</a></p>
+
+</div>
+
+
 
 </body>
 </html>
+<center><button onclick="window.print()" ><i style="font-size:20px" class="fa" color:black>&#xf02f; </i></button></center>
+
 <?php
 }
 ?>

@@ -1,103 +1,99 @@
 <?php
 session_start();
 
-if(isset($_POST['add_to_cart'])){
-    
-    // if cart is not empty
-    if(isset($_SESSION['cart'])){
-
-        $product_array_ids = array_column($_SESSION['cart'],"product_id");
-        if( !in_array($_POST['product_id'],$product_array_ids))
-        {
-                $product_id = $_POST['product_id'];    
-
-                $product_array = array(
-                    'product_id' => $_POST['product_id'], 
-                    'product_image' =>$_POST['product_image'], 
-                    'product_name' => $_POST['product_name'], 
-                    'product_price' => $_POST['product_price'], 
-                    'product_quantity' => $_POST['product_quantity']
-                );
-        
-                $_SESSION['cart'][$product_id] = $product_array;
-
-        }else{
-            echo '<script>alert ("Product was already added"); </script>';
-            
-
-        }
+if (isset($_POST['add_to_cart'])) {
+    // Check if the cart is set and is an array
+    if (!isset($_SESSION['cart']) || !is_array($_SESSION['cart'])) {
+        $_SESSION['cart'] = array();
     }
-    // if cart is empty
-    else{
+
+    $product_array_ids = array_column($_SESSION['cart'], "product_id");
+    if (!in_array($_POST['product_id'], $product_array_ids)) {
         $product_id = $_POST['product_id'];
-        $product_image = $_POST['product_image'];
-        $product_name = $_POST['product_name'];
-        $product_price = $_POST['product_price'];
-        $product_quantity = $_POST['product_quantity'];
 
-        $product_array = array('product_id' => $product_id, 'product_image' => $product_image, 'product_name' => $product_name, 'product_price' => $product_price, 'product_quantity' => $product_quantity);
+        $product_array = array(
+            'product_id' => $_POST['product_id'],
+            'product_image' => $_POST['product_image'],
+            'product_name' => htmlspecialchars($_POST['product_name']), // Sanitize the product name
+            'product_price' => $_POST['product_price'],
+            'product_quantity' => $_POST['product_quantity']
+        );
 
+        $_SESSION['cart'][$product_id] = $product_array;
+    } else {
+        echo '<script>alert ("Product was already added"); </script>';
+    }
+
+    // calculate total
+    calculatecart();
+} elseif (isset($_POST['remove_product'])) {
+    $product_id = $_POST['product_id'];
+    // Check if the cart is set and is an array
+    if (isset($_SESSION['cart']) && is_array($_SESSION['cart']) && isset($_SESSION['cart'][$product_id])) {
+        unset($_SESSION['cart'][$product_id]);
+    }
+
+    // calculate total
+    calculatecart();
+} elseif (isset($_POST['edit_quantity'])) {
+    $product_id = $_POST['product_id'];
+    $product_quantity = $_POST['product_quantity'];
+
+    // Check if the cart is set and is an array
+    if (isset($_SESSION['cart']) && is_array($_SESSION['cart']) && isset($_SESSION['cart'][$product_id])) {
+        $product_array = $_SESSION['cart'][$product_id];
+        $product_array['product_quantity'] = $product_quantity;
         $_SESSION['cart'][$product_id] = $product_array;
     }
 
-
-
-//calculatetotal
-calculatecart();
-
-}
-
-//Remove the product
-else if(isset($_POST['remove_product'])){
-    $product_id = $_POST['product_id'];
-    unset($_SESSION['cart'][$product_id]);
-
-    //calculatecart
+    // calculate total
     calculatecart();
-}
-else if(isset($_POST['edit_quantity'])){
-   
-    $product_id = $_POST['product_id'];
-
-    $product_quantity = $_POST['product_quantity'];
-
-    $product_array = $_SESSION['cart'][$product_id];
-
-    $product_array['product_quantity'] = $product_quantity;
-
-    $_SESSION['cart'][$product_id] = $product_array;
-
-    //calculatecart
-    calculatecart();
-}
-else{
+} else {
     // header("location:index.php");
 }
-//cart Total
 
-function calculatecart(){
+// cart Total
+function calculatecart()
+{
     $total = 0;
-    foreach($_SESSION['cart'] as $key=>$value){
-        $product = $_SESSION['cart'][$key];
-        $price = $product['product_price'];
-        $quantity = $product['product_quantity'];
-        $total = $total + ($price * $quantity);
+
+    // Check if the cart is set and is an array
+    if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
+        foreach ($_SESSION['cart'] as $key => $value) {
+            if (isset($_SESSION['cart'][$key]['product_price']) && isset($_SESSION['cart'][$key]['product_quantity'])) {
+                $price = $_SESSION['cart'][$key]['product_price'];
+                $quantity = $_SESSION['cart'][$key]['product_quantity'];
+                $total += ($price * $quantity);
+            }
+        }
+    } else {
+        // If $_SESSION['cart'] is not set or not an array, initialize it as an empty array
+        $_SESSION['cart'] = array();
     }
+
     $_SESSION['total'] = $total;
 }
 
-function calculateTotalItems($cart) {
-  $totalQuantity = 0;
-  foreach ($cart as $item) {
-      $totalQuantity += $item['product_quantity'];
-  }
-  return $totalQuantity;
+function calculateTotalItems($cart)
+{
+    $totalQuantity = 0;
+
+    // Check if the cart is set and is an array
+    if (isset($cart) && is_array($cart)) {
+        foreach ($cart as $item) {
+            if (isset($item['product_quantity'])) {
+                $totalQuantity += $item['product_quantity'];
+            }
+        }
+    }
+    return $totalQuantity;
 }
 
-$_SESSION['total_items'] = calculateTotalItems($_SESSION['cart']);
 
-
+// Initialize total_items even if cart is not set or not an array
+$_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_array($_SESSION['cart']) ? $_SESSION['cart'] : array());
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>

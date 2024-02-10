@@ -36,6 +36,36 @@ if(isset($_POST['Change_Password'])){
     }
   }
 }
+elseif (isset($_POST['remove_account'])) {
+  $user_id = $_SESSION['user_id'];
+
+  // Delete from the users table
+  $stmtUsers = $conn->prepare("DELETE FROM users WHERE user_id=?");
+  $stmtUsers->bind_param('i', $user_id);
+  $stmtUsers->execute();
+  $stmtUsers->close();
+
+  // Delete from the orders table
+  $stmtOrders = $conn->prepare("DELETE FROM orders WHERE user_id=?");
+  $stmtOrders->bind_param('i', $user_id);
+  $stmtOrders->execute();
+  $stmtOrders->close();
+
+  // Delete from the order_item table
+  $stmtOrderItems = $conn->prepare("DELETE FROM order_item WHERE user_id=?");
+  $stmtOrderItems->bind_param('i', $user_id);
+  $stmtOrderItems->execute();
+  $stmtOrderItems->close();
+
+  // Logout the user
+  session_unset();
+  session_destroy();
+
+  // Redirect to login_user.php with a message
+  header("location: login_user.php?message=Your account has been removed");
+  exit();
+}
+
 
 //get orders
 if(isset($_SESSION['logged-in'])){
@@ -74,9 +104,7 @@ if(isset($_SESSION['logged-in'])){
             background-color: white;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            
-            
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
             
         }
       
@@ -92,23 +120,23 @@ if(isset($_SESSION['logged-in'])){
             padding-bottom: 5px;
             margin-bottom: 10px;
         }
-        table {
-      border-collapse: collapse;
-      width: 100%;
-    }
+              table {
+            border-collapse: collapse;
+            width: 100%;
+          }
 
-    th, td {
-   
-      text-align: center;
-      padding: 8px;
-    }
+          th, td {
+        
+            text-align: center;
+            padding: 8px;
+          }
 
-    th {
-      background-color: #fff;
-      border:1px solid black;
-      border-left: none;
-      border-right: none;
-  }
+          th {
+            background-color: #fff;
+            border:1px solid black;
+            border-left: none;
+            border-right: none;
+        }
         form {
             display: flex;
             flex-direction: column;
@@ -180,6 +208,7 @@ if(isset($_SESSION['logged-in'])){
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 30px;
   }
+  
 
   </style>
 </head>
@@ -214,72 +243,56 @@ if(isset($_SESSION['logged-in'])){
     </div>
   </div>
   <div class="container" style="display: flex;">
-    <div class="profile-section" style="flex: 1;">
-      <!-- User info -->
-      <div class="container">
-        <center>
-          <h3>Personal Information</h3><button onclick="toggleEdit()">Edit</button>
-        </center>
-        <form id="userInfoForm" style="display: none;" name="userInfoForm">
+        <div class="profile-section" style="flex: 1;">
+            <!-- User info -->
+            <div class="container" style="height: 55vh;">
+                <center>
+                    <h3>Personal Information</h3>
+                </center>
 
-          <label for="name">Name:</label> <input type="text" id="name" name="name" value="<?php if(isset($_SESSION['user_name'])){echo $_SESSION['user_name']; } ?>" required=""> 
-          <label for="email">Email:</label> <input type="text" id="email" name="email" value="<?php if(isset($_SESSION['email'])){echo $_SESSION['email']; } ?>" required="">
-           <label for="phone">Phone:</label> <input type="text" id="phone" name="phone" pattern="[0-9]*" pattern="[0-9]*" value="<?php if(isset($_SESSION['phone'])){echo $_SESSION['phone']; } ?>" required="">
-           
-          <center>
-            <button type="submit">Save Changes</button>
-          </center>
-        </form>
-        <div id="userInfoDisplay">
-          <input type="text" id="name" name="name" value="<?php if(isset($_SESSION['user_name'])){echo $_SESSION['user_name']; } ?>" readonly> 
-          <label for="email">Email:</label> <input type="text" id="email" name="email" value="<?php if(isset($_SESSION['email'])){echo $_SESSION['email']; } ?>" readonly>  
-          <label for="phone">Phone:</label> <input type="text" id="phone" name="phone" pattern="[0-9]*" value="<?php if(isset($_SESSION['phone'])){echo $_SESSION['phone']; } ?>" readonly>
+            <div id="userInfoDisplay">
+              <p><label for="email">Name: <?php if(isset($_SESSION['user_name'])){echo $_SESSION['user_name']; } ?></label></p>
+              <p><label for="email">Email: <?php if(isset($_SESSION['email'])){echo $_SESSION['email']; } ?></label> </p> 
+              <p><label for="phone">Phone: <?php if(isset($_SESSION['phone'])){echo $_SESSION['phone']; } ?></label></p>
+            </div>
+            <form action="account.php" method="post">
+    <center>
+        <br><br><br>
+        <button type="submit" name="remove_account" style='background-color: #f44336; border-radius: 50px;'>Remove My Account</button>
+    </center>
+</form>
+            </div>
         </div>
-        <form action="account.php" method="post">
-          <center>
-            <button type="submit" style="background-color: #f44336;">Remove My Account</button>
-          </center>
-        </form>
-      </div>
+    
+        <div class="profile-section" style="flex: 1;">
+            <!-- Change password -->
+            <div class="container" style="height: 55vh;">
+                <center>
+                    <h3>Change Password</h3>
+                    <p style="color:red;"><?php if (isset($_GET['error'])) { echo $_GET['error']; } ?></p>
+                    <p style="color:green;"><?php if (isset($_GET['message'])) { echo $_GET['message']; } ?></p>
+                </center>
+                <form id="account-form" action="account.php" method="POST">
+                    <label for="new_password">New Password</label> <input type="password" id="new_password"
+                        name="new_password" required="">
+                    <label for="confirm_password">Confirm New Password</label> <input type="password"
+                        id="confirm_password" name="confirm_password" required="">
+                    <center>
+                        <button type="submit" name="Change_Password" style='border-radius: 50px;'>Change Password</button>
+                    </center>
+                </form>
+                <script>
+                    // Add JavaScript to scroll to the changePassword section
+                    if (window.location.hash === '#changePassword') {
+                        document.getElementById('account-form').style.display = 'block';
+                    }
+                </script>
+            </div>
+        </div>
     </div>
-    <script>
-            function toggleEdit() {
-              var form = document.getElementById('userInfoForm');
-              var display = document.getElementById('userInfoDisplay');
-              var editButton = document.querySelector('button');
-              
-              if (form.style.display === 'none') {
-                form.style.display = 'block';
-                display.style.display = 'none';
-                editButton.textContent = 'Cancel';
-              } else {
-                form.style.display = 'none';
-                display.style.display = 'block';
-                editButton.textContent = 'Edit';
-              }
-            }
-    </script>
-   
-    <div class="profile-section" style="flex: 1;">
-      <!-- Change password -->
-      <div class="container" style="height: 58vh;">
-        <center>
-          <h3>Change Password</h3>
-          <p style="color:red;"><?php if(isset($_GET['error'])) { echo $_GET['error']; } ?></p>
-          <p style="color:green;"><?php if(isset($_GET['message'])) { echo $_GET['message']; } ?></p>
-        </center>
-        <form id="account-form" action="account.php" method="POST">
-          <label for="new_password">New Password</label> <input type="password" id="new_password" name="new_password" required=""> 
-          <label for="confirm_password">Confirm New Password</label> <input type="password" id="confirm_password" name="confirm_password" required="">
-          <center>
-            <button type="submit" name="Change_Password">Change Password</button>
-          </center>
-        </form>
-      </div>
-    </div>
-    </div>
-    <div class="profile-section">
-      <section id="cart" class="section-p1">
+
+    <div class="profile-section" id="changePassword">
+        <section id="cart" class="section-p1">
         <h4 style="text-align: center;">Your Orders</h4><br>
         <table>
           <tr>
@@ -305,13 +318,19 @@ if(isset($_SESSION['logged-in'])){
           </form>
           <?php } ?>
         </table>
-        <!-- <script>
-          onclick="navigateToPage()"
-              function navigateToPage() {
-                // Replace 'page-url' with the actual URL of the page you want to navigate to
-                window.location.href = 'invoice.php';
-              }
-        </script> -->
+        <?php
+if ($orders->num_rows > 0) {
+    // Display orders if available
+} else {
+    // Display a message when there are no orders
+    echo "<div style='text-align: center; padding-top: 20px;'>
+            <p style='font-weight: 500; font-weight: bold; color: red;'>Order history is empty!</p>
+            <img src='Assets/no_orders.png' alt='Empty Order History Image' style='width: 150px; height: 150px;'><br/>
+            <a href='shop.php'><button style='background-color: rgb(81, 182, 81); text-decoration: none; font-size: 12px; width: 10%;  color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;'>Order Now!</button></a>
+          </div>";
+}
+?>
+
       </section>
     </div>
  
