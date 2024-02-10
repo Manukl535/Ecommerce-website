@@ -2,8 +2,6 @@
 <head>
     <title>Shoping</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
     <link rel="stylesheet" href="styles.css">
 
     <style>
@@ -47,7 +45,7 @@
                     <?php while($row = $index_men->fetch_assoc()) { ?>
                         <div class="product">
                            
-                           <a href="<?php echo "sweat1.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                           <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
                             <div class="description">
                             <span>Posh</span>
                                 <h5><?php echo $row['product_name']; ?></h5>
@@ -76,7 +74,7 @@
                     <?php include('Includes/index_women.php'); ?>
                     <?php while($row = $index_women->fetch_assoc()) { ?>
                         <div class="product">
-                        <a href="<?php echo "sweat1.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                        <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
                            <div class="description">
                                 
                            <span>Posh</span>
@@ -109,7 +107,7 @@
                     <?php while($row = $trending_products->fetch_assoc()) { ?>
 
                         <div class="product2">
-                        <a href="<?php echo "sweat1.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                        <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
                            <div class="description">
                                 <span>Posh</span>
                                 <h5><?php echo $row['product_name']; ?></h5>
@@ -129,17 +127,17 @@
                 </div>
                 <?php } ?>
             </section>
-           <!-- Pagination -->
-           <div class="pagination">
-            <a href="shop.php">&laquo;</a>
-            <a class="" href="shop.php">1</a>
-            <a class="active" href="shop2.php">2</a>
+              <!-- Pagination -->
+              <div class="pagination">
+            <a href="shop_1.php">&laquo;</a>
+            <a class="active" href="shop_1.php">1</a>
+            <a class="" href="shop_2.php">2</a>
             <a href="#"> . . .</a>
-           
             
-            <a href="shop.php">&raquo;</a>
+            <a href="Shop_2.php">&raquo;</a>
           </div>
           <br/>
+
 
      <!--Subscribe-->
     

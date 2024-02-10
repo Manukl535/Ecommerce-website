@@ -187,7 +187,7 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
           <a href="index.php">Home</a>
         </li>
         <li>
-          <a href="shop.php">Shop</a>
+          <a href="shop_1.php">Shop</a>
         </li>
         <li>
           <a href="about.php">About Us</a>
