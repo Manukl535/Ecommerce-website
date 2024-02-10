@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2024 at 03:00 PM
+-- Generation Time: Feb 10, 2024 at 05:55 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `usersdb`
+-- Database: `ecom`
 --
 
 -- --------------------------------------------------------
@@ -74,7 +74,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `order_cost`, `order_status`, `user_id`, `user_name`, `email`, `user_phone`, `user_city`, `user_state`, `user_address`, `order_date`, `order_quantity`) VALUES
-(1, '899', 'on_hold', '2', 'SRISHA L', 'SRISHA@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-01-27 09:23:39', '1');
+(3, '899', 'Not Paid', '35', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-10 11:14:57', '1');
 
 -- --------------------------------------------------------
 
@@ -99,7 +99,7 @@ CREATE TABLE `order_item` (
 --
 
 INSERT INTO `order_item` (`item_id`, `order_id`, `product_id`, `product_name`, `product_image`, `product_price`, `product_quantity`, `user_id`, `order_date`) VALUES
-(1, 1, '1 ', 'Men Relaxed blue Hoodie ', 'sweat1.png ', '899', '1', '2', '2024-01-27 09:23:39');
+(6, 3, '11 ', 'Women white relaxed hoodie ', 'women3.png ', '899', '1', '35', '2024-02-10 11:14:57');
 
 -- --------------------------------------------------------
 
@@ -175,8 +175,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `phone`, `email`, `password`) VALUES
-(1, 'SRISHA', '9342532878', 'SRISHA@GMAIL.COM', '112233'),
-(2, 'MANU', '7022015320', 'MANU@GMAIL.COM', '112233');
+(34, 'TEST', '9876543210', 'TEST@GMAIL.COM', '112233'),
+(35, 'MANU', '7022015320', 'MANU@GMAIL.COM', '112233');
 
 --
 -- Indexes for dumped tables
@@ -226,13 +226,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `order_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `item_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `item_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `product2`
@@ -250,7 +250,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
