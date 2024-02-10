@@ -19,7 +19,7 @@
     <div>
         <ul id="headings">
             <li><a href="index.php">Home</a></li>
-            <li><a href="shop.php">Shop</a></li>
+            <li><a href="shop_1.php">Shop</a></li>
             <li><a href="about.php">About</a></li>
             <li><a href="contact.html">Contact Us</a></li>
             <!-- <li><a href="login.html"><i style="font-size:24px" class="fa">&#xf007;</i></a></li>-->

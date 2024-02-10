@@ -90,7 +90,7 @@
         <div class="modal-body text-center">
           <h4>Scan The QR Code to Make Payment</h4>
           <p>Total Payment: &#8377; <?php echo $_SESSION['total'] ?></p>
-          <img src="qr.png" class="img-fluid" alt="Centered Image">
+          <img src="Assets/qr.png" class="img-fluid" alt="Centered Image">
           <p>Is Payment Successful?</p>
         </div>
         <div class="modal-footer">
