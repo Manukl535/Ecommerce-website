@@ -35,14 +35,14 @@
 
 
 
-            <!--Flats-->
+            <!--Sandals-->
 
                 <section id="topproduct" class="section-p1">
                   
                 
                 <div class="Collection">
-                    <?php include('Includes/women_up.php'); ?>
-                    <?php while($row = $flats->fetch_assoc()) { ?>
+                    <?php include('Includes/men_up.php'); ?>
+                    <?php while($row = $sandals->fetch_assoc()) { ?>
                         <div class="product">
                            
                            <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
@@ -67,14 +67,14 @@
                 <?php } ?> 
                 </section>
 
-                <!-- Boots -->
+                <!-- Shoes -->
 
                 <section id="topproduct" class="section-p1">
                   
                 
                   <div class="Collection">
-                      <?php include('Includes/women_up.php'); ?>
-                      <?php while($row = $boots->fetch_assoc()) { ?>
+                      <?php include('Includes/men_up.php'); ?>
+                      <?php while($row = $crocks->fetch_assoc()) { ?>
                           <div class="product">
                              
                              <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
@@ -100,15 +100,14 @@
                   </section>
   
                  
-          <!-- Pagination -->
-          <div class="pagination">
-            <a href="women_app_1.php">&laquo;</a>
-            <a class="" href="women_foot_1.php">1</a>
-            <a class="active" href="women_foot_2.php">2</a>
+           <!-- Pagination -->
+           <div class="pagination">
+            <a href="men_foot_1.php">&laquo;</a>
+            <a class="active" href="men_foot_1.php">1</a>
+            <a class="" href="men_foot_2.php">2</a>
             <a href="#"> . . .</a>
-           
             
-            <a href="women_foot_1.php">&raquo;</a>
+            <a href="men_foot_2.php">&raquo;</a>
           </div>
           <br/>
 
