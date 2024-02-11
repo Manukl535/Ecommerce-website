@@ -28,10 +28,37 @@
     </div>
     
      </section>
-     <br/><br/>
+     <style>
+.container {
+  display: flex;
+  justify-content:center;
+}
+
+.box {
     
-            <!--Sunglass-->
-            <center><h1>Accessories</h1></center>
+  flex: 0.2;
+  height: 40px;
+  margin: 10px;
+  text-align: center;
+  line-height: 40px;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 50px; 
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1));
+  
+}
+.box a{
+    text-decoration: none; 
+    color: #fff; 
+    font-weight:bold;
+} 
+
+</style>
+<div class="container" >
+  <div class="box" id="box1" ><a href="shop_1.php">Apperals</a></div>
+  <div class="box" id="box2"><a href="shop_2.php">Footwears</a></div>
+  <div class="box" id="box3"><a href="shop_3.php">Accessories</a></div>
+</div>
 
                 <section id="topproduct" class="section-p1">
                   
@@ -41,7 +68,7 @@
                     <?php while($row = $sunglass->fetch_assoc()) { ?>
                         <div class="product">
                            
-                           <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                           <a href="<?php echo "single_product_acc.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
                             <div class="description">
                             <span>Posh</span>
                                 <h5><?php echo $row['product_name']; ?></h5>
@@ -73,7 +100,7 @@
                       <?php while($row = $sunglass->fetch_assoc()) { ?>
                           <div class="product">
                              
-                             <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                             <a href="<?php echo "single_product_acc.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
                               <div class="description">
                               <span>Posh</span>
                                   <h5><?php echo $row['product_name']; ?></h5>
@@ -111,7 +138,7 @@
                       <?php while($row = $hat->fetch_assoc()) { ?>
                           <div class="product">
                              
-                             <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                             <a href="<?php echo "single_product_acc.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
                               <div class="description">
                               <span>Posh</span>
                                   <h5><?php echo $row['product_name']; ?></h5>
@@ -143,7 +170,7 @@
                       <?php while($row = $hat->fetch_assoc()) { ?>
                           <div class="product">
                              
-                             <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                             <a href="<?php echo "single_product_acc.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
                               <div class="description">
                               <span>Posh</span>
                                   <h5><?php echo $row['product_name']; ?></h5>
@@ -179,7 +206,7 @@
                         <?php while($row = $wallet->fetch_assoc()) { ?>
                             <div class="product">
                                
-                               <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                               <a href="<?php echo "single_product_acc.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
                                 <div class="description">
                                 <span>Posh</span>
                                     <h5><?php echo $row['product_name']; ?></h5>
@@ -212,7 +239,7 @@
                         <?php while($row = $bag->fetch_assoc()) { ?>
                             <div class="product">
                                
-                               <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                               <a href="<?php echo "single_product_acc.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
                                 <div class="description">
                                 <span>Posh</span>
                                     <h5><?php echo $row['product_name']; ?></h5>
@@ -246,7 +273,7 @@
                       <?php while($row = $watch->fetch_assoc()) { ?>
                           <div class="product">
                              
-                             <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                             <a href="<?php echo "single_product_acc.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
                               <div class="description">
                               <span>Posh</span>
                                   <h5><?php echo $row['product_name']; ?></h5>
@@ -278,7 +305,7 @@
                       <?php while($row = $watch->fetch_assoc()) { ?>
                           <div class="product">
                              
-                             <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                             <a href="<?php echo "single_product_acc.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
                               <div class="description">
                               <span>Posh</span>
                                   <h5><?php echo $row['product_name']; ?></h5>
