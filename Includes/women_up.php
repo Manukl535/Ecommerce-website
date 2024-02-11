@@ -28,7 +28,7 @@ $stmt4 = $conn->prepare("SELECT * FROM products WHERE Gender='Women' AND product
 
 $stmt4->execute();
 
-$croptop= $stmt4->get_result();
+$croptop = $stmt4->get_result();
 
 //onepiece
 $stmt5 = $conn->prepare("SELECT * FROM products WHERE Gender='Women' AND product_category='Apparal/onepiece' LIMIT 4");
@@ -87,7 +87,7 @@ $stmt12->execute();
 
 $hat = $stmt12->get_result();
 
-//wallets
+//Handbag
 $stmt13 = $conn->prepare("SELECT * FROM products WHERE Gender='Women' AND product_category='Accessories/bag' LIMIT 4");
 
 $stmt13->execute();

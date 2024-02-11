@@ -22,7 +22,7 @@
                     <?php while($row = $index_men->fetch_assoc()) { ?>
                         <div class="product">
                            
-                           <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                           <a href="<?php echo "single_product_app.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
                             <div class="description">
                             <span>Posh</span>
                                 <h5><?php echo $row['product_name']; ?></h5>
@@ -51,7 +51,7 @@
                     <?php include('Includes/index_products.php'); ?>
                     <?php while($row = $index_women->fetch_assoc()) { ?>
                         <div class="product">
-                        <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                        <a href="<?php echo "single_product_app.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
                            <div class="description">
                                 
                            <span>Posh</span>
@@ -85,7 +85,7 @@
                     <?php while($row = $trending_products->fetch_assoc()) { ?>
 
                         <div class="product2">
-                        <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                        <a href="<?php echo "single_product_app.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
                            <div class="description">
                                 <span>Posh</span>
                                 <h5><?php echo $row['product_name']; ?></h5>

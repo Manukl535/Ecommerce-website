@@ -1,7 +1,7 @@
 <html>
 <head>
     <title>Shoping</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles.css">
 
     <style>
@@ -28,12 +28,16 @@
     </div>
     
      </section>
-     <br/><br/>
 
-         <!--Sandals-->
-         <center><h1>Footwears</h1></center>
 
-         <section id="topproduct" class="section-p1">
+
+
+
+
+
+               <!--Sandals-->
+
+               <section id="topproduct" class="section-p1">
                   
                 
                   <div class="Collection">
@@ -159,9 +163,73 @@
                     <?php } ?> 
                     </section>
     
-           <!--Flats-->
+           
+            <!--Sandals-->
 
-           <section id="topproduct" class="section-p1">
+            <section id="topproduct" class="section-p1">
+                  
+                
+                  <div class="Collection">
+                      <?php include('Includes/women_up.php'); ?>
+                      <?php while($row = $sandals->fetch_assoc()) { ?>
+                          <div class="product">
+                             
+                             <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                              <div class="description">
+                              <span>Posh</span>
+                                  <h5><?php echo $row['product_name']; ?></h5>
+  
+                                  <div class="rating">
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                          <span class="fa fa-star checked"></span>
+                                  </div>
+  
+                              <h4>&#8377; <?php echo $row['product_price']; ?></h4>
+                              </div>
+  
+                           
+                    
+                  </div>
+                  <?php } ?> 
+                  </section>
+  
+                  <!-- Shoes -->
+  
+                  <section id="topproduct" class="section-p1">
+                    
+                  
+                    <div class="Collection">
+                        <?php include('Includes/women_up.php'); ?>
+                        <?php while($row = $shoes->fetch_assoc()) { ?>
+                            <div class="product">
+                               
+                               <a href="<?php echo "single_product.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
+                                <div class="description">
+                                <span>Posh</span>
+                                    <h5><?php echo $row['product_name']; ?></h5>
+    
+                                    <div class="rating">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                    </div>
+    
+                                <h4>&#8377; <?php echo $row['product_price']; ?></h4>
+                                </div>
+    
+                             
+                      
+                    </div>
+                    <?php } ?> 
+                    </section>
+<!--Flats-->
+
+<section id="topproduct" class="section-p1">
                   
                 
                   <div class="Collection">
@@ -223,24 +291,7 @@
                     <?php } ?> 
                     </section>
     
-                  
-
-
-
-
-
-           <!-- Pagination -->
-           <div class="pagination">
-            <a href="shop_1.php">&laquo;</a>
-            <a class="" href="shop_1.php">1</a>
-            <a class="active" href="shop_2.php">2</a>
-            <a href="shop_3.php"> 3</a>
-           
-            
-            <a href="shop_3.php">&raquo;</a>
-          </div>
-          <br/>
-
+                    
      <!--Subscribe-->
     
         <?php include_once("includes/subscribe.html"); ?> 
