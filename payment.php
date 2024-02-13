@@ -88,16 +88,23 @@
           </button>
         </div>
         <div class="modal-body text-center">
-          <h4>Scan The QR Code to Make Payment</h4>
-          <p>Total Payment: &#8377; <?php echo $_SESSION['total'] ?></p>
-          <img src="Assets/qr.png" class="img-fluid" alt="Centered Image">
-          <p>Is Payment Successful?</p>
-        </div>
-        <div class="modal-footer">
-          <button id="noBtn" type="button" name='payment_fail' class="btn btn-danger" style="background-color: red;" data-dismiss="modal">No</button>
-          <button id="yesBtn" type="button" name='payment_success' class="btn btn-success" style="background-color: green;" data-dismiss="modal">Yes</button>
-         
-        </div>
+    <h4>Scan The QR Code to Make Payment</h4>
+    <p>Total Payment: &#8377; <?php if(isset($_SESSION['total']) && $_SESSION['total'] != 0){ echo $_SESSION['total']; } ?></p>
+    <img src="Assets/qr.png" class="img-fluid" alt="Centered Image">
+    <p>Is Payment Successful?</p>
+</div>
+
+<div class="modal-footer">
+    <?php if(isset($_SESSION['total']) && $_SESSION['total'] > 0) { ?>
+        <button id="noBtn" type="button" name='payment_fail' class="btn btn-danger" style="background-color: red;" data-dismiss="modal">No</button>
+        <button id="yesBtn" type="button" name='payment_success' class="btn btn-success" style="background-color: green;" data-dismiss="modal">Yes</button>
+    <?php } else { ?>
+        <!-- Disable buttons when payment cost is 0 -->
+        <button id="noBtn" type="button" class="btn btn-danger" style="background-color: red;" disabled>No</button>
+        <button id="yesBtn" type="button" class="btn btn-success" style="background-color: green;" disabled>Yes</button>
+    <?php } ?>
+</div>
+
       </div>
     </div>
   </div>
@@ -108,15 +115,15 @@
       <div class="modal-content">
         <div class="modal-header">
         
-          <h5 class="modal-title" text="center" id="successModalLabel"><img src="Assets/payment_suxs.png" alt="">Payment Success</h5>
+          <h5 class="modal-title" text="center" id="successModalLabel">Payment Success</h5>
           
           <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body text-center">
-          <p>Payment was successful!</p>
-          <p>"Order Placed Successfully"</p>
+        <p>Payment was successful!</p>
+          <p style="font-weight:bold; color:green">"Order Placed Successfully"</p>
           <p>Amount Paid: &#8377; <?php echo $_SESSION['total'] ?></p>
           <a href="shop_1.php"><button class="btn btn-primary">Continue Shopping</button></a>
           </div>

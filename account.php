@@ -292,48 +292,62 @@ if(isset($_SESSION['logged-in'])){
         </div>
     </div>
 
-    <div class="profile-section" id="changePassword">
-        <section id="cart" class="section-p1">
+    <!-- ... Previous code ... -->
+
+<div class="profile-section" id="changePassword">
+    <section id="cart" class="section-p1">
         <h4 style="text-align: center;">Your Orders</h4><br>
         <table>
-          <tr>
-            <th>Order ID</th>
-            <th>Order Date</th>
-            <th>Order Staus</th>
-            <th>Order Cost</th>
-            <th>Order Quantity</th>
-            <th>Order Details</th>
-          </tr>
-          <?php while($row = $orders->fetch_assoc() ){ ?>
-          <tr>
-          <td><?php echo $row['order_id']; ?></td>
-            <td><?php echo $row['order_date']; ?></td>
-            <td><?php echo $row['order_status']; ?></td>
-            <td>&#8377; <?php echo $row['order_cost']; ?></td>
-            <td><?php echo $row['order_quantity']; ?></td>
-
-            <form method="GET" action="invoice.php">
-              <input type="hidden" value="<?php echo $row['order_id'];?>" name="order_id">
-            <td><button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 50%; height: 7vh;color: black;font-weight:bold;border: 1px solid black;border-radius: 50px;"  name="invoice_btn">Invoice</button></td>
+            <tr>
+                <th>Order ID</th>
+                <th>Order Date</th>
+                <th>Order Status</th>
+                <th>Order Cost</th>
+                <th>Order Quantity</th>
+                <th>Order Details</th>
             </tr>
-          </form>
-          <?php } ?>
+
+            <?php while ($row = $orders->fetch_assoc()) { ?>
+                <tr>
+                    <td><?php echo $row['order_id']; ?></td>
+                    <td><?php echo $row['order_date']; ?></td>
+                    <td><?php echo $row['order_status']; ?></td>
+                    <td>&#8377; <?php echo $row['order_cost']; ?></td>
+                    <td><?php echo $row['order_quantity']; ?></td>
+                    <td>
+                    <form method="GET" action="invoice.php">
+    <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
+    <?php
+if ($row['order_status'] == 'Not Paid') {
+    echo '<button style="background-color: #ADD8E6; text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" name="pay_now_btn"><a href="payment.php" style="text-decoration: none; color: black;">Pay Now</a></button>';
+} else {
+        echo '<button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" name="invoice_btn">Invoice</button>';
+    }
+    ?>
+</form>
+
+
+                    </td>
+                </tr>
+            <?php } ?>
+
         </table>
         <?php
-if ($orders->num_rows > 0) {
-    // Display orders if available
-} else {
-    // Display a message when there are no orders
-    echo "<div style='text-align: center; padding-top: 20px;'>
+        if ($orders->num_rows > 0) {
+            // Display orders if available
+        } else {
+            // Display a message when there are no orders
+            echo "<div style='text-align: center; padding-top: 20px;'>
             <p style='font-weight: 500; font-weight: bold; color: red;'>Order history is empty!</p>
             <img src='Assets/no_orders.png' alt='Empty Order History Image' style='width: 150px; height: 150px;'><br/>
             <a href='shop_1.php'><button style='background-color: rgb(81, 182, 81); text-decoration: none; font-size: 12px; width: 10%;  color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;'>Order Now!</button></a>
           </div>";
-}
-?>
+        }
+        ?>
+    </section>
+</div>
 
-      </section>
-    </div>
- 
+<!-- ... Remaining code ... -->
+
 </body>
 </html>

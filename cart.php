@@ -92,6 +92,8 @@ function calculateTotalItems($cart)
 
 // Initialize total_items even if cart is not set or not an array
 $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_array($_SESSION['cart']) ? $_SESSION['cart'] : array());
+
+
 ?>
 
 <!DOCTYPE html>
