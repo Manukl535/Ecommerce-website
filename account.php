@@ -327,7 +327,7 @@ if ($orders->num_rows > 0) {
     echo "<div style='text-align: center; padding-top: 20px;'>
             <p style='font-weight: 500; font-weight: bold; color: red;'>Order history is empty!</p>
             <img src='Assets/no_orders.png' alt='Empty Order History Image' style='width: 150px; height: 150px;'><br/>
-            <a href='shop.php'><button style='background-color: rgb(81, 182, 81); text-decoration: none; font-size: 12px; width: 10%;  color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;'>Order Now!</button></a>
+            <a href='shop_1.php'><button style='background-color: rgb(81, 182, 81); text-decoration: none; font-size: 12px; width: 10%;  color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;'>Order Now!</button></a>
           </div>";
 }
 ?>
