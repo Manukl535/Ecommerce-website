@@ -202,19 +202,19 @@ input[type=submit]{
 
                     <label for="btn"><i class="fa">&#xf041;</i> State</label>
                     <select type="select" id="states" name="state" onchange="populateCities()">
-                      <option value="Karnataka">Karnataka</option>
-                      <option value="Maharashtra">Maharashtra</option>
-                      <!-- Add more states as needed -->
+                      <option value="Karnataka">KARNATAKA</option>
+                      <option value="Maharashtra">MAHARASHTRA</option>
+                      
                     </select>
 
                     <label for="btn"><i class="fa">	&#xf08d;</i> City</label>
                     <select id="cities" name="city">
                       <!-- Cities for <link>Karnataka</link> -->
-                      <option value="Bengaluru" data-state="Karnataka"><link>Bengaluru</link></option>
-                      <option value="Mysuru" data-state="Karnataka"><link>Mysuru</link></option>
+                      <option value="Bengaluru" data-state="Karnataka"><link>BENGALURU</link></option>
+                      <option value="Mysuru" data-state="Karnataka"><link>MYSURU</link></option>
                       <!-- Cities for <link>Maharashtra</link> -->
-                      <option value="Mumbai" data-state="Maharashtra"><link>Mumbai</link></option>
-                      <option value="Pune" data-state="Maharashtra"><link>Pune</link></option>
+                      <option value="Mumbai" data-state="Maharashtra"><link>MUMBAI</link></option>
+                      <option value="Pune" data-state="Maharashtra"><link>PUNE</link></option>
                       <!-- Add more cities as needed -->
                     </select>
 

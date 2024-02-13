@@ -110,6 +110,7 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
 <?php
 while($row = $order_details->fetch_assoc()) {
 ?>
+<div><img src="Assets/paid.png" alt=""></div>
 <div class="invoice">
     <center><h1>Tax Invoice</h1></center>
     <div class="invoice-header" >
