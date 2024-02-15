@@ -219,7 +219,7 @@ if (isset($_SESSION['logged-in'])) {
           <a href="index.php">Home</a>
         </li>
         <li>
-          <a href="shop.php">Shop</a>
+          <a href="shop_1.php">Shop</a>
         </li>
         <li>
           <a href="about.php">About Us</a>
