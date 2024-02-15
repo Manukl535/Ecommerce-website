@@ -316,30 +316,49 @@ if (isset($_SESSION['logged-in'])) {
             </tr>
 
             <?php while ($row = $orders->fetch_assoc()) { ?>
-                <tr>
-                    <td><?php echo $row['order_id']; ?></td>
-                    <td><?php echo $row['order_date']; ?></td>
-                    <td><?php echo $row['order_status']; ?></td>
-                    <td>&#8377; <?php echo $row['order_cost']; ?></td>
-                    <td><?php echo $row['order_quantity']; ?></td>
-                    <td>
-                    <form method="GET" action="invoice.php">
-    <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
-    <?php
-if ($row['order_status'] == 'Not Paid') {
-    echo '<button style="background-color: #ADD8E6; text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" name="pay_now_btn"><a href="payment.php" style="text-decoration: none; color: black;">Pay Now</a></button>';
-} else {
-        echo '<button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" name="invoice_btn">Invoice</button>';
-    }
-    ?>
-</form>
+    <tr>
+        <td><?php echo $row['order_id']; ?></td>
+        <td><?php echo $row['order_date']; ?></td>
+        <td><?php echo $row['order_status']; ?></td>
+        <td>&#8377; <?php echo $row['order_cost']; ?></td>
+        <td><?php echo $row['order_quantity']; ?></td>
+        <td>
+            <form method="GET" action="payment.php">
+                <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
+                <?php
+                if ($row['order_status'] == 'Not Paid') {
+                    echo '<button style="background-color: #ADD8E6; text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit">Pay Now</button>';
+                }
+                ?>
+            </form>
 
-
-                    </td>
-                </tr>
-            <?php } ?>
+            <form method="GET" action="invoice.php">
+                <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
+                <?php
+                if ($row['order_status'] != 'Not Paid') {
+                    echo '<button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="invoice_btn"><i class="fa fa-print"></i> Invoice</button>';
+                }
+                ?>
+            </form>
+        </td>
+    </tr>
+<?php } ?>
 
         </table>
+        <script>
+    function redirectToPayment() {
+        // Redirect to the payment page
+        window.location.href = "payment.php";
+    }
+    </script>
+
+    <script>
+
+    function redirectToInvoice() {
+        // Redirect to the payment page
+        window.location.href = "invoice.php";
+    }
+</script>
         <?php
         if ($orders->num_rows > 0) {
             // Display orders if available

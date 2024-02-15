@@ -1,8 +1,50 @@
-<?php 
+<?php
 
+session_start();
 
-
+// Check if the cart is empty
+if(isset($_SESSION['total']) && $_SESSION['total'] == 0) {
+    // Display a simple message modal for an empty cart
+    echo '
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Place Order</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </head>
+    <body>
+      <div class="modal fade" id="emptyCartModal" tabindex="-1" role="dialog" aria-labelledby="emptyCartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="emptyCartModalLabel">No Orders</h5>
+            </div>
+            <div class="modal-body text-center">
+              <p>You have no orders.</p>
+              <a href="shop_1.php"><button class="btn btn-primary">Continue Shopping</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <script>
+        $(document).ready(function() {
+          $("#emptyCartModal").modal("show");
+        });
+      </script>
+    </body>
+    </html>';
+    exit; // Stop executing the rest of the script
+}
 ?>
+<!-- Rest of your HTML code for the payment modal and other modals -->
+
+  
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -125,7 +167,8 @@
         <p>Payment was successful!</p>
           <p style="font-weight:bold; color:green">"Order Placed Successfully"</p>
           <p>Amount Paid: &#8377; <?php echo $_SESSION['total'] ?></p>
-          <a href="shop_1.php"><button class="btn btn-primary">Continue Shopping</button></a>
+          <a href="shop_1.php"><button class="btn btn-primary">Continue Shopping</button></a><br/><br/>
+          <p>Please don't Refresh or Go back</p>
           </div>
       </div>
     </div>
