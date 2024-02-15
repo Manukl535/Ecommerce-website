@@ -3,85 +3,82 @@ session_start();
 
 include('Includes/connection.php');
 
-if(!isset($_SESSION['logged-in'])){
-  header('location:login_user.php');
-  exit;
+if (!isset($_SESSION['logged-in'])) {
+    header('location:login_user.php');
+    exit;
 }
-if(isset($_POST['Change_Password'])){
-  $password = $_POST['new_password'];
-  $confirm_password = $_POST['confirm_password'];
-  $email = $_SESSION['email'];
- 
+if (isset($_POST['Change_Password'])) {
+    $password = $_POST['new_password'];
+    $confirm_password = $_POST['confirm_password'];
+    $email = $_SESSION['email'];
 
-  //pass_confirm pass
-  if($password !== $confirm_password){
-    header('location:account.php?error=Password did not match');
-    
-  }
-  //length of pass
-  else if(strlen($password) < 6){
-    header('location:account.php?error=Password must have 6 characters');
-  //if all correct
-  }
-  else{
-    $stmt = $conn->prepare("UPDATE users SET password=? WHERE email=?");
-
-    $stmt->bind_param('ss',$password,$email);
-
-    if($stmt->execute()){
-      header("location:account.php?message=Password Updated Successfully");
+    //pass_confirm pass
+    if ($password !== $confirm_password) {
+        header('location:account.php?error=Password did not match');
     }
-    else{
-      header("location:account.php?error=Couldn't Update the Password");
+    //length of pass
+    elseif (strlen($password) < 6) {
+        header('location:account.php?error=Password must have 6 characters');
+    //if all correct
+    } else {
+        $stmt = $conn->prepare("UPDATE users SET password=? WHERE email=?");
+
+        $stmt->bind_param('ss', $password, $email);
+
+        if ($stmt->execute()) {
+            header("location:account.php?message=Password Updated Successfully");
+        } else {
+            header("location:account.php?error=Couldn't Update the Password");
+        }
     }
-  }
+} elseif (isset($_POST['remove_account'])) {
+    $user_id = $_SESSION['user_id'];
+
+    // Delete from the users table
+    $stmtUsers = $conn->prepare("DELETE FROM users WHERE user_id=?");
+    $stmtUsers->bind_param('i', $user_id);
+    $stmtUsers->execute();
+    $stmtUsers->close();
+
+    // Delete from the orders table
+    $stmtOrders = $conn->prepare("DELETE FROM orders WHERE user_id=?");
+    $stmtOrders->bind_param('i', $user_id);
+    $stmtOrders->execute();
+    $stmtOrders->close();
+
+    // Delete from the order_item table
+    $stmtOrderItems = $conn->prepare("DELETE FROM order_item WHERE user_id=?");
+    $stmtOrderItems->bind_param('i', $user_id);
+    $stmtOrderItems->execute();
+    $stmtOrderItems->close();
+
+    // Logout the user
+    session_unset();
+    session_destroy();
+
+    // Add JavaScript to show an alert
+    echo "<script>alert('Account has been deleted.');</script>";
+
+    // Redirect to login_user.php with a message
+    echo "<script>window.location.href='login_user.php?message=Your account has been removed';</script>";
+    exit();
 }
-elseif (isset($_POST['remove_account'])) {
-  $user_id = $_SESSION['user_id'];
 
-  // Delete from the users table
-  $stmtUsers = $conn->prepare("DELETE FROM users WHERE user_id=?");
-  $stmtUsers->bind_param('i', $user_id);
-  $stmtUsers->execute();
-  $stmtUsers->close();
+// get orders
+if (isset($_SESSION['logged-in'])) {
 
-  // Delete from the orders table
-  $stmtOrders = $conn->prepare("DELETE FROM orders WHERE user_id=?");
-  $stmtOrders->bind_param('i', $user_id);
-  $stmtOrders->execute();
-  $stmtOrders->close();
-
-  // Delete from the order_item table
-  $stmtOrderItems = $conn->prepare("DELETE FROM order_item WHERE user_id=?");
-  $stmtOrderItems->bind_param('i', $user_id);
-  $stmtOrderItems->execute();
-  $stmtOrderItems->close();
-
-  // Logout the user
-  session_unset();
-  session_destroy();
-
-  // Redirect to login_user.php with a message
-  header("location: login_user.php?message=Your account has been removed");
-  exit();
-}
-
-
-//get orders
-if(isset($_SESSION['logged-in'])){
-    
     $user_id = $_SESSION['user_id'];
 
     $stmt = $conn->prepare("SELECT * FROM orders WHERE user_id=?");
 
-    $stmt->bind_param('i',$user_id);
+    $stmt->bind_param('i', $user_id);
 
     $stmt->execute();
 
     $orders = $stmt->get_result();
 }
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -256,7 +253,10 @@ if(isset($_SESSION['logged-in'])){
               <p><label for="email">Email: <?php if(isset($_SESSION['email'])){echo $_SESSION['email']; } ?></label> </p> 
               <p><label for="phone">Phone: <?php if(isset($_SESSION['phone'])){echo $_SESSION['phone']; } ?></label></p>
             </div>
-            <form action="account.php" method="post">
+
+
+            <form action="account.php" method="post" onsubmit="return confirmDeleteAccount();">
+
     <center>
         <br><br><br>
         <button type="submit" name="remove_account" style='background-color: #f44336; border-radius: 50px;'>Remove My Account</button>
@@ -264,7 +264,15 @@ if(isset($_SESSION['logged-in'])){
 </form>
             </div>
         </div>
-    
+    <script>
+  function confirmDeleteAccount() {
+    // Display a confirmation dialog
+    var confirmDelete = confirm("Are you sure you want to delete your account?");
+
+    // If the user clicks 'OK', the form will be submitted
+    return confirmDelete;
+  }
+</script>
         <div class="profile-section" style="flex: 1;">
             <!-- Change password -->
             <div class="container" style="height: 55vh;">
