@@ -20,8 +20,8 @@ if (isset($_POST['place_order'])) {
     $dod = $_POST['dod'];
     $product_quantity=$_SESSION['total_items'];
 
-    $stmt = $conn->prepare("INSERT INTO orders (order_cost, order_status, user_id, user_name,email, user_phone, user_city, user_state, user_address, order_date,order_quantity) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-    $stmt->bind_param('issssssssss', $order_cost, $order_status, $user_id, $name,$email,$phone, $city,$state, $address, $order_date,$product_quantity);
+    $stmt = $conn->prepare("INSERT INTO orders (order_cost, order_status, user_id, user_name,email, user_phone, user_city, user_state, user_address, order_date,order_quantity,dod) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+    $stmt->bind_param('isssssssssss', $order_cost, $order_status, $user_id, $name,$email,$phone, $city,$state, $address, $order_date,$product_quantity,$dod);
     $stmt->execute();
 
     $order_id = $conn->insert_id;

@@ -319,30 +319,23 @@ if (isset($_SESSION['logged-in'])) {
     <tr>
         <td><?php echo $row['order_id']; ?></td>
         <td><?php echo $row['order_date']; ?></td>
-        <td><?php echo $row['order_status']; ?></td>
+        <td>Delivery Expected:<?php echo $row['dod']; ?></td>
         <td>&#8377; <?php echo $row['order_cost']; ?></td>
         <td><?php echo $row['order_quantity']; ?></td>
         <td>
-            <form method="GET" action="payment.php">
-                <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
-                <?php
-                if ($row['order_status'] == 'Not Paid') {
-                    echo '<button style="background-color: #ADD8E6; text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit">Pay Now</button>';
-                }
-                ?>
-            </form>
+            
 
             <form method="GET" action="invoice.php">
                 <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
                 <?php
-                if ($row['order_status'] != 'Not Paid') {
+               
                     echo '<button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="invoice_btn"><i class="fa fa-print"></i> Invoice</button>';
                 }
                 ?>
             </form>
         </td>
     </tr>
-<?php } ?>
+
 
         </table>
         <script>

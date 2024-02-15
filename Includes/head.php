@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
     <head>
         <title>Index</title>
@@ -264,8 +267,21 @@
                         <div class="dropdown">
                           <a href="login_user.php">
                             <div class="dropbtn">
-                              <div class="test" ><i style="font-size:20px" class="fa" >&#xf2be;&nbsp;</i>Login&nbsp;&#11167;</div> 
-                          </a>
+                            <div class="test">
+    <i style="font-size:20px" class="fa">&#xf2be;&nbsp;</i>
+    <?php 
+    if(isset($_SESSION['user_name'])) {
+        $formattedName = ucfirst(strtolower($_SESSION['user_name']));
+        echo '<span style="font-size: 15.6px;">' . $formattedName . '</span>'; 
+    } else {
+        echo 'Login';
+    }
+?>
+
+
+    &nbsp;&#11167;
+</div>
+ </a>
                         </div>   
                           <div class="dropdown-content">
                             <a href="account.php"><img src="Assets/dashboard.png">&nbsp;Dashboard</a>
@@ -284,4 +300,4 @@
              
 </section>
 
-             
+            
