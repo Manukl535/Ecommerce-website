@@ -319,39 +319,32 @@ if (isset($_SESSION['logged-in'])) {
     <tr>
         <td>OD00<?php echo $row['order_id']; ?></td>
         <td><?php echo $row['order_date']; ?></td>
-        
-        <td>Delivery On : <?php
-        $dod = $row['dod']; 
-
-        $formatted_date = date('d-m-Y', strtotime($dod));
-
-        echo $formatted_date;?></td>
-
+        <td>Delivery On: <?php
+            $dod = $row['dod'];
+            $formatted_date = date('d-m-Y', strtotime($dod));
+            echo $formatted_date;
+        ?></td>
         <td>&#8377; <?php echo $row['order_cost']; ?></td>
         <td><?php echo $row['order_quantity']; ?></td>
         <td>
-            
-
             <form method="GET" action="invoice.php">
                 <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
-                <?php
-               
-                    echo '<button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="invoice_btn"><i class="fa fa-print"></i> Invoice</button>';
-                }
-                ?>
+                <button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="invoice_btn">
+                    <i class="fa fa-print"></i> Invoice
+                </button>
             </form>
         </td>
     </tr>
+<?php } ?>
+</table>
 
-
-        </table>
      
+        
+    
 
-    <script>
-
-    function redirectToInvoice() {
-        // Redirect to ivoice page
-        window.location.href = "invoice.php";
+<script>
+    function redirectToInvoice(orderId) {
+        window.location.href = "invoice.php?order_id=" + orderId;
     }
 </script>
         <?php
@@ -369,7 +362,7 @@ if (isset($_SESSION['logged-in'])) {
     </section>
 </div>
 
-<!-- ... Remaining code ... -->
+
 
 </body>
 </html>
