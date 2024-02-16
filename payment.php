@@ -60,11 +60,8 @@ if (isset($_SESSION['total']) && $_SESSION['total'] == 0) {
           <button type="submit" name="cancel_order" class="btn btn-danger" style="background-color: red;">No</button>
           <button type="button" class="btn btn-success" style="background-color: green;" data-toggle="modal" data-target="#successModal">Yes</button>
         </form>
-      <?php } else { ?>
-        <!-- Disable buttons when payment cost is 0 -->
-        <button type="button" class="btn btn-danger" style="background-color: red;" disabled>No</button>
-        <button type="button" class="btn btn-success" style="background-color: green;" disabled data-toggle="modal" data-target="#failureModal">Yes</button>
-      <?php } ?>
+      <?php }  ?>
+        
     </div>
   </div>
 
