@@ -57,7 +57,7 @@ if (!$isAdmin) {
     <a href="#">Home</a>
     <a href="#">Users</a>
     <a href="#">Settings</a>
-    <a href="logout.php">Logout</a> <!-- Implement your logout functionality -->
+    <a href="logout.php">Logout</a> 
 </nav>
 
 <section>

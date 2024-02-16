@@ -26,7 +26,10 @@ if (isset($_SESSION['total']) && $_SESSION['total'] == 0) {
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </body>
     </html>';
-    exit; // Stop executing the rest of the script
+
+
+  
+   exit; // Stop executing the rest of the script
 }
 ?>
 
@@ -104,5 +107,6 @@ if (isset($_SESSION['total']) && $_SESSION['total'] == 0) {
     </div>
   </div>
 
+ 
   </body>
 </html>

@@ -40,8 +40,9 @@ if (isset($_POST['place_order'])) {
         }
     }
 
-    // Remove cart session
+  // Remove cart-related session variables
     unset($_SESSION['cart']);
+
 
     // Set order_id in session
     $_SESSION['order_id'] = $order_id;
@@ -77,5 +78,6 @@ if (isset($_POST['place_order'])) {
         header('location: account.php?error=delete_order_items_failed');
         exit();
     }
+     
 }
 ?>

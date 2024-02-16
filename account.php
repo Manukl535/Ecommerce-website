@@ -301,10 +301,84 @@ if (isset($_SESSION['logged-in'])) {
     </div>
 <br/><br/>
     
+<style
+>button {
+        cursor: pointer;
+        display: inline-block;
+        padding: 12px 24px;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #ffffff;
+        background-color: #3498db;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    button:hover {
+        background-color: #45a049;
+        transform: scale(1.05);
+    }
+   
+    .order-box {
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .order-box table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .order-box th, .order-box td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .order-box th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .order-box tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .orders-heading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .orders-heading::after {
+        content: "";
+        display: block;
+        width: 40px; 
+        height: 3px; 
+        background-color: #FF9933; 
+        position: absolute;
+        bottom: -182px; 
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+</style>
+
 
 <div class="profile-section" id="changePassword">
     <section id="cart" class="section-p1">
-        <h4 style="text-align: center;">Your Orders</h4><br>
+        <h4 class="orders-heading">Your Orders</h4><br/><br>
+        <div class="order-box">
         <table>
             <tr>
                 <th>Order ID</th>
@@ -317,7 +391,8 @@ if (isset($_SESSION['logged-in'])) {
 
             <?php while ($row = $orders->fetch_assoc()) { ?>
     <tr>
-        <td>OD00<?php echo $row['order_id']; ?></td>
+    <td>ODR<?php echo str_pad($row['order_id'], 3, '0', STR_PAD_LEFT); ?></td>
+
         <td><?php echo date('d-m-Y', strtotime($row['order_date'])); ?></td>
         <td>Delivery On: <?php
             $dod = $row['dod'];
@@ -337,6 +412,7 @@ if (isset($_SESSION['logged-in'])) {
     </tr>
 <?php } ?>
 </table>
+</div>
 
      
         

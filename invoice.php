@@ -109,7 +109,7 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
         <?php if ($order_details->data_seek(0)) { ?>
             <center><h1>Tax Invoice</h1></center>
             <div class="invoice-header">
-                <p>Invoice No: OD00<?php echo $row['order_id'];?></p>
+                <p>Invoice No: ODR<?php echo str_pad($row['order_id'], 3, '0', STR_PAD_LEFT); ?></p>
                 <p>Date: <?php
                     $dod = $row['order_date']; 
                     $formatted_date = date('d-m-Y', strtotime($dod));
@@ -142,7 +142,7 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
         </tr>
     </thead>
     <tbody>
-        <center><p><b>Order Number: OD00<?php echo $row['order_id']; ?></b></p></center><br/>
+        <center><p><b>Order Number: ODR<?php echo str_pad($row['order_id'], 3, '0', STR_PAD_LEFT); ?></b></p></center><br/>
         <?php 
         // Check if there are items in the order_details
         if ($order_details->num_rows > 0) {

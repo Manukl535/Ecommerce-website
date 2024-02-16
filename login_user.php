@@ -180,7 +180,7 @@ if(isset($_POST['login-btn'])){
     
     </footer></center>
     <?php
-session_start();
+
 if (isset($_SESSION['login_message'])) {
     echo "<script>alert('{$_SESSION['login_message']}');</script>";
     unset($_SESSION['login_message']); // Clear the message after displaying it

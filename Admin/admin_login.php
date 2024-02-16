@@ -146,7 +146,7 @@ if(isset($_POST['login-btn'])){
     <form id="login-form" action="admin_login.php" method="POST">
     <img src="../Assets/admin_icon.png" style="height: 100px; width: 100px; display: block; margin: 0 auto;">
 
-    	<h4 class="modal-title"><strong>Admin</strong></h4>
+    	<h4 class="modal-title"><b>Admin</b></h4>
         <center><p style="color:red;"><?php if(isset($_GET['error'])) { echo $_GET['error']; } ?></p></center>
         <div class="form-group">
             <input type="email" class="form-control" placeholder="Email" id="Email" name="email" required="required">

@@ -36,6 +36,7 @@ if (isset($_POST['add_to_cart'])) {
     // Check if the cart is set and is an array
     if (isset($_SESSION['cart']) && is_array($_SESSION['cart']) && isset($_SESSION['cart'][$product_id])) {
         unset($_SESSION['cart'][$product_id]);
+        
     }
 
     // calculate total
@@ -244,6 +245,8 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
                     </div>
                     </body>
                 </html>';
+    // Set total to 0
+    $_SESSION['total'] = 0;
         }
         ?>
     </div>
