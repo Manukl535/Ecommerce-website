@@ -1,221 +1,164 @@
-<?php
+<?php 
+
 session_start();
+include('Includes/connection.php');
 
-if (!isset($_SESSION['cart']) || !is_array($_SESSION['cart'])) {
-    $_SESSION['cart'] = array();
+
+if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
+    $order_id = $_GET['order_id'];
+    $stmt = $conn->prepare("SELECT * FROM order_item 
+    JOIN orders ON order_item.order_id = orders.order_id
+    WHERE order_item.order_id=?");
+
+$stmt->bind_param('i', $order_id);
+$stmt->execute();
+
+$order_details = $stmt->get_result();
+
+// Retrieve billed address from orders table
+$stmt1 = $conn->prepare("SELECT user_name,user_phone,user_address,user_city,user_state FROM orders WHERE order_id=?");
+$stmt1->bind_param('i', $order_id);
+$stmt1->execute();
+$order_info = $stmt1->get_result()->fetch_assoc();
+$stmt1->close();
+} else {
+header('location:account.php');
+exit();
 }
-
-if (isset($_POST['add_to_cart'])) {
-    $product_array_ids = array_column($_SESSION['cart'], "product_id");
-    if (!in_array($_POST['product_id'], $product_array_ids)) {
-        $product_id = $_POST['product_id'];
-
-        $product_array = array(
-            'product_id' => $_POST['product_id'],
-            'product_image' => $_POST['product_image'],
-            'product_name' => htmlspecialchars($_POST['product_name']), // Sanitize the product name
-            'product_price' => $_POST['product_price'],
-            'product_quantity' => $_POST['product_quantity']
-        );
-
-        $_SESSION['cart'][$product_id] = $product_array;
-    } else {
-        echo '<script>alert ("Product was already added"); </script>';
-    }
-
-    calculatecart();
-} elseif (isset($_POST['remove_product'])) {
-    $product_id = $_POST['product_id'];
-    if (isset($_SESSION['cart'][$product_id])) {
-        unset($_SESSION['cart'][$product_id]);
-    }
-
-    calculatecart();
-} elseif (isset($_POST['edit_quantity'])) {
-    $product_id = $_POST['product_id'];
-    $product_quantity = $_POST['product_quantity'];
-
-    if (isset($_SESSION['cart'][$product_id])) {
-        $product_array = $_SESSION['cart'][$product_id];
-        $product_array['product_quantity'] = $product_quantity;
-        $_SESSION['cart'][$product_id] = $product_array;
-    }
-
-    calculatecart();
-}
-
-function calculatecart()
-{
-    $total = 0;
-
-    if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
-        foreach ($_SESSION['cart'] as $key => $value) {
-            if (isset($_SESSION['cart'][$key]['product_price']) && isset($_SESSION['cart'][$key]['product_quantity'])) {
-                $price = $_SESSION['cart'][$key]['product_price'];
-                $quantity = $_SESSION['cart'][$key]['product_quantity'];
-                $total += ($price * $quantity);
-            }
-        }
-    } else {
-        $_SESSION['cart'] = array();
-    }
-
-    $_SESSION['total'] = $total;
-}
-
-function calculateTotalItems($cart)
-{
-    $totalQuantity = 0;
-
-    if (isset($cart) && is_array($cart)) {
-        foreach ($cart as $item) {
-            if (isset($item['product_quantity'])) {
-                $totalQuantity += $item['product_quantity'];
-            }
-        }
-    }
-    return $totalQuantity;
-}
-
-$_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_array($_SESSION['cart']) ? $_SESSION['cart'] : array());
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart</title>
-    <!-- Include your stylesheets and other head elements -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .invoice {
+            width: 95%;
+            height:100%;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .invoice-header {
+            text-align: right;
+            margin-bottom: 20px;
+            margin-right:10px;
+            font-weight:bold;
+        }
+        .invoice-header h1 {
+            margin: 0;
+            color: #333;
+        }
+        .invoice-header p {
+            margin: 5px 0;
+            color: #555;
+        }
+        .invoice-body {
+            margin-top: 20px;
+        }
+        .invoice-body p {
+            margin: 5px 0;
+            color: #333;
+        }
+        .invoice-table {
+            width: 100%; 
+            border-collapse: collapse;
+            margin: 0 auto; 
+            margin-top: 10px;
+        }
+        .invoice-table th, .invoice-table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        .invoice-total {
+            margin-top: 20px;
+            text-align: right;
+        }
+        .company-profile {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+            style="display:flex; 
+            justify-content:center"
+        }
+        .company-profile h2 {
+            margin: 0;
+            color: #333;
+        }
+        .company-profile p {
+            margin: 5px 0;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
-   <!--Header Section-->
-  <section id="top">
-    <img src="Assets/logo.png" alt="logo">
-    <div>
-      <ul id="headings">
-        <li>
-          <a href="index.php">Home</a>
-        </li>
-        <li>
-          <a href="shop_1.php">Shop</a>
-        </li>
-        <li>
-          <a href="about.php">About Us</a>
-        </li>
-        <li>
-          <a href="contact.html">Contact Us</a>
-        </li><!-- <li><a href="login.html"><i style="font-size:24px" class="fa">&#xf007;</i></a></li>
-                    <li><a href="cart.html"><i style="font-size:24px" class="fa">&#xf07a;</i></a></li> -->
-      </ul>
-    </div>
-  </section>
-  <section id="cart" class="section-p1">
-    <table width="100%">
-      <thead>
-        <tr>
-          <td>Remove</td>
-          <td>Product</td>
-          <td>Description</td>
-          <td>Price</td>
-          <td>Quantity</td>
-          <td>Total</td>
-        </tr>
-      </thead>
-      <tbody>
-  <?php foreach($_SESSION['cart'] as $key => $value) { ?>
-    <tr>
-      <td>
-        <form method="post" action="cart.php">
-          <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>">
-          <input type="submit" class="material-icons" name="remove_product" style="font-size:30px" value="&#xe872">
-        </form>
-      </td>
-      <td><img src="Assets/<?php echo $value['product_image']; ?>" alt=""></td>
-      <td><?php echo $value['product_name']; ?></td>
-      <td>&#8377; <?php echo $value['product_price']; ?></td>
-      <td>
-        <form method="POST" action="cart.php">
-        
-        <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>">
-    <div class="input-group">
-        <input type="number" name="product_quantity" min="1" value="<?php echo $value['product_quantity']; ?>">
-        <input type="submit" class="update_btn" value="Update" name="edit_quantity">
-    </div>
- 
-  
-</form>
-      </td>
-      <td>&#8377; <?php echo $value['product_quantity'] * $value['product_price']; ?></td>
-    </tr>
-  <?php } ?>
-</tbody>
-    </table>
-  </section><br>
-  <br>
-  <div class="centered">
-  
-  <?php
-  // Check if the total items are zero and display message
-  if (!isset($_SESSION['cart']) || empty($_SESSION['cart']) || $_SESSION['total_items'] === 0) {
-    echo '<html>
-            <body>
-            <div style="text-align: center;">
-              <img src="Assets/empty_cart.png" alt="Empty Cart Image" style="display: block; margin: 0 auto;">
-            </div>
-            <br>
-            <div style="text-align: center;">
-             <h3>Your cart is empty!</h3>
-            </div>
-            </body>
-          </html>';
-}
-?>
-  </div>
 
-  <section id="add2cart" class="section-p1">
-    <div id="coupon">
-      <h3>Apply Coupon</h3>
-      <div>
-        <input type="text" placeholder="Enter your coupon"> <button class="normal">Apply</button>
-      </div>
+<div><img src="Assets/paid.png" alt=""></div>
+<div class="invoice">
+    <center><h1>Tax Invoice</h1></center>
+    <div class="invoice-header">
+        <p>Invoice No: OD00</p>
+        <p>Date: <!-- Current Date --></p>
     </div>
-    <div id="Total">
-      <h3>Cart Total</h3>
-      <table>
-     
-        <tr>
-          <td><b>Shipping</b></td>
-          <td style="color:red;"><b>Free</b></td>
-        </tr>
-        <tr>
-          <td><b>Total</b></td>
-          <td>&#8377; <?php echo $_SESSION['total']; ?></td>
-
-          </tr>
-
-          <td><b>Total Items</b></td>
-    <td><?php echo "". calculateTotalItems($_SESSION['cart']); ?></td>
-</tr>
-   
-          
-        
-      </table>
-      <form action="checkout.php" method="post">
-     <input type="submit" name="checkout" class="proceed" value="PROCEED TO CHECKOUT"></form>
+    <div class="company-profile">
+        <h2>Posh Botique</h2>
+        <p>223 Main Street,</p>
+        <p>Electronic City,</p> Bengaluru-07,
+        <p>posh.com</p>
+        <p>+91 98765 43210</p>
     </div>
 
-  </section>
-  
-  
-  <!--Subscribe-->
-    
-  <?php include_once("includes/subscribe.html"); ?> 
-        
-    
-            
-        <!-- Footer -->
-      
-        <?php include_once("includes/footer.html"); ?> 
+    <div class="invoice-body">
+        <p><strong>Billed To:</strong></p>
+        <p><!-- Customer Name --></p>
+        <p><!-- Customer Address --></p>
+        <p><!-- Customer City --></p>
+        <p><!-- Customer State --></p>
+        <p><!-- Customer Phone --></p><br/>
+
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total (Included Tax)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <center><p><b>Order Number: OD00</b></p></center><br/>
+                <tr>
+                    <td><!-- Product Name --></td>
+                    <td><!-- Product Quantity --></td>
+                    <td><!-- Product Price --></td>
+                    <td><!-- Product Quantity * Product Price --></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="invoice-total">
+            <p><strong>Grand Total: </strong>&#8377; <!-- Total Amount --></p>
+        </div>
+    </div>
+
+    <div style="text-align: right;">
+        <p><img src="Assets/signature.png" alt="Digital Signature" style="width: 100px; height: auto;"></p>
+        <p>Authorised Sign</p>
+    </div>
+    <div class="footer" style="text-align: center; margin-top: 20px; border-top: 1px solid #ccc; padding-top: 20px;">
+        <p>Thank you for shopping with Posh Boutique!</p>
+        <p>For any inquiries, please contact support @ <a href="contact.html" style="text-decoration: none; color: black;">posh.com</a></p>
+    </div>
+</div>
+
+<center><button onclick="window.print()"><i style="font-size:20px" class="fa" color="black">&#xf02f;</i></button></center>
+
 </body>
 </html>

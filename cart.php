@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+// Check if 'cart' is set in $_SESSION
+if (!isset($_SESSION['cart']) || !is_array($_SESSION['cart'])) {
+    $_SESSION['cart'] = array();
+}
+
 if (isset($_POST['add_to_cart'])) {
     // Check if the cart is set and is an array
     if (!isset($_SESSION['cart']) || !is_array($_SESSION['cart'])) {
@@ -60,9 +65,9 @@ function calculatecart()
     // Check if the cart is set and is an array
     if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
         foreach ($_SESSION['cart'] as $key => $value) {
-            if (isset($_SESSION['cart'][$key]['product_price']) && isset($_SESSION['cart'][$key]['product_quantity'])) {
-                $price = $_SESSION['cart'][$key]['product_price'];
-                $quantity = $_SESSION['cart'][$key]['product_quantity'];
+            if (isset($value['product_price']) && isset($value['product_quantity'])) {
+                $price = $value['product_price'];
+                $quantity = $value['product_quantity'];
                 $total += ($price * $quantity);
             }
         }
@@ -89,37 +94,33 @@ function calculateTotalItems($cart)
     return $totalQuantity;
 }
 
-
-// Initialize total_items even if cart is not set or not an array
+// Initialize total_items even if 'cart' is not set or not an array
 $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_array($_SESSION['cart']) ? $_SESSION['cart'] : array());
-
-
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Index</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" type="image/x-icon" href="Assets/logo2.png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <style>
-            .material-icons{
-              color:black;
-              border-radius: 50px;
-              background-color: #fff;
-              border:none;
-              
-            }  
-            .material-icons:hover{
-                color:red;
-                background-color: #fff;
-            }
+    <title>Index</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="Assets/logo2.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .material-icons{
+            color:black;
+            border-radius: 50px;
+            background-color: #fff;
+            border:none;
+        }  
+        .material-icons:hover{
+            color:red;
+            background-color: #fff;
+        }
 
-            .update_btn{
+        .update_btn{
             border: 1px solid black;
             padding-left: 10px;
             padding-top: 20px;
@@ -129,185 +130,156 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
             color: #fff;
             background-color: #55c2da;
             font-weight: bold;
-            
-            
-        
-            }
-            .update_btn:hover{
-                background-color:#00A36C;
+        }
+        .update_btn:hover{
+            background-color:#00A36C;
+        }
 
-            }
+        .proceed{
+            height: 2.4rem;
+            padding: 0 1.24em;
+            background-color: #04AA6D;
+            color: #eef7f6;
+            white-space: inherit;
+            padding:  9px 10px ;
+            border :1px double black;
+            border-radius: 2px;
+        }
 
-            .proceed{
-              height: 2.4rem;
-              padding: 0 1.24em;
-              background-color: #04AA6D;
-              color: #eef7f6;
-              white-space: inherit;
-              padding:  9px 10px ;
-              border :1px double black;
-              border-radius: 2px;
-          
-              }
-     
+        .centered {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 20vh;
+            padding-bottom: 100px;
+        }
 
-    .centered {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 20vh;
-      padding-bottom: 100px;
-    
-    }
+        tr > td:nth-child(5) {
+            padding-left:155px; 
+        }
 
-    tr > td:nth-child(5) {
-      padding-left:155px; 
-    }
+        .input-group {
+            display: flex;
+            align-items: center;
+        }
 
-          .input-group {
-          display: flex;
-          align-items: center;
-      }
-
-      .input-group input {
-          margin: -90px;
-      }
-   
-            
-            
-
-          
-  </style>
+        .input-group input {
+            margin: -90px;
+        }
+    </style>
 </head>
 <body>
-  <!--Header Section-->
-  <section id="top">
-    <img src="Assets/logo.png" alt="logo">
-    <div>
-      <ul id="headings">
-        <li>
-          <a href="index.php">Home</a>
-        </li>
-        <li>
-          <a href="shop_1.php">Shop</a>
-        </li>
-        <li>
-          <a href="about.php">About Us</a>
-        </li>
-        <li>
-          <a href="contact.html">Contact Us</a>
-        </li><!-- <li><a href="login.html"><i style="font-size:24px" class="fa">&#xf007;</i></a></li>
-                    <li><a href="cart.html"><i style="font-size:24px" class="fa">&#xf07a;</i></a></li> -->
-      </ul>
+    <!--Header Section-->
+    <section id="top">
+        <img src="Assets/logo.png" alt="logo">
+        <div>
+            <ul id="headings">
+                <li>
+                    <a href="index.php">Home</a>
+                </li>
+                <li>
+                    <a href="shop_1.php">Shop</a>
+                </li>
+                <li>
+                    <a href="about.php">About Us</a>
+                </li>
+                <li>
+                    <a href="contact.html">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section id="cart" class="section-p1">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>Remove</td>
+                    <td>Product</td>
+                    <td>Description</td>
+                    <td>Price</td>
+                    <td>Quantity</td>
+                    <td>Total</td>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($_SESSION['cart'] as $key => $value) { ?>
+                    <tr>
+                        <td>
+                            <form method="post" action="cart.php">
+                                <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>">
+                                <input type="submit" class="material-icons" name="remove_product" style="font-size:30px" value="&#xe872">
+                            </form>
+                        </td>
+                        <td><img src="Assets/<?php echo $value['product_image']; ?>" alt=""></td>
+                        <td><?php echo $value['product_name']; ?></td>
+                        <td>&#8377; <?php echo $value['product_price']; ?></td>
+                        <td>
+                            <form method="POST" action="cart.php">
+                                <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>">
+                                <div class="input-group">
+                                    <input type="number" name="product_quantity" min="1" value="<?php echo $value['product_quantity']; ?>">
+                                    <input type="submit" class="update_btn" value="Update" name="edit_quantity">
+                                </div>
+                            </form>
+                        </td>
+                        <td>&#8377; <?php echo $value['product_quantity'] * $value['product_price']; ?></td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </section><br><br>
+
+    <div class="centered">
+        <?php
+        // Check if the total items are zero and display message
+        if (!isset($_SESSION['cart']) || empty($_SESSION['cart']) || $_SESSION['total_items'] === 0) {
+            echo '<html>
+                    <body>
+                    <div style="text-align: center;">
+                        <img src="Assets/empty_cart.png" alt="Empty Cart Image" style="display: block; margin: 0 auto;">
+                    </div>
+                    <br>
+                    <div style="text-align: center;">
+                        <h3>Your cart is empty!</h3>
+                    </div>
+                    </body>
+                </html>';
+        }
+        ?>
     </div>
-  </section>
-  <section id="cart" class="section-p1">
-    <table width="100%">
-      <thead>
-        <tr>
-          <td>Remove</td>
-          <td>Product</td>
-          <td>Description</td>
-          <td>Price</td>
-          <td>Quantity</td>
-          <td>Total</td>
-        </tr>
-      </thead>
-      <tbody>
-  <?php foreach($_SESSION['cart'] as $key => $value) { ?>
-    <tr>
-      <td>
-        <form method="post" action="cart.php">
-          <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>">
-          <input type="submit" class="material-icons" name="remove_product" style="font-size:30px" value="&#xe872">
-        </form>
-      </td>
-      <td><img src="Assets/<?php echo $value['product_image']; ?>" alt=""></td>
-      <td><?php echo $value['product_name']; ?></td>
-      <td>&#8377; <?php echo $value['product_price']; ?></td>
-      <td>
-        <form method="POST" action="cart.php">
-        
-        <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>">
-    <div class="input-group">
-        <input type="number" name="product_quantity" min="1" value="<?php echo $value['product_quantity']; ?>">
-        <input type="submit" class="update_btn" value="Update" name="edit_quantity">
-    </div>
- 
-  
-</form>
-      </td>
-      <td>&#8377; <?php echo $value['product_quantity'] * $value['product_price']; ?></td>
-    </tr>
-  <?php } ?>
-</tbody>
-    </table>
-  </section><br>
-  <br>
-  <div class="centered">
-  
-  <?php
-  // Check if the total items are zero and display message
-  if (!isset($_SESSION['cart']) || empty($_SESSION['cart']) || $_SESSION['total_items'] === 0) {
-    echo '<html>
-            <body>
-            <div style="text-align: center;">
-              <img src="Assets/empty_cart.png" alt="Empty Cart Image" style="display: block; margin: 0 auto;">
+    <section id="add2cart" class="section-p1">
+        <div id="coupon">
+            <h3>Apply Coupon</h3>
+            <div>
+                <input type="text" placeholder="Enter your coupon"> <button class="normal">Apply</button>
             </div>
-            <br>
-            <div style="text-align: center;">
-             <h3>Your cart is empty!</h3>
-            </div>
-            </body>
-          </html>';
-}
-?>
-  </div>
+        </div>
+        <div id="Total">
+            <h3>Cart Total</h3>
+            <table>
+                <tr>
+                    <td><b>Shipping</b></td>
+                    <td style="color:red;"><b>Free</b></td>
+                </tr>
+                <tr>
+                    <td><b>Total</b></td>
+                    <td>&#8377; <?php echo isset($_SESSION['total']) ? $_SESSION['total'] : 0; ?></td>
+                </tr>
+                <tr>
+                    <td><b>Total Items</b></td>
+                    <td><?php echo "". calculateTotalItems($_SESSION['cart']); ?></td>
+                </tr>
+            </table>
+            <form action="checkout.php" method="post">
+                <input type="submit" name="checkout" class="proceed" value="PROCEED TO CHECKOUT">
+            </form>
+        </div>
+    </section>
 
-  <section id="add2cart" class="section-p1">
-    <div id="coupon">
-      <h3>Apply Coupon</h3>
-      <div>
-        <input type="text" placeholder="Enter your coupon"> <button class="normal">Apply</button>
-      </div>
-    </div>
-    <div id="Total">
-      <h3>Cart Total</h3>
-      <table>
-     
-        <tr>
-          <td><b>Shipping</b></td>
-          <td style="color:red;"><b>Free</b></td>
-        </tr>
-        <tr>
-          <td><b>Total</b></td>
-          <td>&#8377; <?php echo isset($_SESSION['total']) ? $_SESSION['total'] : 0; ?></td>
+    <!--Subscribe-->
+    <?php include_once("includes/subscribe.html"); ?> 
 
-
-          </tr>
-
-          <td><b>Total Items</b></td>
-    <td><?php echo "". calculateTotalItems($_SESSION['cart']); ?></td>
-</tr>
-   
-          
-        
-      </table>
-      <form action="checkout.php" method="post">
-     <input type="submit" name="checkout" class="proceed" value="PROCEED TO CHECKOUT"></form>
-    </div>
-
-  </section>
-  
-  
-  <!--Subscribe-->
-    
-  <?php include_once("includes/subscribe.html"); ?> 
-        
-    
-            
-        <!-- Footer -->
-      
-        <?php include_once("includes/footer.html"); ?> 
+    <!-- Footer -->
+    <?php include_once("includes/footer.html"); ?> 
 </body>
 </html>

@@ -41,7 +41,7 @@ if (isset($_POST['place_order'])) {
     }
 
     // Remove cart session
-    // unset($_SESSION['cart']);
+    unset($_SESSION['cart']);
 
     // Set order_id in session
     $_SESSION['order_id'] = $order_id;

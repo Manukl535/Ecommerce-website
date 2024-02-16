@@ -300,7 +300,7 @@ if (isset($_SESSION['logged-in'])) {
         </div>
     </div>
 
-    <!-- ... Previous code ... -->
+    
 
 <div class="profile-section" id="changePassword">
     <section id="cart" class="section-p1">
@@ -345,17 +345,12 @@ if (isset($_SESSION['logged-in'])) {
 
 
         </table>
-        <script>
-    function redirectToPayment() {
-        // Redirect to the payment page
-        window.location.href = "payment.php";
-    }
-    </script>
+     
 
     <script>
 
     function redirectToInvoice() {
-        // Redirect to the payment page
+        // Redirect to ivoice page
         window.location.href = "invoice.php";
     }
 </script>

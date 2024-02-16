@@ -15,7 +15,7 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
     $order_details = $stmt->get_result();
     
     // Retrieve billed address from orders table
-    $stmt1=$conn->prepare("SELECT user_name,user_phone,user_address,user_city,user_state FROM orders WHERE order_id=?");
+    $stmt1 = $conn->prepare("SELECT user_name,user_phone,user_address,user_city,user_state FROM orders WHERE order_id=?");
     $stmt1->bind_param('i', $order_id);
     $stmt1->execute();
     $order_info = $stmt1->get_result()->fetch_assoc();
@@ -34,8 +34,7 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Invoice</title>
     <style>
-        
-        body {
+         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             padding: 20px;
@@ -44,10 +43,7 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
             width: 95%;
             height:100%;
             margin: 20px auto;
-            /* border: 1px solid #ccc; */
             padding: 20px;
-            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
-            /* background-color: #fff; */
         }
         .invoice-header {
             text-align: right;
@@ -107,107 +103,81 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
 </head>
 <body>
 
-<?php
-while($row = $order_details->fetch_assoc()) {
-?>
 <div><img src="Assets/paid.png" alt=""></div>
 <div class="invoice">
-    <center><h1>Tax Invoice</h1></center>
-    <div class="invoice-header" >
-        <p>Invoice No: OD00<?php echo $row['order_id'];?></p>
-        <p>Date: <?php  $row['order_date'];
-
-        $dod = $row['order_date']; 
-
-        $formatted_date = date('d-m-Y', strtotime($dod));
-
-        echo $formatted_date;?>
-        </p>
-        
-    </div>
-    <div class="company-profile">
-        <h2>Posh Botique</h2>
-        <p>223 Main Street,</p>
-        <p>Electronic City,</p> Bengaluru-07,
-        <p>posh.com</p>
-        <p>+91 98765 43210</p>
-    </div>
-
-    <div class="invoice-body">
-        <p><strong>Billed To:</strong></p>
-        <p><?php echo $order_info['user_name']; ?></p>
-        <p><?php echo $order_info['user_address']; ?></p>
-        <p><?php echo $order_info['user_city']; ?></p>
-        <p><?php echo $order_info['user_state']; ?></p>
-        <p><?php echo $order_info['user_phone']; ?></p><br/>
-        
-
-        <table class="invoice-table">
-            
-            <thead>
-                <tr>
-                    
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total (Included Tax)</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-        
-   <center> <p><b>Order Number: OD00<?php echo $row['order_id'];?></b></p></center><br/>
-    
-                <?php
-                // Loop through each product
-                do {
-                ?>
-                
-                <tr>
-                   
-                    <td><?php echo $row['product_name'];?></td>
-                    <td><?php echo $row['product_quantity'];?></td>
-                    <td><?php echo $row['product_price'];?></td>
-                    <td><?php echo $row['product_quantity'] * $row['product_price'];?></td>
-                </tr>
-                <?php
-                } while($row = $order_details->fetch_assoc());
-                ?>
-            </tbody>
-        </table>
-
-        <div class="invoice-total">
-            <?php
-            // Calculate the total amount for all products
-            $totalAmount = 0;
-            $order_details->data_seek(0); // Reset result set pointer
-            while($row = $order_details->fetch_assoc()) {
-                $totalAmount += $row['product_quantity'] * $row['product_price'];
-            }
-            ?>
-            <p><strong>Grand Total: </strong>&#8377; <?php echo $totalAmount;?></p>
+    <?php if ($row = $order_details->fetch_assoc()) { ?>
+        <center><h1>Tax Invoice</h1></center>
+        <div class="invoice-header">
+            <p>Invoice No: OD00<?php echo $row['order_id'];?></p>
+            <p>Date: <?php
+                $dod = $row['order_date']; 
+                $formatted_date = date('d-m-Y', strtotime($dod));
+                echo $formatted_date;
+            ?></p>
         </div>
+        <div class="company-profile">
+            <h2>Posh Botique</h2>
+            <p>223 Main Street,</p>
+            <p>Electronic City,</p> Bengaluru-07,
+            <p>posh.com</p>
+            <p>+91 98765 43210</p>
+        </div>
+
+        <div class="invoice-body">
+            <p><strong>Billed To:</strong></p>
+            <p><?php echo $order_info['user_name']; ?></p>
+            <p><?php echo $order_info['user_address']; ?></p>
+            <p><?php echo $order_info['user_city']; ?></p>
+            <p><?php echo $order_info['user_state']; ?></p>
+            <p><?php echo $order_info['user_phone']; ?></p><br/>
+
+            <table class="invoice-table">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total (Included Tax)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <center><p><b>Order Number: OD00<?php echo $row['order_id'];?></b></p></center><br/>
+                    <?php do { ?>
+                        <tr>
+                            <td><?php echo $row['product_name'];?></td>
+                            <td><?php echo $row['product_quantity'];?></td>
+                            <td><?php echo $row['product_price'];?></td>
+                            <td><?php echo $row['product_quantity'] * $row['product_price'];?></td>
+                        </tr>
+                    <?php } while($row = $order_details->fetch_assoc()); ?>
+                </tbody>
+            </table>
+
+            <div class="invoice-total">
+                <?php
+                // Calculate the total amount for all products
+                $totalAmount = 0;
+                $order_details->data_seek(0); // Reset result set pointer
+                while($row = $order_details->fetch_assoc()) {
+                    $totalAmount += $row['product_quantity'] * $row['product_price'];
+                }
+                ?>
+                <p><strong>Grand Total: </strong>&#8377; <?php echo $totalAmount;?></p>
+            </div>
+        </div>
+    <?php } ?>
+
+    <div style="text-align: right;">
+        <p><img src="Assets/signature.png" alt="Digital Signature" style="width: 100px; height: auto;"></p>
+        <p>Authorised Sign</p>
     </div>
-
-    
+    <div class="footer" style="text-align: center; margin-top: 20px; border-top: 1px solid #ccc; padding-top: 20px;">
+        <p>Thank you for shopping with Posh Boutique!</p>
+        <p>For any inquiries, please contact support @ <a href="contact.html" style="text-decoration: none; color: black;">posh.com</a></p>
+    </div>
 </div>
 
-<div style="text-align: right;">
-<p><img src="Assets/signature.png" alt="Digital Signature" style="width: 100px; height: auto;"></p>
-    <p>Authorised Sign</p>
-</div>
-<div class="footer" style="text-align: center; margin-top: 20px; border-top: 1px solid #ccc; padding-top: 20px;">
-    <p>Thank you for shopping with Posh Boutique!</p>
-    <p>For any inquiries, please contact support @ <a href="contact.html" style="text-decoration: none; color: black;">posh.com</a></p>
-
-</div>
-
-
+<center><button onclick="window.print()"><i style="font-size:20px" class="fa" color="black">&#xf02f;</i></button></center>
 
 </body>
 </html>
-<center><button onclick="window.print()" ><i style="font-size:20px" class="fa" color:black>&#xf02f; </i></button></center>
-
-<?php
-}
-?>
