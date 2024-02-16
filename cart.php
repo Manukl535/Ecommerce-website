@@ -245,9 +245,10 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
   </section><br>
   <br>
   <div class="centered">
+  
   <?php
   // Check if the total items are zero and display message
-  if ($_SESSION['total_items'] === 0) {
+  if (!isset($_SESSION['cart']) || empty($_SESSION['cart']) || $_SESSION['total_items'] === 0) {
     echo '<html>
             <body>
             <div style="text-align: center;">
@@ -259,7 +260,7 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
             </div>
             </body>
           </html>';
-  }
+}
 ?>
   </div>
 
@@ -280,7 +281,8 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
         </tr>
         <tr>
           <td><b>Total</b></td>
-          <td>&#8377; <?php echo $_SESSION['total']; ?></td>
+          <td>&#8377; <?php echo isset($_SESSION['total']) ? $_SESSION['total'] : 0; ?></td>
+
 
           </tr>
 

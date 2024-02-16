@@ -1,108 +1,221 @@
 <?php
 session_start();
 
-// Check if the cart is empty
-if (isset($_SESSION['total']) && $_SESSION['total'] == 0) {
-    // Display a simple message for an empty cart
-    echo '
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Place Order</title>
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    </head>
-    <body>
-      <div class="container">
-        <div class="text-center mt-5">
-          <h5>No Orders</h5>
-          <p>You have no orders.</p>
-          <a href="shop_1.php" class="btn btn-primary">Continue Shopping</a>
-        </div>
-      </div>
-      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    </body>
-    </html>';
-    exit; // Stop executing the rest of the script
+if (!isset($_SESSION['cart']) || !is_array($_SESSION['cart'])) {
+    $_SESSION['cart'] = array();
 }
+
+if (isset($_POST['add_to_cart'])) {
+    $product_array_ids = array_column($_SESSION['cart'], "product_id");
+    if (!in_array($_POST['product_id'], $product_array_ids)) {
+        $product_id = $_POST['product_id'];
+
+        $product_array = array(
+            'product_id' => $_POST['product_id'],
+            'product_image' => $_POST['product_image'],
+            'product_name' => htmlspecialchars($_POST['product_name']), // Sanitize the product name
+            'product_price' => $_POST['product_price'],
+            'product_quantity' => $_POST['product_quantity']
+        );
+
+        $_SESSION['cart'][$product_id] = $product_array;
+    } else {
+        echo '<script>alert ("Product was already added"); </script>';
+    }
+
+    calculatecart();
+} elseif (isset($_POST['remove_product'])) {
+    $product_id = $_POST['product_id'];
+    if (isset($_SESSION['cart'][$product_id])) {
+        unset($_SESSION['cart'][$product_id]);
+    }
+
+    calculatecart();
+} elseif (isset($_POST['edit_quantity'])) {
+    $product_id = $_POST['product_id'];
+    $product_quantity = $_POST['product_quantity'];
+
+    if (isset($_SESSION['cart'][$product_id])) {
+        $product_array = $_SESSION['cart'][$product_id];
+        $product_array['product_quantity'] = $product_quantity;
+        $_SESSION['cart'][$product_id] = $product_array;
+    }
+
+    calculatecart();
+}
+
+function calculatecart()
+{
+    $total = 0;
+
+    if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
+        foreach ($_SESSION['cart'] as $key => $value) {
+            if (isset($_SESSION['cart'][$key]['product_price']) && isset($_SESSION['cart'][$key]['product_quantity'])) {
+                $price = $_SESSION['cart'][$key]['product_price'];
+                $quantity = $_SESSION['cart'][$key]['product_quantity'];
+                $total += ($price * $quantity);
+            }
+        }
+    } else {
+        $_SESSION['cart'] = array();
+    }
+
+    $_SESSION['total'] = $total;
+}
+
+function calculateTotalItems($cart)
+{
+    $totalQuantity = 0;
+
+    if (isset($cart) && is_array($cart)) {
+        foreach ($cart as $item) {
+            if (isset($item['product_quantity'])) {
+                $totalQuantity += $item['product_quantity'];
+            }
+        }
+    }
+    return $totalQuantity;
+}
+
+$_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_array($_SESSION['cart']) ? $_SESSION['cart'] : array());
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Place Order</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <!-- Include your stylesheets and other head elements -->
 </head>
 <body>
-  <div class="container">
-    <div class="text-center mt-5">
-      <h4>Scan The QR Code to Make Payment</h4>
-      <p>Total Payment: &#8377; <?php if (isset($_SESSION['total']) && $_SESSION['total'] != 0) {
-          echo $_SESSION['total'];
-      } ?></p>
-      <img src="Assets/qr.png" class="img-fluid" alt="Centered Image">
-      <p>Is Payment Successful?</p>
-
-      <?php if (isset($_SESSION['total']) && $_SESSION['total'] > 0) { ?>
-        <form method="post" action="place_order.php">
-          <?php if (isset($_SESSION['order_id'])) { ?>
-            <input type="hidden" name="order_id" value="<?php echo $_SESSION['order_id']; ?>">
-          <?php } ?>
-          <button type="submit" name="cancel_order" class="btn btn-danger" style="background-color: red;">No</button>
-          <button type="button" class="btn btn-success" style="background-color: green;" data-toggle="modal" data-target="#successModal">Yes</button>
+   <!--Header Section-->
+  <section id="top">
+    <img src="Assets/logo.png" alt="logo">
+    <div>
+      <ul id="headings">
+        <li>
+          <a href="index.php">Home</a>
+        </li>
+        <li>
+          <a href="shop_1.php">Shop</a>
+        </li>
+        <li>
+          <a href="about.php">About Us</a>
+        </li>
+        <li>
+          <a href="contact.html">Contact Us</a>
+        </li><!-- <li><a href="login.html"><i style="font-size:24px" class="fa">&#xf007;</i></a></li>
+                    <li><a href="cart.html"><i style="font-size:24px" class="fa">&#xf07a;</i></a></li> -->
+      </ul>
+    </div>
+  </section>
+  <section id="cart" class="section-p1">
+    <table width="100%">
+      <thead>
+        <tr>
+          <td>Remove</td>
+          <td>Product</td>
+          <td>Description</td>
+          <td>Price</td>
+          <td>Quantity</td>
+          <td>Total</td>
+        </tr>
+      </thead>
+      <tbody>
+  <?php foreach($_SESSION['cart'] as $key => $value) { ?>
+    <tr>
+      <td>
+        <form method="post" action="cart.php">
+          <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>">
+          <input type="submit" class="material-icons" name="remove_product" style="font-size:30px" value="&#xe872">
         </form>
-      <?php } else { ?>
-        <!-- Disable buttons when payment cost is 0 -->
-        <button type="button" class="btn btn-danger" style="background-color: red;" disabled>No</button>
-        <button type="button" class="btn btn-success" style="background-color: green;" disabled data-toggle="modal" data-target="#failureModal">Yes</button>
-      <?php } ?>
+      </td>
+      <td><img src="Assets/<?php echo $value['product_image']; ?>" alt=""></td>
+      <td><?php echo $value['product_name']; ?></td>
+      <td>&#8377; <?php echo $value['product_price']; ?></td>
+      <td>
+        <form method="POST" action="cart.php">
+        
+        <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>">
+    <div class="input-group">
+        <input type="number" name="product_quantity" min="1" value="<?php echo $value['product_quantity']; ?>">
+        <input type="submit" class="update_btn" value="Update" name="edit_quantity">
     </div>
+ 
+  
+</form>
+      </td>
+      <td>&#8377; <?php echo $value['product_quantity'] * $value['product_price']; ?></td>
+    </tr>
+  <?php } ?>
+</tbody>
+    </table>
+  </section><br>
+  <br>
+  <div class="centered">
+  
+  <?php
+  // Check if the total items are zero and display message
+  if (!isset($_SESSION['cart']) || empty($_SESSION['cart']) || $_SESSION['total_items'] === 0) {
+    echo '<html>
+            <body>
+            <div style="text-align: center;">
+              <img src="Assets/empty_cart.png" alt="Empty Cart Image" style="display: block; margin: 0 auto;">
+            </div>
+            <br>
+            <div style="text-align: center;">
+             <h3>Your cart is empty!</h3>
+            </div>
+            </body>
+          </html>';
+}
+?>
   </div>
 
-  <!-- Success Modal -->
-  <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="successModalLabel">Payment Success</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Payment was successful! Order Placed Successfully.</p>
-          <p>Amount Paid: &#8377; <?php echo $_SESSION['total'] ?></p>
-          <a href="shop_1.php" class="btn btn-primary">Continue Shopping</a>
-        </div>
+  <section id="add2cart" class="section-p1">
+    <div id="coupon">
+      <h3>Apply Coupon</h3>
+      <div>
+        <input type="text" placeholder="Enter your coupon"> <button class="normal">Apply</button>
       </div>
     </div>
-  </div>
+    <div id="Total">
+      <h3>Cart Total</h3>
+      <table>
+     
+        <tr>
+          <td><b>Shipping</b></td>
+          <td style="color:red;"><b>Free</b></td>
+        </tr>
+        <tr>
+          <td><b>Total</b></td>
+          <td>&#8377; <?php echo $_SESSION['total']; ?></td>
 
-  <!-- Failure Modal -->
-  <div class="modal fade" id="failureModal" tabindex="-1" role="dialog" aria-labelledby="failureModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="failureModalLabel">Payment Failure</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Payment failed. Sorry, your order was unsuccessful.</p>
-          <a href="cart.php" class="btn btn-primary">Try again</a>
-        </div>
-      </div>
+          </tr>
+
+          <td><b>Total Items</b></td>
+    <td><?php echo "". calculateTotalItems($_SESSION['cart']); ?></td>
+</tr>
+   
+          
+        
+      </table>
+      <form action="checkout.php" method="post">
+     <input type="submit" name="checkout" class="proceed" value="PROCEED TO CHECKOUT"></form>
     </div>
-  </div>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </section>
+  
+  
+  <!--Subscribe-->
+    
+  <?php include_once("includes/subscribe.html"); ?> 
+        
+    
+            
+        <!-- Footer -->
+      
+        <?php include_once("includes/footer.html"); ?> 
 </body>
 </html>
