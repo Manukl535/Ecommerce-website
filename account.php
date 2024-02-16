@@ -317,9 +317,16 @@ if (isset($_SESSION['logged-in'])) {
 
             <?php while ($row = $orders->fetch_assoc()) { ?>
     <tr>
-        <td><?php echo $row['order_id']; ?></td>
+        <td>OD00<?php echo $row['order_id']; ?></td>
         <td><?php echo $row['order_date']; ?></td>
-        <td>Delivery Expected:<?php echo $row['dod']; ?></td>
+        
+        <td>Delivery On : <?php
+        $dod = $row['dod']; 
+
+        $formatted_date = date('d-m-Y', strtotime($dod));
+
+        echo $formatted_date;?></td>
+
         <td>&#8377; <?php echo $row['order_cost']; ?></td>
         <td><?php echo $row['order_quantity']; ?></td>
         <td>

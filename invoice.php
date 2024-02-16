@@ -115,7 +115,14 @@ while($row = $order_details->fetch_assoc()) {
     <center><h1>Tax Invoice</h1></center>
     <div class="invoice-header" >
         <p>Invoice No: OD00<?php echo $row['order_id'];?></p>
-        <p>Date:<?php echo $row['order_date'];?></p>
+        <p>Date: <?php  $row['order_date'];
+
+        $dod = $row['order_date']; 
+
+        $formatted_date = date('d-m-Y', strtotime($dod));
+
+        echo $formatted_date;?>
+        </p>
         
     </div>
     <div class="company-profile">

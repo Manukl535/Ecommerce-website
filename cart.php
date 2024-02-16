@@ -297,6 +297,7 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
 
   </section>
   
+  
   <!--Subscribe-->
     
   <?php include_once("includes/subscribe.html"); ?> 
