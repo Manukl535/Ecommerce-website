@@ -299,7 +299,7 @@ if (isset($_SESSION['logged-in'])) {
             </div>
         </div>
     </div>
-
+<br/><br/>
     
 
 <div class="profile-section" id="changePassword">
@@ -318,7 +318,7 @@ if (isset($_SESSION['logged-in'])) {
             <?php while ($row = $orders->fetch_assoc()) { ?>
     <tr>
         <td>OD00<?php echo $row['order_id']; ?></td>
-        <td><?php echo $row['order_date']; ?></td>
+        <td><?php echo date('d-m-Y', strtotime($row['order_date'])); ?></td>
         <td>Delivery On: <?php
             $dod = $row['dod'];
             $formatted_date = date('d-m-Y', strtotime($dod));
