@@ -102,11 +102,8 @@ if(isset($_GET['product_id'])){
         <?php } ?>
     </section>
     <br><br><br><br>
-    <script>
-      
 
-
- 
+  <script>
     function addToCart() {
   var selectedSize = document.querySelector('select').value;
   if (selectedSize === 'Select Size') {
