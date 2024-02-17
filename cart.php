@@ -19,14 +19,14 @@ if (isset($_POST['add_to_cart'])) {
         $product_array = array(
             'product_id' => $_POST['product_id'],
             'product_image' => $_POST['product_image'],
-            'product_name' => htmlspecialchars($_POST['product_name']), 
+            'product_name' => htmlspecialchars($_POST['product_name']),
             'product_price' => $_POST['product_price'],
             'product_quantity' => $_POST['product_quantity']
         );
 
         $_SESSION['cart'][$product_id] = $product_array;
     } else {
-        echo '<script>alert ("Product was already added"); </script>';
+        echo '<script>alert("Product was already added"); </script>';
     }
 
     // calculate total
@@ -36,7 +36,6 @@ if (isset($_POST['add_to_cart'])) {
     // Check if the cart is set and is an array
     if (isset($_SESSION['cart']) && is_array($_SESSION['cart']) && isset($_SESSION['cart'][$product_id])) {
         unset($_SESSION['cart'][$product_id]);
-        
     }
 
     // calculate total
@@ -54,6 +53,18 @@ if (isset($_POST['add_to_cart'])) {
 
     // calculate total
     calculatecart();
+} elseif (isset($_POST['place_order'])) {
+    // Assume you have an order placement logic here
+    $order_success = placeOrder($_SESSION['cart'], $_SESSION['total']);
+
+    if ($order_success) {
+        // Order was successful, clear the cart
+        $_SESSION['cart'] = array();
+        $_SESSION['total'] = 0;
+        $_SESSION['total_items'] = 0;
+    } else {
+        // Order failed, handle accordingly (display error message, etc.)
+    }
 } else {
     // header("location:index.php");
 }
@@ -97,10 +108,19 @@ function calculateTotalItems($cart)
 
 // Initialize total_items even if 'cart' is not set or not an array
 $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_array($_SESSION['cart']) ? $_SESSION['cart'] : array());
-?>
 
+// Placeholder for the order placement logic
+function placeOrder($cart, $total)
+{
+    // Your order placement logic goes here
+    // Replace this with your actual implementation
+    // Return true if order is successful, false otherwise
+    return true; // Placeholder, replace with actual logic
+}
+?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Index</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -110,18 +130,19 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        .material-icons{
-            color:black;
+        .material-icons {
+            color: black;
             border-radius: 50px;
             background-color: #fff;
-            border:none;
-        }  
-        .material-icons:hover{
-            color:red;
+            border: none;
+        }
+
+        .material-icons:hover {
+            color: red;
             background-color: #fff;
         }
 
-        .update_btn{
+        .update_btn {
             border: 1px solid black;
             padding-left: 10px;
             padding-top: 20px;
@@ -132,18 +153,19 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
             background-color: #55c2da;
             font-weight: bold;
         }
-        .update_btn:hover{
-            background-color:#00A36C;
+
+        .update_btn:hover {
+            background-color: #00A36C;
         }
 
-        .proceed{
+        .proceed {
             height: 2.4rem;
             padding: 0 1.24em;
             background-color: #04AA6D;
             color: #eef7f6;
             white-space: inherit;
-            padding:  9px 10px ;
-            border :1px double black;
+            padding: 9px 10px;
+            border: 1px double black;
             border-radius: 2px;
         }
 
@@ -155,8 +177,8 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
             padding-bottom: 100px;
         }
 
-        tr > td:nth-child(5) {
-            padding-left:155px; 
+        tr>td:nth-child(5) {
+            padding-left: 155px;
         }
 
         .input-group {
@@ -169,6 +191,7 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
         }
     </style>
 </head>
+
 <body>
     <!--Header Section-->
     <section id="top">
@@ -245,8 +268,8 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
                     </div>
                     </body>
                 </html>';
-    // Set total to 0
-    $_SESSION['total'] = 0;
+            // Set total to 0
+            $_SESSION['total'] = 0;
         }
         ?>
     </div>
@@ -270,7 +293,7 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
                 </tr>
                 <tr>
                     <td><b>Total Items</b></td>
-                    <td><?php echo "". calculateTotalItems($_SESSION['cart']); ?></td>
+                    <td><?php echo "" . calculateTotalItems($_SESSION['cart']); ?></td>
                 </tr>
             </table>
             <form action="checkout.php" method="post">
@@ -280,9 +303,10 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
     </section>
 
     <!--Subscribe-->
-    <?php include_once("includes/subscribe.html"); ?> 
+    <?php include_once("includes/subscribe.html"); ?>
 
     <!-- Footer -->
-    <?php include_once("includes/footer.html"); ?> 
+    <?php include_once("includes/footer.html"); ?>
 </body>
+
 </html>

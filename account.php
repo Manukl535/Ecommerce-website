@@ -206,7 +206,60 @@ if (isset($_SESSION['logged-in'])) {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 30px;
   }
+  .dropdown {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 3px;
   
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  margin: 0 0 0 0;
+  transform: perspective(1px) translateZ(0); 
+  transform-origin: 0 0;
+  transition: transform 0.3s ease-in-out; 
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  transform: scale(1.02); /* Adjust scale for 3D effect */
+}
+
+.dropbtn::before {
+  content: "";
+  position: absolute;
+  top: 60%;
+  right: 10px;
+  transform: translateY(-50%);
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease-in-out; /* Add transition effect */
+  border-top: 1px solid #ccc; /* Add border between items */
+}
+
+.dropdown-content a:first-child {
+  border-top: none; /* Remove border for the first item */
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
 
   </style>
 </head>
@@ -226,7 +279,34 @@ if (isset($_SESSION['logged-in'])) {
         </li>
         <li>
           <a href="contact.html">Contact Us</a>
-        </li><!-- <li><a href="login.php"><i style="font-size:24px" class="fa">&#xf007;</i></a></li>-->
+        </li>
+        <li>
+                        <div class="dropdown">
+                          <a href="login_user.php">
+                            <div class="dropbtn">
+                            <div class="test">
+    <i style="font-size:20px" class="fa">&#xf2be;&nbsp;</i>
+    <?php 
+    if(isset($_SESSION['user_name'])) {
+        $formattedName = ucfirst(strtolower($_SESSION['user_name']));
+        echo '<span style="font-size: 15.6px;">' . $formattedName . '</span>'; 
+    } else {
+        echo 'Login';
+    }
+?>
+
+
+    &nbsp;&#11167;
+</div>
+ </a>
+                        </div>   
+                          <div class="dropdown-content">
+                            <a href="account.php"><img src="Assets/dashboard.png">&nbsp;Dashboard</a>
+                            <a href="logout.php"><i style="font-size:24px" class="fa">&#xf08b;</i>Logout</a>
+                          </div>
+                        
+                        
+                      </li>
         <li>
           <a href="cart.php"><i style="font-size:24px" class="fa"></i></a>
         </li>
