@@ -206,34 +206,169 @@ if (isset($_SESSION['logged-in'])) {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 30px;
   }
+  .dropdown {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 3px;
   
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  margin: 0 0 0 0;
+  transform: perspective(1px) translateZ(0); 
+  transform-origin: 0 0;
+  transition: transform 0.3s ease-in-out; 
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  transform: scale(1.02); /* Adjust scale for 3D effect */
+}
+
+.dropbtn::before {
+  content: "";
+  position: absolute;
+  top: 60%;
+  right: 10px;
+  transform: translateY(-50%);
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease-in-out; /* Add transition effect */
+  border-top: 1px solid #ccc; /* Add border between items */
+}
+
+.dropdown-content a:first-child {
+  border-top: none; /* Remove border for the first item */
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+.test{
+    padding-bottom: 2px;
+    border: 1px solid #fff;
+    padding: 10px; 
+    border-radius: 25px;
+    
+    
+    
+}
+.test:hover{
+    background-color:green;
+    border-radius: 25px; 
+    color: #fff;
+}
+
 
   </style>
 </head>
 <body>
-  <section id="top">
-    <img src="Assets/logo.png" alt="logo">
-    <div>
-      <ul id="headings">
-        <li>
-          <a href="index.php">Home</a>
-        </li>
-        <li>
-          <a href="shop_1.php">Shop</a>
-        </li>
-        <li>
-          <a href="about.php">About Us</a>
-        </li>
-        <li>
-          <a href="contact.html">Contact Us</a>
-        </li><!-- <li><a href="login.php"><i style="font-size:24px" class="fa">&#xf007;</i></a></li>-->
-        <li>
-          <a href="cart.php"><i style="font-size:24px" class="fa"></i></a>
-        </li>
-      </ul>
-    </div>
-  </section>
-  <div class="acct-links-container" style="display: flex;justify-content: center;">
+      <!-- Header Section -->
+<section id="top">
+                <img src="Assets/logo.png">
+                                 
+            <div>
+               
+                <ul id="headings">
+               
+                    <li><a href="index.php">Home</a></li>
+                    <li>
+                        <div class="dropdown">
+                          
+                            <div class="dropbtn">
+                              <div><a>Men's</a></div> 
+                          
+                        </div>   
+                          <div class="dropdown-content">
+                            <a href="men_app_1.php">Apperal</a>
+                            
+                            <a href="men_foot_1.php">Footwear</a>
+                            <a href="men_acc_1.php">Accessories</a>
+                          </div>
+                        
+                        
+                      </li>
+                      <li>
+                        <div class="dropdown">
+                          
+                            <div class="dropbtn">
+                              <div><a>Women's</a></div> 
+                          
+                        </div>   
+                          <div class="dropdown-content">
+                            <a href="women_app_1.php">Apperal</a>
+                            <a href="women_foot_1.php">Footwear</a>
+                            <a href="women_acc_1.php">Accessories</a>
+                          </div>
+                        
+                        
+                      </li>
+                   
+                    <li><a href="about.php">About Us</a></li>
+                    <li><a href="contact.php">Contact Us</a></li>
+                    <li>
+                        <div class="dropdown">
+                          <a href="login_user.php">
+                            <div class="dropbtn">
+                            <div class="test">
+    <i style="font-size:20px" class="fa">&#xf2be;&nbsp;</i>
+    <?php 
+    if(isset($_SESSION['user_name'])) {
+        $formattedName = ucfirst(strtolower($_SESSION['user_name']));
+        echo '<span style="font-size: 15.6px;">' . $formattedName . '</span>'; 
+    } else {
+        echo 'Login';
+    }
+?>
+
+
+    &nbsp;&#11167;
+</div>
+ </a>
+                        </div>   
+                          <div class="dropdown-content">
+                            <a href="account.php"><img src="Assets/dashboard.png">&nbsp;Dashboard</a>
+                            <a href="logout.php"><i style="font-size:24px" class="fa">&#xf08b;</i>Logout</a>
+                          </div>
+                        
+                        
+                      </li>
+    <li> <a href="cart.php" style="position: relative;">
+        <i style="font-size:24px" class="fa">&#xf07a; </i> Cart
+        <?php
+        // Check if the total items are greater than 0 and display the quantity
+        if (isset($_SESSION['total_items']) && $_SESSION['total_items'] > 0) {
+            echo '<span style="font-size: 10px; color: white; background:red; position: absolute; bottom: 18px; right: 32px; border: 1px solid #ccc; border-radius: 80%; padding: 3px 8px;">' . $_SESSION['total_items'] . '</span>';
+        }
+        ?>
+    </a>
+</li>
+                   <!-- <input type="text" class="search-input" placeholder="Search..."><button class="search-btn">Search</button>
+                    -->
+                </ul>
+            
+            </div>
+
+             
+</section>
+
+              <div class="acct-links-container" style="display: flex;justify-content: center;">
     <div class="acct-userbox">
       <p><img src="Assets/user_icon.png" alt="user_icon"></p>
       <p>Hello, <b><?php if(isset($_SESSION['user_name'])){echo $_SESSION['user_name']; } ?></b></p>

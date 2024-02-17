@@ -20,6 +20,8 @@ if (!$isAdmin) {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: row-reverse; /* Change to row-reverse to move the side menu to the left */
         }
 
         header {
@@ -27,12 +29,19 @@ if (!$isAdmin) {
             color: #fff;
             padding: 10px;
             text-align: center;
+            width: 100%;
         }
 
         nav {
             background-color: #444;
             color: #fff;
             padding: 10px;
+            height: 100vh;
+            width: 200px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         nav a {
@@ -44,27 +53,33 @@ if (!$isAdmin) {
 
         section {
             padding: 20px;
+            flex: 1;
+        }
+        #top h1{
+            padding 10px; 0 0 10px;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Admin Dashboard</h1>
-</header>
+
+
+
+    <section>
+        <h2>Welcome, <?php echo $_SESSION['admin_name']; ?></h2>
+        
+    </section>
+
+
 
 <nav>
-    <a href="#">Home</a>
-    <a href="#">Users</a>
-    <a href="#">Settings</a>
-    <a href="logout.php">Logout</a> 
+    <a href="#">Dashboard</a>
+    <a href="#">Orders</a>
+    <a href="#">Products</a>
+    <a href="#">Account</a>
+    <a href="logout.php">Logout</a>
 </nav>
 
-<section>
-<h2>Welcome, <?php echo $_SESSION['admin_name']; ?></h2>
-
-    <p>This is your admin dashboard. You can manage users, settings, and more.</p>
-</section>
 
 </body>
 </html>

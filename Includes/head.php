@@ -262,7 +262,7 @@ session_start();
                       </li>
                    
                     <li><a href="about.php">About Us</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="contact.php">Contact Us</a></li>
                     <li>
                         <div class="dropdown">
                           <a href="login_user.php">
@@ -290,9 +290,18 @@ session_start();
                         
                         
                       </li>
-                    <li><a href="cart.php"><i style="font-size:24px" class="fa">&#xf07a; </i> Cart</a></li>
-                   <input type="text" class="search-input" placeholder="Search..."><button class="search-btn">Search</button>
-                   
+    <li> <a href="cart.php" style="position: relative;">
+        <i style="font-size:24px" class="fa">&#xf07a; </i> Cart
+        <?php
+        // Check if the total items are greater than 0 and display the quantity
+        if (isset($_SESSION['total_items']) && $_SESSION['total_items'] > 0) {
+            echo '<span style="font-size: 10px; color: white; background:red; position: absolute; bottom: 18px; right: 32px; border: 1px solid #ccc; border-radius: 80%; padding: 3px 8px;">' . $_SESSION['total_items'] . '</span>';
+        }
+        ?>
+    </a>
+</li>
+                   <!-- <input type="text" class="search-input" placeholder="Search..."><button class="search-btn">Search</button>
+                    -->
                 </ul>
             
             </div>

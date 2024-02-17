@@ -9,22 +9,7 @@
 </head>
 <body>
  <!--Header Section-->
-
- <section id="top">
-        <img src="Assets/logo.png">
-    
-    <div>
-        <ul id="headings">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="shop_1.php">Shop</a></li>
-            <li><a href="about.php">About</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-            <!-- <li><a href="login.html"><i style="font-size:24px" class="fa">&#xf007;</i></a></li>-->
-            <li><a href="cart.php"><i style="font-size:24px" class="fa">&#xf07a;</i> Cart </a></li>
-        </ul>
-    </div>
-    
-     </section>
+ <?php include_once("includes/head.php"); ?>
    <style>
      .container {
   display: flex;

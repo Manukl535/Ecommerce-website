@@ -11,20 +11,7 @@
         
              <!--Header Section-->
 
-             <section id="top">
-                <img src="Assets/logo.png">
-            
-            <div>
-                <ul id="headings">
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="shop_1.php">Shop</a></li>
-                    <li><a href="about.php">About Us</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <!-- <li><a href="login.php"><i style="font-size:24px" class="fa">&#xf007;</i></a></li>
-                    <li><a href="cart.html"><i style="font-size:24px" class="fa">&#xf07a;</i></a></li> -->
-                </ul>
-            </div>
-             </section>
+             <?php include_once("includes/head.php"); ?>
 
 
             
@@ -68,48 +55,11 @@
     </form>
     </section>
              
-             <footer class="section-p1">
-    <div class="col">
-        <img src="Assets/logo.png"><br/>
-        <h4>Contact Us</h4>
-        <p>Address:223 Main Street Electonic City Bengaluru 562107</p>
-        <p>Phone:+91 98765 43210</p>
-        <p>Email:posh.com</p>
-        <div class="follow">
-            <h4>Follow Us</h4>
-            <div class="col">
-                <ul>
-                <i class="fa fa-facebook-official" style="font-size:36px"></i>
-                <i class="fa fa-instagram" style="font-size:36px"></i>
-                <i class="fa fa-twitter-square" style="font-size:36px"></i>
-            </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="col">
-        <h4>About </h4>
-        <a href="about.php">About Us</a>
-        <a href="T&C.html">Privacy Policy</a>
-        <a href="T&C.html">Terms & Conditions</a>
-        <a href="contact.html">Contact Us</a>
-    </div>
-    <div class="col">
-        <h4>My Account</h4>
-        <a href="login_user.php">Signin</a>
-        <a href="cart.php">Cart</a>
-        <a href="contact.html">Help</a>
-    </div>
-    <div class="payment">
-            <h4>Secured Payment Gateways</h4>
-        <img src="Assets/payment.png">
-    </div>
-    <div class="copyright">
-        <p>2023 &#169; All Rights Reserved</p><p>Designed and Maintained by <b>Manu </b>and <b>Srisha</b></p>
-    </div>
-
-
-   </footer>
+ 
+            
+        <!-- Footer -->
+      
+        <?php include_once("includes/footer.html"); ?> 
     
     </body>
 </html>

@@ -109,6 +109,8 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+          <link rel="stylesheet" href="styles.css">
     <style>
         .material-icons{
             color:black;
@@ -167,29 +169,115 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
         .input-group input {
             margin: -90px;
         }
+
+        .dropdown {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 3px;
+  
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  margin: 0 0 0 0;
+  transform: perspective(1px) translateZ(0); 
+  transform-origin: 0 0;
+  transition: transform 0.3s ease-in-out; 
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  transform: scale(1.02); /* Adjust scale for 3D effect */
+}
+
+.dropbtn::before {
+  content: "";
+  position: absolute;
+  top: 60%;
+  right: 10px;
+  transform: translateY(-50%);
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease-in-out; /* Add transition effect */
+  border-top: 1px solid #ccc; /* Add border between items */
+}
+
+.dropdown-content a:first-child {
+  border-top: none; /* Remove border for the first item */
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
     </style>
 </head>
 <body>
     <!--Header Section-->
-    <section id="top">
-        <img src="Assets/logo.png" alt="logo">
-        <div>
-            <ul id="headings">
-                <li>
-                    <a href="index.php">Home</a>
-                </li>
-                <li>
-                    <a href="shop_1.php">Shop</a>
-                </li>
-                <li>
-                    <a href="about.php">About Us</a>
-                </li>
-                <li>
-                    <a href="contact.html">Contact Us</a>
-                </li>
-            </ul>
-        </div>
-    </section>
+  <!-- Header Section -->
+<section id="top">
+                <img src="Assets/logo.png">
+                                 
+            <div>
+               
+                <ul id="headings">
+               
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="shop.php">Shop</a></li>
+                    <li><a href="about.php">About Us</a></li>
+                    <li><a href="contact.php">Contact Us</a></li>
+                    <li>
+                        <div class="dropdown">
+                          <a href="login_user.php">
+                            <div class="dropbtn">
+                            <div class="test">
+    <i style="font-size:20px" class="fa">&#xf2be;&nbsp;</i>
+    <?php 
+    if(isset($_SESSION['user_name'])) {
+        $formattedName = ucfirst(strtolower($_SESSION['user_name']));
+        echo '<span style="font-size: 15.6px;">' . $formattedName . '</span>'; 
+    } else {
+        echo 'Login';
+    }
+?>
+
+
+    &nbsp;&#11167;
+</div>
+ </a>
+                        </div>   
+                          <div class="dropdown-content">
+                            <a href="account.php"><img src="Assets/dashboard.png">&nbsp;Dashboard</a>
+                            <a href="logout.php"><i style="font-size:24px" class="fa">&#xf08b;</i>Logout</a>
+                          </div>
+                        
+                        
+                      </li>
+ 
+                   <!-- <input type="text" class="search-input" placeholder="Search..."><button class="search-btn">Search</button>
+                    -->
+                </ul>
+            
+            </div>
+
+             
+</section>
+
+            
     <section id="cart" class="section-p1">
         <table width="100%">
             <thead>
