@@ -1,164 +1,54 @@
 <?php 
+    if (isset($_POST['Change_Password'])) {
+    $password = $_POST['new_password'];
+    $confirm_password = $_POST['confirm_password'];
+    $email = $_SESSION['email'];
 
-session_start();
-include('Includes/connection.php');
+    //pass_confirm pass
+    if ($password !== $confirm_password) {
+        header('location:account.php?error=Password did not match');
+    }
+    //length of pass
+    elseif (strlen($password) < 6) {
+        header('location:account.php?error=Password must have 6 characters');
+    //if all correct
+    } else {
+        $stmt = $conn->prepare("UPDATE users SET password=? WHERE email=?");
 
+        $stmt->bind_param('ss', $password, $email);
 
-if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
-    $order_id = $_GET['order_id'];
-    $stmt = $conn->prepare("SELECT * FROM order_item 
-    JOIN orders ON order_item.order_id = orders.order_id
-    WHERE order_item.order_id=?");
-
-$stmt->bind_param('i', $order_id);
-$stmt->execute();
-
-$order_details = $stmt->get_result();
-
-// Retrieve billed address from orders table
-$stmt1 = $conn->prepare("SELECT user_name,user_phone,user_address,user_city,user_state FROM orders WHERE order_id=?");
-$stmt1->bind_param('i', $order_id);
-$stmt1->execute();
-$order_info = $stmt1->get_result()->fetch_assoc();
-$stmt1->close();
-} else {
-header('location:account.php');
-exit();
+        if ($stmt->execute()) {
+            header("location:account.php?message=Password Updated Successfully");
+        } else {
+            header("location:account.php?error=Couldn't Update the Password");
+        }
+    }
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Invoice</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
-        }
-        .invoice {
-            width: 95%;
-            height:100%;
-            margin: 20px auto;
-            padding: 20px;
-        }
-        .invoice-header {
-            text-align: right;
-            margin-bottom: 20px;
-            margin-right:10px;
-            font-weight:bold;
-        }
-        .invoice-header h1 {
-            margin: 0;
-            color: #333;
-        }
-        .invoice-header p {
-            margin: 5px 0;
-            color: #555;
-        }
-        .invoice-body {
-            margin-top: 20px;
-        }
-        .invoice-body p {
-            margin: 5px 0;
-            color: #333;
-        }
-        .invoice-table {
-            width: 100%; 
-            border-collapse: collapse;
-            margin: 0 auto; 
-            margin-top: 10px;
-        }
-        .invoice-table th, .invoice-table td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: left;
-        }
-        .invoice-total {
-            margin-top: 20px;
-            text-align: right;
-        }
-        .company-profile {
-            margin-top: 20px;
-            border-top: 1px solid #ccc;
-            padding-top: 20px;
-            style="display:flex; 
-            justify-content:center"
-        }
-        .company-profile h2 {
-            margin: 0;
-            color: #333;
-        }
-        .company-profile p {
-            margin: 5px 0;
-            color: #333;
-        }
-    </style>
-</head>
-<body>
 
-<div><img src="Assets/paid.png" alt=""></div>
-<div class="invoice">
-    <center><h1>Tax Invoice</h1></center>
-    <div class="invoice-header">
-        <p>Invoice No: OD00</p>
-        <p>Date: <!-- Current Date --></p>
-    </div>
-    <div class="company-profile">
-        <h2>Posh Botique</h2>
-        <p>223 Main Street,</p>
-        <p>Electronic City,</p> Bengaluru-07,
-        <p>posh.com</p>
-        <p>+91 98765 43210</p>
-    </div>
-
-    <div class="invoice-body">
-        <p><strong>Billed To:</strong></p>
-        <p><!-- Customer Name --></p>
-        <p><!-- Customer Address --></p>
-        <p><!-- Customer City --></p>
-        <p><!-- Customer State --></p>
-        <p><!-- Customer Phone --></p><br/>
-
-        <table class="invoice-table">
-            <thead>
-                <tr>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total (Included Tax)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <center><p><b>Order Number: OD00</b></p></center><br/>
-                <tr>
-                    <td><!-- Product Name --></td>
-                    <td><!-- Product Quantity --></td>
-                    <td><!-- Product Price --></td>
-                    <td><!-- Product Quantity * Product Price --></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="invoice-total">
-            <p><strong>Grand Total: </strong>&#8377; <!-- Total Amount --></p>
+<div class="profile-section" style="flex: 1;">
+            <!-- Change password -->
+            <div class="container" style="height: 55vh;">
+                <center>
+                    <h3>Change Password</h3>
+                    <p style="color:red;"><?php if (isset($_GET['error'])) { echo $_GET['error']; } ?></p>
+                    <p style="color:green;"><?php if (isset($_GET['message'])) { echo $_GET['message']; } ?></p>
+                </center>
+                <form id="account-form" action="account.php" method="POST">
+                    <label for="new_password">New Password</label> <input type="password" id="new_password"
+                        name="new_password" required="">
+                    <label for="confirm_password">Confirm New Password</label> <input type="password"
+                        id="confirm_password" name="confirm_password" required="">
+                    <center>
+                        <button type="submit" name="Change_Password" style='border-radius: 50px;'>Change Password</button>
+                    </center>
+                </form>
+                <script>
+                    // Add JavaScript to scroll to the changePassword section
+                    if (window.location.hash === '#changePassword') {
+                        document.getElementById('account-form').style.display = 'block';
+                    }
+                </script>
+            </div>
         </div>
     </div>
-
-    <div style="text-align: right;">
-        <p><img src="Assets/signature.png" alt="Digital Signature" style="width: 100px; height: auto;"></p>
-        <p>Authorised Sign</p>
-    </div>
-    <div class="footer" style="text-align: center; margin-top: 20px; border-top: 1px solid #ccc; padding-top: 20px;">
-        <p>Thank you for shopping with Posh Boutique!</p>
-        <p>For any inquiries, please contact support @ <a href="contact.html" style="text-decoration: none; color: black;">posh.com</a></p>
-    </div>
-</div>
-
-<center><button onclick="window.print()"><i style="font-size:20px" class="fa" color="black">&#xf02f;</i></button></center>
-
-</body>
-</html>

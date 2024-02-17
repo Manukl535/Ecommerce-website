@@ -382,7 +382,7 @@ if (isset($_SESSION['logged-in'])) {
         <table>
             <tr>
                 <th>Order ID</th>
-                <th>Order Date</th>
+               <th>Order Date</th>
                 <th>Order Status</th>
                 <th>Order Cost</th>
                 <th>Order Quantity</th>
@@ -392,7 +392,7 @@ if (isset($_SESSION['logged-in'])) {
             <?php while ($row = $orders->fetch_assoc()) { ?>
     <tr>
     <td>ODR<?php echo str_pad($row['order_id'], 3, '0', STR_PAD_LEFT); ?></td>
-
+   
         <td><?php echo date('d-m-Y', strtotime($row['order_date'])); ?></td>
         <td>Delivery On: <?php
             $dod = $row['dod'];

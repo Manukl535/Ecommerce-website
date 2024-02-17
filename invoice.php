@@ -5,23 +5,38 @@ include('Includes/connection.php');
 if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
     $order_id = $_GET['order_id'];
 
-    $stmt = $conn->prepare("SELECT * FROM order_item 
-                        JOIN orders ON order_item.order_id = orders.order_id
-                        WHERE order_item.order_id=?");
+    // Check if the user is logged in
+    if (!isset($_SESSION['user_id'])) {
+        header('location: unauthorized.php');
+        exit();
+    }
 
-    $stmt->bind_param('i', $order_id);
+    // Retrieve order details along with user_id
+    $stmt = $conn->prepare("SELECT order_item.*, orders.user_id 
+                            FROM order_item 
+                            JOIN orders ON order_item.order_id = orders.order_id
+                            WHERE order_item.order_id=? AND orders.user_id=?");
+
+    $stmt->bind_param('ii', $order_id, $_SESSION['user_id']);
     $stmt->execute();
 
     $order_details = $stmt->get_result();
-    
+
+    // Check if there are results for the query
+    if ($order_details->num_rows === 0) {
+        // No results, redirect to unauthorized.php
+        header('location: unauthorized.php');
+        exit();
+    }
+
     // Retrieve billed address from orders table
-    $stmt1 = $conn->prepare("SELECT user_name,user_phone,user_address,user_city,user_state FROM orders WHERE order_id=?");
-    $stmt1->bind_param('i', $order_id);
+    $stmt1 = $conn->prepare("SELECT user_name,user_phone,user_address,user_city,user_state FROM orders WHERE order_id=? AND user_id=?");
+    $stmt1->bind_param('ii', $order_id, $_SESSION['user_id']);
     $stmt1->execute();
     $order_info = $stmt1->get_result()->fetch_assoc();
     $stmt1->close();
 } else {
-    header('location:account.php');
+    header('location: account.php');
     exit();
 }
 ?>

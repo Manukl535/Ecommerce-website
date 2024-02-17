@@ -164,19 +164,19 @@ if (isset($_SESSION['user_id'])) {
 
                     <label for="states">State</label>
                     <select type="select" id="states" name="state" onchange="populateCities()">
-                        <option value="Karnataka">Karnataka</option>
-                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Karnataka">KARNATAKA</option>
+                        <option value="Maharashtra">MAHARASHTRA</option>
                         <!-- Add more states as needed -->
                     </select>
 
                     <label for="cities">City</label>
                     <select id="cities" name="city">
                         <!-- Cities for Karnataka -->
-                        <option value="Bengaluru" data-state="Karnataka">Bengaluru</option>
-                        <option value="Mysuru" data-state="Karnataka">Mysuru</option>
+                        <option value="Bengaluru" data-state="Karnataka">BENGALURU</option>
+                        <option value="Mysuru" data-state="Karnataka">MYSURU</option>
                         <!-- Cities for Maharashtra -->
-                        <option value="Mumbai" data-state="Maharashtra">Mumbai</option>
-                        <option value="Pune" data-state="Maharashtra">Pune</option>
+                        <option value="Mumbai" data-state="Maharashtra">MUMBAI</option>
+                        <option value="Pune" data-state="Maharashtra">PUNE</option>
                         <!-- Add more cities as needed -->
                     </select>
 

@@ -19,7 +19,7 @@ if (isset($_POST['add_to_cart'])) {
         $product_array = array(
             'product_id' => $_POST['product_id'],
             'product_image' => $_POST['product_image'],
-            'product_name' => htmlspecialchars($_POST['product_name']), // Sanitize the product name
+            'product_name' => htmlspecialchars($_POST['product_name']), 
             'product_price' => $_POST['product_price'],
             'product_quantity' => $_POST['product_quantity']
         );

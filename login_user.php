@@ -157,7 +157,7 @@ if(isset($_POST['login-btn'])){
         <div class="form-group small clearfix">
             <label class="checkbox-inline"><input type="checkbox"> Remember me</label>
             
-            <a href="#" class="forgot-link">Forgot Password?</a>
+            <a href="forgot_password.php" class="forgot-link">Forgot Password?</a>
         </div> 
         <div class="form-group">
             <a href="index.php" class="go_back"><center><i style="font-size:20px" class="fa">&#xf015;</i> Go To Home</center></a>
