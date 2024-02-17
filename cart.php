@@ -112,9 +112,7 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
 // Placeholder for the order placement logic
 function placeOrder($cart, $total)
 {
-    // Your order placement logic goes here
-    // Replace this with your actual implementation
-    // Return true if order is successful, false otherwise
+   
     return true; // Placeholder, replace with actual logic
 }
 ?>
@@ -127,6 +125,7 @@ function placeOrder($cart, $total)
     <link rel="shortcut icon" type="image/x-icon" href="Assets/logo2.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
@@ -189,31 +188,241 @@ function placeOrder($cart, $total)
         .input-group input {
             margin: -90px;
         }
+        <link rel="stylesheet" href="styles.css">
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 3px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            margin: 0 0 0 0;
+            transform: perspective(1px) translateZ(0);
+            transform-origin: 0 0;
+            transition: transform 0.3s ease-in-out;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            transform: scale(1.02);
+        }
+
+        .dropbtn::before {
+            content: "";
+            position: absolute;
+            top: 60%;
+            right: 10px;
+            transform: translateY(-50%);
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            padding: 3px;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease-in-out;
+            border-top: 1px solid #ccc;
+        }
+
+        .dropdown-content a:first-child {
+            border-top: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .test {
+            padding-bottom: 2px;
+            border: 1px solid #fff;
+            padding: 10px;
+            border-radius: 25px;
+        }
+
+        .test:hover {
+            background-color: green;
+            border-radius: 25px;
+            color: #fff;
+        }
+
+        #myModal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            border: 1px double pink;
+            border-radius: 13px;
+        }
+
+        .newsletter {
+            flex: 1;
+            padding: 0 20px;
+        }
+
+        .newsletter h3 {
+            text-align: center;
+        }
+
+        .newsletter input {
+            height: 3rem;
+            padding: 0 1.24em;
+            width: 60%;
+            border: 1px double black;
+            font-size: 14px;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .newsletter button {
+            height: 3rem;
+            padding: 0 1.24em;
+            background-color: #04AA6D;
+            color: #eef7f6;
+            white-space: inherit;
+            padding: 13px;
+            border: 1px double black;
+            width: 30%;
+            border-radius: 4px;
+        }
+
+        .close {
+            position: left;
+            top: 10px;
+            right: 10px;
+            padding-bottom: 300px;
+            padding-left: 500px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .search-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .search-input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .search-btn {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            outline: none;
+            color: #04AA6D;
+            background-color: #eef7f6;
+        }
     </style>
+   
 </head>
 
 <body>
     <!--Header Section-->
+    
     <section id="top">
-        <img src="Assets/logo.png" alt="logo">
+        <img src="Assets/logo.png">
+
         <div>
+
             <ul id="headings">
+
+                <li><a href="index.php">Home</a></li>
                 <li>
-                    <a href="index.php">Home</a>
+                    <div class="dropdown">
+                        <div class="dropbtn">
+                            <div><a>Men's</a></div>
+                        </div>
+                        <div class="dropdown-content">
+                            <a href="men_app_1.php">Apperal</a>
+                            <a href="men_foot_1.php">Footwear</a>
+                            <a href="men_acc_1.php">Accessories</a>
+                        </div>
+                    </div>
                 </li>
                 <li>
-                    <a href="shop_1.php">Shop</a>
+                    <div class="dropdown">
+                        <div class="dropbtn">
+                            <div><a>Women's</a></div>
+                        </div>
+                        <div class="dropdown-content">
+                            <a href="women_app_1.php">Apperal</a>
+                            <a href="women_foot_1.php">Footwear</a>
+                            <a href="women_acc_1.php">Accessories</a>
+                        </div>
+                    </div>
                 </li>
+
+                <li><a href="about.php">About Us</a></li>
+                <li><a href="contact.php">Contact Us</a></li>
                 <li>
-                    <a href="about.php">About Us</a>
+                    <div class="dropdown">
+                        <a href="login_user.php">
+                            <div class="dropbtn">
+                                <div class="test">
+                                    <i style="font-size:20px" class="fa">&#xf2be;&nbsp;</i>
+                                    <?php
+                                    if (isset($_SESSION['user_name'])) {
+                                        $formattedName = ucfirst(strtolower($_SESSION['user_name']));
+                                        echo '<span style="font-size: 15.6px;">' . $formattedName . '</span>';
+                                    } else {
+                                        echo 'Login';
+                                    }
+                                    ?>
+                                    &nbsp;&#11167;
+                                </div>
+                        </a>
+                        </div>
+                        <div class="dropdown-content">
+                            <a href="account.php"><img src="Assets/dashboard.png">&nbsp;Dashboard</a>
+                            <a href="logout.php"><i style="font-size:24px" class="fa">&#xf08b;</i>Logout</a>
+                        </div>
+                    </div>
                 </li>
-                <li>
-                    <a href="contact.html">Contact Us</a>
-                </li>
+                <li><a href="cart.php"><i style="font-size:24px" class="fa">&#xf07a; </i> Cart</a></li>
             </ul>
+
         </div>
     </section>
-    <section id="cart" class="section-p1">
+
+
+
+<section id="cart" class="section-p1">
         <table width="100%">
             <thead>
                 <tr>
