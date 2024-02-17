@@ -2,6 +2,15 @@
 // Include database connection
 include('Includes/connection.php');
 
+function function_alert($message, $redirectUrl) {
+    // Display the alert box
+    echo "<script>alert('$message');</script>";
+    // Redirect to the specified URL after the alert is closed
+    echo "<script>window.location.href = '$redirectUrl';</script>";
+    // Ensure no further code is executed
+    exit();
+}
+
 // Include Twilio dependencies
 require_once 'C:\xampp\htdocs\twilio-php-main\src\Twilio\autoload.php';
 use Twilio\Rest\Client;
@@ -9,7 +18,7 @@ use Twilio\Rest\Client;
 // Your Twilio credentials
 $sid = "ACc52a9ad7912313f3a2fac31a004cb494";
 $token = "dd17626c541f7546c284653c62e085da";
-$twilioPhoneNumber = '+15169798118'; 
+$twilioPhoneNumber = '+15169798118'; // Replace with your Twilio phone number
 $twilio = new Client($sid, $token);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -54,32 +63,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: forgot_password.php?change=true&phone=" . urlencode($phone));
                 exit();
             } else {
-                echo "Invalid OTP. Please try again.";
+                function_alert("Invalid OTP. Please try again.", "forgot_password.php");
             }
         } else {
-            echo "User not found or OTP not generated. Please try again.";
-        }
-    } elseif (isset($_POST['change_password']) && isset($_POST['new_password']) && isset($_POST['confirm_password']) && isset($_POST['phone'])) {
-        // Change password logic
-        $newPassword = $_POST['new_password'];
-        $confirmPassword = $_POST['confirm_password'];
-        $phone = $_POST['phone'];
-
-        // Check if the new password and confirm password match
-        if ($newPassword === $confirmPassword) {
-            // Update the password in the database
-            $updatePasswordQuery = "UPDATE users SET password = '$newPassword' WHERE phone = '$phone'";
-            $conn->query($updatePasswordQuery);
-
-            // Redirect to login page
-            header("Location: login_user.php");
-            exit();
-        } else {
-            echo "Passwords do not match. Please try again.";
+            function_alert("User not found or OTP not generated. Please try again.", "forgot_password.php");
         }
     }
+
+    if (isset($_POST['Change_Password'])) {
+        $password = $_POST['new_password'];
+        $confirm_password = $_POST['confirm_password'];
+        $phone = $_SESSION['phone'];
+    
+        // Length of pass
+        if (strlen($password) < 6) {
+            function_alert("Password must have 6 characters", "forgot_password.php");
+        }
+        // Pass_confirm pass
+        elseif ($password !== $confirm_password) {
+            function_alert("Passwords didn't match. Try Again", "forgot_password.php");
+        }
+        // If all correct
+        else {
+            $stmt = $conn->prepare("UPDATE users SET password=? WHERE phone=?");
+    
+            $stmt->bind_param('ss', $password, $phone);
+    
+            if ($stmt->execute()) {
+                function_alert("Password changed successfully!\\nRedirecting to Login page", "login_user.php");
+            } else {
+                function_alert("Couldn't update the password", "index.php");
+            }
+        }
+    }
+    
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -90,60 +110,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Forgot Password</title>
     <style>
     body {
-        font-family: Arial, sans-serif;
-        background-color: #f2f2f2;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-    }
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
 
-    .container {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px; 
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); 
-        width: 300px; 
-    }
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px; /* Increased border-radius for a softer look */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Increased box-shadow for depth */
+    width: 300px; /* Set a fixed width for better readability */
+}
 
-    form {
-        display: flex;
-        flex-direction: column;
-    }
+form {
+    display: flex;
+    flex-direction: column;
+}
 
-    label {
-        margin-bottom: 15px; 
-        font-weight: bold; 
-    }
+label {
+    margin-bottom: 15px; /* Increased margin for better spacing */
+    font-size: 16px; /* Adjusted font size for better visibility */
+    font-weight: bold; /* Added bold font weight for emphasis */
+}
 
-    input {
-        padding: 12px; 
-        margin-bottom: 20px; 
-        border: 1px solid #ccc; 
-        border-radius: 5px; 
-        transition: border-color 0.3s ease; 
-    }
+input {
+    padding: 12px; /* Increased padding for better input field appearance */
+    margin-bottom: 20px; /* Increased margin for better spacing */
+    border: 1px solid #ccc; /* Added a subtle border for input fields */
+    border-radius: 5px; /* Added border-radius for rounded corners */
+    transition: border-color 0.3s ease; /* Smooth transition for better interactivity */
+}
 
-    input:focus {
-        outline: none; 
-        border-color: #4caf50; 
-    }
+input:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: #4caf50; /* Change border color on focus */
+}
 
-    button {
-        background-color: #4caf50;
-        color: #fff;
-        padding: 12px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease; 
-    }
+button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition for better interactivity */
+}
 
-    button:hover {
-        background-color: #45a049;
-    }
-    </style>
+button:hover {
+    background-color: #45a049;
+}
+</style>
 </head>
 <body>
     <div class="container">
@@ -155,16 +176,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="hidden" name="phone" value="<?php echo htmlspecialchars($_GET['phone']); ?>">
                 <button type="submit" name="verify">Verify OTP</button>
             </form>
+
         <?php elseif (isset($_GET['change']) && $_GET['change'] == 'true'): ?>
-            <form action="forgot_password.php" method="post">
-                <h2>Change Password</h2>
-                <label for="new_password">New Password:</label>
-                <input type="password" name="new_password" required>
-                <label for="confirm_password">Confirm Password:</label>
-                <input type="password" name="confirm_password" required>
-                <input type="hidden" name="phone" value="<?php echo htmlspecialchars($_GET['phone']); ?>">
-                <button type="submit" name="change_password">Change Password</button>
-            </form>
+
+            <div class="profile-section" style="flex: 1;">
+            <!-- Change password -->
+            <div class="container" style="height: 55vh;">
+                <center>
+                    <h3>Change Password</h3>
+                    <p style="color:red;"><?php if (isset($_GET['error'])) { echo $_GET['error']; } ?></p>
+                    <p style="color:green;"><?php if (isset($_GET['message'])) { echo $_GET['message']; } ?></p>
+                </center>
+                <form id="account-form" action="forgot_password.php" method="POST">
+                    <label for="new_password">New Password</label> <input type="password" id="new_password"
+                        name="new_password" required="">
+                    <label for="confirm_password">Confirm New Password</label> <input type="password"
+                        id="confirm_password" name="confirm_password" required="">
+                    <center>
+                        <button type="submit" name="Change_Password" style='border-radius: 50px;'>Change Password</button>
+                    </center>
+                </form>
+                <script>
+                    // Add JavaScript to scroll to the changePassword section
+                    if (window.location.hash === '#changePassword') {
+                        document.getElementById('account-form').style.display = 'block';
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+
         <?php else: ?>
             <form action="forgot_password.php" method="post">
                 <h2>Forgot Password?</h2>

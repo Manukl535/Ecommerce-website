@@ -19,14 +19,14 @@ if (isset($_POST['add_to_cart'])) {
         $product_array = array(
             'product_id' => $_POST['product_id'],
             'product_image' => $_POST['product_image'],
-            'product_name' => htmlspecialchars($_POST['product_name']),
+            'product_name' => htmlspecialchars($_POST['product_name']), 
             'product_price' => $_POST['product_price'],
             'product_quantity' => $_POST['product_quantity']
         );
 
         $_SESSION['cart'][$product_id] = $product_array;
     } else {
-        echo '<script>alert("Product was already added"); </script>';
+        echo '<script>alert ("Product was already added"); </script>';
     }
 
     // calculate total
@@ -36,6 +36,7 @@ if (isset($_POST['add_to_cart'])) {
     // Check if the cart is set and is an array
     if (isset($_SESSION['cart']) && is_array($_SESSION['cart']) && isset($_SESSION['cart'][$product_id])) {
         unset($_SESSION['cart'][$product_id]);
+        
     }
 
     // calculate total
@@ -53,18 +54,6 @@ if (isset($_POST['add_to_cart'])) {
 
     // calculate total
     calculatecart();
-} elseif (isset($_POST['place_order'])) {
-    // Assume you have an order placement logic here
-    $order_success = placeOrder($_SESSION['cart'], $_SESSION['total']);
-
-    if ($order_success) {
-        // Order was successful, clear the cart
-        $_SESSION['cart'] = array();
-        $_SESSION['total'] = 0;
-        $_SESSION['total_items'] = 0;
-    } else {
-        // Order failed, handle accordingly (display error message, etc.)
-    }
 } else {
     // header("location:index.php");
 }
@@ -108,40 +97,31 @@ function calculateTotalItems($cart)
 
 // Initialize total_items even if 'cart' is not set or not an array
 $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_array($_SESSION['cart']) ? $_SESSION['cart'] : array());
-
-// Placeholder for the order placement logic
-function placeOrder($cart, $total)
-{
-   
-    return true; // Placeholder, replace with actual logic
-}
 ?>
+
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Index</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="Assets/logo2.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        .material-icons {
-            color: black;
+        .material-icons{
+            color:black;
             border-radius: 50px;
             background-color: #fff;
-            border: none;
-        }
-
-        .material-icons:hover {
-            color: red;
+            border:none;
+        }  
+        .material-icons:hover{
+            color:red;
             background-color: #fff;
         }
 
-        .update_btn {
+        .update_btn{
             border: 1px solid black;
             padding-left: 10px;
             padding-top: 20px;
@@ -152,19 +132,18 @@ function placeOrder($cart, $total)
             background-color: #55c2da;
             font-weight: bold;
         }
-
-        .update_btn:hover {
-            background-color: #00A36C;
+        .update_btn:hover{
+            background-color:#00A36C;
         }
 
-        .proceed {
+        .proceed{
             height: 2.4rem;
             padding: 0 1.24em;
             background-color: #04AA6D;
             color: #eef7f6;
             white-space: inherit;
-            padding: 9px 10px;
-            border: 1px double black;
+            padding:  9px 10px ;
+            border :1px double black;
             border-radius: 2px;
         }
 
@@ -176,8 +155,8 @@ function placeOrder($cart, $total)
             padding-bottom: 100px;
         }
 
-        tr>td:nth-child(5) {
-            padding-left: 155px;
+        tr > td:nth-child(5) {
+            padding-left:155px; 
         }
 
         .input-group {
@@ -188,241 +167,30 @@ function placeOrder($cart, $total)
         .input-group input {
             margin: -90px;
         }
-        <link rel="stylesheet" href="styles.css">
-    <style>
-        .dropdown {
-            position: relative;
-            display: inline-block;
-            padding-bottom: 3px;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-            margin: 0 0 0 0;
-            transform: perspective(1px) translateZ(0);
-            transform-origin: 0 0;
-            transition: transform 0.3s ease-in-out;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-            transform: scale(1.02);
-        }
-
-        .dropbtn::before {
-            content: "";
-            position: absolute;
-            top: 60%;
-            right: 10px;
-            transform: translateY(-50%);
-            border-width: 0 2px 2px 0;
-            display: inline-block;
-            padding: 3px;
-        }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            transition: background-color 0.3s ease-in-out;
-            border-top: 1px solid #ccc;
-        }
-
-        .dropdown-content a:first-child {
-            border-top: none;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-
-        .test {
-            padding-bottom: 2px;
-            border: 1px solid #fff;
-            padding: 10px;
-            border-radius: 25px;
-        }
-
-        .test:hover {
-            background-color: green;
-            border-radius: 25px;
-            color: #fff;
-        }
-
-        #myModal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0, 0, 0);
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-        }
-
-        .modal-content img {
-            max-width: 100%;
-            border: 1px double pink;
-            border-radius: 13px;
-        }
-
-        .newsletter {
-            flex: 1;
-            padding: 0 20px;
-        }
-
-        .newsletter h3 {
-            text-align: center;
-        }
-
-        .newsletter input {
-            height: 3rem;
-            padding: 0 1.24em;
-            width: 60%;
-            border: 1px double black;
-            font-size: 14px;
-            border-radius: 4px;
-            outline: none;
-        }
-
-        .newsletter button {
-            height: 3rem;
-            padding: 0 1.24em;
-            background-color: #04AA6D;
-            color: #eef7f6;
-            white-space: inherit;
-            padding: 13px;
-            border: 1px double black;
-            width: 30%;
-            border-radius: 4px;
-        }
-
-        .close {
-            position: left;
-            top: 10px;
-            right: 10px;
-            padding-bottom: 300px;
-            padding-left: 500px;
-            font-size: 30px;
-            cursor: pointer;
-        }
-
-        .search-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        .search-input {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 20px;
-            outline: none;
-        }
-
-        .search-btn {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 20px;
-            outline: none;
-            color: #04AA6D;
-            background-color: #eef7f6;
-        }
     </style>
-   
 </head>
-
 <body>
     <!--Header Section-->
-    
     <section id="top">
-        <img src="Assets/logo.png">
-
+        <img src="Assets/logo.png" alt="logo">
         <div>
-
             <ul id="headings">
-
-                <li><a href="index.php">Home</a></li>
                 <li>
-                    <div class="dropdown">
-                        <div class="dropbtn">
-                            <div><a>Men's</a></div>
-                        </div>
-                        <div class="dropdown-content">
-                            <a href="men_app_1.php">Apperal</a>
-                            <a href="men_foot_1.php">Footwear</a>
-                            <a href="men_acc_1.php">Accessories</a>
-                        </div>
-                    </div>
+                    <a href="index.php">Home</a>
                 </li>
                 <li>
-                    <div class="dropdown">
-                        <div class="dropbtn">
-                            <div><a>Women's</a></div>
-                        </div>
-                        <div class="dropdown-content">
-                            <a href="women_app_1.php">Apperal</a>
-                            <a href="women_foot_1.php">Footwear</a>
-                            <a href="women_acc_1.php">Accessories</a>
-                        </div>
-                    </div>
+                    <a href="shop_1.php">Shop</a>
                 </li>
-
-                <li><a href="about.php">About Us</a></li>
-                <li><a href="contact.php">Contact Us</a></li>
                 <li>
-                    <div class="dropdown">
-                        <a href="login_user.php">
-                            <div class="dropbtn">
-                                <div class="test">
-                                    <i style="font-size:20px" class="fa">&#xf2be;&nbsp;</i>
-                                    <?php
-                                    if (isset($_SESSION['user_name'])) {
-                                        $formattedName = ucfirst(strtolower($_SESSION['user_name']));
-                                        echo '<span style="font-size: 15.6px;">' . $formattedName . '</span>';
-                                    } else {
-                                        echo 'Login';
-                                    }
-                                    ?>
-                                    &nbsp;&#11167;
-                                </div>
-                        </a>
-                        </div>
-                        <div class="dropdown-content">
-                            <a href="account.php"><img src="Assets/dashboard.png">&nbsp;Dashboard</a>
-                            <a href="logout.php"><i style="font-size:24px" class="fa">&#xf08b;</i>Logout</a>
-                        </div>
-                    </div>
+                    <a href="about.php">About Us</a>
                 </li>
-                <li><a href="cart.php"><i style="font-size:24px" class="fa">&#xf07a; </i> Cart</a></li>
+                <li>
+                    <a href="contact.html">Contact Us</a>
+                </li>
             </ul>
-
         </div>
     </section>
-
-
-
-<section id="cart" class="section-p1">
+    <section id="cart" class="section-p1">
         <table width="100%">
             <thead>
                 <tr>
@@ -477,8 +245,8 @@ function placeOrder($cart, $total)
                     </div>
                     </body>
                 </html>';
-            // Set total to 0
-            $_SESSION['total'] = 0;
+    // Set total to 0
+    $_SESSION['total'] = 0;
         }
         ?>
     </div>
@@ -502,7 +270,7 @@ function placeOrder($cart, $total)
                 </tr>
                 <tr>
                     <td><b>Total Items</b></td>
-                    <td><?php echo "" . calculateTotalItems($_SESSION['cart']); ?></td>
+                    <td><?php echo "". calculateTotalItems($_SESSION['cart']); ?></td>
                 </tr>
             </table>
             <form action="checkout.php" method="post">
@@ -512,10 +280,9 @@ function placeOrder($cart, $total)
     </section>
 
     <!--Subscribe-->
-    <?php include_once("includes/subscribe.html"); ?>
+    <?php include_once("includes/subscribe.html"); ?> 
 
     <!-- Footer -->
-    <?php include_once("includes/footer.html"); ?>
+    <?php include_once("includes/footer.html"); ?> 
 </body>
-
 </html>

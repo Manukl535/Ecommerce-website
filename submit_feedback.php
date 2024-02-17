@@ -9,7 +9,7 @@ function function_alert($message, $redirectUrl) {
 $host = "localhost";
 $username = "root";
 $password = "";
-$database = "ecom";
+$database = "usersdb";
 
 // Create connection
 $conn = new mysqli($host, $username, $password, $database);
@@ -23,10 +23,12 @@ if ($conn->connect_error) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the feedback is not empty
     if (empty(trim($_POST["feedback"]))) {
+        
         $message = "Feedback can't be empty";
         $redirectUrl = "login_user.php";
         function_alert($message, $redirectUrl);
-    } else {
+    }
+  else {
         $feedback = $_POST["feedback"];
         
         // Prepare and bind the INSERT statement to avoid SQL injection
@@ -38,10 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $redirectUrl = "index.php";
             function_alert($message, $redirectUrl);
         } else {
-            // Handle the case when the execution fails
+                
         }
-        
         $stmt->close();
     }
 }
-?>

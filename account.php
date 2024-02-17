@@ -7,7 +7,6 @@ if (!isset($_SESSION['logged-in'])) {
     header('location:login_user.php');
     exit;
 }
-      //change password
 if (isset($_POST['Change_Password'])) {
     $password = $_POST['new_password'];
     $confirm_password = $_POST['confirm_password'];
@@ -32,8 +31,6 @@ if (isset($_POST['Change_Password'])) {
             header("location:account.php?error=Couldn't Update the Password");
         }
     }
-
-    // Remove account
 } elseif (isset($_POST['remove_account'])) {
     $user_id = $_SESSION['user_id'];
 
@@ -59,7 +56,7 @@ if (isset($_POST['Change_Password'])) {
     session_unset();
     session_destroy();
 
-    // JavaScript to show an alert
+    // Add JavaScript to show an alert
     echo "<script>alert('Account has been deleted.');</script>";
 
     // Redirect to login_user.php with a message
@@ -209,60 +206,7 @@ if (isset($_SESSION['logged-in'])) {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 30px;
   }
-  .dropdown {
-  position: relative;
-  display: inline-block;
-  padding-bottom: 3px;
   
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  margin: 0 0 0 0;
-  transform: perspective(1px) translateZ(0); 
-  transform-origin: 0 0;
-  transition: transform 0.3s ease-in-out; 
-  border: 1px solid #ccc; 
-  border-radius: 5px; 
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-  transform: scale(1.02); /* Adjust scale for 3D effect */
-}
-
-.dropbtn::before {
-  content: "";
-  position: absolute;
-  top: 60%;
-  right: 10px;
-  transform: translateY(-50%);
-  border-width: 0 2px 2px 0;
-  display: inline-block;
-  padding: 3px;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  transition: background-color 0.3s ease-in-out; /* Add transition effect */
-  border-top: 1px solid #ccc; /* Add border between items */
-}
-
-.dropdown-content a:first-child {
-  border-top: none; /* Remove border for the first item */
-}
-
-.dropdown-content a:hover {
-  background-color: #f1f1f1;
-}
 
   </style>
 </head>
@@ -271,239 +215,230 @@ if (isset($_SESSION['logged-in'])) {
     <img src="Assets/logo.png" alt="logo">
     <div>
       <ul id="headings">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="shop_1.php">Shop</a></li>
-            <li><a href="about.php">About Us</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-            <li>
-                  <div class="dropdown">
-                      <a href="login_user.php">
-                          <div class="dropbtn">
-                              <div class="test">
-                                  <i style="font-size:20px" class="fa">&#xf2be;&nbsp;</i>
-                                          <?php
-                                          if (isset($_SESSION['user_name'])) {
-                                            $formattedName = ucfirst(strtolower($_SESSION['user_name']));
-                                            echo '<span style="font-size: 15.6px;">' . $formattedName . '</span>';
-                                          } else {
-                                            echo 'Login';
-                                          }
-                                          ?>
-                                          &nbsp;&#11167;
-                    </div>
-                  </div>
-                  
-                    </a>
-                        <div class="dropdown-content">
-                            <a href="account.php"><img src="Assets/dashboard.png">&nbsp;Dashboard</a>
-                            <a href="logout.php"><i style="font-size:24px" class="fa">&#xf08b;</i>Logout</a>
-                        </div>
-                  </div>
-              </li>
-
-        <li><a href="cart.php"><i style="font-size:24px" class="fa">&#xf07a; </i> Cart</a></li>
+        <li>
+          <a href="index.php">Home</a>
+        </li>
+        <li>
+          <a href="shop_1.php">Shop</a>
+        </li>
+        <li>
+          <a href="about.php">About Us</a>
+        </li>
+        <li>
+          <a href="contact.html">Contact Us</a>
+        </li><!-- <li><a href="login.php"><i style="font-size:24px" class="fa">&#xf007;</i></a></li>-->
+        <li>
+          <a href="cart.php"><i style="font-size:24px" class="fa"></i></a>
+        </li>
       </ul>
-
     </div>
   </section>
-
   <div class="acct-links-container" style="display: flex;justify-content: center;">
-      <div class="acct-userbox">
-        <p><img src="Assets/user_icon.png" alt="user_icon"></p>
-        <p>Hello, <b><?php if (isset($_SESSION['user_name'])) {echo $_SESSION['user_name']; } ?></b></p>
-      </div>
+    <div class="acct-userbox">
+      <p><img src="Assets/user_icon.png" alt="user_icon"></p>
+      <p>Hello, <b><?php if(isset($_SESSION['user_name'])){echo $_SESSION['user_name']; } ?></b></p>
+   
+    </div>
   </div>
+  <div class="container" style="display: flex;">
+        <div class="profile-section" style="flex: 1;">
+            <!-- User info -->
+            <div class="container" style="height: 55vh;">
+                <center>
+                    <h3>Personal Information</h3>
+                </center>
 
-                  <!-- User info -->
+            <div id="userInfoDisplay">
+              <p><label for="email">Name: <?php if(isset($_SESSION['user_name'])){echo $_SESSION['user_name']; } ?></label></p>
+              <p><label for="email">Email: <?php if(isset($_SESSION['email'])){echo $_SESSION['email']; } ?></label> </p> 
+              <p><label for="phone">Phone: <?php if(isset($_SESSION['phone'])){echo $_SESSION['phone']; } ?></label></p>
+            </div>
 
-                  <div class="container" style="display: flex;">
-                    <div class="profile-section" style="flex: 1;">
-                      <div class="container" style="height: 55vh;">
-                        <center>
-                          <h3>Personal Information</h3>
-                        </center>
-                        <div id="userInfoDisplay">
-                            <p><label for="email">Name: <?php if (isset($_SESSION['user_name'])) {echo $_SESSION['user_name']; } ?></label></p>
-                            <p><label for="email">Email: <?php if (isset($_SESSION['email'])) {echo $_SESSION['email']; } ?></label> </p>
-                            <p><label for="phone">Phone: <?php if (isset($_SESSION['phone'])) {echo $_SESSION['phone']; } ?></label></p>
-                        </div>
 
-                        <form action="account.php" method="post" onsubmit="return confirmDeleteAccount();">
-                              <center>
-                                <br><br><br>
-                                <button type="submit" name="remove_account" style='background-color: #f44336; border-radius: 50px;'>Remove My Account</button>
-                              </center>
-                        </form>
-                      </div>
-                    </div>
+            <form action="account.php" method="post" onsubmit="return confirmDeleteAccount();">
 
-                    <script>
-                          function confirmDeleteAccount() {
-                            // Display a confirmation dialog
-                            var confirmDelete = confirm("Are you sure you want to delete your account?");
-                            // If the user clicks 'OK', the form will be submitted
-                            return confirmDelete;
-                          }
-                    </script>
-        
-                            <!-- chnage password -->
+    <center>
+        <br><br><br>
+        <button type="submit" name="remove_account" style='background-color: #f44336; border-radius: 50px;'>Remove My Account</button>
+    </center>
+</form>
+            </div>
+        </div>
+    <script>
+  function confirmDeleteAccount() {
+    // Display a confirmation dialog
+    var confirmDelete = confirm("Are you sure you want to delete your account?");
 
-                    <div class="profile-section" style="flex: 1;">
-                      <div class="container" style="height: 55vh;">
-                        <center>
-                          <h3>Change Password</h3>
-                          <p style="color:red;"><?php if (isset($_GET['error'])) {echo $_GET['error']; } ?></p>
-                          <p style="color:green;"><?php if (isset($_GET['message'])) {echo $_GET['message']; } ?></p>
-                        </center>
-                        <form id="account-form" action="account.php" method="POST">
-                          <label for="new_password">New Password</label> <input type="password" id="new_password" name="new_password" required="">
-                          <label for="confirm_password">Confirm New Password</label> <input type="password" id="confirm_password" name="confirm_password" required="">
-                          <center>
-                            <button type="submit" name="Change_Password" style='border-radius: 50px;'>Change Password</button>
-                          </center>
-                        </form>
-                        <script>
-                          // Add JavaScript to scroll to the changePassword section
-                          if (window.location.hash === '#changePassword') {
-                            document.getElementById('account-form').style.display = 'block';
-                          }
-                        </script>
-                      </div>
-                    </div>
-                  </div>
-                  <br /><br />
-
-  <style>
-    button {
-      cursor: pointer;
-      display: inline-block;
-      padding: 12px 24px;
-      font-size: 16px;
-      text-align: center;
-      text-decoration: none;
-      outline: none;
-      color: #ffffff;
-      background-color: #3498db;
-      border: none;
-      border-radius: 5px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s, transform 0.3s;
+    // If the user clicks 'OK', the form will be submitted
+    return confirmDelete;
+  }
+</script>
+        <div class="profile-section" style="flex: 1;">
+            <!-- Change password -->
+            <div class="container" style="height: 55vh;">
+                <center>
+                    <h3>Change Password</h3>
+                    <p style="color:red;"><?php if (isset($_GET['error'])) { echo $_GET['error']; } ?></p>
+                    <p style="color:green;"><?php if (isset($_GET['message'])) { echo $_GET['message']; } ?></p>
+                </center>
+                <form id="account-form" action="account.php" method="POST">
+                    <label for="new_password">New Password</label> <input type="password" id="new_password"
+                        name="new_password" required="">
+                    <label for="confirm_password">Confirm New Password</label> <input type="password"
+                        id="confirm_password" name="confirm_password" required="">
+                    <center>
+                        <button type="submit" name="Change_Password" style='border-radius: 50px;'>Change Password</button>
+                    </center>
+                </form>
+                <script>
+                    // Add JavaScript to scroll to the changePassword section
+                    if (window.location.hash === '#changePassword') {
+                        document.getElementById('account-form').style.display = 'block';
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+<br/><br/>
+    
+<style
+>button {
+        cursor: pointer;
+        display: inline-block;
+        padding: 12px 24px;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #ffffff;
+        background-color: #3498db;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s, transform 0.3s;
     }
 
     button:hover {
-      background-color: #45a049;
-      transform: scale(1.05);
+        background-color: #45a049;
+        transform: scale(1.05);
     }
-
+   
     .order-box {
-      border: 1px solid #ddd;
-      border-radius: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
     }
 
     .order-box table {
-      width: 100%;
-      border-collapse: collapse;
+        width: 100%;
+        border-collapse: collapse;
     }
 
-    .order-box th,
-    .order-box td {
-      border: 1px solid #ddd;
-      padding: 12px;
-      text-align: center;
-      font-size: 14px;
+    .order-box th, .order-box td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+        font-size: 14px;
     }
 
     .order-box th {
-      background-color: #f2f2f2;
-      font-weight: bold;
-      color: #333;
+        background-color: #f2f2f2;
+        font-weight: bold;
+        color: #333;
     }
 
     .order-box tr:hover {
-      background-color: #f5f5f5;
+        background-color: #f5f5f5;
     }
 
     .orders-heading {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
     }
 
     .orders-heading::after {
-      content: "";
-      display: block;
-      width: 40px;
-      height: 3px;
-      background-color: #FF9933;
-      position: absolute;
-      bottom: -182px;
-      left: 50%;
-      transform: translateX(-50%);
+        content: "";
+        display: block;
+        width: 40px; 
+        height: 3px; 
+        background-color: #FF9933; 
+        position: absolute;
+        bottom: -182px; 
+        left: 50%;
+        transform: translateX(-50%);
     }
-  </style>
-                        
-                        <!-- Users orders -->
 
-                        <div class="profile-section" id="changePassword">
-                          <section id="cart" class="section-p1">
-                            <h4 class="orders-heading">Your Orders</h4><br /><br>
-                            <div class="order-box">
-                              <table>
-                                <tr>
-                                  <th>Order ID</th>
-                                  <th>Order Date</th>
-                                  <th>Order Status</th>
-                                  <th>Order Cost</th>
-                                  <th>Order Quantity</th>
-                                  <th>Order Details</th>
-                                </tr>
+</style>
 
-                                <?php while ($row = $orders->fetch_assoc()) { ?>
-                                  <tr>
-                                    <td>ODR<?php echo str_pad($row['order_id'], 3, '0', STR_PAD_LEFT); ?></td>
-                                    <td><?php echo date('d-m-Y', strtotime($row['order_date'])); ?></td>
-                                    <td>Delivery On: <?php
-                                                      $dod = $row['dod'];
-                                                      $formatted_date = date('d-m-Y', strtotime($dod));
-                                                      echo $formatted_date;
-                                                      ?></td>
-                                    <td>&#8377; <?php echo $row['order_cost']; ?></td>
-                                    <td><?php echo $row['order_quantity']; ?></td>
-                                    <td>
-                                      <form method="GET" action="invoice.php">
-                                        <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
-                                        <button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="invoice_btn">
-                                          <i class="fa fa-print"></i> Invoice
-                                        </button>
-                                      </form>
-                                    </td>
-                                  </tr>
-                                <?php } ?>
-                              </table>
-                            </div>
 
-                            <script>
-                              function redirectToInvoice(orderId) {
-                                window.location.href = "invoice.php?order_id=" + orderId;
-                              }
-                            </script>
-                            <?php
-                            if ($orders->num_rows > 0) {
-                              // Display orders if available
-                            } else {
-                              // Display a message when there are no orders
-                              echo "<div style='text-align: center; padding-top: 20px;'>
-                                  <p style='font-weight: 500; font-weight: bold; color: red;'>Order history is empty!</p>
-                                  <img src='Assets/no_orders.png' alt='Empty Order History Image' style='width: 150px; height: 150px;'><br/>
-                                  <a href='shop_1.php'><button style='background-color: rgb(81, 182, 81); text-decoration: none; font-size: 12px; width: 10%;  color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;'>Order Now!</button></a>
-                                </div>";
-                            }
-                            ?>
-                          </section>
-                        </div>
+<div class="profile-section" id="changePassword">
+    <section id="cart" class="section-p1">
+        <h4 class="orders-heading">Your Orders</h4><br/><br>
+        <div class="order-box">
+        <table>
+            <tr>
+                <th>Order ID</th>
+               <th>Order Date</th>
+                <th>Order Status</th>
+                <th>Order Cost</th>
+                <th>Order Quantity</th>
+                <th>Order Details</th>
+            </tr>
+
+            <?php while ($row = $orders->fetch_assoc()) { ?>
+    <tr>
+    <td>ODR<?php echo str_pad($row['order_id'], 3, '0', STR_PAD_LEFT); ?></td>
+   
+        <td><?php echo date('d-m-Y', strtotime($row['order_date'])); ?></td>
+        <td>Delivery On: <?php
+            $dod = $row['dod'];
+            $formatted_date = date('d-m-Y', strtotime($dod));
+            echo $formatted_date;
+        ?></td>
+        <td>&#8377; <?php echo $row['order_cost']; ?></td>
+        <td><?php echo $row['order_quantity']; ?></td>
+        <td>
+            <form method="GET" action="invoice.php">
+                <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
+                <button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="invoice_btn">
+                    <i class="fa fa-print"></i> Invoice
+                </button>
+            </form>
+        </td>
+    </tr>
+<?php } ?>
+</table>
+</div>
+
+     
+        
+    
+
+<script>
+    function redirectToInvoice(orderId) {
+        window.location.href = "invoice.php?order_id=" + orderId;
+    }
+</script>
+        <?php
+        if ($orders->num_rows > 0) {
+            // Display orders if available
+        } else {
+            // Display a message when there are no orders
+            echo "<div style='text-align: center; padding-top: 20px;'>
+            <p style='font-weight: 500; font-weight: bold; color: red;'>Order history is empty!</p>
+            <img src='Assets/no_orders.png' alt='Empty Order History Image' style='width: 150px; height: 150px;'><br/>
+            <a href='shop_1.php'><button style='background-color: rgb(81, 182, 81); text-decoration: none; font-size: 12px; width: 10%;  color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;'>Order Now!</button></a>
+          </div>";
+        }
+        ?>
+    </section>
+</div>
+
+
+
 </body>
 </html>

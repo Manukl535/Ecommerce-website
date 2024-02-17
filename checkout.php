@@ -1,26 +1,26 @@
 <?php
-session_start();
-
-if (!empty($_SESSION['cart']) && isset($_POST['checkout'])) {
-
-} else {
+  session_start();
+  if (!empty($_SESSION['cart']) && isset($_POST['checkout'])) {
+   
+  } else {
     header('location:index.php');
-}
+  }
 
-// Check if the user is logged in
+ // Check if the user is logged in
 if (isset($_SESSION['user_id'])) {
-    // User is logged in, continue with the checkout procedure
+  // User is logged in, continue with the checkout procedure
 
-    if (!empty($_SESSION['cart']) && isset($_POST['place_order'])) {
-        // Process the order logic here
-        header('Location: place_order.php');
-        exit();
-    }
+  if (!empty($_SESSION['cart']) && isset($_POST['place_order'])) {
+      // Process the order logic here
+      header('Location: place_order.php');
+      exit();
+  }
+
 } else {
-    // User is not logged in, set a session variable with a message
-    $_SESSION['login_message'] = 'Please login/register for placing an order';
-    header('Location: login_user.php');
-    exit();
+  // User is not logged in, set a session variable with a message
+  $_SESSION['login_message'] = 'Please login/register for placing order';
+  header('Location: login_user.php');
+  exit();
 }
 ?>
 
@@ -83,7 +83,7 @@ if (isset($_SESSION['user_id'])) {
         input[type=text],
         input[type=email],
         input[type=date],
-
+      
         select {
             width: 100%;
             padding: 12px;
@@ -127,7 +127,7 @@ if (isset($_SESSION['user_id'])) {
         }
 
         .btn:hover {
-            background-color: #45a049;
+          background-color:#45a049;
         }
 
         .copyright {
@@ -135,6 +135,7 @@ if (isset($_SESSION['user_id'])) {
             margin-top: 20px;
             color: #555;
         }
+
     </style>
 </head>
 
@@ -159,12 +160,13 @@ if (isset($_SESSION['user_id'])) {
                 </div>
 
                 <div class="col-50">
-
+                    
 
                     <label for="states">State</label>
                     <select type="select" id="states" name="state" onchange="populateCities()">
                         <option value="Karnataka">KARNATAKA</option>
                         <option value="Maharashtra">MAHARASHTRA</option>
+                        <!-- Add more states as needed -->
                     </select>
 
                     <label for="cities">City</label>
@@ -180,22 +182,19 @@ if (isset($_SESSION['user_id'])) {
 
                     <label for="deliverydate">Date Of Delivery</label>
                     <input type="date" id="deliverydate" name="dod" required>
-
+                   
                     <label for="phone">Phone</label>
-                    <input type="text" id="phone" name="phone" placeholder="93425 32878" pattern="[0-9]{10}"
-                        title="Enter the Mobile number" required>
+                    <input type="text" id="phone" name="phone" placeholder="93425 32878" pattern="[0-9]{10}"title="Enter the Mobile number" required>
                 </div>
-
+                
             </div>
-
+            
             <div style="display: flex; justify-content: space-between; align-items: center;">
-                <?php echo "<h4 style='text-align: left; margin: 8px;'>Total cart Qty: " . $_SESSION['total_items'] . "</h4>";?>
-                <label for="total_amount"><b>Total Amount: &#8377; <?php echo $_SESSION['total']; ?></b></label>
-            </div>
-            <center>
-                <input type="submit" value="Place Order" name="place_order" class="btn" data-target="#paymentModal"
-                    data-toggle="modal">
-            </center>
+    <?php echo "<h4 style='text-align: left; margin: 8px;'>Total cart Qty: " . $_SESSION['total_items'] . "</h4>";?>
+    <label for="total_amount"><b>Total Amount: &#8377; <?php echo $_SESSION['total']; ?></b></label>
+</div>
+<center>
+                <input type="submit" value="Place Order" name="place_order" class="btn" data-target="#paymentModal" data-toggle="modal"></center>
         </form>
     </div>
 
