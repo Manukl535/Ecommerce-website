@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2024 at 06:44 PM
+-- Generation Time: Feb 18, 2024 at 10:21 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,33 +24,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
---
-
-CREATE TABLE `admin` (
-  `admin_id` int(11) NOT NULL,
-  `admin_name` varchar(30) NOT NULL,
-  `admin_email` varchar(30) NOT NULL,
-  `password` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `admin`
---
-
-INSERT INTO `admin` (`admin_id`, `admin_name`, `admin_email`, `password`) VALUES
-(1, 'MANU', 'admin@gmail.com', '112233'),
-(2, 'SRISHA', 'admin2@gmail.com', '112233');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `email`
 --
 
 CREATE TABLE `email` (
   `email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `email`
+--
+
+INSERT INTO `email` (`email`) VALUES
+('MANU@GMAIL.COM');
 
 -- --------------------------------------------------------
 
@@ -89,10 +75,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `order_cost`, `order_status`, `user_id`, `user_name`, `email`, `user_phone`, `user_city`, `user_state`, `user_address`, `order_date`, `order_quantity`, `dod`) VALUES
-(1, '899', 'Paid', '51', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-16', '1', '2024-02-17'),
-(2, '12990', 'Paid', '51', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-16', '10', '2024-02-17'),
-(3, '2697', 'Paid', '51', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-16', '3', '2024-02-17'),
-(4, '4495', 'Paid', '51', 'SRISHA', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-16', '5', '2024-02-17');
+(1, '799', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Mumbai', 'Maharashtra', 'ATTIBELE', '2024-02-18', '1', '2024-02-19');
 
 -- --------------------------------------------------------
 
@@ -117,16 +100,7 @@ CREATE TABLE `order_item` (
 --
 
 INSERT INTO `order_item` (`item_id`, `order_id`, `product_id`, `product_name`, `product_image`, `product_price`, `product_quantity`, `user_id`, `order_date`) VALUES
-(1, 1, '1 ', 'Men Relaxed blue Hoodie ', 'sweat1.png ', '899', '1', '51', '2024-02-16 17:37:52'),
-(2, 2, '7 ', 'Orange Grpahic Shirt ', 'shirt3.png ', '1299', '10', '51', '2024-02-16 17:47:41'),
-(3, 3, '78 ', 'Men Hat ', 'men_hat2.png ', '899', '1', '51', '2024-02-16 17:49:06'),
-(4, 3, '83 ', 'Men Wallet ', 'wallet3.png ', '899', '1', '51', '2024-02-16 17:49:06'),
-(5, 3, '75 ', 'Men Watch ', 'men_watch3.png ', '899', '1', '51', '2024-02-16 17:49:06'),
-(6, 4, '1 ', 'Men Relaxed blue Hoodie ', 'sweat1.png ', '899', '1', '51', '2024-02-16 18:20:33'),
-(7, 4, '59 ', 'Men Crocks ', 'crocks3.png ', '899', '1', '51', '2024-02-16 18:20:33'),
-(8, 4, '16 ', 'Men T Shirt ', 'tshirt4.png ', '899', '1', '51', '2024-02-16 18:20:33'),
-(9, 4, '22 ', 'Women Frock ', 'frock2.png ', '899', '1', '51', '2024-02-16 18:20:33'),
-(10, 4, '35 ', 'Women Onepiece Dress ', 'onepiece3.png ', '899', '1', '51', '2024-02-16 18:20:33');
+(1, 1, '3 ', 'Men football printed Hoodie ', 'sweat3.png ', '799', '1', '1', '2024-02-18 09:50:31');
 
 -- --------------------------------------------------------
 
@@ -261,28 +235,23 @@ INSERT INTO `products` (`product_id`, `Gender`, `product_name`, `product_categor
 CREATE TABLE `users` (
   `user_id` int(10) NOT NULL,
   `user_name` varchar(50) NOT NULL,
-  `phone` varchar(10) NOT NULL,
+  `phone` varchar(15) DEFAULT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(10) DEFAULT NULL
+  `password` varchar(10) DEFAULT NULL,
+  `otp` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_name`, `phone`, `email`, `password`) VALUES
-(51, 'MANU', '7022015320', 'MANU@GMAIL.COM', '112233'),
-(52, 'SRISHA', '9876543210', 'SRISHA@GMAIL.COM', '112233');
+INSERT INTO `users` (`user_id`, `user_name`, `phone`, `email`, `password`, `otp`) VALUES
+(1, 'MANU', '+917022015320', 'MANU@GMAIL.COM', '112233', '221809'),
+(2, 'SRISHA', '+919740365015', 'SRISHA@GMAIL.COM', '112233', '789305');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`admin_id`);
 
 --
 -- Indexes for table `email`
@@ -319,22 +288,16 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `order_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `item_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `item_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `products`
