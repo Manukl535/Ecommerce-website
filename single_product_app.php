@@ -28,7 +28,7 @@ if(isset($_GET['product_id'])){
 
 </head>
 <body>
-     <!--Header Section-->
+   
 
      <?php include_once("includes/head.php"); ?>
 
@@ -42,6 +42,7 @@ if(isset($_GET['product_id'])){
               <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?> "/>
               <input type="hidden" name="product_image" value="<?php echo $row['product_image']; ?> "/>
               <input type="hidden" name="product_name" value="<?php echo $row['product_name']; ?> "/>
+              <input type="hidden" name="product_price" value="<?php echo $row['product_price']; ?> "/>
               <input type="hidden" name="product_price" value="<?php echo $row['product_price']; ?> "/>
           
           <div class="img-magnifier-container">
@@ -116,64 +117,14 @@ if(isset($_GET['product_id'])){
 }
       </script>
     
+
+        
+
+ 
  <!--Subscribe-->
-    
-<form action="email.php" method="post">
-    <section id = "subscribe">
-        
-        <div class="updates">
-        <h4><b>Signup for updates</b></h4>
-        <p><b>Get updates on Sale and <span>Special offers</span></b></p>
-        </div>
-    
-        <div class="form">
-            <input type="text" name="email" id="emailInput" placeholder="Enter your mail"/><button class="normal" style="width: fit-content;" >subscribe</button>
-        </div>
-          
-    </form>
-    </section>
-        
+ <?php include_once("includes/subscribe.html"); ?> 
 
-
-           <footer class="section-p1">
-            <div class="col">
-                <img src="Assets/logo.png"><br/>
-                <h4>Contact Us</h4>
-                <p>Address:223 Main Street Electonic City Bengaluru 562107</p>
-                <p>Phone:+91 98765 43210</p>
-                <p>Email:posh.com</p>
-                <div class="follow">
-                    <h4>Follow Us</h4>
-                    <div class="col">
-                        <ul>
-                        <i class="fa fa-facebook-official" style="font-size:36px"></i>
-                        <i class="fa fa-instagram" style="font-size:36px"></i>
-                        <i class="fa fa-twitter-square" style="font-size:36px"></i>
-                    </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <h4>About </h4>
-                <a href="about.html">About Us</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms & Conditions</a>
-                <a href="contact.html">Contact Us</a>
-            </div>
-            <div class="col">
-                <h4>My Account</h4>
-                <a href="#">Signin</a>
-                <a href="cart.html">Cart</a>
-                <a href="#">Help</a>
-            </div>
-            <div class="payment">
-                <h4>Secured Payment Gateways</h4>
-                <img src="Assets/payment.png">
-            </div>
-            <div class="copyright">
-                <p>2023 &#169; All Rights Reserved</p><p>Designed and Maintained by <b>Manu </b>and <b>Srisha</b></p>
-            </div>
-    
-           </footer> 
+<!-- Footer -->
+<?php include_once("includes/footer.html"); ?>  
 </body>
 </html>

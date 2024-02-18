@@ -40,9 +40,8 @@ if (isset($_POST['place_order'])) {
         }
     }
 
-  // Remove cart-related session variables
+    // Remove cart-related session variables
     unset($_SESSION['cart']);
-
 
     // Set order_id in session
     $_SESSION['order_id'] = $order_id;
@@ -50,8 +49,8 @@ if (isset($_POST['place_order'])) {
     // Redirect to the payment page
     header('location: payment.php');
     exit();
-} elseif (isset($_POST['cancel_order']) && isset($_POST['order_id'])) {
-    $order_id = $_POST['order_id'];
+} elseif (isset($_POST['cancel_order']) && isset($_SESSION['order_id'])) {
+    $order_id = $_SESSION['order_id'];
 
     // Delete from order_item table
     $stmt1 = $conn->prepare("DELETE FROM order_item WHERE order_id = ?");
@@ -65,8 +64,9 @@ if (isset($_POST['place_order'])) {
         if ($stmt2->execute()) {
             // Unset the order_id from the session
             unset($_SESSION['order_id']);
+            unset($_SESSION['total']); // Unset total to avoid displaying the previous total
+            unset($_SESSION['total_items']); // Unset total_items to avoid displaying the previous total items
             header('location: cart.php');
-
             exit();
         } else {
             // Handle the case where deleting from orders table fails
@@ -78,6 +78,5 @@ if (isset($_POST['place_order'])) {
         header('location: account.php?error=delete_order_items_failed');
         exit();
     }
-     
 }
 ?>

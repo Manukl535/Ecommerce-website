@@ -22,6 +22,7 @@ if (isset($_POST['add_to_cart'])) {
             'product_name' => htmlspecialchars($_POST['product_name']), 
             'product_price' => $_POST['product_price'],
             'product_quantity' => $_POST['product_quantity']
+            
         );
 
         $_SESSION['cart'][$product_id] = $product_array;
@@ -237,7 +238,7 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
                 <ul id="headings">
                
                     <li><a href="index.php">Home</a></li>
-                    <li><a href="shop.php">Shop</a></li>
+                    <li><a href="shop_1.php">Shop</a></li>
                     <li><a href="about.php">About Us</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
                     <li>
@@ -350,20 +351,52 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
             <table>
                 <tr>
                     <td><b>Shipping</b></td>
-                    <td style="color:red;"><b>Free</b></td>
+                    <?php
+                        // Check if the total items are greater than 0 before changing the color
+                        if (isset($_SESSION['total_items']) && $_SESSION['total_items'] > 0) {
+                            echo '<td style="color:red;"><b>Free</b></td>';
+                        } else {
+                            echo '<td><b></b></td>';
+                        }
+                        ?>
                 </tr>
+
                 <tr>
                     <td><b>Total</b></td>
-                    <td>&#8377; <?php echo isset($_SESSION['total']) ? $_SESSION['total'] : 0; ?></td>
+                    <?php
+                    // Check if the total items are greater than 0 before displaying the total amount
+                    if (isset($_SESSION['total_items']) && $_SESSION['total_items'] > 0) {
+                        echo '<td>&#8377; ' . (isset($_SESSION['total']) ? $_SESSION['total'] : 0) . '</td>';
+                    } else {
+                        echo '<td></td>'; // or you can add any placeholder content here if you don't want to show anything
+                    }
+                    ?> 
                 </tr>
+
                 <tr>
                     <td><b>Total Items</b></td>
-                    <td><?php echo "". calculateTotalItems($_SESSION['cart']); ?></td>
+                    <?php
+                        // Check if the total items are greater than 0 before displaying the total items
+                        if (isset($_SESSION['total_items']) && $_SESSION['total_items'] > 0) {
+                            echo '<td>' . calculateTotalItems($_SESSION['cart']) . '</td>';
+                        } else {
+                            echo '<td></td>'; // or you can add any placeholder content here if you don't want to show anything
+                        }
+                        ?>
                 </tr>
             </table>
-            <form action="checkout.php" method="post">
-                <input type="submit" name="checkout" class="proceed" value="PROCEED TO CHECKOUT">
-            </form>
+
+            <?php
+                    // Check if the total items are greater than 0 before displaying the "Proceed to Checkout" button
+                    if (isset($_SESSION['total_items']) && $_SESSION['total_items'] > 0) {
+                        echo '<form action="checkout.php" method="post">
+                                <input type="submit" name="checkout" class="proceed" value="PROCEED TO CHECKOUT">
+                            </form>';
+                    } else {
+                        echo '<button class="proceed" disabled>PROCEED TO CHECKOUT</button>';
+                    }
+                    ?>
+            
         </div>
     </section>
 

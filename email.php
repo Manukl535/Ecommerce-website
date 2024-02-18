@@ -9,7 +9,7 @@ $email = $_POST['email'];
 $host = "localhost";
 $username = "root";
 $password = "";
-$database = "usersdb";
+$database = "ecom";
 
 $conn = new mysqli($host, $username, $password, $database);
 

@@ -1,3 +1,4 @@
+
 <html>
 <head>
     <title>Shoping</title>
@@ -12,7 +13,7 @@
 </head>
 <body>
  <!--Header Section-->
- <?php include_once("includes/head.php"); ?>
+ <?php include_once("Includes/head.php"); ?>
     
      </section>
      <style>

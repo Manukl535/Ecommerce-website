@@ -295,8 +295,8 @@ session_start();
         <?php
         // Check if the total items are greater than 0 and display the quantity
         if (isset($_SESSION['total_items']) && $_SESSION['total_items'] > 0) {
-            echo '<span style="font-size: 10px; color: white; background:red; position: absolute; bottom: 18px; right: 32px; border: 1px solid #ccc; border-radius: 80%; padding: 3px 8px;">' . $_SESSION['total_items'] . '</span>';
-        }
+          echo '<span style="font-size: 10px; color: white; background:red; position: absolute; bottom: 18px; right: 32px; border: 1px solid #ccc; border-radius: 80%; padding: 3px 8px;">' . $_SESSION['total_items'] . '</span>';
+      }
         ?>
     </a>
 </li>
