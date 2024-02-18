@@ -66,18 +66,17 @@ if (isset($_SESSION['total']) && $_SESSION['total'] == 0) {
         border-radius: 50px;
         box-sizing: border-box;
         border: 2px solid beige;
-        padding: 20px;
-    }
-
-    #topproduct .product1 button:hover {
-        background-color: #d9534f;
-        color: white; /* Add text color to make it visible */
-    }
+        padding: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }  
 
     #topproduct .product img {
-        width: 80%;
+        width: 90%;
         max-width: 100%;
         height: auto;
+        box-sizing: border-box;
+        border: 2px solid beige;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     #topproduct .product .description {
@@ -85,7 +84,11 @@ if (isset($_SESSION['total']) && $_SESSION['total'] == 0) {
         padding: 10px 0;
     }
 
-    #topproduct .product h4 {
+    #topproduct .product h5 {
+        color: #088178;
+    }
+
+    #topproduct .product p {
         color: #088178;
     }
 
@@ -94,6 +97,16 @@ if (isset($_SESSION['total']) && $_SESSION['total'] == 0) {
         justify-content: space-between;
         padding-top: 20px;
     }
+
+    #topproduct .product1 button.btn {
+        transition: border-color 0.3s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        &:hover {
+          border-color: #c0c0c0; 
+          transform: scale(1.05); 
+          box-shadow: 0 0 12px rgba(200, 200, 200, 0.9); 
+        }
+    }
+
 </style>
 
 </head>
@@ -114,9 +127,9 @@ if (isset($_SESSION['total']) && $_SESSION['total'] == 0) {
             <?php if (isset($_SESSION['order_id'])) { ?>
                 <input type="hidden" name="order_id" value="<?php echo $_SESSION['order_id']; ?>">
             <?php } ?>
-            <button type="submit" name="cancel_order" class="btn btn-danger" style="background-color: red;" onclick="showFailureAlert()">No</button>
-            <button type="button" class="btn btn-success" style="background-color: green;" onclick="showSuccessAlert()">Yes</button><p></p>
-            <p><button type="submit" name="cancel_order" class="btn btn-danger" style="background-color: red;" onclick="CancelAlert()">Cancel Payment</button></p>
+            <button type="submit" name="cancel_order" class="btn btn-danger" style="background-color: red" onclick="showFailureAlert()"><b>No</b></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-success" style="background-color: green;" onclick="showSuccessAlert()"><b>Yes</b></button><p></p>
+            <p><button type="submit" name="cancel_order" class="btn btn-danger" style="background-color: red;" onclick="CancelAlert()"><b>Cancel Payment</b></button></p>
         </form>
     <?php }  ?>
             </div>
