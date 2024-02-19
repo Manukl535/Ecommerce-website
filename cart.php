@@ -339,13 +339,19 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
         }
         ?>
     </div>
-    <section id="add2cart" class="section-p1">
-        <div id="coupon">
-            <h3>Apply Coupon</h3>
-            <div>
-                <input type="text" placeholder="Enter your coupon"> <button class="normal">Apply</button>
+
+    <?php
+    // Check if the total items are greater than 0 before displaying coupon and cart total sections
+    if (isset($_SESSION['total_items']) && $_SESSION['total_items'] > 0) {
+    ?>
+        <section id="add2cart" class="section-p1">
+            <!-- Apply Coupon Section -->
+            <div id="coupon">
+                <h3>Apply Coupon</h3>
+                <div>
+                    <input type="text" placeholder="Enter your coupon"> <button class="normal">Apply</button>
+                </div>
             </div>
-        </div>
         <div id="Total">
             <h3>Cart Total</h3>
             <table>
@@ -399,6 +405,9 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
             
         </div>
     </section>
+    <?php
+    }
+    ?>
 
     <!--Subscribe-->
     <?php include_once("includes/subscribe.html"); ?> 
