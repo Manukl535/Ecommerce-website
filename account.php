@@ -436,8 +436,8 @@ if (isset($_SESSION['logged-in'])) {
     </div>
 <br/><br/>
     
-<style
->button {
+<style>
+        button {
         cursor: pointer;
         display: inline-block;
         padding: 12px 24px;
@@ -502,7 +502,7 @@ if (isset($_SESSION['logged-in'])) {
         height: 3px; 
         background-color: #FF9933; 
         position: absolute;
-        bottom: -182px; 
+        bottom: -200px; 
         left: 50%;
         transform: translateX(-50%);
     }
