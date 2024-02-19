@@ -1,6 +1,13 @@
 <?php
 // Start the session if not started already
 session_start();
+include('Includes/connection.php');
+
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header('location: login.php');
+    exit();
+}
 
 // Check if the cart is empty
 if (isset($_SESSION['total']) && $_SESSION['total'] == 0) {
@@ -30,7 +37,46 @@ if (isset($_SESSION['total']) && $_SESSION['total'] == 0) {
 
     exit; // Stop executing the rest of the script
 }
+
+// Assuming you have a button or link in checkout.php to go back to cart.php
+if (isset($_POST['back_to_cart'])) {
+    // Assuming the session variable 'order_id' holds the current order ID
+    $order_id = $_SESSION['order_id'];
+
+    // Delete from order_item table
+    $stmt1 = $conn->prepare("DELETE FROM order_item WHERE order_id = ?");
+    $stmt1->bind_param('i', $order_id);
+
+    if ($stmt1->execute()) {
+        // Delete from orders table
+        $stmt2 = $conn->prepare("DELETE FROM orders WHERE order_id = ?");
+        $stmt2->bind_param('i', $order_id);
+
+        if ($stmt2->execute()) {
+            // Unset the order_id from the session
+            unset($_SESSION['order_id']);
+            unset($_SESSION['total']); // Unset total to avoid displaying the previous total
+            unset($_SESSION['total_items']); // Unset total_items to avoid displaying the previous total items
+            header('location: cart.php');
+            exit();
+        } else {
+            // Handle the case where deleting from orders table fails
+            $error_message = mysqli_error($conn);
+            error_log("Error deleting from orders table: $error_message");
+            header('location: checkout.php?error=delete_orders_failed');
+            exit();
+        }
+    } else {
+        // Handle the case where deleting from order_item table fails
+        $error_message = mysqli_error($conn);
+        error_log("Error deleting from order_item table: $error_message");
+        header('location: checkout.php?error=delete_order_items_failed');
+        exit();
+    }
+}
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,6 +132,7 @@ if (isset($_SESSION['total']) && $_SESSION['total'] == 0) {
 
     #topproduct .product h5 {
         color: #088178;
+        font weight:bold;
     }
 
     #topproduct .product p {
@@ -130,10 +177,13 @@ if (isset($_SESSION['total']) && $_SESSION['total'] == 0) {
             <button type="submit" name="cancel_order" class="btn btn-danger" style="background-color: red" onclick="showFailureAlert()"><b>No</b></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button type="button" class="btn btn-success" style="background-color: green;" onclick="showSuccessAlert()"><b>Yes</b></button><p></p>
             <p><button type="submit" name="cancel_order" class="btn btn-danger" style="background-color: red;" onclick="CancelAlert()"><b>Cancel Payment</b></button></p>
+            
         </form>
     <?php }  ?>
             </div>
+            
         </div>
+        <p>Please Don't Go Back Or Refresh</p>
         <script>
     function showFailureAlert() {
       alert("Payment failed!.\n Sorry, your order was unsuccessful.");
@@ -153,8 +203,10 @@ if (isset($_SESSION['total']) && $_SESSION['total'] == 0) {
 
     // Disable the back button after successful payment
     history.pushState(null, null, location.href);
-    window.onpopstate = function () {
-      history.go(1);
+    window.onpopstate = function (event) {
+        alert("Back button disabled. Please use the provided buttons.");
+        history.pushState(null, null, location.href);
+        event.preventDefault();
     };
   </script>
 </body>
