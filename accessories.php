@@ -3,22 +3,108 @@
     <title>Men's</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles.css">
-
     <style>
+        /* Styles for the top button */
+        #topButton {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px; /* Adjusted for the bottom right corner */
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 99;
+        }
+    </style>
+    <script>
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
 
+        // Function to scroll to the top of the page
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-    </style> 
+        // Function to toggle visibility of the top button based on scroll position
+        function toggleTopButton() {
+            const topButton = document.getElementById('topButton');
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                topButton.style.display = 'block';
+            } else {
+                topButton.style.display = 'none';
+            }
+        }
 
+        // Event listener for scroll
+        window.onscroll = function() {
+            toggleTopButton();
+        };
+    </script> 
+ <script>
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
+
+             
+        }
+    </script>
 </head>
 <body>
  <!--Header Section-->
 
  <?php include_once("includes/head.php"); ?>
 
+ <style>
+     .container {
+  display: flex;
+  justify-content:center;
+  /* top:0;
+  z-index: 100;
+  position:sticky; */
+
+}
+
+.box {
+  flex: 0.2; 
+  height: 40px;
+  margin: 10px;
+  text-align: center;
+  line-height: 40px;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 50px; 
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1));
+  color: #fff;
+  font-weight:bold;
+}
+
+.box a{
+    text-decoration: none; 
+    color: #fff; 
+    font-weight:bold;
+} 
+
+</style>
 
 
 
-<br/><br/>
+<div class="container" >
+  <div class="box" id="box1" onclick="scrollToSection('section1')"><a href='#'>Sunglass</a></div>
+  <div class="box" id="box2" onclick="scrollToSection('section2')"><a href='#'>Hats</a></div>
+  <div class="box" id="box3" onclick="scrollToSection('section3')"><a href='#'>Wallet & Handbags</a></div>
+  <div class="box" id="box4" onclick="scrollToSection('section4')"><a href='#'>Watch</a></div>
+</div>
+
+
+<section id="section1">
+
+       <br>
 
 <center><h1>Sunglasses</h1></center>
             <!--Sunglass-->
@@ -88,7 +174,9 @@
               
 
                  
-         
+                  </section>
+
+<section id="section2">
             <!--Hat-->
 
             <center><h1>Hats</h1></center>
@@ -157,7 +245,9 @@
   
 
                  
-  
+                  </section>
+
+<section id="section3">
                   <!-- Wallet -->
                   <center><h1>Wallets & Handbags</h1></center>
                           
@@ -224,7 +314,9 @@
                     <?php } ?> 
                     </section>
   
+                    </section>
 
+<section id="section4">
 <!-- Watches -->
 <center><h1>Watches</h1></center>
                         
@@ -289,7 +381,12 @@
                   </div>
                   <?php } ?> 
                   </section>
+                  </section>
 
+                    <!-- Top button -->
+                    <button id="topButton" onclick="scrollToTop()">
+                     <i class="fa fa-arrow-up"></i> Top
+                    </button>
                 
      <!--Subscribe-->
     
