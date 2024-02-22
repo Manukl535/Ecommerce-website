@@ -186,7 +186,7 @@ if(isset($_POST['register-btn'])){
 				<input type="text" class="form-control" name="name" placeholder="Name" required="required">        
             </div>
             <div class="form-group">
-                <input type="phone" class="form-control" name="phone" pattern="[0-9]*" placeholder="7022015320" required="required">
+                <input type="phone" class="form-control" name="phone" pattern="[0-9]*" placeholder="+917022015320" required="required">
             </div>
         <div class="form-group">
         	<input type="email" class="form-control" name="email" placeholder="Email" required="required">

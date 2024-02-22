@@ -31,7 +31,8 @@ if(isset($_GET['product_id'])){
      <!--Header Section-->
 
      <?php include_once("includes/head.php"); ?>
-
+     
+      
      <section id="productdetails" class="section-p1">
       
       <div class="product1">
@@ -46,10 +47,13 @@ if(isset($_GET['product_id'])){
           
           <div class="img-magnifier-container">
             <img id="myimage" src="Assets/<?php echo $row['product_image']; ?>" width="300" height="400">
+            
           </div>
-          
+           
+        
     
   </div>
+  
   </div>
 
 
@@ -81,13 +85,18 @@ if(isset($_GET['product_id'])){
         <input type="number" min="1" name="product_quantity" value="1">
         <button class="normal" onclick="addToCart()" type="submit" name="add_to_cart">ADD TO CART</button>
         <br/><br/>
+        
         <h4>Product Description</h4><?php echo $row['product_description']; ?>
+       
         
       </div>
+      
       </form>
         <?php } ?>
+        
     </section>
-    <br><br><br><br>
+  
+    <center>This Product is subjected to &#10060;<a href="Includes/cancellation_policy.html" style="text-decoration: none; color: inherit;">NO Cancellation Policy</a></center>
 
   <script>
     function addToCart() {
@@ -109,64 +118,10 @@ if(isset($_GET['product_id'])){
 }
       </script>
     
- <!--Subscribe-->
-    
-<form action="email.php" method="post">
-    <section id = "subscribe">
-        
-        <div class="updates">
-        <h4><b>Signup for updates</b></h4>
-        <p><b>Get updates on Sale and <span>Special offers</span></b></p>
-        </div>
-    
-        <div class="form">
-            <input type="text" name="email" id="emailInput" placeholder="Enter your mail"/><button class="normal" style="width: fit-content;" >subscribe</button>
-        </div>
-          
-    </form>
-    </section>
+
         
 
 
-           <footer class="section-p1">
-            <div class="col">
-                <img src="Assets/logo.png"><br/>
-                <h4>Contact Us</h4>
-                <p>Address:223 Main Street Electonic City Bengaluru 562107</p>
-                <p>Phone:+91 98765 43210</p>
-                <p>Email:posh.com</p>
-                <div class="follow">
-                    <h4>Follow Us</h4>
-                    <div class="col">
-                        <ul>
-                        <i class="fa fa-facebook-official" style="font-size:36px"></i>
-                        <i class="fa fa-instagram" style="font-size:36px"></i>
-                        <i class="fa fa-twitter-square" style="font-size:36px"></i>
-                    </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <h4>About </h4>
-                <a href="about.html">About Us</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms & Conditions</a>
-                <a href="contact.html">Contact Us</a>
-            </div>
-            <div class="col">
-                <h4>My Account</h4>
-                <a href="#">Signin</a>
-                <a href="cart.html">Cart</a>
-                <a href="#">Help</a>
-            </div>
-            <div class="payment">
-                <h4>Secured Payment Gateways</h4>
-                <img src="Assets/payment.png">
-            </div>
-            <div class="copyright">
-                <p>2023 &#169; All Rights Reserved</p><p>Designed and Maintained by <b>Manu </b>and <b>Srisha</b></p>
-            </div>
-    
-           </footer> 
+           
 </body>
 </html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 18, 2024 at 10:21 AM
+-- Generation Time: Feb 22, 2024 at 12:27 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -31,13 +31,6 @@ CREATE TABLE `email` (
   `email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `email`
---
-
-INSERT INTO `email` (`email`) VALUES
-('MANU@GMAIL.COM');
-
 -- --------------------------------------------------------
 
 --
@@ -47,6 +40,13 @@ INSERT INTO `email` (`email`) VALUES
 CREATE TABLE `feedback` (
   `feedback` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`feedback`) VALUES
+('hii');
 
 -- --------------------------------------------------------
 
@@ -75,7 +75,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `order_cost`, `order_status`, `user_id`, `user_name`, `email`, `user_phone`, `user_city`, `user_state`, `user_address`, `order_date`, `order_quantity`, `dod`) VALUES
-(1, '799', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Mumbai', 'Maharashtra', 'ATTIBELE', '2024-02-18', '1', '2024-02-19');
+(1, '799', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-22', '1', '2024-02-23'),
+(3, '799', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-22', '1', '2024-02-23');
 
 -- --------------------------------------------------------
 
@@ -100,7 +101,8 @@ CREATE TABLE `order_item` (
 --
 
 INSERT INTO `order_item` (`item_id`, `order_id`, `product_id`, `product_name`, `product_image`, `product_price`, `product_quantity`, `user_id`, `order_date`) VALUES
-(1, 1, '3 ', 'Men football printed Hoodie ', 'sweat3.png ', '799', '1', '1', '2024-02-18 09:50:31');
+(1, 1, '3 ', 'Men football printed Hoodie ', 'sweat3.png ', '799', '1', '1', '2024-02-22 12:14:46'),
+(3, 3, '3 ', 'Men football printed Hoodie ', 'sweat3.png ', '799', '1', '1', '2024-02-22 12:16:24');
 
 -- --------------------------------------------------------
 
@@ -246,8 +248,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `phone`, `email`, `password`, `otp`) VALUES
-(1, 'MANU', '+917022015320', 'MANU@GMAIL.COM', '112233', '221809'),
-(2, 'SRISHA', '+919740365015', 'SRISHA@GMAIL.COM', '112233', '789305');
+(1, 'MANU', '+917022015320', 'MANU@GMAIL.COM', '112233', '539829');
 
 --
 -- Indexes for dumped tables
@@ -291,13 +292,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `order_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `item_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `item_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -309,7 +310,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

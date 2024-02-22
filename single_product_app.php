@@ -92,39 +92,31 @@ if(isset($_GET['product_id'])){
       </form>
         <?php } ?>
     </section>
-    <br><br><br><br>
+    <center>This Product is subjected to &#10060;<a href="Includes/cancellation_policy.html" style="text-decoration: none; color: inherit;">NO Cancellation Policy</a></center>
+
     <script>
-      
+              function addToCart() {
+          var selectedSize = document.querySelector('select').value;
+          if (selectedSize === 'Select Size') {
+            alert('Please select a size before adding to cart');
+          } else {
+            var productDescription = document.querySelector('.pro1 h4').textContent;
+            var productPrice = document.querySelector('.pro1 h3').textContent;
+            var productImage = document.querySelector('.product1 img').src;
 
-
- 
-    function addToCart() {
-  var selectedSize = document.querySelector('select').value;
-  if (selectedSize === 'Select Size') {
-    alert('Please select a size before adding to cart');
-  } else {
-    var productDescription = document.querySelector('.pro1 h4').textContent;
-    var productPrice = document.querySelector('.pro1 h3').textContent;
-    var productImage = document.querySelector('.product1 img').src;
-
-    // Now you have the product description, price, image, and size
-    // You can use this information to add the item to the cart or display it to the user
-    console.log("Description: " + productDescription);
-    console.log("Price: " + productPrice);
-    console.log("Size: " + selectedSize);
-    console.log("Image: " + productImage);
-  }
-}
-      </script>
+            // Now you have the product description, price, image, and size
+            // You can use this information to add the item to the cart or display it to the user
+            console.log("Description: " + productDescription);
+            console.log("Price: " + productPrice);
+            console.log("Size: " + selectedSize);
+            console.log("Image: " + productImage);
+          }
+        }
+    </script>
     
 
         
 
  
- <!--Subscribe-->
- <?php include_once("includes/subscribe.html"); ?> 
-
-<!-- Footer -->
-<?php include_once("includes/footer.html"); ?>  
 </body>
 </html>

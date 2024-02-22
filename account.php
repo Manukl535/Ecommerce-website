@@ -514,50 +514,70 @@ if (isset($_SESSION['logged-in'])) {
     <section id="cart" class="section-p1">
         <h4 class="orders-heading">Your Orders</h4><br/><br>
         <div class="order-box">
-        <table>
-            <tr>
-                <th>Order ID</th>
-               <th>Order Date</th>
-                <th>Order Status</th>
-                <th>Order Cost</th>
-                <th>Order Quantity</th>
-                <th>Order Details</th>
-            </tr>
+            <table>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Order Date</th>
+                    <th>Order Status</th>
+                    <th>Order Cost</th>
+                    <th>Order Details</th>
+                    <th>Invoice</th>
+                </tr>
 
-            <?php while ($row = $orders->fetch_assoc()) { ?>
-    <tr>
-    <td>ODR<?php echo str_pad($row['order_id'], 3, '0', STR_PAD_LEFT); ?></td>
-   
-        <td><?php echo date('d-m-Y', strtotime($row['order_date'])); ?></td>
-        <td>Delivery On: <?php
-            $dod = $row['dod'];
-            $formatted_date = date('d-m-Y', strtotime($dod));
-            echo $formatted_date;
-        ?></td>
-        <td>&#8377; <?php echo $row['order_cost']; ?></td>
-        <td><?php echo $row['order_quantity']; ?></td>
-        <td>
-            <form method="GET" action="invoice.php">
-                <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
-                <button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="invoice_btn">
-                    <i class="fa fa-print"></i> Invoice
-                </button>
-            </form>
-        </td>
-    </tr>
-<?php } ?>
-</table>
-</div>
+                <?php
+                // Assuming your SQL query is something like SELECT * FROM orders
+                // You can modify it to order by order_date in descending order
+                $sql = "SELECT * FROM orders ORDER BY order_date DESC";
+                $orders = $conn->query($sql);
 
-     
-        
-    
+                while ($row = $orders->fetch_assoc()) {
+                ?>
+                    <tr>
+                        <td>ODR<?php echo str_pad($row['order_id'], 3, '0', STR_PAD_LEFT); ?></td>
+                        <td><?php echo date('d-m-Y', strtotime($row['order_date'])); ?></td>
 
-<script>
-    function redirectToInvoice(orderId) {
-        window.location.href = "invoice.php?order_id=" + orderId;
-    }
-</script>
+                        <?php
+                        $dod = $row['dod'];
+                        $formatted_date = date('d-m-Y', strtotime($dod));
+                        $isDelivered = strtotime($dod) <= strtotime(date('Y-m-d'));
+                        $statusText = $isDelivered ? 'Delivered On' : 'Delivery On';
+                        $statusColor = $isDelivered ? 'green' : 'black';
+                        ?>
+
+                        <td style="color: <?php echo $statusColor; ?>"><strong><?php echo $statusText . ': ' . $formatted_date; ?></strong></td>
+
+                        <td>&#8377; <?php echo $row['order_cost']; ?></td>
+
+                        <td>
+                            <form method="GET" action="orders_details.php">
+                                <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
+                                <button <?php if ($isDelivered) echo 'enabled'; else echo 'disabled'; ?> style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="orders_btn">
+                                    Order Details
+                                </button>
+                            </form>
+                        </td>
+
+                        <td>
+                            <form method="GET" action="invoice.php">
+                                <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
+                                <button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="invoice_btn">
+                                    <i class="fa fa-print"></i> Invoice
+                                </button>
+                            </form>
+                        </td>
+
+                    </tr>
+                <?php } ?>
+
+            </table>
+        </div>
+
+        <script>
+            function redirectToInvoice(orderId) {
+                window.location.href = "invoice.php?order_id=" + orderId;
+            }
+        </script>
+
         <?php
         if ($orders->num_rows > 0) {
             // Display orders if available
@@ -572,8 +592,6 @@ if (isset($_SESSION['logged-in'])) {
         ?>
     </section>
 </div>
-
-
 
 </body>
 </html>
