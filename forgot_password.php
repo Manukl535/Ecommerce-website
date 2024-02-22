@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Include database connection
 include('Includes/connection.php');
 
@@ -30,6 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Update the database with the generated OTP
         $updateQuery = "UPDATE users SET otp = '$otp' WHERE phone = '$phone'";
         $conn->query($updateQuery);
+
+        // Set the phone number in the session
+        $_SESSION['phone'] = $phone;
 
         // Send OTP to the registered mobile number using Twilio
         $message = $twilio->messages
@@ -71,10 +75,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (isset($_POST['Change_Password'])) {
+        // Ensure that the session variable is set
+        if (!isset($_SESSION['phone'])) {
+            function_alert("Session phone not set. Please try again.", "forgot_password.php");
+        }
+
         $password = $_POST['new_password'];
         $confirm_password = $_POST['confirm_password'];
         $phone = $_SESSION['phone'];
-    
+
         // Length of pass
         if (strlen($password) < 6) {
             function_alert("Password must have 6 characters", "forgot_password.php");
@@ -86,9 +95,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // If all correct
         else {
             $stmt = $conn->prepare("UPDATE users SET password=? WHERE phone=?");
-    
+
             $stmt->bind_param('ss', $password, $phone);
-    
+
             if ($stmt->execute()) {
                 function_alert("Password changed successfully!\\nRedirecting to Login page", "login_user.php");
             } else {
@@ -96,10 +105,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     }
-    
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">

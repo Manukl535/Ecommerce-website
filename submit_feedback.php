@@ -9,7 +9,7 @@ function function_alert($message, $redirectUrl) {
 $host = "localhost";
 $username = "root";
 $password = "";
-$database = "usersdb";
+$database = "ecom";
 
 // Create connection
 $conn = new mysqli($host, $username, $password, $database);
