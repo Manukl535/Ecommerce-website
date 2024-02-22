@@ -525,8 +525,7 @@ if (isset($_SESSION['logged-in'])) {
                 </tr>
 
                 <?php
-                // Assuming your SQL query is something like SELECT * FROM orders
-                // You can modify it to order by order_date in descending order
+                // order by order_date in descending order
                 $sql = "SELECT * FROM orders ORDER BY order_date DESC";
                 $orders = $conn->query($sql);
 

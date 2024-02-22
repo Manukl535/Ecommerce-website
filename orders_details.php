@@ -30,7 +30,7 @@ if (isset($_GET['orders_btn']) && isset($_GET['order_id'])) {
     $order_info = $stmt1->get_result()->fetch_assoc();
     $stmt1->close();
 } else {
-    header('location: orders.php');
+    header('location: product_return.php');
     exit();
 }
 ?>
@@ -168,21 +168,12 @@ $productPrices = array(); // Array to store product prices
             $daysDifference = $interval->days;
             $returnButtonClass = ($daysDifference <= 2) ? '' : ' return-button-disabled';
         ?>
-        <button class="<?php echo $returnButtonClass; ?>" onclick="returnProduct('<?php echo $row['product_id']; ?>')">&#8634; Return</button>
-</div>
+        <form action="product_return.php" >
+        <button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 99%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="return_btn">Return</button>
+        
 <?php } ?>
 
-<script>
-   function returnProductAll(productId) {
-        // Redirect to the return page with the specific product ID
-        window.location.href = 'return.php?';
-    }
 
-    function returnProduct(productId) {
-        // Redirect to the return page with the specific product ID
-        window.location.href = 'return.php?';
-    }
-</script>
 
 
 </body>
