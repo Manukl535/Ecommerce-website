@@ -28,6 +28,9 @@ if (isset($_GET['orders_btn']) && isset($_GET['order_id'])) {
     $stmt1->bind_param('ii', $order_id, $_SESSION['user_id']);
     $stmt1->execute();
     $order_info = $stmt1->get_result()->fetch_assoc();
+
+    // Save the shipped address in the session
+    $_SESSION['shipped_address'] = $order_info;
     $stmt1->close();
 } else {
     header('location: product_return.php');

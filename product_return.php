@@ -2,22 +2,39 @@
 session_start();
 include('Includes/connection.php');
 
-$order_info = array(); // Provide a default value
-
-if (isset($_GET['return_btn']) && isset($_GET['order_id'])) {
-    $order_id = $_GET['order_id'];
-
-    // Retrieve billed address from orders table
-    $stmt1 = $conn->prepare("SELECT user_name,user_phone,user_address,user_city,user_state,dod FROM orders WHERE order_id=? AND user_id=?");
-    $stmt1->bind_param('ii', $order_id, $_SESSION['user_id']);
-    $stmt1->execute();
-    $order_info = $stmt1->get_result()->fetch_assoc();
-    $stmt1->close();
+// Check if the shipped address is available in the session
+if (isset($_SESSION['shipped_address'])) {
+    $shipped_address = $_SESSION['shipped_address'];
 } else {
-    // Handle the case where return_btn and order_id are not set, e.g., redirect or display an error message
+    
 }
 
+// Check if the form is submitted via POST
+if (isset($_POST['continue-btn'])) {
+    // Sanitize and retrieve form data
+    $reason1 = isset($_POST['reason1']) ? htmlspecialchars($_POST['reason1']) : '';
+    $reason2 = isset($_POST['reason2']) ? htmlspecialchars($_POST['reason2']) : '';
+    $reason3 = isset($_POST['reason3']) ? htmlspecialchars($_POST['reason3']) : '';
+    $comments = isset($_POST['comments']) ? htmlspecialchars($_POST['comments']) : '';
+
+    // Insert the return request into the database
+    $stmt = $conn->prepare("INSERT INTO return_requests (order_id, user_id, reason, comments, pickup_address) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param('iisss', $_SESSION['order_id'], $_SESSION['user_id'], $reason, $comments, $pickup_address);
+
+    if ($stmt->execute()) {
+        // Success, display alert and redirect
+        echo '<script>alert("Return request accepted. Refund will be processed.");</script>';
+        header('location: orders_details.php?order_id=' . $_SESSION['order_id'] . '&orders_btn=true');
+        exit();
+    } else {
+        // Failed to insert into the database, handle accordingly
+        echo '<script>alert("Failed to submit return request. Please try again.");</script>';
+    }
+
+    $stmt->close();
+} 
 ?>
+
 
 
 
@@ -96,14 +113,18 @@ if (isset($_GET['return_btn']) && isset($_GET['order_id'])) {
         <textarea name="comments" class="comment-box" placeholder="Explain the problem..."></textarea>
 
         <div class="pickup-address-header">Pickup Address</div>
-      
-        <p><?php echo isset($order_info['user_name']) ? $order_info['user_name'] : ''; ?></p>
-        <p><?php echo isset($order_info['user_address']) ? $order_info['user_address'] : ''; ?></p>
-        <p><?php echo isset($order_info['user_city']) ? $order_info['user_city'] : ''; ?></p>
-        <p><?php echo isset($order_info['user_state']) ? $order_info['user_state'] : ''; ?></p>
-        <p><?php echo isset($order_info['user_phone']) ? $order_info['user_phone'] : ''; ?></p><br/>
 
-        <button type="submit" class="continue-button">Continue</button>
+        <!-- Display the user's address received from the session -->
+         <!-- Display the shipped address in the form -->
+         <p><?php echo isset($shipped_address['user_name']) ? $shipped_address['user_name'] : ''; ?></p>
+        <p><?php echo isset($shipped_address['user_address']) ? $shipped_address['user_address'] : ''; ?></p>
+        <p><?php echo isset($shipped_address['user_city']) ? $shipped_address['user_city'] : ''; ?></p>
+        <p><?php echo isset($shipped_address['user_state']) ? $shipped_address['user_state'] : ''; ?></p>
+        <p><?php echo isset($shipped_address['user_phone']) ? $shipped_address['user_phone'] : ''; ?></p><br/>
+
+
+        <br/>
+        <button type="submit"  name="continue-btn" class="continue-button">Continue</button>
     </form>
 </div>
 
