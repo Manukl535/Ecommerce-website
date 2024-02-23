@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2024 at 05:03 PM
+-- Generation Time: Feb 23, 2024 at 05:21 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -37,6 +37,28 @@ CREATE TABLE `email` (
 
 INSERT INTO `email` (`email`) VALUES
 ('MANU@GMAIL.COM');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `feedback`
+--
+
+CREATE TABLE `feedback` (
+  `count_id` int(100) NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  `phone` varchar(15) DEFAULT NULL,
+  `feedback` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`count_id`, `name`, `email`, `phone`, `feedback`) VALUES
+(2, 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Hello!!'),
+(3, 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Hello Posh this is Manu');
 
 -- --------------------------------------------------------
 
@@ -277,6 +299,12 @@ ALTER TABLE `email`
   ADD PRIMARY KEY (`email`);
 
 --
+-- Indexes for table `feedback`
+--
+ALTER TABLE `feedback`
+  ADD PRIMARY KEY (`count_id`);
+
+--
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -303,6 +331,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `feedback`
+--
+ALTER TABLE `feedback`
+  MODIFY `count_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `orders`
