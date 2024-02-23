@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2024 at 12:27 PM
+-- Generation Time: Feb 23, 2024 at 05:03 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -31,22 +31,12 @@ CREATE TABLE `email` (
   `email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `feedback`
+-- Dumping data for table `email`
 --
 
-CREATE TABLE `feedback` (
-  `feedback` varchar(1000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `feedback`
---
-
-INSERT INTO `feedback` (`feedback`) VALUES
-('hii');
+INSERT INTO `email` (`email`) VALUES
+('MANU@GMAIL.COM');
 
 -- --------------------------------------------------------
 
@@ -75,8 +65,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `order_cost`, `order_status`, `user_id`, `user_name`, `email`, `user_phone`, `user_city`, `user_state`, `user_address`, `order_date`, `order_quantity`, `dod`) VALUES
-(1, '799', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-22', '1', '2024-02-23'),
-(3, '799', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-22', '1', '2024-02-23');
+(1, '799', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-15', '1', '2024-02-16'),
+(3, '799', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-20', '1', '2024-02-22');
 
 -- --------------------------------------------------------
 
@@ -101,8 +91,8 @@ CREATE TABLE `order_item` (
 --
 
 INSERT INTO `order_item` (`item_id`, `order_id`, `product_id`, `product_name`, `product_image`, `product_price`, `product_quantity`, `user_id`, `order_date`) VALUES
-(1, 1, '3 ', 'Men football printed Hoodie ', 'sweat3.png ', '799', '1', '1', '2024-02-22 12:14:46'),
-(3, 3, '3 ', 'Men football printed Hoodie ', 'sweat3.png ', '799', '1', '1', '2024-02-22 12:16:24');
+(1, 1, '3 ', 'Men football printed Hoodie ', 'sweat3.png ', '799', '1', '1', '2024-02-15 12:14:46'),
+(3, 3, '3 ', 'Men football printed Hoodie ', 'sweat3.png ', '799', '1', '1', '2024-02-20 12:16:24');
 
 -- --------------------------------------------------------
 
@@ -227,6 +217,32 @@ INSERT INTO `products` (`product_id`, `Gender`, `product_name`, `product_categor
 (98, 'Women', 'Women Hand Bag', 'Accessories/bag', 'Bag', 'Bag2.png', 899.00, 0, 'White'),
 (99, 'Women', 'Women Hand Bag', 'Accessories/bag', 'Bag', 'Bag3.png', 899.00, 0, 'White'),
 (100, 'Women', 'Women Hand Bag', 'Accessories/bag', 'Bag', 'Bag4.png', 899.00, 0, 'White');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `return_requests`
+--
+
+CREATE TABLE `return_requests` (
+  `order_id` varchar(10) DEFAULT NULL,
+  `user_id` varchar(10) DEFAULT NULL,
+  `reason` varchar(50) DEFAULT NULL,
+  `comments` varchar(500) DEFAULT NULL,
+  `user_name` varchar(20) DEFAULT NULL,
+  `user_phone` varchar(15) DEFAULT NULL,
+  `user_address` varchar(50) DEFAULT NULL,
+  `user_city` varchar(50) DEFAULT NULL,
+  `user_state` varchar(50) DEFAULT NULL,
+  `return_status` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `return_requests`
+--
+
+INSERT INTO `return_requests` (`order_id`, `user_id`, `reason`, `comments`, `user_name`, `user_phone`, `user_address`, `user_city`, `user_state`, `return_status`) VALUES
+('3', '1', 'Product Damaged', 'Damaged Product', 'MANU', '7022015320', 'ATTIBELE', 'Bengaluru', 'Karnataka', 'Yes');
 
 -- --------------------------------------------------------
 

@@ -1,73 +1,173 @@
-<?php
-session_start();
-include('Includes/connection.php');
+<?php 
 
-// Check if the shipped address is available in the session
-if (isset($_SESSION['shipped_address'])) {
-    $shipped_address = $_SESSION['shipped_address'];
-} else {
-    // Handle the case when shipped_address is not set
-    // You may want to redirect the user or display an error message
+include_once("Includes/connection.php"); 
+
+function function_alert($message, $redirectUrl) {
+    // Display the alert box
+    echo "<script>alert('$message');</script>";
+    // Redirect to the specified URL after the alert is closed
+    echo "<script>window.location.href = '$redirectUrl';</script>";
 }
 
-// Check if the form is submitted via POST
-if (isset($_POST['continue-btn'])) {
-    // Sanitize and retrieve form data
-    $reason = isset($_POST['reason']) ? htmlspecialchars($_POST['reason']) : '';
-    $comments = isset($_POST['comments']) ? htmlspecialchars($_POST['comments']) : '';
 
-    // Retrieve required information from the orders table
-    $order_id = $_SESSION['order_id'];
-    $user_id = $_SESSION['user_id'];
 
-    $stmtOrders = $conn->prepare("SELECT user_name, user_phone, user_address, user_city, user_state FROM orders WHERE order_id=? AND user_id=?");
-    $stmtOrders->bind_param('ii', $order_id, $user_id);
-    $stmtOrders->execute();
-    $ordersResult = $stmtOrders->get_result()->fetch_assoc();
 
-    $stmtOrders->close();
-
-    // Insert the return request into the database
-    $stmtReturn = $conn->prepare("INSERT INTO return_requests (order_id, user_id, reason, comments, user_name, user_phone, user_address, user_city, user_state) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmtReturn->bind_param('iisssssss', $order_id, $user_id, $reason, $comments, $ordersResult['user_name'], $ordersResult['user_phone'], $ordersResult['user_address'], $ordersResult['user_city'], $ordersResult['user_state']);
-
-    if ($stmtReturn->execute()) {
-        // Success, display alert and redirect
-        echo '<script>alert("Return request accepted. Refund will be processed.");</script>';
-        header('location: orders_details.php?order_id=' . $order_id . '&orders_btn=true');
-        exit();
-    } else {
-        // Failed to insert into the database, handle accordingly
-        echo '<script>alert("Failed to submit return request. Please try again.");</script>';
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Check if the feedback is not empty
+    if (empty(trim($_POST["feedback"]))) {
+        
+        $message = "Feedback can't be empty";
+        $redirectUrl = "login_user.php";
+        function_alert($message, $redirectUrl);
     }
+  else {
+        $feedback = $_POST["feedback"];
+        
+        // Prepare and bind the INSERT statement to avoid SQL injection
+        $stmt = $conn->prepare("INSERT INTO feedback (feedback) VALUES (?)");
+        $stmt->bind_param("s", $feedback);
 
-    $stmtReturn->close();
-} 
+        if ($stmt->execute()) {
+            $message = "Thanks..!\\nWe Received Your Feedback";
+            $redirectUrl = "index.php";
+            function_alert($message, $redirectUrl);
+        } else {
+                
+        }
+        $stmt->close();
+    }
+}
 ?>
+<html>
+    <head>
+        <title>Contact</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="shortcut icon" type="image/x-icon" href="Assets/logo2.png">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
 
-<!DOCTYPE html>
+        <!-- Header Section -->
+        <?php include_once("includes/head.php"); ?>
+
+        <section id="contact_us" class="contact">
+            <h2>#let's_meet</h2>
+            <p>We are happy to hear from you...</p>
+        </section>
+        <br><br></br/>
+
+        <section id="contact" class="contact_us">
+            <div class="">              
+                <h4>Meet Us</h4> <br/> 
+                <h5>Head Office:</h5>
+                <p>Address: 223 Main Street Electronic City Bengaluru 562107</p>
+                <p>Phone: +91 98765 43210</p>
+                <p>Email: posh.com</p>
+            </div>
+            </div>
+            
+               <div id="map" style="width:50%; height: 300px;"></div>
+                
+                <script>
+                    function myMap() {
+                      var mapCanvas = document.getElementById("map");
+                      var mapOptions = {
+                        center: new google.maps.LatLng(12.840711, 77.676369), zoom: 10
+                      };
+                      var map = new google.maps.Map(mapCanvas, mapOptions);
+                    }
+                 </script>
+                    
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCIRoC23VBrHHRJbgQosiK-SfHLm74JWQ&callback=myMap"></script>
+
+        </section>
+        <br/>
+        <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ... (your existing meta tags) ... -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <style>
+        body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+    </style>
 </head>
-<body>
-
 <div class="container">
-    <form action="product_return.php" method="post">
-        <!-- ... (your existing form elements) ... -->
+    <h2>Feedback Form</h2>
 
-        <div class="pickup-address-header">Pickup Address</div>
+    <form action="process_feedback.php" method="post">
+        <div class="form-group">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
 
-        <!-- Display the user's address received from the session -->
-        <!-- Display the shipped address in the form -->
-        <p><?php echo isset($shipped_address['user_name']) ? $shipped_address['user_name'] : ''; ?></p>
-        <p><?php echo isset($shipped_address['user_address']) ? $shipped_address['user_address'] : ''; ?></p>
-        <p><?php echo isset($shipped_address['user_city']) ? $shipped_address['user_city'] : ''; ?></p>
-        <p><?php echo isset($shipped_address['user_state']) ? $shipped_address['user_state'] : ''; ?></p>
-        <p><?php echo isset($shipped_address['user_phone']) ? $shipped_address['user_phone'] : ''; ?></p><br/>
+        <div class="form-group">
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
 
-        <br/>
-        <button type="submit"  name="continue-btn" class="continue-button">Continue</button>
+        <div class="form-group">
+            <label for="feedback">Your Feedback:</label>
+            <textarea id="feedback" name="feedback" rows="4" required></textarea>
+        </div>
+
+        <button type="submit">Submit Feedback</button>
     </form>
 </div>
 

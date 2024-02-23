@@ -42,48 +42,103 @@
 
         </section>
         <br/>
-        <p>&nbsp;&nbsp;<b>Leave a Message</b></p>
+       
         <style>
-            textarea {
-                width: 40%;
-                height: 150px;
-                padding: 10px 20px;
-                box-sizing: border-box;
-                border: 2px solid #ccc;
-                border-radius: 4px;
-                background-color: #f8f8f8;
-                font-size: 16px;
-                resize: none;  
-            }
-          
-            .center {
-                padding: 0 20px 70px 220px;   
-            }
-            
-            input {
-                background-color: #04AA6D;
-                /* Green */
-                border: none;
-                color: white;
-                padding: 15px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                border-radius: 50px;
-            }
+             body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px 10px auto;
+    
+    padding: 20px;
+    
+    text-align: left; 
+}
+
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 20%;
+    font-weight:700;
+}
+
+
+button:hover {
+    background-color: #45a049;
+}
+
+.center{
+    text-align:center;
+}
         </style>
         
-        <form action="submit_feedback.php" method="post">
-            <p>&nbsp; 
-                <textarea id="feedback" name="feedback" rows="4" cols="50" required="required"></textarea>
-            </p>
-            <div class="center">
-                <p><input type="submit" style="width: fit-content;" value="SUBMIT"></p>
-            </div>
-        </form>
+<div class="container">
+<h4>Leave us a Message</h4><br/>
+    <form action="submit_feedback.php" method="post">
+        <div class="form-group">
+            <label for="name"> Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
 
-        <!-- Footer -->
+        <div class="form-group">
+            <label for="email"> Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email"> Phone:</label>
+            <input type="phone" id="phone" name="phone" required>
+        </div>
+
+        <div class="form-group">
+            <label for="feedback"> Feedback:</label>
+            <textarea id="feedback" name="message" rows="4" required style="resize:none;"></textarea>
+    </div>
+        
+    <div class="center"><button type="submit" name="feedback">Submit</button></div>
+        
+    </form>
+</div>
+
+  <!-- Footer -->
         <footer class="section-p1">
             <div class="copyright">
                 <p>2023 &#169; All Rights Reserved</p>
