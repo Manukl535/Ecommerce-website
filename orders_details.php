@@ -124,19 +124,17 @@ if (isset($_GET['orders_btn']) && isset($_GET['order_id'])) {
 <p><?php echo isset($order_info['user_state']) ? $order_info['user_state'] : ''; ?></p>
 <p><?php echo isset($order_info['user_phone']) ? $order_info['user_phone'] : ''; ?></p><br/>
 
-
-<?php if ($order_details->num_rows > 1) { ?>
+<!-- <?php if ($order_details->num_rows > 1) { ?>
     <button class="<?php echo $returnButtonClass; ?>" style="float: right;" onclick="returnProduct()">&#8634; Return All</button>
-<?php } ?>
+<?php } ?> -->
 
-<br><br><br><br>
 <?php
 $productImages = array(); // Array to store product images
 $productDescriptions = array(); // Array to store product descriptions
 $productPrices = array(); // Array to store product prices
 ?>
 
-<form action="product_return.php" method="post"> <!-- Move the form tag here -->
+<form action="product_return.php" method="post" onsubmit="return validateForm()"> <!-- Move the form tag here -->
     <?php while ($row = $order_details->fetch_assoc()) { ?>
         <div class="order-details">
             <?php
@@ -163,20 +161,58 @@ $productPrices = array(); // Array to store product prices
                 ?>
             </div>
 
-            <!-- Single "Return" button for each product -->
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <?php
-                $currentDate = new DateTime();
-                $deliveryDate = new DateTime($row['dod']);
-                $interval = $currentDate->diff($deliveryDate);
-                $daysDifference = $interval->days;
-                $returnButtonClass = ($daysDifference <= 2) ? '' : ' return-button-disabled';
-            ?>
-            
-            <button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 10%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="return_btn">Return</button>
+          <!-- Single "Return" button for each product -->
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <?php
+            // Check return status from return_requests table for the specific order and user
+            $return_status_query = $conn->prepare("SELECT return_status FROM return_requests WHERE order_id=? AND user_id=?");
+            $return_status_query->bind_param('ii', $order_id, $_SESSION['user_id']);
+            $return_status_query->execute();
+            $return_status_result = $return_status_query->get_result();
+            $return_status = ($return_status_result->num_rows > 0) ? $return_status_result->fetch_assoc()['return_status'] : '';
+
+            // Determine return button class based on return status and days difference
+            $currentDate = new DateTime();
+            $deliveryDate = new DateTime($row['dod']);
+            $interval = $currentDate->diff($deliveryDate);
+            $daysDifference = $interval->days;
+            $returnButtonClass = ($daysDifference <= 2 || $return_status == 'Yes') ? '' : ' return-button-disabled';
+            $returnButtonText = ($return_status == 'Yes') ? 'Returned' : 'Return' ;
+        ?>
+        <button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 10%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="return_btn" <?php echo 'class="' . $returnButtonClass . '"'; ?> <?php echo ($returnButtonText == 'Returned') ? 'disabled' : ''; ?>>
+    <?php echo $returnButtonText; ?>
+</button>
         </div>
-    <?php } ?>
-</form> <!-- End the form tag here -->
+            <?php } ?>
+</form>
+
+<script>
+    function validateForm() {
+        // Check if any return button is disabled
+        var disabledButtons = document.querySelectorAll('.return-button-disabled');
+        if (disabledButtons.length > 0) {
+            // Prevent form submission if any return button is disabled
+            alert('Return option is not available for this order.');
+            return false;
+        } else {
+            // Check if any return button has the value 'Returned'
+            var returnedButtons = document.querySelectorAll('.return-button:not(.return-button-disabled)[value="Returned"]');
+            if (returnedButtons.length > 0) {
+                // Display a specific alert message for buttons labeled 'Returned'
+                alert('You have already returned the product.');
+                return false;
+            } else {
+                // Continue with form submission if no return button is labeled 'Returned'
+                return true;
+            }
+        }
+    }
+</script>
+
+
+
+
+
 
 </body>
 </html>

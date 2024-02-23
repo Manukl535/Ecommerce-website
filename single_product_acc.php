@@ -96,8 +96,8 @@ if(isset($_GET['product_id'])){
         
     </section>
   
-    <center>This Product is subjected to &#10060;<a href="Includes/cancellation_policy.html" style="text-decoration: none; color: inherit;">NO Cancellation Policy</a></center>
-
+    <center><strong>This Product is subjected to <a href="Includes/cancellation_policy.html" style="text-decoration: none; color: inherit;">NO Cancellation Policy</a></strong>
+  
   <script>
     function addToCart() {
   var selectedSize = document.querySelector('select').value;
