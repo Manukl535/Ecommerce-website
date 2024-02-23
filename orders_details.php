@@ -29,15 +29,15 @@ if (isset($_GET['orders_btn']) && isset($_GET['order_id'])) {
     $stmt1->execute();
     $order_info = $stmt1->get_result()->fetch_assoc();
 
-    // Save the shipped address in the session
+    // Save the shipped address and order_id in the session
     $_SESSION['shipped_address'] = $order_info;
+    $_SESSION['order_id'] = $order_id;
     $stmt1->close();
 } else {
     header('location: product_return.php');
     exit();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -136,48 +136,47 @@ $productDescriptions = array(); // Array to store product descriptions
 $productPrices = array(); // Array to store product prices
 ?>
 
-<?php while ($row = $order_details->fetch_assoc()) { ?>
-    <div class="order-details">
-        <?php
-        // Accumulate product details for each product
-        $productImages[] = 'Assets/' . $row['product_image'];
-        $productDescriptions[] = isset($row['product_name']) ? $row['product_name'] : '';
-        $productPrices[] = isset($row['product_price']) ? $row['product_price'] : '';
-        ?>
-
-        <!-- Display product image for the current product -->
-        <img src="<?php echo end($productImages); ?>" alt="Product Image" class="product-image">
-
-        <!-- Display product details for the current product -->
-        <div class="product-description">
-            <p><?php echo end($productDescriptions); ?></p>
-            <span class="product-price"><?php echo 'Price: &#8377; ' .  end($productPrices); ?></span>
-        </div>
-
-        <div>Delivered On: 
-            <?php  
-            $dod = $row['dod'];
-            $formatted_date = date('d-m-Y', strtotime($dod));
-            echo $formatted_date;
+<form action="product_return.php" method="post"> <!-- Move the form tag here -->
+    <?php while ($row = $order_details->fetch_assoc()) { ?>
+        <div class="order-details">
+            <?php
+            // Accumulate product details for each product
+            $productImages[] = 'Assets/' . $row['product_image'];
+            $productDescriptions[] = isset($row['product_name']) ? $row['product_name'] : '';
+            $productPrices[] = isset($row['product_price']) ? $row['product_price'] : '';
             ?>
+
+            <!-- Display product image for the current product -->
+            <img src="<?php echo end($productImages); ?>" alt="Product Image" class="product-image">
+
+            <!-- Display product details for the current product -->
+            <div class="product-description">
+                <p><?php echo end($productDescriptions); ?></p>
+                <span class="product-price"><?php echo 'Price: &#8377; ' .  end($productPrices); ?></span>
+            </div>
+
+            <div>Delivered On: 
+                <?php  
+                $dod = $row['dod'];
+                $formatted_date = date('d-m-Y', strtotime($dod));
+                echo $formatted_date;
+                ?>
+            </div>
+
+            <!-- Single "Return" button for each product -->
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <?php
+                $currentDate = new DateTime();
+                $deliveryDate = new DateTime($row['dod']);
+                $interval = $currentDate->diff($deliveryDate);
+                $daysDifference = $interval->days;
+                $returnButtonClass = ($daysDifference <= 2) ? '' : ' return-button-disabled';
+            ?>
+            
+            <button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 10%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="return_btn">Return</button>
         </div>
-
-        <!-- Single "Return" button for each product -->
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <?php
-            $currentDate = new DateTime();
-            $deliveryDate = new DateTime($row['dod']);
-            $interval = $currentDate->diff($deliveryDate);
-            $daysDifference = $interval->days;
-            $returnButtonClass = ($daysDifference <= 2) ? '' : ' return-button-disabled';
-        ?>
-        <form action="product_return.php" >
-        <button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 99%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="return_btn">Return</button>
-        
-<?php } ?>
-
-
-
+    <?php } ?>
+</form> <!-- End the form tag here -->
 
 </body>
 </html>
