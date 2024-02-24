@@ -218,7 +218,7 @@ button:hover {
                 <h2>Forgot Password?</h2>
                 <label for="phone">Mobile Number (With +91):</label>
                 <input type="text" name="phone" placeholder="+917022015320" required>
-                <button type="submit" name="submit">Submit</button>
+                <button type="submit" name="submit">Send OTP</button>
             </form>
         <?php endif; ?>
     </div>
