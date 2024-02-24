@@ -1,26 +1,31 @@
 <?php
 session_start();
 include('Includes/connection.php');
+$_SESSION['product_ids'] = array();
 
 if (isset($_GET['orders_btn']) && isset($_GET['order_id'])) {
     $order_id = $_GET['order_id'];
 
     // Retrieve order details along with user_id, product image URL, and product price
-    $stmt = $conn->prepare("SELECT order_item.*, orders.user_id, orders.order_date, orders.dod, product_image, product_price
-                            FROM order_item 
-                            JOIN orders ON order_item.order_id = orders.order_id
-                            WHERE order_item.order_id=? AND orders.user_id=?");
+    $stmt = $conn->prepare("SELECT order_item.*, orders.user_id, orders.order_date, orders.dod, product_image, product_price, product_id
+    FROM order_item 
+    JOIN orders ON order_item.order_id = orders.order_id
+    WHERE order_item.order_id=? AND orders.user_id=?");
 
     $stmt->bind_param('ii', $order_id, $_SESSION['user_id']);
     $stmt->execute();
-
-    $order_details = $stmt->get_result();
+    $order_details_result = $stmt->get_result();
 
     // Check if there are results for the query
-    if ($order_details->num_rows === 0) {
+    if ($order_details_result->num_rows === 0) {
         // No results, redirect to unauthorized.php
         header('location: unauthorized.php');
         exit();
+    }
+
+    // Fetch all order details into an array
+    while ($row = $order_details_result->fetch_assoc()) {
+        $order_details_array[] = $row;
     }
 
     // Retrieve billed address from orders table
@@ -38,6 +43,7 @@ if (isset($_GET['orders_btn']) && isset($_GET['order_id'])) {
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,6 +59,13 @@ if (isset($_GET['orders_btn']) && isset($_GET['order_id'])) {
             text-align: center;
         }
 
+        .refund-message {
+            text-align: center;
+            color: green;
+            font-weight: bold;
+            margin-top: 20px; /* Adjust margin as needed */
+        }
+
         .order-details {
             margin-top: 20px;
             border: 1px solid #ddd;
@@ -63,18 +76,18 @@ if (isset($_GET['orders_btn']) && isset($_GET['order_id'])) {
         }
 
         .product-image {
-            max-width: 80px; /* Adjust the maximum width as needed */
-            margin-right: 10px; /* Reduce margin between product image and product name */
+            max-width: 80px;
+            margin-right: 10px;
         }
 
         .product-description {
-            flex-grow: 1; /* Allow product description to take up available space */
-            text-align: center; /* Center-align the product description */
-            margin-right: 10px; /* Reduce margin between product name and product price */
+            flex-grow: 1;
+            text-align: center;
+            margin-right: 10px;
         }
 
         .product-price {
-            margin-right: 10px; /* Reduce margin between product price and return button */
+            margin-right: 10px;
         }
 
         button {
@@ -85,11 +98,11 @@ if (isset($_GET['orders_btn']) && isset($_GET['order_id'])) {
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            font-weight: 750;
+            font-weight: 900;
         }
 
         button:hover {
-            background-color: #45a049; /* Darker green color on hover */
+            background-color: #45a049;
         }
 
         .return-button-disabled {
@@ -97,19 +110,8 @@ if (isset($_GET['orders_btn']) && isset($_GET['order_id'])) {
             cursor: not-allowed;
         }
 
-        #return-all-button {
-            margin: 20px 0;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: black;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 750;
-        }
-
-        #return-all-button:hover {
-            background-color: #45a049; /* Darker green color on hover */
+        .hidden-checkbox {
+            display: none;
         }
     </style>
 </head>
@@ -118,101 +120,132 @@ if (isset($_GET['orders_btn']) && isset($_GET['order_id'])) {
 <h1>Order Details</h1>
 <h2>Shipped Address</h2>
 
+<!-- Display shipped address (existing code) -->
 <p><?php echo isset($order_info['user_name']) ? $order_info['user_name'] : ''; ?></p>
 <p><?php echo isset($order_info['user_address']) ? $order_info['user_address'] : ''; ?></p>
 <p><?php echo isset($order_info['user_city']) ? $order_info['user_city'] : ''; ?></p>
 <p><?php echo isset($order_info['user_state']) ? $order_info['user_state'] : ''; ?></p>
 <p><?php echo isset($order_info['user_phone']) ? $order_info['user_phone'] : ''; ?></p><br/>
 
-<!-- <?php if ($order_details->num_rows > 1) { ?>
-    <button class="<?php echo $returnButtonClass; ?>" style="float: right;" onclick="returnProduct()">&#8634; Return All</button>
-<?php } ?> -->
+<button type="button" id="returnButton" style="float: right; font-weight:900; padding-bottom:10px" >
+    <img src="Assets/return_btn.png" style="width: 20px; height: 15px; padding-top: -3px;" alt="Return"> Return
+</button>
+
+<!-- Fetch the return status and account number for the first product in the order -->
+<?php
+if (!empty($order_details_array)) {
+    $first_product_id = $order_details_array[0]['product_id'];
+    $return_status_query = $conn->prepare("SELECT return_status, account_number FROM return_requests WHERE order_id=? AND user_id=? AND product_id=?");
+    $return_status_query->bind_param('iii', $order_id, $_SESSION['user_id'], $first_product_id);
+    $return_status_query->execute();
+    $return_status_query->bind_result($return_status, $account_number);
+
+    // Fetch the return status and account number
+    $return_status_query->fetch();
+
+    // Check if the checkbox is disabled
+    $checkbox_disabled = ($return_status === 'Returned') ? 'disabled' : '';
+
+    // Fetch the product price from the order details array
+    $product_price = $order_details_array[0]['product_price'];
+
+    // Display appropriate message based on return status
+    if ($return_status === 'Yes') {
+        echo '<div class="refund-message">';
+        echo 'Refund amount Rs ' . $product_price . ' transferred to Account no ending with: ';
+        echo ($checkbox_disabled) ? $account_number : substr($account_number, -4);
+        echo '</div>';
+    }
+
+    $return_status_query->close();
+}
+?>
+
+<br/><br/>
 
 <?php
 $productImages = array(); // Array to store product images
 $productDescriptions = array(); // Array to store product descriptions
 $productPrices = array(); // Array to store product prices
+$productid = array();
+?>
+<?php
+// Iterate over the stored order details array
+foreach ($order_details_array as $row) {
+    // Accumulate product details for each product
+    $productImages[] = 'Assets/' . $row['product_image'];
+    $productDescriptions[] = isset($row['product_name']) ? $row['product_name'] : '';
+    $productPrices[] = isset($row['product_price']) ? $row['product_price'] : '';
+    $productid[] = isset($row['product_id']) ? $row['product_id'] : '';
+
+    // Add the product ID to the session variable
+    $_SESSION['product_ids'][] = $row['product_id'];
 ?>
 
-<form action="product_return.php" method="post" onsubmit="return validateForm()"> <!-- Move the form tag here -->
-    <?php while ($row = $order_details->fetch_assoc()) { ?>
-        <div class="order-details">
-            <?php
-            // Accumulate product details for each product
-            $productImages[] = 'Assets/' . $row['product_image'];
-            $productDescriptions[] = isset($row['product_name']) ? $row['product_name'] : '';
-            $productPrices[] = isset($row['product_price']) ? $row['product_price'] : '';
-            ?>
+    <!-- Check return status for the current product -->
+    <?php
+    $current_product_id = $row['product_id'];
+    $return_status_query = $conn->prepare("SELECT return_status FROM return_requests WHERE order_id=? AND user_id=? AND product_id=?");
+    $return_status_query->bind_param('iii', $order_id, $_SESSION['user_id'], $current_product_id);
+    $return_status_query->execute();
+    $return_status_result = $return_status_query->get_result();
+    $return_status = ($return_status_result->num_rows > 0) ? 'Returned' : '';
+    $return_status_query->close();
 
-            <!-- Display product image for the current product -->
-            <img src="<?php echo end($productImages); ?>" alt="Product Image" class="product-image">
+    // Check if the current date is more than 2 days after the delivered date
+    $delivered_date = strtotime($row['dod']);
+    $current_date = time();
+    $two_days_after_delivered = strtotime('+2 days', $delivered_date);
+    $disable_checkbox = ($current_date > $two_days_after_delivered) ? 'disabled' : '';
+    ?>
 
-            <!-- Display product details for the current product -->
-            <div class="product-description">
-                <p><?php echo end($productDescriptions); ?></p>
-                <span class="product-price"><?php echo 'Price: &#8377; ' .  end($productPrices); ?></span>
-            </div>
+    <!-- Display the order details -->
+    <div class="order-details">
+        <!-- Checkbox for each product -->
+        <input type="checkbox" class="hidden-checkbox" name="selected_products[]" value="<?php echo $current_product_id; ?>" <?php echo ($return_status === 'Returned' || $disable_checkbox) ? 'disabled' : ''; ?>>
+        <!-- Display product image for the current product -->
+        <img src="<?php echo end($productImages); ?>" alt="Product Image" class="product-image">
 
-            <div>Delivered On: 
-                <?php  
-                $dod = $row['dod'];
-                $formatted_date = date('d-m-Y', strtotime($dod));
-                echo $formatted_date;
-                ?>
-            </div>
-
-          <!-- Single "Return" button for each product -->
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <?php
-            // Check return status from return_requests table for the specific order and user
-            $return_status_query = $conn->prepare("SELECT return_status FROM return_requests WHERE order_id=? AND user_id=?");
-            $return_status_query->bind_param('ii', $order_id, $_SESSION['user_id']);
-            $return_status_query->execute();
-            $return_status_result = $return_status_query->get_result();
-            $return_status = ($return_status_result->num_rows > 0) ? $return_status_result->fetch_assoc()['return_status'] : '';
-
-            // Determine return button class based on return status and days difference
-            $currentDate = new DateTime();
-            $deliveryDate = new DateTime($row['dod']);
-            $interval = $currentDate->diff($deliveryDate);
-            $daysDifference = $interval->days;
-            $returnButtonClass = ($daysDifference <= 2 || $return_status == 'Yes') ? '' : ' return-button-disabled';
-            $returnButtonText = ($return_status == 'Yes') ? 'Returned' : 'Return' ;
-        ?>
-        <button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 10%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="return_btn" <?php echo 'class="' . $returnButtonClass . '"'; ?> <?php echo ($returnButtonText == 'Returned') ? 'disabled' : ''; ?>>
-    <?php echo $returnButtonText; ?>
-</button>
+        <!-- Display product details for the current product -->
+        <div class="product-description">
+            <p><?php echo end($productDescriptions); ?></p>
+            <span class="product-price"><?php echo 'Price: Rs ' . end($productPrices); ?></span>
+            <span>Product ID:<?php echo end($productid); ?></span>
         </div>
-            <?php } ?>
+
+        <div>Delivered On: <?php echo date('d-m-Y', strtotime($row['dod'])); ?></div>
+    </div>
+<?php } ?>
+
+<!-- Add a hidden input to track if any checkbox is selected -->
+<input type="hidden" id="checkboxSelected" name="checkbox_selected" value="0">
 </form>
 
 <script>
-    function validateForm() {
-        // Check if any return button is disabled
-        var disabledButtons = document.querySelectorAll('.return-button-disabled');
-        if (disabledButtons.length > 0) {
-            // Prevent form submission if any return button is disabled
-            alert('Return option is not available for this order.');
-            return false;
+    var returnButtonClickCount = 0;
+
+    document.getElementById('returnButton').addEventListener('click', function() {
+        returnButtonClickCount++;
+
+        if (returnButtonClickCount === 1) {
+            // Enable checkboxes on the first click
+            var checkboxes = document.querySelectorAll('.hidden-checkbox');
+            checkboxes.forEach(function(checkbox) {
+                checkbox.style.display = 'block'; // Make the checkboxes visible
+            });
         } else {
-            // Check if any return button has the value 'Returned'
-            var returnedButtons = document.querySelectorAll('.return-button:not(.return-button-disabled)[value="Returned"]');
-            if (returnedButtons.length > 0) {
-                // Display a specific alert message for buttons labeled 'Returned'
-                alert('You have already returned the product.');
-                return false;
+            // Check if at least one checkbox is selected
+            var checkboxes = document.querySelectorAll('.hidden-checkbox:checked');
+
+            if (checkboxes.length === 0) {
+                // No checkbox is selected, display an alert
+                alert('Select at least one product.');
             } else {
-                // Continue with form submission if no return button is labeled 'Returned'
-                return true;
+                // At least one checkbox is selected, navigate to product_return.php
+                window.location.href = 'product_return.php';
             }
         }
-    }
+    });
 </script>
-
-
-
-
-
-
 </body>
 </html>
