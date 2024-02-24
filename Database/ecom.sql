@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2024 at 05:21 PM
+-- Generation Time: Feb 24, 2024 at 09:48 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -58,7 +58,9 @@ CREATE TABLE `feedback` (
 
 INSERT INTO `feedback` (`count_id`, `name`, `email`, `phone`, `feedback`) VALUES
 (2, 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Hello!!'),
-(3, 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Hello Posh this is Manu');
+(3, 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Hello Posh this is Manu'),
+(4, 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Hello! Hello! Hello!'),
+(5, 'MICHEAL', 'MICHEAL@GMAIL.COM', '7022015320', 'HELLO POSH!!');
 
 -- --------------------------------------------------------
 
@@ -88,7 +90,8 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`order_id`, `order_cost`, `order_status`, `user_id`, `user_name`, `email`, `user_phone`, `user_city`, `user_state`, `user_address`, `order_date`, `order_quantity`, `dod`) VALUES
 (1, '799', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-15', '1', '2024-02-16'),
-(3, '799', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-20', '1', '2024-02-22');
+(8, '899', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-24', '1', '2024-02-24'),
+(9, '1798', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-23', '2', '2024-02-24');
 
 -- --------------------------------------------------------
 
@@ -99,7 +102,7 @@ INSERT INTO `orders` (`order_id`, `order_cost`, `order_status`, `user_id`, `user
 CREATE TABLE `order_item` (
   `item_id` int(10) NOT NULL,
   `order_id` int(10) NOT NULL,
-  `product_id` varchar(50) DEFAULT NULL,
+  `product_id` int(50) DEFAULT NULL,
   `product_name` varchar(50) DEFAULT NULL,
   `product_image` varchar(50) DEFAULT NULL,
   `product_price` varchar(50) DEFAULT NULL,
@@ -113,8 +116,10 @@ CREATE TABLE `order_item` (
 --
 
 INSERT INTO `order_item` (`item_id`, `order_id`, `product_id`, `product_name`, `product_image`, `product_price`, `product_quantity`, `user_id`, `order_date`) VALUES
-(1, 1, '3 ', 'Men football printed Hoodie ', 'sweat3.png ', '799', '1', '1', '2024-02-15 12:14:46'),
-(3, 3, '3 ', 'Men football printed Hoodie ', 'sweat3.png ', '799', '1', '1', '2024-02-20 12:16:24');
+(1, 1, 3, 'Men football printed Hoodie ', 'sweat3.png ', '799', '1', '1', '2024-02-15 12:14:46'),
+(11, 8, 39, 'Women Sandal ', 'Girls_sandals3.png ', '899', '1', '1', '2024-02-24 16:54:05'),
+(12, 9, 38, 'Women Sandal ', 'Girls_sandals2.png ', '899', '1', '1', '2024-02-24 17:49:52'),
+(13, 9, 39, 'Women Sandal ', 'Girls_sandals3.png ', '899', '1', '1', '2024-02-24 17:49:52');
 
 -- --------------------------------------------------------
 
@@ -247,24 +252,30 @@ INSERT INTO `products` (`product_id`, `Gender`, `product_name`, `product_categor
 --
 
 CREATE TABLE `return_requests` (
-  `order_id` varchar(10) DEFAULT NULL,
-  `user_id` varchar(10) DEFAULT NULL,
-  `reason` varchar(50) DEFAULT NULL,
+  `return_id` int(11) NOT NULL,
+  `order_id` varchar(10) NOT NULL,
+  `user_id` varchar(10) NOT NULL,
+  `product_id` varchar(20) NOT NULL,
+  `reason` varchar(50) NOT NULL,
   `comments` varchar(500) DEFAULT NULL,
-  `user_name` varchar(20) DEFAULT NULL,
-  `user_phone` varchar(15) DEFAULT NULL,
-  `user_address` varchar(50) DEFAULT NULL,
-  `user_city` varchar(50) DEFAULT NULL,
-  `user_state` varchar(50) DEFAULT NULL,
-  `return_status` varchar(10) DEFAULT NULL
+  `user_name` varchar(50) NOT NULL,
+  `user_phone` varchar(15) NOT NULL,
+  `user_address` varchar(255) NOT NULL,
+  `user_city` varchar(50) NOT NULL,
+  `user_state` varchar(50) NOT NULL,
+  `return_status` varchar(20) NOT NULL,
+  `bank` varchar(50) DEFAULT NULL,
+  `account_number` varchar(30) DEFAULT NULL,
+  `ifsc_code` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `return_requests`
 --
 
-INSERT INTO `return_requests` (`order_id`, `user_id`, `reason`, `comments`, `user_name`, `user_phone`, `user_address`, `user_city`, `user_state`, `return_status`) VALUES
-('3', '1', 'Product Damaged', 'Damaged Product', 'MANU', '7022015320', 'ATTIBELE', 'Bengaluru', 'Karnataka', 'Yes');
+INSERT INTO `return_requests` (`return_id`, `order_id`, `user_id`, `product_id`, `reason`, `comments`, `user_name`, `user_phone`, `user_address`, `user_city`, `user_state`, `return_status`, `bank`, `account_number`, `ifsc_code`) VALUES
+(4, '9', '1', '38', 'Product Damaged', 'Product Damaged', 'MANU', '7022015320', 'ATTIBELE', 'Bengaluru', 'Karnataka', 'Yes', 'SBI', '0696108036571', 'CNRB0000696'),
+(5, '8', '1', '39', 'Product Missing', 'Product Missing', 'MANU', '7022015320', 'ATTIBELE', 'Bengaluru', 'Karnataka', 'Yes', 'Canara Bank', '0696108036571', 'CNRB0000696');
 
 -- --------------------------------------------------------
 
@@ -286,7 +297,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `phone`, `email`, `password`, `otp`) VALUES
-(1, 'MANU', '+917022015320', 'MANU@GMAIL.COM', '112233', '539829');
+(1, 'MANU', '+917022015320', 'MANU@GMAIL.COM', '112233', '287121');
 
 --
 -- Indexes for dumped tables
@@ -323,6 +334,12 @@ ALTER TABLE `products`
   ADD PRIMARY KEY (`product_id`);
 
 --
+-- Indexes for table `return_requests`
+--
+ALTER TABLE `return_requests`
+  ADD PRIMARY KEY (`return_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -336,25 +353,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `count_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `count_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `order_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `item_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `item_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
   MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+
+--
+-- AUTO_INCREMENT for table `return_requests`
+--
+ALTER TABLE `return_requests`
+  MODIFY `return_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
