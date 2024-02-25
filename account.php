@@ -63,20 +63,16 @@ if (isset($_POST['Change_Password'])) {
     echo "<script>window.location.href='login_user.php?message=Your account has been removed';</script>";
     exit();
 }
-
-// get orders
-if (isset($_SESSION['logged-in'])) {
-
+else {
+    // Fetch orders for the logged-in user
     $user_id = $_SESSION['user_id'];
-
-    $stmt = $conn->prepare("SELECT * FROM orders WHERE user_id=?");
-
+    $stmt = $conn->prepare("SELECT * FROM order_item WHERE user_id=? ORDER BY order_date DESC");
     $stmt->bind_param('i', $user_id);
-
     $stmt->execute();
-
     $orders = $stmt->get_result();
+    $stmt->close();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -527,12 +523,7 @@ if (isset($_SESSION['logged-in'])) {
                 </tr>
 
                 <?php
-                // order by order_date in descending order
-                $sql = "SELECT * FROM order_item ORDER BY order_date DESC";
-                $orders = $conn->query($sql);
-
-                while ($row = $orders->fetch_assoc()) {
-                ?>
+                    while ($row = $orders->fetch_assoc()) {?>
                     <tr>
                         
     

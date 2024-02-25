@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 24, 2024 at 09:48 PM
+-- Generation Time: Feb 25, 2024 at 11:35 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -60,7 +60,8 @@ INSERT INTO `feedback` (`count_id`, `name`, `email`, `phone`, `feedback`) VALUES
 (2, 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Hello!!'),
 (3, 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Hello Posh this is Manu'),
 (4, 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Hello! Hello! Hello!'),
-(5, 'MICHEAL', 'MICHEAL@GMAIL.COM', '7022015320', 'HELLO POSH!!');
+(5, 'MICHEAL', 'MICHEAL@GMAIL.COM', '7022015320', 'HELLO POSH!!'),
+(6, 'MANU', 'MANU@GMAIL.COM', '7022015320', 'HELLO POSH!!');
 
 -- --------------------------------------------------------
 
@@ -89,9 +90,10 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `order_cost`, `order_status`, `user_id`, `user_name`, `email`, `user_phone`, `user_city`, `user_state`, `user_address`, `order_date`, `order_quantity`, `dod`) VALUES
-(1, '799', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-15', '1', '2024-02-16'),
-(8, '899', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-24', '1', '2024-02-24'),
-(9, '1798', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-23', '2', '2024-02-24');
+(1, '2198', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-25', '2', '2024-02-25'),
+(2, '999', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-25', '1', '2024-02-25'),
+(6, '1299', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-25', '1', '2024-02-26'),
+(7, '899', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-25', '1', '2024-02-26');
 
 -- --------------------------------------------------------
 
@@ -108,18 +110,20 @@ CREATE TABLE `order_item` (
   `product_price` varchar(50) DEFAULT NULL,
   `product_quantity` varchar(50) DEFAULT NULL,
   `user_id` varchar(50) DEFAULT NULL,
-  `order_date` datetime DEFAULT NULL
+  `order_date` datetime DEFAULT NULL,
+  `dod` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `order_item`
 --
 
-INSERT INTO `order_item` (`item_id`, `order_id`, `product_id`, `product_name`, `product_image`, `product_price`, `product_quantity`, `user_id`, `order_date`) VALUES
-(1, 1, 3, 'Men football printed Hoodie ', 'sweat3.png ', '799', '1', '1', '2024-02-15 12:14:46'),
-(11, 8, 39, 'Women Sandal ', 'Girls_sandals3.png ', '899', '1', '1', '2024-02-24 16:54:05'),
-(12, 9, 38, 'Women Sandal ', 'Girls_sandals2.png ', '899', '1', '1', '2024-02-24 17:49:52'),
-(13, 9, 39, 'Women Sandal ', 'Girls_sandals3.png ', '899', '1', '1', '2024-02-24 17:49:52');
+INSERT INTO `order_item` (`item_id`, `order_id`, `product_id`, `product_name`, `product_image`, `product_price`, `product_quantity`, `user_id`, `order_date`, `dod`) VALUES
+(1, 1, 7, 'Orange Grpahic Shirt ', 'shirt3.png ', '1299', '1', '1', '2024-02-25 07:52:35', '2024-02-25'),
+(2, 1, 1, 'Men Relaxed blue Hoodie ', 'sweat1.png ', '899', '1', '1', '2024-02-25 07:52:35', '2024-02-25'),
+(3, 2, 4, 'Men printed hoodie ', 'sweat4.png ', '999', '1', '1', '2024-02-25 09:03:58', '2024-02-25'),
+(7, 6, 12, 'Women printed croptop ', 'women4.png ', '1299', '1', '1', '2024-02-25 11:06:50', '2024-02-26'),
+(8, 7, 80, 'Men Hat ', 'men_hat4.png ', '899', '1', '1', '2024-02-25 11:26:20', '2024-02-26');
 
 -- --------------------------------------------------------
 
@@ -274,8 +278,9 @@ CREATE TABLE `return_requests` (
 --
 
 INSERT INTO `return_requests` (`return_id`, `order_id`, `user_id`, `product_id`, `reason`, `comments`, `user_name`, `user_phone`, `user_address`, `user_city`, `user_state`, `return_status`, `bank`, `account_number`, `ifsc_code`) VALUES
-(4, '9', '1', '38', 'Product Damaged', 'Product Damaged', 'MANU', '7022015320', 'ATTIBELE', 'Bengaluru', 'Karnataka', 'Yes', 'SBI', '0696108036571', 'CNRB0000696'),
-(5, '8', '1', '39', 'Product Missing', 'Product Missing', 'MANU', '7022015320', 'ATTIBELE', 'Bengaluru', 'Karnataka', 'Yes', 'Canara Bank', '0696108036571', 'CNRB0000696');
+(14, '1', '1', '1', 'Product Damaged', 'Product Damaged', 'MANU', '7022015320', 'ATTIBELE', 'Bengaluru', 'Karnataka', 'Yes', 'Canara Bank', '0696108036571', 'CNRB0000696'),
+(17, '1', '1', '7', 'Product Damaged', 'Hello', 'MANU', '7022015320', 'ATTIBELE', 'Bengaluru', 'Karnataka', 'Yes', 'Canara Bank', '0696108036571', 'CNRB0000696'),
+(18, '2', '1', '4', 'Product Damaged', 'Product Damaged', 'MANU', '7022015320', 'ATTIBELE', 'Bengaluru', 'Karnataka', 'Yes', 'Canara Bank', '0696108036571', 'CNRB0000696');
 
 -- --------------------------------------------------------
 
@@ -353,19 +358,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `count_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `count_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `order_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `item_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `item_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -377,7 +382,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `return_requests`
 --
 ALTER TABLE `return_requests`
-  MODIFY `return_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `return_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `users`
