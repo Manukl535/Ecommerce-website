@@ -46,102 +46,103 @@ if (isset($_POST['return-btn'])) {
 
 <!DOCTYPE html>
 <html lang="en">
-<meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" type="image/x-icon" href="Assets/logo2.png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="styles.css">
+
   
 <head>
     <style>
         .container {
-            width: 50%;
-            margin: auto;
-        }
+    width: 50%;
+    margin: 0 0 0 330px;
+    padding: 20px;
+    border: 4px solid beige;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+}
 
-        .reason-header {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
+.reason-header, .comment-header, .pickup-address-header {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
 
-        .radio-container {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 20px;
-        }
+.radio-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
 
-        .radio-label {
-            margin-bottom: 5px;
-        }
+.radio-label {
+    margin-bottom: 5px;
+}
 
-        .comment-header {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-        }
+.comment-box {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
 
-        .comment-box {
-            width: 100%;
-            height: 100px;
-            margin-bottom: 20px;
-        }
+.comment-box:focus {
+    outline: none;
+    border-color: #4d90fe;
+    box-shadow: 0 0 5px #4d90fe;
+}
 
-        .bank-details {
-            margin-top: 20px;
-        }
+.bank-details {
+    margin-top: 20px;
+}
 
-        .bank-details label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
+.bank-details label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
 
-        .bank-details input,
-        #bank {
-            width: 30%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
+.bank-details select,
+.bank-details input {
+    width: 30%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
 
-        .bank-details input:focus,
-        #bank:focus {
-            outline: none;
-            border-color: #4d90fe;
-            box-shadow: 0 0 5px #4d90fe;
-        }
+.bank-details select:focus,
+.bank-details input:focus {
+    outline: none;
+    border-color: #4d90fe;
+    box-shadow: 0 0 5px #4d90fe;
+}
 
-        #bank {
-            width: 30%;
-        }
+.pickup-address-header {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
 
-        /* Style the options within the dropdown */
-        #bank option {
-            padding: 8px;
-        }
+.continue-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: background-color 0.3s, transform 0.2s;
+    margin:0 0 0 580px;
+}
 
-        .pickup-address-header {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-        }
 
-        .pickup-address-box {
-            width: 100%;
-            height: 100px;
-            margin-bottom: 20px;
-        }
+.continue-button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
 
-        .continue-button {
-            padding: 10px 20px;
-            font-size: 1em;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius:50px;
-        }
     </style>
 </head>
 <body>
@@ -151,17 +152,17 @@ if (isset($_POST['return-btn'])) {
         <div class="reason-header">Reason for Return</div>
 
         <div class="radio-container">
-            <label class="radio-label"><input type="radio" name="reason" value="Product Damaged">Product Damaged</label>
-            <label class="radio-label"><input type="radio" name="reason" value="Product Missing"> Product Missing</label>
+            <label class="radio-label"><input type="radio" name="reason" value="Product Damaged" required>Product Damaged</label>
+            <label class="radio-label"><input type="radio" name="reason" value="Product Missing" required> Product Missing</label>
             <label class="radio-label"><input type="radio" name="reason" value="Others"> Others</label>
         </div>
 
-        <div class="comment-header">Comment</div>
-        <textarea name="comments" class="comment-box" placeholder="Explain the problem..."></textarea>
+        <div class="comment-header">Comments</div>
+        <textarea name="comments" class="comment-box" placeholder="Explain the problem..." required></textarea>
 
         <div class="bank-details">
             <label for="bank">Select Bank  For Refund:</label>
-            <select id="bank" name="bank">
+            <select id="bank" name="bank" required>
                 <option value="Canara Bank">Canara Bank</option>
                 <option value="SBI">SBI</option>
                 <option value="HDFC">HDFC</option>
@@ -169,10 +170,11 @@ if (isset($_POST['return-btn'])) {
 
             <!-- Add input areas for bank account number and IFSC code -->
             <label for="account_number">Bank Account Number:</label>
-            <input type="text" id="account_number" name="account_number" required>
+            <input type="text" pattern="[0-9]+" id="account_number" name="account_number" placeholder="Account Number" required>
+
 
             <label for="ifsc_code">IFSC Code:</label>
-            <input type="text" id="ifsc_code" name="ifsc_code" required>
+            <input type="text" id="ifsc_code" name="ifsc_code" placeholder="IFSC Code" required>
         </div>
 
         <div class="pickup-address-header">Pickup Address</div>
@@ -184,7 +186,7 @@ if (isset($_POST['return-btn'])) {
         <p><?php echo isset($shipped_address['user_state']) ? $shipped_address['user_state'] : ''; ?></p>
         <p><?php echo isset($shipped_address['user_phone']) ? $shipped_address['user_phone'] : ''; ?></p>
 
-        <button type="submit" name="return-btn" class="continue-button">Return</button>
+        <button type="submit" name="return-btn" class="continue-button" >Return</button>
     </form>
 </div>
 

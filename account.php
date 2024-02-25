@@ -522,6 +522,7 @@ if (isset($_SESSION['logged-in'])) {
                     <th>Order Status</th>
                     <th>Order Cost</th>
                     <th>Order Details</th>
+                    <th>Invoice</th>
                     
                 </tr>
 
@@ -560,7 +561,7 @@ if (isset($_SESSION['logged-in'])) {
         </form>
     </td>
 
-    <!-- <td>
+    <td>
         <form method="GET" action="invoice.php">
             
             <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
@@ -568,7 +569,7 @@ if (isset($_SESSION['logged-in'])) {
                 <i class="fa fa-print"></i> Invoice
             </button>
         </form>
-    </td> -->
+    </td>
 </tr>
 
                 <?php } ?>

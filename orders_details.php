@@ -59,70 +59,73 @@ if (isset($_GET['orders_btn']) && isset($_GET['order_id']) && isset($_GET['produ
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Order Details</title>
     <style>
          body {
-            font-family: Arial, sans-serif;
-        }
+    font-family: Arial, sans-serif;
+}
 
-        h1 {
-            text-align: center;
-        }
+h1 {
+    text-align: center;
+}
 
-        .refund-message {
-            text-align: center;
-            color: green;
-            font-weight: bold;
-            margin-top: 20px; /* Adjust margin as needed */
-        }
+.refund-message {
+    text-align: center;
+    color: green;
+    font-weight: bold;
+    margin-top: 20px;
+}
 
-        .order-details {
-            margin-top: 20px;
-            border: 1px solid #ddd;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+.order-details {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
-        .product-image {
-            max-width: 80px;
-            margin-right: 10px;
-        }
+.product-image {
+    max-width: 80px;
+    margin-right: 10px;
+}
 
-        .product-description {
-            flex-grow: 1;
-            text-align: center;
-            margin-right: 10px;
-        }
+.product-description {
+    flex-grow: 1;
+    text-align: center;
+    margin-right: 10px;
+}
 
-        .product-price {
-            margin-right: 10px;
-        }
+.product-price {
+    margin-right: 10px;
+}
 
-        button {
-            margin-left: 10px;
-            padding: 8px 12px;
-            background-color: #4CAF50;
-            color: black;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 900;
-        }
+button {
+    margin-left: 10px;
+    padding: 8px 12px;
+    background-color: #4CAF50;
+    color: black;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 900;
+    transition: background-color 0.3s;
+}
 
-        button:hover {
-            background-color: #45a049;
-        }
+button:hover {
+    background-color: #45a049;
+}
 
-        .return-button-disabled {
-            background-color: #dddddd;
-            cursor: not-allowed;
-        }
+.return-button-disabled {
+    background-color: #dddddd;
+    cursor: not-allowed;
+}
 
-        .hidden-checkbox {
-            display: none;
-        }
+.hidden-checkbox {
+    display: none;
+}
+
     </style>
 </head>
 <body>
@@ -176,7 +179,7 @@ if (!empty($order_details_array)) {
     // Display appropriate message based on return status
     if ($return_status === 'Yes') {
         echo '<div class="refund-message">';
-        echo 'Refund amount Rs ' . $product_price . ' transferred to Account no ending with: ';
+        echo 'Refund amount &#8377; ' . $product_price . ' transferred to Account Number ending with: ';
         echo ($checkbox_disabled) ? $account_number : substr($account_number, -4);
         echo '</div>';
     }
@@ -232,8 +235,8 @@ foreach ($order_details_array as $row) {
         <!-- Display product details for the current product -->
         <div class="product-description">
             <p><?= end($productDescriptions); ?></p>
-            <span class="product-price"><?php echo 'Price: Rs ' . end($productPrices); ?></span>
-            <span>Product ID:<?php echo end($productid); ?></span>
+            <span class="product-price"><?php echo 'Price: &#8377; ' . end($productPrices); ?></span>
+            <span style="display:none;">Product ID:<?php echo end($productid); ?></span>
         </div>
 
         <div>Delivered On: <?= date('d-m-Y', strtotime($row['dod'])); ?></div>
@@ -242,6 +245,7 @@ foreach ($order_details_array as $row) {
 <!-- Add a hidden input to track if any checkbox is selected -->
 <input type="hidden" id="checkboxSelected" name="checkbox_selected" value="0">
 </form>
+
 
 <script>
     var returnButtonClickCount = 0;
@@ -261,7 +265,7 @@ foreach ($order_details_array as $row) {
 
             if (checkboxes.length === 0) {
                 // No checkbox is selected, display an alert
-                alert('Select at least one product.');
+                alert('Select the product to return.');
             } else {
                 // Update the hidden input to indicate that a checkbox is selected
                 document.getElementById('checkboxSelected').value = '1';
@@ -270,7 +274,23 @@ foreach ($order_details_array as $row) {
                 window.location.href = 'product_return.php';
             }
         }
+
+        // Check if all checkboxes are disabled
+        var allCheckboxesDisabled = Array.from(document.querySelectorAll('.hidden-checkbox')).every(function(checkbox) {
+            return checkbox.disabled;
+        });
+
+        if (allCheckboxesDisabled) {
+            // All checkboxes are disabled, display alert and navigate to account.php after a short delay
+            alert('Product has been returned.');
+            setTimeout(function() {
+                window.location.href = 'account.php';
+            }, 0); // 
+        }
     });
 </script>
+
+
+
 </body>
 </html>

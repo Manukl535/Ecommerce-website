@@ -301,7 +301,7 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
                             </form>
                         </td>
                         <td><img src="Assets/<?php echo $value['product_image']; ?>" alt=""></td>
-                        <td><?php echo $value['product_name']; ?></td>
+                        <td><?php echo htmlspecialchars($value['product_name']); ?></td>
                         <td>&#8377; <?php echo $value['product_price']; ?></td>
                         <td>
                             <form method="POST" action="cart.php">

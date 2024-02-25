@@ -22,102 +22,78 @@ if(isset($_GET['product_id'])){
     <link rel="stylesheet" href="styles.css">
 
     <style>
-
-
+        /* Add your styles here */
     </style> 
-
 </head>
 <body>
-   
+    <?php include_once("includes/head.php"); ?>
 
-     <?php include_once("includes/head.php"); ?>
+    <section id="productdetails" class="section-p1">
+        <div class="product1">
+            <div class="img-zoom-container">
+                <?php while($row = $product->fetch_assoc()){ ?>
+                    <form method="POST" action="cart.php" id="addToCartForm">
+                        <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?> "/>
+                        <input type="hidden" name="product_image" value="<?php echo $row['product_image']; ?> "/>
+                        <input type="hidden" name="product_name" value="<?php echo $row['product_name']; ?> "/>
+                        <input type="hidden" name="product_price" value="<?php echo $row['product_price']; ?> "/>
+                        <input type="hidden" name="selected_size" id="selectedSize" value=""/>
+                        <div class="img-magnifier-container">
+                            <img id="myimage" src="Assets/<?php echo $row['product_image']; ?>" width="300" height="411">
+                        </div>
+                    </div>
+                </div>
+                <div class="pro1">
+                    <h4><?php echo $row['product_name']; ?></h4><br/>
+                    <div class="rating">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star-half-o checked"></span>
+                    </div>
+                    <h3>&#8377;<?php echo $row['product_price']; ?></h3><br/>
+                    <div class="color-swatches">
+                        <div class="swatch" style="background-color: blue" onclick="selectColor('blue')"></div>
+                        <div class="swatch" style="background-color: red" onclick="selectColor('red')"></div>
+                        <div class="swatch" style="background-color: gray" onclick="selectColor('gray')"></div>
+                    </div>
+                    <br/>
+                    <select required="required" onchange="enableAddToCartButton(this)">
+                        <option>Select Size</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                    </select>
+                    <input type="number" min="1" name="product_quantity" value="1">
+                    <button class="normal" type="submit" name="add_to_cart" disabled>Add To Cart</button>
+                    <br/><br/>
+                    <h4>Product Description</h4><?php echo $row['product_description']; ?>
+                </div>
+                <?php } ?>
+            </form>
+        </section>
 
-     <section id="productdetails" class="section-p1">
-      
-      <div class="product1">
-        <div class="img-zoom-container">
-          <?php while($row = $product->fetch_assoc()){ ?>
-            <form method="POST" action="cart.php">
-              
-              <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?> "/>
-              <input type="hidden" name="product_image" value="<?php echo $row['product_image']; ?> "/>
-              <input type="hidden" name="product_name" value="<?php echo $row['product_name']; ?> "/>
-              <input type="hidden" name="product_price" value="<?php echo $row['product_price']; ?> "/>
-              <input type="hidden" name="product_price" value="<?php echo $row['product_price']; ?> "/>
-          
-          <div class="img-magnifier-container">
-            <img id="myimage" src="Assets/<?php echo $row['product_image']; ?>" width="300" height="400">
-          </div>
-          
-    
-  </div>
-  </div>
+        <center><strong>This Product is subjected to <a href="Includes/cancellation_policy.html"  style="text-decoration: none; color: inherit;">No Cancellation Policy</a></strong>
 
+            <script>
+                function selectColor(color) {
+                    // Handle color selection logic 
+                }
 
+                function enableAddToCartButton(sizeSelect) {
+                    var addToCartButton = document.querySelector('.pro1 button');
+                    var selectedSize = sizeSelect.value;
+                    var selectedSizeInput = document.getElementById('selectedSize');
+                    selectedSizeInput.value = selectedSize;
 
-
-       <div class="pro1">
-     
-                               
-        <h4><?php echo $row['product_name']; ?></h4><br/>
-        <div class="rating">
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star-half-o checked"></span>
-                                </div>
-        <h3>&#8377;<?php echo $row['product_price']; ?></h3><br/>
-
-        <div class="color-swatches">
-          <div class="swatch" style="background-color: blue" onclick="selectColor('blue')"></div>
-          <div class="swatch" style="background-color: red" onclick="selectColor('red')"></div>
-          <div class="swatch" style="background-color: gray" onclick="selectColor('gray')"></div>
-      </div>
-      <br/>
-      
-        <select required="required">
-          <option>Select Size</option>
-          <option>S</option>
-          <option>M</option>
-          <option>L</option>
-          <option>XL</option>
-        </select>
-        <input type="number" min="1" name="product_quantity" value="1">
-        <button class="normal" onclick="addToCart()" type="submit" name="add_to_cart">ADD TO CART</button>
-        <br/><br/>
-        <h4>Product Description</h4><?php echo $row['product_description']; ?>
-        
-      </div>
-      </form>
-        <?php } ?>
-    </section>
-
-    <center><strong>This Product is subjected to <a href="Includes/cancellation_policy.html" style="text-decoration: none; color: inherit;">NO Cancellation Policy</a></strong>
-     
-   <script>
-              function addToCart() {
-          var selectedSize = document.querySelector('select').value;
-          if (selectedSize === 'Select Size') {
-            alert('Please select a size before adding to cart');
-          } else {
-            var productDescription = document.querySelector('.pro1 h4').textContent;
-            var productPrice = document.querySelector('.pro1 h3').textContent;
-            var productImage = document.querySelector('.product1 img').src;
-
-            // Now you have the product description, price, image, and size
-            // You can use this information to add the item to the cart or display it to the user
-            console.log("Description: " + productDescription);
-            console.log("Price: " + productPrice);
-            console.log("Size: " + selectedSize);
-            console.log("Image: " + productImage);
-          }
-        }
-    </script>
-    
-
-        
-
- 
-</body>
-</html>
+                    if (selectedSize !== 'Select Size') {
+                        addToCartButton.removeAttribute('disabled');
+                    } else {
+                        addToCartButton.setAttribute('disabled', 'disabled');
+                    }
+                }
+            </script>
+        </body>
+        </html>
