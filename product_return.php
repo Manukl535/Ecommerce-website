@@ -4,9 +4,6 @@ include('Includes/connection.php');
 
 if (isset($_SESSION['shipped_address'])) {
     $shipped_address = $_SESSION['shipped_address'];
-
-    // Fetch product_ids from session
-    $product_ids = isset($_SESSION['product_ids']) ? $_SESSION['product_ids'] : array();
 } else {
     header('location: unauthorized.php');
     exit();
@@ -25,29 +22,36 @@ if (isset($_POST['return-btn'])) {
     $account_number = trim($_POST['account_number']);
     $ifsc_code = trim($_POST['ifsc_code']);
 
-    // Loop through each product_id
-    foreach ($product_ids as $product_id) {
-        $stmt = $conn->prepare("INSERT INTO return_requests (order_id, user_id, product_id, reason, comments, user_name, user_phone, user_address, user_city, user_state, return_status, bank, account_number, ifsc_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param('iissssssssssss', $order_id, $user_id, $product_id, $reason, $comments, $shipped_address['user_name'], $shipped_address['user_phone'], $shipped_address['user_address'], $shipped_address['user_city'], $shipped_address['user_state'], $status, $bank, $account_number, $ifsc_code);
+    // Get the current product ID from the session
+    $current_product_id = $_SESSION['current_product_id'];
 
-        if ($stmt->execute()) {
-            echo '<script>';
-            echo 'alert("Return request accepted. Refund will be processed.");';
-            echo 'window.location.href = "account.php";';
-            echo '</script>';
+    $stmt = $conn->prepare("INSERT INTO return_requests (order_id, user_id, product_id, reason, comments, user_name, user_phone, user_address, user_city, user_state, return_status, bank, account_number, ifsc_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param('iissssssssssss', $order_id, $user_id, $current_product_id, $reason, $comments, $shipped_address['user_name'], $shipped_address['user_phone'], $shipped_address['user_address'], $shipped_address['user_city'], $shipped_address['user_state'], $status, $bank, $account_number, $ifsc_code);
 
-            exit();
-        } else {
-            echo '<script>alert("Failed to submit return request. Please try again.");</script>';
-        }
+    if ($stmt->execute()) {
+        echo '<script>';
+        echo 'alert("Return request accepted. Refund will be processed.");';
+        echo 'window.location.href = "account.php";';
+        echo '</script>';
 
-        $stmt->close();
+        exit();
+    } else {
+        echo '<script>alert("Failed to submit return request. Please try again.");</script>';
     }
+
+    $stmt->close();
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" type="image/x-icon" href="Assets/logo2.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="styles.css">
+  
 <head>
     <style>
         .container {

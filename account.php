@@ -516,56 +516,61 @@ if (isset($_SESSION['logged-in'])) {
         <div class="order-box">
             <table>
                 <tr>
+                   
                     <th>Order ID</th>
                     <th>Order Date</th>
                     <th>Order Status</th>
                     <th>Order Cost</th>
                     <th>Order Details</th>
-                    <th>Invoice</th>
+                    
                 </tr>
 
                 <?php
                 // order by order_date in descending order
-                $sql = "SELECT * FROM orders ORDER BY order_date DESC";
+                $sql = "SELECT * FROM order_item ORDER BY order_date DESC";
                 $orders = $conn->query($sql);
 
                 while ($row = $orders->fetch_assoc()) {
                 ?>
                     <tr>
-                        <td>ODR<?php echo str_pad($row['order_id'], 3, '0', STR_PAD_LEFT); ?></td>
-                        <td><?php echo date('d-m-Y', strtotime($row['order_date'])); ?></td>
+                        
+    
+    <td>ODR<?php echo str_pad($row['order_id'], 3, '0', STR_PAD_LEFT); ?></td>
+    <td><?php echo date('d-m-Y', strtotime($row['order_date'])); ?></td>
 
-                        <?php
-                        $dod = $row['dod'];
-                        $formatted_date = date('d-m-Y', strtotime($dod));
-                        $isDelivered = strtotime($dod) <= strtotime(date('Y-m-d'));
-                        $statusText = $isDelivered ? 'Delivered On' : 'Delivery On';
-                        $statusColor = $isDelivered ? 'green' : 'black';
-                        ?>
+    <?php
+    $dod = $row['dod'];
+    $formatted_date = date('d-m-Y', strtotime($dod));
+    $isDelivered = strtotime($dod) <= strtotime(date('Y-m-d'));
+    $statusText = $isDelivered ? 'Delivered On' : 'Delivery On';
+    $statusColor = $isDelivered ? 'green' : 'black';
+    ?>
 
-                        <td style="color: <?php echo $statusColor; ?>"><strong><?php echo $statusText . ': ' . $formatted_date; ?></strong></td>
+    <td style="color: <?php echo $statusColor; ?>"><strong><?php echo $statusText . ': ' . $formatted_date; ?></strong></td>
 
-                        <td>&#8377; <?php echo $row['order_cost']; ?></td>
+    <td>&#8377; <?php echo $row['product_price']; ?></td>
 
-                        <td>
-                            <form method="GET" action="orders_details.php">
-                                <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
-                                <button <?php if ($isDelivered) echo 'enabled'; else echo 'disabled'; ?> style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="orders_btn">
-                                    Order Details
-                                </button>
-                            </form>
-                        </td>
+    <td>
+        <form method="GET" action="orders_details.php">
+            <input type="hidden" value="<?php echo $row['product_id']; ?>" name="product_id">
+            <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
+            <button <?php if ($isDelivered) echo 'enabled'; else echo 'disabled'; ?> style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="orders_btn">
+                Order Details
+            </button>
+        </form>
+    </td>
 
-                        <td>
-                            <form method="GET" action="invoice.php">
-                                <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
-                                <button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="invoice_btn">
-                                    <i class="fa fa-print"></i> Invoice
-                                </button>
-                            </form>
-                        </td>
+    <!-- <td>
+        <form method="GET" action="invoice.php">
+            
+            <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
+            <button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="invoice_btn">
+                <i class="fa fa-print"></i> Invoice
+            </button>
+        </form>
+    </td> -->
+</tr>
 
-                    </tr>
                 <?php } ?>
 
             </table>

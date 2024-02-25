@@ -18,6 +18,7 @@ if (isset($_POST['place_order'])) {
     $dod = $_POST['dod'];
     $product_quantity = $_SESSION['total_items'];
 
+
     // Insert order into orders table
     $stmt = $conn->prepare("INSERT INTO orders (order_cost, order_status, user_id, user_name, email, user_phone, user_city, user_state, user_address, order_date, order_quantity, dod) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
     $stmt->bind_param('isssssssssss', $order_cost, $order_status, $user_id, $name, $email, $phone, $city, $state, $address, $order_date, $product_quantity, $dod);
@@ -33,9 +34,9 @@ if (isset($_POST['place_order'])) {
             $product_image = $product['product_image'];
             $product_price = $product['product_price'];
             $product_quantity = $product['product_quantity'];
-
-            $stmt1 = $conn->prepare("INSERT INTO order_item (order_id, product_id, product_name, product_image, product_price, product_quantity, user_id, order_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt1->bind_param('isssiiss', $order_id, $product_id, $product_name, $product_image, $product_price, $product_quantity, $user_id, $order_date);
+            $dod = $_POST['dod'];
+            $stmt1 = $conn->prepare("INSERT INTO order_item (order_id, product_id, product_name, product_image, product_price, product_quantity, user_id, order_date,dod) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt1->bind_param('isssiisss', $order_id, $product_id, $product_name, $product_image, $product_price, $product_quantity, $user_id, $order_date,$dod);
             $stmt1->execute();
         }
     }

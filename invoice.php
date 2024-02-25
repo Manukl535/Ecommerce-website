@@ -199,11 +199,31 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
     </div>
     <div class="footer" style="text-align: center; margin-top: 20px; border-top: 1px solid #ccc; padding-top: 20px;">
         <p>Thank you for shopping with Posh Boutique!</p>
-        <p>For any inquiries, please contact support @ <a href="contact.html" style="text-decoration: none; color: black;">posh.com</a></p>
+        <p>For any inquiries, please contact support @ <a href="contact.php" style="text-decoration: none; color: black;">posh.com</a></p>
+        
     </div>
+ 
 </div>
 
-<center><button onclick="window.print()"><i style="font-size:20px" class="fa" color="black">&#xf02f;</i></button></center>
+<center>
+    <p id="savePaper">Save Paper Save Earth</p>
+    <p id="printInvoiceText">Print the invoice if necessary</p>    
+    <button id="printButton" onclick="printInvoice()"><i style="font-size:20px" class="fa" color="black">&#xf02f;</i></button>
+</center>
+
+<script>
+    function printInvoice() {
+        // Remove the paragraphs
+        document.getElementById("savePaper").remove();
+        document.getElementById("printInvoiceText").remove();
+
+        // Remove the print button
+        document.getElementById("printButton").remove();
+
+        // Trigger the print function
+        window.print();
+    }
+</script>
 
 </body>
 </html> 
