@@ -90,6 +90,7 @@ if(isset($_GET['product_id'])){
 
                     if (selectedSize !== 'Select Size') {
                         addToCartButton.removeAttribute('disabled');
+                        
                     } else {
                         addToCartButton.setAttribute('disabled', 'disabled');
                     }
