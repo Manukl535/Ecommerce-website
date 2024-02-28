@@ -61,6 +61,7 @@ if(isset($_POST['register-btn'])){
 				$message = "You registered successfully..!\\nRedirecting to Login page";
 				$redirectUrl = "login_user.php";
 				function_alert($message, $redirectUrl);
+			
 			}
 			else{
 				header('location:register_user.php?error=Account cannot be created');
