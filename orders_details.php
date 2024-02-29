@@ -131,6 +131,7 @@ button:hover {
 <body>
 
 <h1>Order Details</h1>
+
 <h2>Shipped Address</h2>
 
 <!-- Display shipped address -->
@@ -138,24 +139,15 @@ button:hover {
 <p><?= isset($order_info['user_address']) ? $order_info['user_address'] : ''; ?></p>
 <p><?= isset($order_info['user_city']) ? $order_info['user_city'] : ''; ?></p>
 <p><?= isset($order_info['user_state']) ? $order_info['user_state'] : ''; ?></p>
-<p><?= isset($order_info['user_phone']) ? $order_info['user_phone'] : ''; ?></p><br/>
+<p><?= isset($order_info['user_phone']) ? $order_info['user_phone'] : ''; ?></p>
+
+<br/>
 
 <form method="GET" action="invoice.php">
             <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
             <button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 10%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="invoice_btn">
                 <i class="fa fa-print"></i> Invoice
-            </button>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<button type="button" id="returnButton"style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 10%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px; margin-right:20px;" >
-    <img src="Assets/return_btn.png" style="width: 20px; height: 15px; padding-top: -3px;" alt="Return"> Return
-</button>
+            </button>  
 </form>
 
 <!-- Fetch the return status and account number for the first product in the order -->
@@ -245,6 +237,18 @@ foreach ($order_details_array as $row) {
 <!-- Add a hidden input to track if any checkbox is selected -->
 <input type="hidden" id="checkboxSelected" name="checkbox_selected" value="0">
 </form>
+<br/>
+<style>
+    #returnButton:disabled {
+        background-color: #dddddd;
+        cursor: not-allowed;
+        opacity: 0.7; 
+    }
+</style>
+
+<button type="button" id="returnButton" style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 10%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px; margin-left: 1190px;">
+    <img src="Assets/return_btn.png" style="width: 20px; height: 15px; padding-top: -3px;" alt="Return"> Return
+</button>
 
 
 <script>
@@ -285,9 +289,26 @@ foreach ($order_details_array as $row) {
             alert('Product has been returned.');
             setTimeout(function() {
                 window.location.href = 'account.php';
-            }, 0); // 
+            }, 0); 
+           
         }
+        
     });
+</script>
+
+<script>
+   
+    var deliveredDate = new Date('<?= date('Y-m-d', strtotime($row['dod'])) ?>');
+    var currentDate = new Date();
+    var twoDaysAfterDelivered = new Date(deliveredDate);
+    twoDaysAfterDelivered.setDate(deliveredDate.getDate() + 2);
+
+    // Check if today is more than 2 days after the delivered date
+    if (currentDate > twoDaysAfterDelivered) {
+        // Today is more than 2 days after the delivered date, disable the return button
+        document.getElementById('returnButton').disabled = true;
+    }
+
 </script>
 
 
