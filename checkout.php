@@ -1,27 +1,35 @@
 <?php
-  session_start();
-  if (!empty($_SESSION['cart']) && isset($_POST['checkout'])) {
-   
-  } else {
-    header('location:index.php');
-  }
-
- // Check if the user is logged in
-if (isset($_SESSION['user_id'])) {
-  // User is logged in, continue with the checkout procedure
-
-  if (!empty($_SESSION['cart']) && isset($_POST['place_order'])) {
-      // Process the order logic here
-      header('Location: place_order.php');
-      exit();
-  }
+session_start();
+if (!empty($_SESSION['cart']) && isset($_POST['checkout'])) {
 
 } else {
-  // User is not logged in, set a session variable with a message
-  $_SESSION['login_message'] = 'Please login/register for placing order';
-  header('Location: login_user.php');
-  exit();
+    header('location:index.php');
 }
+
+// Check if the user is logged in
+if (isset($_SESSION['user_id'])) {
+    // User is logged in, continue with the checkout procedure
+
+    if (!empty($_SESSION['cart']) && isset($_POST['place_order'])) {
+        // Process the order logic here
+        header('Location: place_order.php');
+        exit();
+    }
+} else {
+    // User is not logged in, set a session variable with a message
+    $_SESSION['login_message'] = 'Please login/register for placing order';
+    header('Location: login_user.php');
+    exit();
+}
+
+// Calculate the start and end dates for the one-week period
+$today = new DateTime();
+$endDate = $today->modify('+1 week')->format('Y-m-d');
+$startDate = (new DateTime())->format('Y-m-d');
+
+// Generate a random date within the one-week period
+$randomDate = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)));
+
 ?>
 
 <!DOCTYPE html>
@@ -180,9 +188,8 @@ if (isset($_SESSION['user_id'])) {
                         <!-- Add more cities as needed -->
                     </select>
 
-                    <label for="deliverydate">Date Of Delivery</label>
-                    <input type="date" id="deliverydate" name="dod" required>
-                   
+                    <input type="date" id="deliverydate" name="dod" style="display: none;"  value="<?php echo $randomDate; ?>" required>
+
                     <label for="phone">Phone</label>
                     <input type="text" id="phone" name="phone" placeholder="93425 32878" pattern="[0-9]{10}"title="Enter the Mobile number" required>
                 </div>
@@ -215,15 +222,7 @@ if (isset($_SESSION['user_id'])) {
         }
     </script>
 
-    <script>
-        var today = new Date();
-        var tomorrow = new Date(today);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        var lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-
-        document.getElementById("deliverydate").setAttribute("min", tomorrow.toISOString().split('T')[0]);
-        document.getElementById("deliverydate").setAttribute("max", lastDay.toISOString().split('T')[0]);
-    </script>
+    
 
     <center>
         <div class="copyright">
