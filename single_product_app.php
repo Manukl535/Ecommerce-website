@@ -17,7 +17,7 @@ if(isset($_GET['product_id'])){
 ?>
 <html>
 <head>
-    <title>Shoping</title>
+    <title>Shopping</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles.css">
 
@@ -32,11 +32,11 @@ if(isset($_GET['product_id'])){
         <div class="product1">
             <div class="img-zoom-container">
                 <?php while($row = $product->fetch_assoc()){ ?>
-                    <form method="POST" action="cart.php" id="addToCartForm">
-                        <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?> "/>
-                        <input type="hidden" name="product_image" value="<?php echo $row['product_image']; ?> "/>
-                        <input type="hidden" name="product_name" value="<?php echo $row['product_name']; ?> "/>
-                        <input type="hidden" name="product_price" value="<?php echo $row['product_price']; ?> "/>
+                    <form method="POST" action="cart.php" id="addToCartForm" onsubmit="return validateForm()">
+                        <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>"/>
+                        <input type="hidden" name="product_image" value="<?php echo $row['product_image']; ?>"/>
+                        <input type="hidden" name="product_name" value="<?php echo $row['product_name']; ?>"/>
+                        <input type="hidden" name="product_price" value="<?php echo $row['product_price']; ?>"/>
                         <input type="hidden" name="selected_size" id="selectedSize" value=""/>
                         <div class="img-magnifier-container">
                             <img id="myimage" src="Assets/<?php echo $row['product_image']; ?>" width="300" height="411">
@@ -59,7 +59,7 @@ if(isset($_GET['product_id'])){
                         <div class="swatch" style="background-color: gray" onclick="selectColor('gray')"></div>
                     </div>
                     <br/>
-                    <select required="required" onchange="enableAddToCartButton(this)">
+                    <select required="required" id="sizeSelect">
                         <option>Select Size</option>
                         <option value="S">S</option>
                         <option value="M">M</option>
@@ -67,7 +67,7 @@ if(isset($_GET['product_id'])){
                         <option value="XL">XL</option>
                     </select>
                     <input type="number" min="1" name="product_quantity" value="1">
-                    <button class="normal" type="submit" name="add_to_cart" disabled>Add To Cart</button>
+                    <button class="normal" type="submit" name="add_to_cart">Add To Cart</button>
                     <br/><br/>
                     <h4>Product Description</h4><?php echo $row['product_description']; ?>
                 </div>
@@ -75,26 +75,25 @@ if(isset($_GET['product_id'])){
             </form>
         </section>
 
-        <center><strong>This Product is subjected to <a href="Includes/cancellation_policy.html"  style="text-decoration: none; color: inherit;">No Cancellation Policy</a></strong>
+        <center><strong>This Product is subjected to <a href="Includes/cancellation_policy.html"  style="text-decoration: none; color: inherit;">No Cancellation Policy</a></strong></center>
 
-            <script>
-                function selectColor(color) {
-                    // Handle color selection logic 
+        <script>
+            function selectColor(color) {
+                // Handle color selection logic 
+            }
+
+            function validateForm() {
+                var sizeSelect = document.getElementById('sizeSelect');
+                var selectedSize = sizeSelect.value;
+
+                if (selectedSize === 'Select Size') {
+                    alert("Please select the size");
+                    return false; // Prevent form submission if size is not selected
                 }
 
-                function enableAddToCartButton(sizeSelect) {
-                    var addToCartButton = document.querySelector('.pro1 button');
-                    var selectedSize = sizeSelect.value;
-                    var selectedSizeInput = document.getElementById('selectedSize');
-                    selectedSizeInput.value = selectedSize;
-
-                    if (selectedSize !== 'Select Size') {
-                        addToCartButton.removeAttribute('disabled');
-                        
-                    } else {
-                        addToCartButton.setAttribute('disabled', 'disabled');
-                    }
-                }
-            </script>
-        </body>
-        </html>
+                document.getElementById('selectedSize').value = selectedSize;
+                return true; // Allow form submission if size is selected
+            }
+        </script>
+    </body>
+    </html>
