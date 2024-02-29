@@ -1,78 +1,77 @@
 <?php
 session_start();
+
 function function_alert($message, $redirectUrl) {
     // Display the alert box
     echo "<script>alert('$message');</script>";
     // Redirect to the specified URL after the alert is closed
     echo "<script>window.location.href = '$redirectUrl';</script>";
 }
+
 include("Includes/connection.php");
 
-if(isset($_SESSION['logged-in'])){
-	header('location:account.php?');
-	exit;
+if (isset($_SESSION['logged-in'])) {
+    header('location:account.php?');
+    exit;
 }
 
-if(isset($_POST['register-btn'])){
+if (isset($_POST['register-btn'])) {
 
-	$name = $_POST['name'];
-	$phone = $_POST['phone'];
-	$email = $_POST['email'];
-	$password = $_POST['password'];
-	$confirm_password = $_POST['confirm_password'];
+    $name = $_POST['name'];
+    $phone = $_POST['phone'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
 
-	//pass_confirm pass
-	if($password !== $confirm_password){
-		header('location:register_user.php?error=Password did not match');
-		
-	}
-	//length of pass
-	else if(strlen($password) < 6){
-		header('location:register_user.php?error=Password must have 6 characters');
-	}
-	//if all correct
-	else{
-			//for existing email
-			$stmt1 = $conn->prepare("SELECT COUNT(*) FROM users WHERE email=?");
-			$stmt1->bind_param('s',$email);
-			$stmt1->execute();
-			$stmt1->bind_result($num_rows);
-			$stmt1->store_result();
-			$stmt1->fetch();
+    // Password confirmation
+    if ($password !== $confirm_password) {
+        header('location:register_user.php?error=Password did not match');
+        exit;
+    } elseif (strlen($password) < 6) {
+        header('location:register_user.php?error=Password must have 6 characters');
+        exit;
+    }
 
-			if($num_rows != 0){
-				header('location:register_user.php?error=Email Already Taken, Try Again');
-			}
-			//for new user
-			else{
-			$stmt = $conn->prepare("INSERT INTO users (user_name,phone,email,password) VALUES (?,?,?,?)");
+    // Validate email format
+    $emailPattern = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/";
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL) || !preg_match($emailPattern, $email)) {
+        $error_message = "Invalid email format. Example: abc@gmail.com";
+        header("location:register_user.php?error=" . urlencode($error_message));
+        exit;
+    }
 
-			$stmt->bind_param('ssss',$name,$phone,$email,$password);
+    // Check for existing email
+    $stmt1 = $conn->prepare("SELECT COUNT(*) FROM users WHERE email=?");
+    $stmt1->bind_param('s', $email);
+    $stmt1->execute();
+    $stmt1->bind_result($num_rows);
+    $stmt1->store_result();
+    $stmt1->fetch();
 
-			if($stmt->execute()){
-				$user_id = $stmt->insert_id;
-				$_SESSION['user_id'] = $user_id;
-				$_SESSION['email']=$email;
-				$_SESSION['name']=$name;
-				// $_SESSION['logged-in']=true;
-			
-				// echo '<script>alert("Redirecting to Login page");</script>';
-				// header('location:login_user.php?message=You registered successfully');
-				$message = "You registered successfully..!\\nRedirecting to Login page";
-				$redirectUrl = "login_user.php";
-				function_alert($message, $redirectUrl);
-			
-			}
-			else{
-				header('location:register_user.php?error=Account cannot be created');
-			}
-		}
-			
+    if ($num_rows != 0) {
+        header('location:register_user.php?error=Email Already Taken, Try Again');
+        exit;
+    } else {
+        // Insert new user
+        $stmt = $conn->prepare("INSERT INTO users (user_name, phone, email, password) VALUES (?,?,?,?)");
+        $stmt->bind_param('ssss', $name, $phone, $email, $password);
 
-		}
-		
+        if ($stmt->execute()) {
+            $user_id = $stmt->insert_id;
+            $_SESSION['user_id'] = $user_id;
+            $_SESSION['email'] = $email;
+            $_SESSION['name'] = $name;
+
+            // Display alert and redirect
+            $message = "You registered successfully..!\\nRedirecting to Login page";
+            $redirectUrl = "login_user.php";
+            function_alert($message, $redirectUrl);
+        } else {
+            header('location:register_user.php?error=Account cannot be created');
+            exit;
+        }
+    }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -187,7 +186,7 @@ if(isset($_POST['register-btn'])){
 				<input type="text" class="form-control" name="name" placeholder="Name" required="required">        
             </div>
             <div class="form-group">
-                <input type="phone" class="form-control" name="phone" pattern="[0-9]*" placeholder="+917022015320" required="required">
+                <input type="phone" class="form-control" name="phone" pattern="[0-9]*" placeholder="7022015320" required="required">
             </div>
         <div class="form-group">
         	<input type="email" class="form-control" name="email" placeholder="Email" required="required">
