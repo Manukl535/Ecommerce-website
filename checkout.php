@@ -196,13 +196,13 @@ $randomDate = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)))
                 
             </div>
             
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-    <?php echo "<h4 style='text-align: left; margin: 8px;'>Total cart Qty: " . $_SESSION['total_items'] . "</h4>";?>
-    <label for="total_amount"><b>Total Amount: &#8377; <?php echo $_SESSION['total']; ?></b></label>
-    <div>
+<div style="display: flex; justify-content: space-between; align-items: center;">
+        <?php echo "<h4 style='text-align: left; margin: 8px;'>Total cart Qty: " . $_SESSION['total_items'] . "</h4>";?>
+        
+        <label for="total_amount"><b>Total Amount: &#8377; <?php echo $_SESSION['total']; ?></b></label>
+
         <label for="dod">Delivery by <span><?php echo date('D F j', strtotime($randomDate)); ?></span></label>
         
-    </div>
 </div>
 <center>
                 <input type="submit" value="Place Order" name="place_order" class="btn" data-target="#paymentModal" data-toggle="modal"></center>
