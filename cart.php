@@ -113,6 +113,64 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
           <link rel="stylesheet" href="styles.css">
     <style>
+        .material-icons{
+            color:black;
+            border-radius: 50px;
+            background-color: #fff;
+            border:none;
+        }  
+        .material-icons:hover{
+            color:red;
+            background-color: #fff;
+        }
+
+        .update_btn{
+            border: 1px solid black;
+            padding-left: 10px;
+            padding-top: 20px;
+            font-size: 12px;
+            text-align: center;
+            border-radius: 20px;
+            color: #fff;
+            background-color: #55c2da;
+            font-weight: bold;
+        }
+        .update_btn:hover{
+            background-color:#00A36C;
+        }
+
+        .proceed{
+            height: 2.4rem;
+            padding: 0 1.24em;
+            background-color: #04AA6D;
+            color: #eef7f6;
+            white-space: inherit;
+            padding:  9px 10px ;
+            border :1px double black;
+            border-radius: 2px;
+        }
+
+        .centered {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 20vh;
+            padding-bottom: 100px;
+        }
+
+        tr > td:nth-child(5) {
+            padding-left:155px; 
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .input-group input {
+            margin: -90px;
+        }
+
         .dropdown {
   position: relative;
   display: inline-block;
@@ -137,7 +195,7 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
 
 .dropdown:hover .dropdown-content {
   display: block;
-  transform: scale(1.02); /* Adjust scale for 3D effect */
+  transform: scale(1.02); 
 }
 
 .dropbtn::before {
@@ -182,103 +240,10 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
     color: #fff;
 }
 
-#myModal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-            
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto; /* 15% from the top and centered */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%; /* Could be more or less, depending on screen size */
-            border-radius: 20px;
-        }
-        .modal-content  {
-            display: flex; /* Use flexbox */
-            align-items: center; /* Center items vertically */
-        }
-
-         .modal-content img  {
-            max-width: 100%; /* Ensure the image doesn't exceed its container */
-            border :1px double pink;
-            border-radius: 13px;
-        }
-
-         .newsletter  {
-            flex: 1; /* Fill remaining space */
-            padding: 0 20px; /* Add some padding */
-        }
-        .newsletter h3{
-         text-align: center;
-         }
-
-         .newsletter input{
-         height: 3rem;
-         padding: 0 1.24em;
-         width: 60%;
-         border :1px double black;
-        font-size: 14px;
-        border-radius: 4px;
-        outline: none;
-        }
-        .newsletter  button{
-  height: 3rem;
-  padding: 0 1.24em;
-  background-color: #04AA6D;
-  color: #eef7f6;
-  white-space: inherit;
-  padding:  13px;
-  border :1px double black;
-  width: 30%;
-  border-radius: 4px;
-}
- .close {
-            position:left;
-            top:10px;
-            right: 10px;
-            padding-bottom: 300px;
-            padding-left: 500px;
-            font-size: 30px;
-            cursor: pointer;
- }
-
- .search-container {
-  position: relative;
-  display: inline-block;
-}
-
-.search-input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  outline: none;
-
-}
-.search-btn{
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  outline: none;
-  color: #04AA6D;
-  background-color: #eef7f6;
-}
-
-
-    </style>
+  </style>
 </head>
 <body>
-    <!--Header Section-->
+
   <!-- Header Section -->
 <section id="top">
                 <img src="Assets/logo.png">

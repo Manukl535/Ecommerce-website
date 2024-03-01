@@ -257,9 +257,7 @@ session_start();
                             <a href="women_foot_1.php">Footwear</a>
                             <a href="women_acc_1.php">Accessories</a>
                           </div>
-                        
-                        
-                      </li>
+                        </li>
                    
                     <li><a href="about.php">About Us</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
@@ -279,7 +277,7 @@ session_start();
                     ?>
                     &nbsp;&#11167;
                 </div>
-            </a>
+            </a> 
         </div>   
         <?php
             // Check if the user is logged in
