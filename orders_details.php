@@ -140,8 +140,8 @@ button:hover {
 <p><?= isset($order_info['user_city']) ? $order_info['user_city'] : ''; ?></p>
 <p><?= isset($order_info['user_state']) ? $order_info['user_state'] : ''; ?></p>
 <p><?= isset($order_info['user_phone']) ? $order_info['user_phone'] : ''; ?></p>
+<br>
 
-<br/>
 
 <form method="GET" action="invoice.php">
             <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
@@ -149,9 +149,16 @@ button:hover {
                 <i class="fa fa-print"></i> Invoice
             </button>  
 </form>
-
-<!-- Fetch the return status and account number for the first product in the order -->
 <?php
+// Check if the refund message is present and if return_status is 'Yes'
+if (isset($return_status) && $return_status === 'Yes') {
+    echo '<center><img src="Assets/returned.png" style="max-width: 5%; margin: 1px auto;"></center>';
+}
+?>
+
+
+<?php
+// Fetch the return status and account number for the first product in the order
 if (!empty($order_details_array)) {
     $first_product_id = $order_details_array[0]['product_id'];
     $return_status_query = $conn->prepare("SELECT return_status, account_number FROM return_requests WHERE order_id=? AND user_id=? AND product_id=?");
@@ -170,16 +177,17 @@ if (!empty($order_details_array)) {
 
     // Display appropriate message based on return status
     if ($return_status === 'Yes') {
+        // Display the image and refund message
+        echo '<center><img src="Assets/returned.png" style="max-width: 5%; margin: 1px auto;"></center>';
         echo '<div class="refund-message">';
         echo 'Refund amount &#8377; ' . $product_price . ' transferred to Account Number ending with: ';
         echo ($checkbox_disabled) ? $account_number : substr($account_number, -4);
         echo '</div>';
     }
-
+    
     $return_status_query->close();
 }
-?>
-        
+?>        
 
        
 <?php
