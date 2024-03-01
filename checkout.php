@@ -1,24 +1,24 @@
 <?php
 session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // User is not logged in, set a session variable with a message
+    $_SESSION['login_message'] = 'Please login/register for placing an order';
+    header('Location: login_user.php');
+    exit();
+}
+
 if (!empty($_SESSION['cart']) && isset($_POST['checkout'])) {
 
 } else {
     header('location:index.php');
 }
 
-// Check if the user is logged in
-if (isset($_SESSION['user_id'])) {
-    // User is logged in, continue with the checkout procedure
-
-    if (!empty($_SESSION['cart']) && isset($_POST['place_order'])) {
-        // Process the order logic here
-        header('Location: place_order.php');
-        exit();
-    }
-} else {
-    // User is not logged in, set a session variable with a message
-    $_SESSION['login_message'] = 'Please login/register for placing order';
-    header('Location: login_user.php');
+// Check if the form is submitted to place an order
+if (!empty($_SESSION['cart']) && isset($_POST['place_order'])) {
+    // Process the order logic here
+    header('Location: place_order.php');
     exit();
 }
 
@@ -27,9 +27,15 @@ $today = new DateTime();
 $endDate = $today->modify('+1 week')->format('Y-m-d');
 $startDate = (new DateTime())->format('Y-m-d');
 
-// Generate a random date within the one-week period
-$randomDate = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)));
+// Retrieve the selected delivery date from the session, or generate a new random date
+if (isset($_POST['dod'])) {
+    $_SESSION['delivery_date'] = $_POST['dod'];
+} elseif (!isset($_SESSION['delivery_date'])) {
+    $_SESSION['delivery_date'] = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)));
+}
 
+// Generate a random date within the one-week period
+$randomDate = $_SESSION['delivery_date'];
 ?>
 
 <!DOCTYPE html>
@@ -172,6 +178,7 @@ $randomDate = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)))
 
                     <label for="states">State</label>
                     <select type="select" id="states" name="state" onchange="populateCities()">
+                        <option value="select" selected>Select State</option>
                         <option value="Karnataka">KARNATAKA</option>
                         <option value="Maharashtra">MAHARASHTRA</option>
                         <!-- Add more states as needed -->
@@ -179,6 +186,7 @@ $randomDate = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)))
 
                     <label for="cities">City</label>
                     <select id="cities" name="city">
+                        <option value="select" selected>Select City</option>
                         <!-- Cities for Karnataka -->
                         <option value="Bengaluru" data-state="Karnataka">BENGALURU</option>
                         <option value="Mysuru" data-state="Karnataka">MYSURU</option>
@@ -196,37 +204,55 @@ $randomDate = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)))
                 
             </div>
             
-<div style="display: flex; justify-content: space-between; align-items: center;">
-        <?php echo "<h4 style='text-align: left; margin: 8px;'>Total cart Qty: " . $_SESSION['total_items'] . "</h4>";?>
-        
-        <label for="total_amount"><b>Total Amount: &#8377; <?php echo $_SESSION['total']; ?></b></label>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+    <?php echo "<h4 style='text-align: left; margin: 8px;'>Total cart Qty: " . $_SESSION['total_items'] . "</h4>";?>
+    
+    <label for="total_amount"><b>Total Amount: &#8377; <?php echo $_SESSION['total']; ?></b></label>
 
-        <label for="dod">Delivery by <span><?php echo date('D F j', strtotime($randomDate)); ?></span></label>
-        
+    <label id="deliveryDateLabel" style="display: none;" for="dod">Delivery by <span><?php echo date('D F j', strtotime($randomDate)); ?></span></label>
 </div>
+
 <center>
                 <input type="submit" value="Place Order" name="place_order" class="btn" data-target="#paymentModal" data-toggle="modal"></center>
         </form>
     </div>
 
     <script>
-        function populateCities() {
-            var stateSelect = document.getElementById("states");
-            var citySelect = document.getElementById("cities");
-            var selectedState = stateSelect.options[stateSelect.selectedIndex].value;
+    function populateCities() {
+        var stateSelect = document.getElementById("states");
+        var citySelect = document.getElementById("cities");
+        var selectedState = stateSelect.options[stateSelect.selectedIndex].value;
 
-            for (var i = 0; i < citySelect.options.length; i++) {
-                var option = citySelect.options[i];
-                if (option.getAttribute("data-state") === selectedState || option.getAttribute("data-state") === null) {
-                    option.style.display = "block";
-                } else {
-                    option.style.display = "none";
-                }
+        for (var i = 0; i < citySelect.options.length; i++) {
+            var option = citySelect.options[i];
+            if (option.getAttribute("data-state") === selectedState || option.getAttribute("data-state") === null) {
+                option.style.display = "block";
+            } else {
+                option.style.display = "none";
             }
         }
-    </script>
 
-    
+        // Check if both state and city are selected
+        var selectedCity = citySelect.options[citySelect.selectedIndex].value;
+        var deliveryDateLabel = document.getElementById("deliveryDateLabel");
+
+        if (selectedState !== "select" && selectedCity !== "select") {
+            // Show the delivery date label
+            deliveryDateLabel.style.display = "block";
+        } else {
+            // Hide the delivery date label
+            deliveryDateLabel.style.display = "none";
+        }
+    }
+
+    // Trigger populateCities() on state and city change
+    document.getElementById("states").addEventListener("change", populateCities);
+    document.getElementById("cities").addEventListener("change", populateCities);
+
+    // Trigger populateCities() once on page load to handle initial state
+    populateCities();
+</script>
+
 
     <center>
         <div class="copyright">
