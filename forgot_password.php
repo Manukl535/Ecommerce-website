@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 function_alert("Invalid OTP. Please try again.", "forgot_password.php");
             }
         } else {
-            function_alert("User not found or OTP not generated. Please try again.", "forgot_password.php");
+            function_alert("User not found!.", "index.php");
         }
     }
 
