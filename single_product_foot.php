@@ -61,10 +61,11 @@ if(isset($_GET['product_id'])){
                     <br/>
                     <select required="required" id="sizeSelect">
                         <option>Select Size</option>
-                        <option value="S">S</option>
-                        <option value="M">M</option>
-                        <option value="L">L</option>
-                        <option value="XL">XL</option>
+                        <option value="6">6 UK</option>
+                        <option value="7">7 UK</option>
+                        <option value="8">8 UK</option>
+                        <option value="9">9 UK</option>
+                        <option value="10">10 UK</option>
                     </select>
                     <input type="number" min="1" name="product_quantity" value="1">
                     <button class="normal" type="submit" name="add_to_cart">Add To Cart</button>
