@@ -195,29 +195,39 @@ session_start();
         </div>
       </div>
       
-      <script>
-        // Get the modal
-        var modal = document.getElementById('myModal');
-      
-        // Check if the modal should be displayed
-        function displayModal() {
-          // Check if the modal has been displayed before
-          if (!localStorage.getItem('modalDisplayed')) {
-            modal.style.display = "block";
-            localStorage.setItem('modalDisplayed', true); // Set a flag in local storage to indicate that the modal has been displayed
-          }
-        }
-      
-        // Call the displayModal function after 2 seconds (2000 milliseconds)
-        setTimeout(displayModal, 3000);
-      
-        // Close the modal when the user clicks on the close button
-        var closeBtn = document.querySelector(".close");
-        closeBtn.onclick = function() {
-          modal.style.display = "none";
-        }
-      </script>
-        
+      <!-- Add the modal HTML structure to your HTML file -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>This is your modal content.</p>
+  </div>
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Check if the modal should be displayed
+function displayModal() {
+  // Check if the modal has been displayed before
+  var modalCount = localStorage.getItem('modalCount') || 0;
+
+  if (modalCount < 5) {
+    modal.style.display = "block";
+    localStorage.setItem('modalCount', ++modalCount); // Increment the count and update localStorage
+  }
+}
+
+// Call the displayModal function after 1 seconds (1000 milliseconds)
+setTimeout(displayModal, 1000);
+
+// Close the modal when the user clicks on the close button
+var closeBtn = document.querySelector(".close");
+closeBtn.onclick = function() {
+  modal.style.display = "none";
+}
+</script>
+
                
         
             <!-- Header Section -->
