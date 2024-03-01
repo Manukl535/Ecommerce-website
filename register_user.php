@@ -92,7 +92,7 @@ if (isset($_POST['register-btn'])) {
     .form-control{
 		height: 40px;
 		box-shadow: none;
-		color: #969fa4;
+		/* color: #969fa4; */
 	}
 	.form-control:focus{
 		border-color: #5cb85c;
@@ -186,8 +186,9 @@ if (isset($_POST['register-btn'])) {
 				<input type="text" class="form-control" name="name" placeholder="Name" required="required">        
             </div>
             <div class="form-group">
-                <input type="phone" class="form-control" name="phone" pattern="[0-9]*" placeholder="7022015320" required="required">
-            </div>
+         <input type="tel" class="form-control" name="phone" pattern="(\+?\d{1,4}[\s-]?)?\d{10}" placeholder="+917022015320" required="required">
+        </div>
+
         <div class="form-group">
         	<input type="email" class="form-control" name="email" placeholder="Email" required="required">
         </div>

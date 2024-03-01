@@ -264,32 +264,37 @@ session_start();
                     <li><a href="about.php">About Us</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
                     <li>
-                        <div class="dropdown">
-                          <a href="login_user.php">
-                            <div class="dropbtn">
-                            <div class="test">
-    <i style="font-size:20px" class="fa">&#xf2be;&nbsp;</i>
-    <?php 
-    if(isset($_SESSION['user_name'])) {
-        $formattedName = ucfirst(strtolower($_SESSION['user_name']));
-        echo '<span style="font-size: 15.6px;">' . $formattedName . '</span>'; 
-    } else {
-        echo 'Login';
-    }
-?>
+    <div class="dropdown">
+        <a href="login_user.php">
+            <div class="dropbtn">
+                <div class="test">
+                    <i style="font-size:20px" class="fa">&#xf2be;&nbsp;</i>
+                    <?php 
+                        if(isset($_SESSION['user_name'])) {
+                            $formattedName = ucfirst(strtolower($_SESSION['user_name']));
+                            echo '<span style="font-size: 15.6px;">' . $formattedName . '</span>'; 
+                        } else {
+                            echo 'Login';
+                        }
+                    ?>
+                    &nbsp;&#11167;
+                </div>
+            </a>
+        </div>   
+        <?php
+            // Check if the user is logged in
+            if(isset($_SESSION['user_name'])) {
+                // User is logged in, display dropdown content
+        ?>
+            <div class="dropdown-content">
+                <a href="account.php"><img src="Assets/dashboard.png">&nbsp;Dashboard</a>
+                <a href="logout.php"><i style="font-size:24px" class="fa">&#xf08b;</i>Logout</a>
+            </div>
+        <?php
+            }
+        ?>
+    </li>
 
-
-    &nbsp;&#11167;
-</div>
- </a>
-                        </div>   
-                          <div class="dropdown-content">
-                            <a href="account.php"><img src="Assets/dashboard.png">&nbsp;Dashboard</a>
-                            <a href="logout.php"><i style="font-size:24px" class="fa">&#xf08b;</i>Logout</a>
-                          </div>
-                        
-                        
-                      </li>
     <li> <a href="cart.php" style="position: relative;">
         <i style="font-size:24px" class="fa">&#xf07a; </i> Cart
         <?php
