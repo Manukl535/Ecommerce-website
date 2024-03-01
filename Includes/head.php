@@ -212,7 +212,7 @@ function displayModal() {
   // Check if the modal has been displayed before
   var modalCount = localStorage.getItem('modalCount') || 0;
 
-  if (modalCount < 5) {
+  if (modalCount < 2) {
     modal.style.display = "block";
     localStorage.setItem('modalCount', ++modalCount); // Increment the count and update localStorage
   }
