@@ -163,6 +163,7 @@ if (isset($_POST['return-btn'])) {
         <div class="bank-details">
             <label for="bank">Select Bank  For Refund:</label>
             <select id="bank" name="bank" required>
+                <option value="Canara Bank">Select Bank</option>
                 <option value="Canara Bank">Canara Bank</option>
                 <option value="SBI">SBI</option>
                 <option value="HDFC">HDFC</option>
@@ -187,6 +188,7 @@ if (isset($_POST['return-btn'])) {
         <p><?php echo isset($shipped_address['user_phone']) ? $shipped_address['user_phone'] : ''; ?></p>
 
         <button type="submit" name="return-btn" class="continue-button" >Return</button>
+       
     </form>
 </div>
 

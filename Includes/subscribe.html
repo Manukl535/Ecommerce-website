@@ -1,14 +1,27 @@
-<form action="email.php" method="post">
-    <section id = "subscribe">
-        
+<form action="email.php" method="post" onsubmit="return validateEmail()">
+    <section id="subscribe">
         <div class="updates">
-        <h4><b>Signup for updates</b></h4>
-        <p><b>Get updates on Sale and <span>Special offers</span></b></p>
+            <h4><b>Signup for updates</b></h4>
+            <p><b>Get updates on Sale and <span>Special offers</span></b></p>
         </div>
-    
+
         <div class="form">
-            <input type="text" name="email" id="emailInput" placeholder="Enter your mail"/><button class="normal" style="width: fit-content;" >subscribe</button>
+            <input type="text" name="email" id="emailInput" placeholder="Enter your mail" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" required />
+            <button class="normal" style="width: fit-content;">subscribe</button>
         </div>
-          
-    </form>
     </section>
+</form>
+
+<script>
+    function validateEmail() {
+        var emailInput = document.getElementById("emailInput");
+        var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+        if (!emailPattern.test(emailInput.value)) {
+            alert("Please enter a valid email address.");
+            return false; // Prevent form submission
+        }
+
+        return true; // Allow form submission
+    }
+</script>
