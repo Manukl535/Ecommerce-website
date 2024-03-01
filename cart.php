@@ -362,6 +362,7 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
                     <div style="text-align: center;">
                         <h3>Your cart is empty!</h3>
                     </div>
+                    
                     </body>
                 </html>';
     // Set total to 0
