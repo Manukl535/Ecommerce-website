@@ -52,6 +52,12 @@ if (isset($_POST['Change_Password'])) {
     $stmtOrderItems->execute();
     $stmtOrderItems->close();
 
+    // Delete from the return_requests table
+    $stmtOrderItems = $conn->prepare("DELETE FROM return_requests WHERE user_id=?");
+    $stmtOrderItems->bind_param('i', $user_id);
+    $stmtOrderItems->execute();
+    $stmtOrderItems->close();
+
     // Logout the user
     session_unset();
     session_destroy();
@@ -398,7 +404,7 @@ else {
     <script>
   function confirmDeleteAccount() {
     // Display a confirmation dialog
-    var confirmDelete = confirm("Are you sure you want to delete your account?");
+    var confirmDelete = confirm("Are you sure you want to delete your account?\nOnce account deleted can't be recovered");
 
     // If the user clicks 'OK', the form will be submitted
     return confirmDelete;
