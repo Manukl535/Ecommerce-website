@@ -94,6 +94,13 @@ $stmt13->execute();
 
 $bag = $stmt13->get_result();
 
+//tshirt
+$stmt14 = $conn->prepare("SELECT * FROM products WHERE Gender='Women' AND product_category='Apparal/tshirt' LIMIT 4");
+
+$stmt14->execute();
+
+$tshirt = $stmt14->get_result();
+
 
 
 ?>
