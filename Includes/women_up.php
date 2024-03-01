@@ -99,14 +99,14 @@ $stmt14 = $conn->prepare("SELECT * FROM products WHERE Gender='Women' AND produc
 
 $stmt14->execute();
 
-$tshirt = $stmt14->get_result();
+$tshirt1 = $stmt14->get_result();
 
 
 //Tshirts
-$stmt14 = $conn->prepare("SELECT * FROM products WHERE Gender='Women' AND product_category='Apparal/tshirt' LIMIT 4");
+$stmt15 = $conn->prepare("SELECT * FROM products WHERE Gender='Women' AND product_category='Apparal/t shirt' LIMIT 4");
 
-$stmt14->execute();
+$stmt15->execute();
 
-$tshirt = $stmt14->get_result();
+$tshirt2 = $stmt15->get_result();
 
 ?>
