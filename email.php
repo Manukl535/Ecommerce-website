@@ -32,7 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 else{
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     // Insert new user into the database
-    $insertQuery = "INSERT INTO email VALUES ('$regemail')";
+    $insertQuery = "INSERT INTO email (email) VALUES ('$regemail')";
+
     if ($conn->query($insertQuery) === TRUE) {
              
         $message = "Thanks for your interest!";
