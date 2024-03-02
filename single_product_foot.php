@@ -22,7 +22,7 @@ if(isset($_GET['product_id'])){
     <link rel="stylesheet" href="styles.css">
 
     <style>
-        /* Add your styles here */
+
     </style> 
 </head>
 <body>
@@ -30,7 +30,7 @@ if(isset($_GET['product_id'])){
 
     <section id="productdetails" class="section-p1">
         <div class="product1">
-            <div class="img-zoom-container">
+            <div>
                 <?php while($row = $product->fetch_assoc()){ ?>
                     <form method="POST" action="cart.php" id="addToCartForm" onsubmit="return validateForm()">
                         <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>"/>
@@ -38,7 +38,7 @@ if(isset($_GET['product_id'])){
                         <input type="hidden" name="product_name" value="<?php echo $row['product_name']; ?>"/>
                         <input type="hidden" name="product_price" value="<?php echo $row['product_price']; ?>"/>
                         <input type="hidden" name="selected_size" id="selectedSize" value=""/>
-                        <div class="img-magnifier-container">
+                        <div>
                             <img id="myimage" src="Assets/<?php echo $row['product_image']; ?>" width="300" height="411">
                         </div>
                     </div>

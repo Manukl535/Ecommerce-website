@@ -46,7 +46,7 @@ if(isset($_GET['product_id'])){
               <input type="hidden" name="product_price" value="<?php echo $row['product_price']; ?> "/>
           
           <div class="img-magnifier-container">
-            <img id="myimage" src="Assets/<?php echo $row['product_image']; ?>" width="300" height="400">
+            <img id="myimage" src="Assets/<?php echo $row['product_image']; ?>" width="300" height="411">
             
           </div>
            
