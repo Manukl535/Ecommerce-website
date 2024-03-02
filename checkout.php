@@ -204,7 +204,6 @@ $randomDate = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)))
     </div>
 
     <script>
-    
     function populateCities() {
         var stateSelect = document.getElementById("states");
         var citySelect = document.getElementById("cities");
@@ -222,10 +221,21 @@ $randomDate = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)))
         // Check if both state and city are selected
         var selectedCity = citySelect.options[citySelect.selectedIndex].value;
         var deliveryDateLabel = document.getElementById("deliveryDateLabel");
+        var deliveryDateSpan = document.getElementById("deliveryDateSpan");
 
         if (selectedState !== "" && selectedCity !== "") {
             // Show the delivery date label
             deliveryDateLabel.style.display = "block";
+
+            // Set the available delivery dates
+            var today = new Date();
+            var startDate = new Date(today);
+            startDate.setDate(today.getDate() + 2); // Start from the day after tomorrow
+
+            var endDate = new Date(today);
+            endDate.setDate(today.getDate() + 7); // 1 week from tomorrow
+
+            deliveryDateSpan.innerHTML = startDate.toLocaleDateString() + " to " + endDate.toLocaleDateString();
         } else {
             // Hide the delivery date label
             deliveryDateLabel.style.display = "none";
