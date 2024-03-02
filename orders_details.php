@@ -79,15 +79,20 @@ h1 {
 
 .order-details {
     margin-top: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #ddd; 
     padding: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    box-shadow: 0 0 10px rgba(1, 2, 9, 0.1); 
+    transition: box-shadow 0.3s ease-in-out; 
 }
 
+
+
+
 .product-image {
-    max-width: 80px;
+    max-width: 150px;
     margin-right: 10px;
 }
 
@@ -102,21 +107,19 @@ h1 {
 }
 
 button {
-    margin-left: 10px;
-    padding: 8px 12px;
-    background-color: #4CAF50;
-    color: black;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: 900;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 50%;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    
 .return-button-disabled {
     background-color: #dddddd;
     cursor: not-allowed;
