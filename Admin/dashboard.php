@@ -126,7 +126,7 @@ $totalProducts = $row['totalProducts'];
 
             <div style="margin-top: 10px;"></div> <!-- Add space between menu items -->
 
-            <a href="#" class="w3-bar-item w3-button w3-padding w3-orange"><i class="fa fa-cube fa-fw"></i>&nbsp; Products (<?php echo $totalProducts; ?>)</a>
+            <a href="prodcucts.php" class="w3-bar-item w3-button w3-padding w3-orange"><i class="fa fa-cube fa-fw"></i>&nbsp; Inventory (<?php echo $totalProducts; ?>)</a>
 
             <div style="margin-top: 10px;"></div> <!-- Add space between menu items -->
             
