@@ -58,14 +58,11 @@
         $newPassword = $_POST['new_password'];
         $newName = $_POST['new_name'];
         $newEmail = $_POST['new_email'];
-        
-        // Validate and sanitize input (you can add more validation as needed)
-        $newName = filter_var($newName, FILTER_SANITIZE_STRING);
-        $newEmail = filter_var($newEmail, FILTER_SANITIZE_EMAIL);
+        $newphone = $_POST['new_phone'];
         
         // Update the admin table
-        $updateStmt = $conn->prepare("UPDATE admin SET password = ?, admin_name = ?, email = ? WHERE admin_id = ?");
-        $updateStmt->bind_param("sssi", $newPassword, $newName, $newEmail, $_SESSION['admin_id']);
+        $updateStmt = $conn->prepare("UPDATE admin SET password = ?, admin_name = ?, email = ?,phone= ? WHERE admin_id = ?");
+        $updateStmt->bind_param("ssssi", $newPassword, $newName, $newEmail, $newphone,$_SESSION['admin_id']);
 
         if ($updateStmt->execute()) {
             echo '<p style="color: green;">Account updated successfully!</p>';
@@ -93,6 +90,11 @@
         <div class="form-group">
             <label for="new_email">New Email:</label>
             <input type="email" name="new_email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="new_phone">New Phone:</label>
+            <input type="phone" name="new_phone" required>
         </div>
 
         <button type="submit">Update Account</button>
