@@ -22,20 +22,10 @@ if (!empty($_SESSION['cart']) && isset($_POST['place_order'])) {
     exit();
 }
 
-// Calculate the start and end dates for the one-week period
-$today = new DateTime();
-$endDate = $today->modify('+1 week')->format('Y-m-d');
+// Generate a random date within a 1-3 day period
 $startDate = (new DateTime())->format('Y-m-d');
-
-// Retrieve the selected delivery date from the session, or generate a new random date
-if (isset($_POST['dod'])) {
-    $_SESSION['delivery_date'] = $_POST['dod'];
-} elseif (!isset($_SESSION['delivery_date'])) {
-    $_SESSION['delivery_date'] = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)));
-}
-
-// Generate a random date within the one-week period
-$randomDate = $_SESSION['delivery_date'];
+$endDate = (new DateTime())->modify('+3 days')->format('Y-m-d');
+$randomDate = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)));
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +37,7 @@ $randomDate = $_SESSION['delivery_date'];
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style>
-        body {
+         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 16px;
             line-height: 1.6;
@@ -149,7 +139,6 @@ $randomDate = $_SESSION['delivery_date'];
             margin-top: 20px;
             color: #555;
         }
-
     </style>
 </head>
 
@@ -174,50 +163,48 @@ $randomDate = $_SESSION['delivery_date'];
                 </div>
 
                 <div class="col-50">
-                    
-
                     <label for="states">State</label>
-                    <select type="select" id="states" name="state" onchange="populateCities()">
-                        <option value="select" selected>Select State</option>
-                        <option value="Karnataka">KARNATAKA</option>
-                        <option value="Maharashtra">MAHARASHTRA</option>
-                        <!-- Add more states as needed -->
-                    </select>
+                    <select type="select" id="states" name="state" onchange="populateCities()" required>
+    <option value="" disabled selected>Select State</option>
+    <option value="Karnataka">KARNATAKA</option>
+    <option value="Maharashtra">MAHARASHTRA</option>
+    <!-- Add more states as needed -->
+</select>
+<label for="states">City</label>
+<select id="cities" name="city" required>
+    <option value="" disabled selected>Select City</option>
+    <!-- Cities for Karnataka -->
+    <option value="Bengaluru" data-state="Karnataka">BENGALURU</option>
+    <option value="Mysuru" data-state="Karnataka">MYSURU</option>
+    <!-- Cities for Maharashtra -->
+    <option value="Mumbai" data-state="Maharashtra">MUMBAI</option>
+    <option value="Pune" data-state="Maharashtra">PUNE</option>
+    <!-- Add more cities as needed -->
+</select>
 
-                    <label for="cities">City</label>
-                    <select id="cities" name="city">
-                        <option value="select" selected>Select City</option>
-                        <!-- Cities for Karnataka -->
-                        <option value="Bengaluru" data-state="Karnataka">BENGALURU</option>
-                        <option value="Mysuru" data-state="Karnataka">MYSURU</option>
-                        <!-- Cities for Maharashtra -->
-                        <option value="Mumbai" data-state="Maharashtra">MUMBAI</option>
-                        <option value="Pune" data-state="Maharashtra">PUNE</option>
-                        <!-- Add more cities as needed -->
-                    </select>
-
-                    <input type="date" id="deliverydate" name="dod" style="display: none;"  value="<?php echo $randomDate; ?>" required>
+                    <input type="date" id="deliverydate" name="dod" style="display: none;" value="<?php echo $randomDate; ?>" required>
 
                     <label for="phone">Phone</label>
-                    <input type="text" id="phone" name="phone" placeholder="93425 32878" pattern="[0-9]{10}"title="Enter the Mobile number" required>
+                    <input type="text" id="phone" name="phone" placeholder="93425 32878" pattern="[0-9]{10}" title="Enter the Mobile number" required>
                 </div>
-                
             </div>
-            
+
             <div style="display: flex; justify-content: space-between; align-items: center;">
-    <?php echo "<h4 style='text-align: left; margin: 8px;'>Total cart Qty: " . $_SESSION['total_items'] . "</h4>";?>
-    
-    <label for="total_amount"><b>Total Amount: &#8377; <?php echo $_SESSION['total']; ?></b></label>
+                <?php echo "<h4 style='text-align: left; margin: 8px;'>Total cart Qty: " . $_SESSION['total_items'] . "</h4>"; ?>
 
-    <label id="deliveryDateLabel" style="display: none;" for="dod">Delivery by <span><?php echo date('D F j', strtotime($randomDate)); ?></span></label>
-</div>
+                <label for="total_amount"><b>Total Amount: &#8377; <?php echo $_SESSION['total']; ?></b></label>
 
-<center>
-                <input type="submit" value="Place Order" name="place_order" class="btn" data-target="#paymentModal" data-toggle="modal"></center>
+                <label id="deliveryDateLabel" style="display: none;" for="dod">Delivery by <span><?php echo date('D F j', strtotime($randomDate)); ?></span></label>
+            </div>
+
+            <center>
+                <input type="submit" value="Place Order" name="place_order" class="btn" data-target="#paymentModal" data-toggle="modal">
+            </center>
         </form>
     </div>
 
     <script>
+    
     function populateCities() {
         var stateSelect = document.getElementById("states");
         var citySelect = document.getElementById("cities");
@@ -236,7 +223,7 @@ $randomDate = $_SESSION['delivery_date'];
         var selectedCity = citySelect.options[citySelect.selectedIndex].value;
         var deliveryDateLabel = document.getElementById("deliveryDateLabel");
 
-        if (selectedState !== "select" && selectedCity !== "select") {
+        if (selectedState !== "" && selectedCity !== "") {
             // Show the delivery date label
             deliveryDateLabel.style.display = "block";
         } else {
@@ -252,7 +239,6 @@ $randomDate = $_SESSION['delivery_date'];
     // Trigger populateCities() once on page load to handle initial state
     populateCities();
 </script>
-
 
     <center>
         <div class="copyright">
