@@ -72,11 +72,12 @@ if (isset($_POST['Change_Password'])) {
 else {
     // Fetch orders for the logged-in user
     $user_id = $_SESSION['user_id'];
-    $stmt = $conn->prepare("SELECT * FROM order_item WHERE user_id=? ORDER BY order_date DESC");
+    $stmt = $conn->prepare("SELECT * FROM order_item WHERE user_id=? ORDER BY dod DESC");
     $stmt->bind_param('i', $user_id);
     $stmt->execute();
     $orders = $stmt->get_result();
     $stmt->close();
+
 }
 
 ?>
