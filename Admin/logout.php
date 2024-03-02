@@ -1,8 +1,11 @@
 <?php
+// logout.php
 session_start();
-session_unset();
+
+// Destroy the session
 session_destroy();
-echo "<script>alert('You have been logged out successfully'); window.location.href = 'index.php';</script>";
-header('location:login.php');
+
+// Redirect to the login page
+header('Location: ../index.php');
 exit();
 ?>
