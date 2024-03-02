@@ -186,7 +186,7 @@ if (isset($_POST['back_to_cart'])) {
         <p>Please Don't Go Back Or Refresh</p>
         <script>
     function showFailureAlert() {
-      alert("Payment failed!.\n Sorry, your order was unsuccessful.\n Cart cleared.");
+      alert("Payment failed!.\nSorry, your order was unsuccessful.\nCart cleared.");
       window.location.href = "cart.php";
     }
 

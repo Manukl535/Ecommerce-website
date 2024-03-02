@@ -175,7 +175,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
     
     <div class="container">
-        <h4>Leave us a Message</h4><br/>
+        <h4>Leave us a message</h4><br/>
         <form action="contact.php" method="post" onsubmit="return validateEmail()">
             <div class="form-group">
                 <label for="name"> Name:</label>
