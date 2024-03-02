@@ -1,5 +1,11 @@
 <?php
-session_start();
+    // Check if the user is logged in as an admin, you may implement your own authentication logic
+    session_start();
+    if (!isset($_SESSION['admin_name'])) {
+        header('Location: login.php'); // Redirect to login page if not logged in as admin
+        exit();
+    }
+
 include('../Includes/connection.php');
 
 $stmt = $conn->prepare("SELECT * FROM return_requests");
