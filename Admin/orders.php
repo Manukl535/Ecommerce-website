@@ -67,7 +67,7 @@ $stmt->close();
         background-color: #0056b3;
     }
 </style>
-    </style>
+    
     <title>Orders</title>
 </head>
 

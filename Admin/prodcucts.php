@@ -142,6 +142,21 @@ $products = getProducts($conn);
         a:hover {
             text-decoration: underline;
         }
+
+        /* Additional styles for the export button */
+        #export-btn {
+            background-color: #008CBA;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        #export-btn:hover {
+            background-color: #00587a;
+        }
     </style>
 </head>
 
@@ -151,43 +166,45 @@ $products = getProducts($conn);
 
         <form method="post" action="" style="border: 1px solid #ddd; padding: 20px; border-radius: 5px;">
 
-    <div>
-        <label for="Gender">Gender:</label>
-        <input type="text" name="Gender" required>
+            <div>
+                <label for="Gender">Gender:</label>
+                <input type="text" name="Gender" required>
 
-        <label for="product_name">Product Name:</label>
-        <input type="text" name="product_name" required>
+                <label for="product_name">Product Name:</label>
+                <input type="text" name="product_name" required>
 
-        <label for="product_category">Product Category:</label>
-        <input type="text" name="product_category">
+                <label for="product_category">Product Category:</label>
+                <input type="text" name="product_category">
 
-        <label for="product_description">Product Description:</label>
-        <input name="product_description" style="resize: none;">
-    </div>
+                <label for="product_description">Product Description:</label>
+                <input name="product_description" style="resize: none;">
+            </div>
 
-    <div>
-        <label for="product_image">Product Image Name:</label>
-        <input type="text" name="product_image">
+            <div>
+                <label for="product_image">Product Image Name:</label>
+                <input type="text" name="product_image">
 
-        <label for="product_price">Product Price:</label>
-        <input type="text" name="product_price" required>
+                <label for="product_price">Product Price:</label>
+                <input type="text" name="product_price" required>
 
-        <label for="product_special_offer">Special Offer:</label>
-        <input type="text" name="product_special_offer">
+                <label for="product_special_offer">Special Offer:</label>
+                <input type="text" name="product_special_offer">
 
-        <label for="product_color">Product Color:</label>
-        <input type="text" name="product_color">
-    </div>
+                <label for="product_color">Product Color:</label>
+                <input type="text" name="product_color">
+            </div>
 
-    <div style="text-align: center; margin: 5px auto;">
-        <button type="submit" name="add_product">Add Product</button>
-    </div>
-</form>
+            <div style="text-align: center; margin: 5px auto;">
+                <button type="submit" name="add_product">Add Product</button>
+            </div>
+        </form>
 
+        <!-- Export button -->
+        <button id="export-btn" onclick="exportToExcel()">Export To Excel</button>
 
         <div>
             <h2>Product List</h2>
-            <table>
+            <table id="product-table">
                 <thead>
                     <tr>
                         <th>Product ID</th>
@@ -223,6 +240,24 @@ $products = getProducts($conn);
             </table>
         </div>
     </div>
+
+    <!-- Include the SheetJS library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+
+    <script>
+        function exportToExcel() {
+            /* Get table data */
+            var table = document.querySelector('#product-table');
+
+            /* Create a workbook containing the table data */
+            var ws = XLSX.utils.table_to_sheet(table);
+            var wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+            /* Save the workbook to a file */
+            XLSX.writeFile(wb, 'products.xlsx');
+        }
+    </script>
 </body>
 
 </html>

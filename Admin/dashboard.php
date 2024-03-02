@@ -279,7 +279,9 @@ $totalProducts = $row['totalProducts'];
         </script>
 
     </div>
-
+    <div class="copyright" style="text-align:center;">
+        <p>2023 &#169; All Rights Reserved</p><p>Designed and Maintained by <b>Manu </b>and <b>Srisha</b></p>
+    </div>
 </body>
 
 </html>
