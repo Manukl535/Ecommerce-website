@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 25, 2024 at 11:35 AM
+-- Generation Time: Mar 03, 2024 at 12:26 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `email` (
+  `count_id` int(100) NOT NULL,
   `email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -35,8 +36,8 @@ CREATE TABLE `email` (
 -- Dumping data for table `email`
 --
 
-INSERT INTO `email` (`email`) VALUES
-('MANU@GMAIL.COM');
+INSERT INTO `email` (`count_id`, `email`) VALUES
+(1, 'manuklmanu2@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -51,17 +52,6 @@ CREATE TABLE `feedback` (
   `phone` varchar(15) DEFAULT NULL,
   `feedback` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `feedback`
---
-
-INSERT INTO `feedback` (`count_id`, `name`, `email`, `phone`, `feedback`) VALUES
-(2, 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Hello!!'),
-(3, 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Hello Posh this is Manu'),
-(4, 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Hello! Hello! Hello!'),
-(5, 'MICHEAL', 'MICHEAL@GMAIL.COM', '7022015320', 'HELLO POSH!!'),
-(6, 'MANU', 'MANU@GMAIL.COM', '7022015320', 'HELLO POSH!!');
 
 -- --------------------------------------------------------
 
@@ -90,10 +80,13 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `order_cost`, `order_status`, `user_id`, `user_name`, `email`, `user_phone`, `user_city`, `user_state`, `user_address`, `order_date`, `order_quantity`, `dod`) VALUES
-(1, '2198', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-25', '2', '2024-02-25'),
-(2, '999', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-25', '1', '2024-02-25'),
-(6, '1299', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-25', '1', '2024-02-26'),
-(7, '899', 'Paid', '1', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-25', '1', '2024-02-26');
+(2, '899', 'Paid', '70', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-02-01', '1', '2024-02-05'),
+(3, '999', 'Paid', '70', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-03-02', '1', '2024-03-02'),
+(9, '799', 'Paid', '70', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Mumbai', 'Karnataka', 'ATTIBELE', '2024-03-02', '1', '2024-03-07'),
+(10, '899', 'Paid', '70', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-03-02', '1', '2024-03-07'),
+(11, '899', 'Paid', '70', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-03-02', '1', '2024-03-04'),
+(14, '799', 'Paid', '70', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-03-02', '1', '2024-03-03'),
+(15, '1299', 'Paid', '70', 'MANU', 'MANU@GMAIL.COM', '7022015320', 'Bengaluru', 'Karnataka', 'ATTIBELE', '2024-03-02', '1', '2024-03-02');
 
 -- --------------------------------------------------------
 
@@ -119,11 +112,13 @@ CREATE TABLE `order_item` (
 --
 
 INSERT INTO `order_item` (`item_id`, `order_id`, `product_id`, `product_name`, `product_image`, `product_price`, `product_quantity`, `user_id`, `order_date`, `dod`) VALUES
-(1, 1, 7, 'Orange Grpahic Shirt ', 'shirt3.png ', '1299', '1', '1', '2024-02-25 07:52:35', '2024-02-25'),
-(2, 1, 1, 'Men Relaxed blue Hoodie ', 'sweat1.png ', '899', '1', '1', '2024-02-25 07:52:35', '2024-02-25'),
-(3, 2, 4, 'Men printed hoodie ', 'sweat4.png ', '999', '1', '1', '2024-02-25 09:03:58', '2024-02-25'),
-(7, 6, 12, 'Women printed croptop ', 'women4.png ', '1299', '1', '1', '2024-02-25 11:06:50', '2024-02-26'),
-(8, 7, 80, 'Men Hat ', 'men_hat4.png ', '899', '1', '1', '2024-02-25 11:26:20', '2024-02-26');
+(2, 2, 2, 'Men turtle neck hoodie', 'sweat2.png\r\n', '899', '1', '70', '2024-02-01 18:15:04', '2024-02-05'),
+(3, 3, 4, 'Men printed hoodie', 'sweat4.png', '999', '1', '70', '2024-03-02 06:45:34', '2024-03-02'),
+(9, 9, 3, 'Men football printed Hoodie', 'sweat3.png', '799', '1', '70', '2024-03-02 07:19:38', '2024-03-07'),
+(10, 10, 83, 'Men Wallet ', 'wallet3.png ', '899', '1', '70', '2024-03-02 07:23:52', '2024-03-07'),
+(11, 11, 99, 'Women Hand Bag ', 'Bag3.png ', '899', '1', '70', '2024-03-02 07:27:33', '2024-03-04'),
+(14, 14, 3, 'Men football printed Hoodie', 'sweat3.png', '799', '1', '70', '2024-03-02 04:20:24', '2024-03-03'),
+(15, 15, 7, 'Orange Grpahic Shirt', 'shirt3.png', '1299', '1', '70', '2024-03-02 15:02:27', '2024-03-02');
 
 -- --------------------------------------------------------
 
@@ -247,7 +242,11 @@ INSERT INTO `products` (`product_id`, `Gender`, `product_name`, `product_categor
 (97, 'Women', 'Women Hand Bag', 'Accessories/bag', 'Bag', 'Bag1.png', 899.00, 0, 'White'),
 (98, 'Women', 'Women Hand Bag', 'Accessories/bag', 'Bag', 'Bag2.png', 899.00, 0, 'White'),
 (99, 'Women', 'Women Hand Bag', 'Accessories/bag', 'Bag', 'Bag3.png', 899.00, 0, 'White'),
-(100, 'Women', 'Women Hand Bag', 'Accessories/bag', 'Bag', 'Bag4.png', 899.00, 0, 'White');
+(100, 'Women', 'Women Hand Bag', 'Accessories/bag', 'Bag', 'Bag4.png', 899.00, 0, 'White'),
+(101, 'Women', 'Women T Shirt', 'Apparal/tshirt', 'T Shirt', 'wts1.png', 899.00, 0, 'White'),
+(102, 'Women', 'Women T Shirt', 'Apparal/tshirt', 'T Shirt', 'wts2.png', 899.00, 0, 'White'),
+(103, 'Women', 'Women T Shirt', 'Apparal/tshirt', 'T Shirt', 'wts3.png', 899.00, 0, 'White'),
+(104, 'Women', 'Women T Shirt', 'Apparal/tshirt', 'T Shirt', 'wts4.png', 899.00, 0, 'White');
 
 -- --------------------------------------------------------
 
@@ -257,9 +256,10 @@ INSERT INTO `products` (`product_id`, `Gender`, `product_name`, `product_categor
 
 CREATE TABLE `return_requests` (
   `return_id` int(11) NOT NULL,
-  `order_id` varchar(10) NOT NULL,
+  `order_id` int(10) NOT NULL,
   `user_id` varchar(10) NOT NULL,
   `product_id` varchar(20) NOT NULL,
+  `product_price` int(10) NOT NULL,
   `reason` varchar(50) NOT NULL,
   `comments` varchar(500) DEFAULT NULL,
   `user_name` varchar(50) NOT NULL,
@@ -277,10 +277,8 @@ CREATE TABLE `return_requests` (
 -- Dumping data for table `return_requests`
 --
 
-INSERT INTO `return_requests` (`return_id`, `order_id`, `user_id`, `product_id`, `reason`, `comments`, `user_name`, `user_phone`, `user_address`, `user_city`, `user_state`, `return_status`, `bank`, `account_number`, `ifsc_code`) VALUES
-(14, '1', '1', '1', 'Product Damaged', 'Product Damaged', 'MANU', '7022015320', 'ATTIBELE', 'Bengaluru', 'Karnataka', 'Yes', 'Canara Bank', '0696108036571', 'CNRB0000696'),
-(17, '1', '1', '7', 'Product Damaged', 'Hello', 'MANU', '7022015320', 'ATTIBELE', 'Bengaluru', 'Karnataka', 'Yes', 'Canara Bank', '0696108036571', 'CNRB0000696'),
-(18, '2', '1', '4', 'Product Damaged', 'Product Damaged', 'MANU', '7022015320', 'ATTIBELE', 'Bengaluru', 'Karnataka', 'Yes', 'Canara Bank', '0696108036571', 'CNRB0000696');
+INSERT INTO `return_requests` (`return_id`, `order_id`, `user_id`, `product_id`, `product_price`, `reason`, `comments`, `user_name`, `user_phone`, `user_address`, `user_city`, `user_state`, `return_status`, `bank`, `account_number`, `ifsc_code`) VALUES
+(1, 15, '70', '7', 1299, 'Product Damaged', 'Product Damaged\r\n', 'MANU', '7022015320', 'ATTIBELE', 'Bengaluru', 'Karnataka', 'Yes', 'Canara Bank', '0696108036571', 'CNRB0000696');
 
 -- --------------------------------------------------------
 
@@ -302,7 +300,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `phone`, `email`, `password`, `otp`) VALUES
-(1, 'MANU', '+917022015320', 'MANU@GMAIL.COM', '112233', '287121');
+(70, 'MANU', '+917022015320', 'MANU@GMAIL.COM', '998877', '862245');
 
 --
 -- Indexes for dumped tables
@@ -312,7 +310,7 @@ INSERT INTO `users` (`user_id`, `user_name`, `phone`, `email`, `password`, `otp`
 -- Indexes for table `email`
 --
 ALTER TABLE `email`
-  ADD PRIMARY KEY (`email`);
+  ADD PRIMARY KEY (`count_id`,`email`);
 
 --
 -- Indexes for table `feedback`
@@ -342,7 +340,8 @@ ALTER TABLE `products`
 -- Indexes for table `return_requests`
 --
 ALTER TABLE `return_requests`
-  ADD PRIMARY KEY (`return_id`);
+  ADD PRIMARY KEY (`return_id`),
+  ADD KEY `order_id` (`order_id`);
 
 --
 -- Indexes for table `users`
@@ -355,40 +354,56 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `email`
+--
+ALTER TABLE `email`
+  MODIFY `count_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `count_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `count_id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `order_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `item_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `item_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT for table `return_requests`
 --
 ALTER TABLE `return_requests`
-  MODIFY `return_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `return_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `return_requests`
+--
+ALTER TABLE `return_requests`
+  ADD CONSTRAINT `return_requests_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
