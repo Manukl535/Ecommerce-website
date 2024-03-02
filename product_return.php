@@ -25,8 +25,16 @@ if (isset($_POST['return-btn'])) {
     // Get the current product ID from the session
     $current_product_id = $_SESSION['current_product_id'];
 
-    $stmt = $conn->prepare("INSERT INTO return_requests (order_id, user_id, product_id, reason, comments, user_name, user_phone, user_address, user_city, user_state, return_status, bank, account_number, ifsc_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param('iissssssssssss', $order_id, $user_id, $current_product_id, $reason, $comments, $shipped_address['user_name'], $shipped_address['user_phone'], $shipped_address['user_address'], $shipped_address['user_city'], $shipped_address['user_state'], $status, $bank, $account_number, $ifsc_code);
+    // Fetch product_price based on product_id
+    $priceStmt = $conn->prepare("SELECT product_price FROM products WHERE product_id = ?");
+    $priceStmt->bind_param('i', $current_product_id);
+    $priceStmt->execute();
+    $priceResult = $priceStmt->get_result();
+    $product_price = $priceResult->fetch_assoc()['product_price'];
+    $priceStmt->close();
+
+    $stmt = $conn->prepare("INSERT INTO return_requests (order_id, user_id, product_id, product_price, reason, comments, user_name, user_phone, user_address, user_city, user_state, return_status, bank, account_number, ifsc_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param('iiissssssssssss', $order_id, $user_id, $current_product_id, $product_price, $reason, $comments, $shipped_address['user_name'], $shipped_address['user_phone'], $shipped_address['user_address'], $shipped_address['user_city'], $shipped_address['user_state'], $status, $bank, $account_number, $ifsc_code);
 
     if ($stmt->execute()) {
         echo '<script>';
@@ -42,7 +50,6 @@ if (isset($_POST['return-btn'])) {
     $stmt->close();
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">

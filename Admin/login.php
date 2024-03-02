@@ -28,10 +28,10 @@ if(isset($_POST['login-btn'])){
           header('location:dashboard.php?messages=Logged in Successfully');
         }
         else{
-            header('location:admin_login.php?error=Invalid Email or Password');
+            header('location:login.php?error=Invalid Email or Password');
         }
     }else{
-        header('location:admin_login.php?error=Something Went Wrong');
+        header('location:login.php?error=Something Went Wrong');
     }
 }
 ?>
@@ -143,7 +143,7 @@ if(isset($_POST['login-btn'])){
 </head>
 <body>
 <div class="login-form">    
-    <form id="login-form" action="admin_login.php" method="POST">
+    <form id="login-form" action="login.php" method="POST">
     <img src="../Assets/admin_icon.png" style="height: 100px; width: 100px; display: block; margin: 0 auto;">
 
     	<h4 class="modal-title"><b>Admin</b></h4>
