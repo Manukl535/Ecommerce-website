@@ -163,7 +163,7 @@ if (isset($_POST['return-btn'])) {
         <div class="bank-details">
             <label for="bank">Select Bank  For Refund:</label>
             <select id="bank" name="bank" required>
-                <option value="Canara Bank">Select Bank</option>
+                <option value="">Select Bank</option>
                 <option value="Canara Bank">Canara Bank</option>
                 <option value="SBI">SBI</option>
                 <option value="HDFC">HDFC</option>
