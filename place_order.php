@@ -18,7 +18,6 @@ if (isset($_POST['place_order'])) {
     $dod = $_POST['dod'];
     $product_quantity = $_SESSION['total_items'];
 
-
     // Insert order into orders table
     $stmt = $conn->prepare("INSERT INTO orders (order_cost, order_status, user_id, user_name, email, user_phone, user_city, user_state, user_address, order_date, order_quantity, dod) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
     $stmt->bind_param('isssssssssss', $order_cost, $order_status, $user_id, $name, $email, $phone, $city, $state, $address, $order_date, $product_quantity, $dod);
@@ -34,9 +33,15 @@ if (isset($_POST['place_order'])) {
             $product_image = $product['product_image'];
             $product_price = $product['product_price'];
             $product_quantity = $product['product_quantity'];
-            $dod = $_POST['dod'];
-            $stmt1 = $conn->prepare("INSERT INTO order_item (order_id, product_id, product_name, product_image, product_price, product_quantity, user_id, order_date,dod) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt1->bind_param('isssiisss', $order_id, $product_id, $product_name, $product_image, $product_price, $product_quantity, $user_id, $order_date,$dod);
+
+            // Update available_qty in products table
+            $stmt_update_qty = $conn->prepare("UPDATE products SET available_qty = available_qty - ? WHERE product_id = ?");
+            $stmt_update_qty->bind_param('ii', $product_quantity, $product_id);
+            $stmt_update_qty->execute();
+
+            // Insert into order_item table
+            $stmt1 = $conn->prepare("INSERT INTO order_item (order_id, product_id, product_name, product_image, product_price, product_quantity, user_id, order_date, dod) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt1->bind_param('isssiisss', $order_id, $product_id, $product_name, $product_image, $product_price, $product_quantity, $user_id, $order_date, $dod);
             $stmt1->execute();
         }
     }
@@ -52,6 +57,22 @@ if (isset($_POST['place_order'])) {
     exit();
 } elseif (isset($_POST['cancel_order']) && isset($_SESSION['order_id'])) {
     $order_id = $_SESSION['order_id'];
+
+    // Retrieve products and quantities from order_item table
+    $stmt_get_items = $conn->prepare("SELECT product_id, product_quantity FROM order_item WHERE order_id = ?");
+    $stmt_get_items->bind_param('i', $order_id);
+    $stmt_get_items->execute();
+    $result_items = $stmt_get_items->get_result();
+
+    // Revert available_qty in products table
+    while ($row = $result_items->fetch_assoc()) {
+        $product_id = $row['product_id'];
+        $product_quantity = $row['product_quantity'];
+
+        $stmt_revert_qty = $conn->prepare("UPDATE products SET available_qty = available_qty + ? WHERE product_id = ?");
+        $stmt_revert_qty->bind_param('ii', $product_quantity, $product_id);
+        $stmt_revert_qty->execute();
+    }
 
     // Delete from order_item table
     $stmt1 = $conn->prepare("DELETE FROM order_item WHERE order_id = ?");
