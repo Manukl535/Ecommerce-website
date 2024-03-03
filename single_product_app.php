@@ -66,7 +66,7 @@ if(isset($_GET['product_id'])){
                     echo '<button class="disabled" type="button" disabled>Add To Cart</button>';
                 } else {
             ?>
-                 <div class="color-swatches">
+                <div class="color-swatches">
                         <div class="swatch" style="background-color: blue" onclick="selectColor('blue')"></div>
                         <div class="swatch" style="background-color: red" onclick="selectColor('red')"></div>
                         <div class="swatch" style="background-color: gray" onclick="selectColor('gray')"></div>
@@ -80,8 +80,20 @@ if(isset($_GET['product_id'])){
                     <option value="L">L</option>
                     <option value="XL">XL</option>
                 </select>
-                <input type="number" min="1" name="product_quantity" value="1">
-                <button class="normal" type="submit" name="add_to_cart">Add To Cart</button>
+          <input type="number" min="1" max="<?php echo $row['available_qty'] ; ?>" name="product_quantity" value="1" oninput="validateQuantity(this)">
+
+<script>
+    function validateQuantity(input) {
+        var enteredQty = parseInt(input.value);
+        var maxQty = parseInt(input.getAttribute('max'));
+
+        if (enteredQty > maxQty) {
+            alert("Quantity not available");
+            input.value = maxQty; // Set the input value to the maximum allowed quantity
+        }
+    }
+</script>
+ <button class="normal" type="submit" name="add_to_cart">Add To Cart</button>
             <?php } ?>
             <br/><br/>
             <h4>Product Description</h4><?php echo $row['product_description']; ?>
