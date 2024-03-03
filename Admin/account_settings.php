@@ -58,8 +58,7 @@
 <div class="container">
     <h2>Account Settings</h2>
     <?php
-    // PHP script to handle form submission and update database
-    session_start();
+  
     include('../Includes/connection.php'); 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Retrieve form data

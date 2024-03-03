@@ -75,6 +75,7 @@ $stmt->close();
 <body>
 
     <div class="profile-section">
+    <button onclick="exportToExcel()">Export to Excel</button>
         <h4 class="orders-heading">Returns</h4>
 
         <div class="order-box">
@@ -82,27 +83,27 @@ $stmt->close();
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Order ID</th>
-                            <th>Product_id</th>
-                            <th>Reason</th>
-                            <th>Product Price</th>
-                            <th>Refund Status</th>
+                            <th style="text-align: center;">Order ID</th>
+                            <th style="text-align: center;">Product_id</th>
+                            <th style="text-align: center;">Reason</th>
+                            <th style="text-align: center;">Product Price</th>
+                            <th style="text-align: center;">Refund Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php while ($row = $orders->fetch_assoc()) { ?>
                             <tr>
-                                <td>ODR<?php echo str_pad($row['order_id'], 3, '0', STR_PAD_LEFT); ?></td>
-                                <td><?php echo $row['product_id']; ?></td>
-                                <td><?php echo $row['reason']; ?></td>
-                                <td><?php echo $row['product_price']; ?></td>
-                                <td>Settled</td>
+                                <td style="text-align: center;">ODR<?php echo str_pad($row['order_id'], 3, '0', STR_PAD_LEFT); ?></td>
+                                <td style="text-align: center;"><?php echo $row['product_id']; ?></td>
+                                <td style="text-align: center;"><?php echo $row['reason']; ?></td>
+                                <td style="text-align: center;"><?php echo $row['product_price']; ?></td>
+                                <td style="text-align: center;color:green"><strong>Settled</strong></td>
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
             </div>
-            <button onclick="exportToExcel()">Export to Excel</button>
+           
         </div>
     </div>
 
