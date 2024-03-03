@@ -11,7 +11,7 @@ include('../Includes/connection.php');
 
 
 
-$stmt = $conn->prepare("SELECT * FROM order_item ORDER BY order_date DESC");
+$stmt = $conn->prepare("SELECT * FROM order_item ORDER BY dod DESC");
 $stmt->execute();
 $orders = $stmt->get_result();
 $stmt->close();
@@ -27,53 +27,68 @@ $stmt->close();
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa; 
-        }
+     body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
 
-        .profile-section {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin: 20px;
-        }
+.profile-section {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+}
 
-        .orders-heading {
-            color: #333;
-            text-align: center;
-        }
+.orders-heading {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-        .order-box {
-            margin-top: 20px;
-        }
+.order-box {
+    margin-top: 20px;
+}
 
-        .table th,
-        .table td {
-            border: 1px solid #dee2e6;
-            padding: 8px;
-            text-align: left;
-        }
+.table th,
+.table td {
+    border: 1px solid #dee2e6;
+    padding: 12px;
+    text-align: left;
+}
 
-        .table th {
-            background-color: #f2f2f2;
-        }
-        
-    
+.table th {
+    background-color: #f2f2f2;
+}
+
+button {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .table th,
+    .table td {
+        font-size: 14px;
+    }
+
     button {
-        background-color: #007bff;
-        color: #ffffff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-top: 10px;
+        width: 100%;
     }
+}
 
-    button:hover {
-        background-color: #0056b3;
-    }
 </style>
     
     <title>Orders</title>
@@ -82,24 +97,25 @@ $stmt->close();
 <body>
 
     <div class="profile-section">
+    <button onclick="exportToExcel()">Export to Excel</button>
         <h4 class="orders-heading">Orders</h4>
-
+    
         <div class="order-box">
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Order ID</th>
-                            <th>Order Date</th>
-                            <th>Order Status</th>
-                            <th>Order Cost</th>
+                            <th style="text-align: center;">Order ID</th>
+                            <th style="text-align: center;">Order Date</th>
+                            <th style="text-align: center;">Order Status</th>
+                            <th style="text-align: center;">Order Cost</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php while ($row = $orders->fetch_assoc()) { ?>
                             <tr>
-                                <td>ODR<?php echo str_pad($row['order_id'], 3, '0', STR_PAD_LEFT); ?></td>
-                                <td><?php echo date('d-m-Y', strtotime($row['order_date'])); ?></td>
+                                <td style="text-align: center;">ODR<?php echo str_pad($row['order_id'], 3, '0', STR_PAD_LEFT); ?></td>
+                                <td style="text-align: center;"><?php echo date('d-m-Y', strtotime($row['order_date'])); ?></td>
 
                                    <?php
                                     $dod = $row['dod'];
@@ -109,14 +125,15 @@ $stmt->close();
                                     $statusColor = $isDelivered ? 'green' : 'black';
                                     ?>
 
-                                <td style="color: <?php echo $statusColor; ?>"><strong><?php echo $statusText . ': ' . $formatted_date; ?></strong></td>
-                                <td>&#8377; <?php echo $row['product_price']; ?></td>
+                                <td style="text-align: center; color: <?php echo $statusColor; ?>"><strong><?php echo $statusText . ': ' . $formatted_date; ?></strong></td>
+
+                                <td style="text-align: center;">&#8377; <?php echo $row['product_price']; ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
             </div>
-            <button onclick="exportToExcel()">Export to Excel</button>
+           
         </div>
     </div>
 
