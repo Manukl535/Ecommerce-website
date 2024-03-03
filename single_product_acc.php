@@ -75,7 +75,7 @@ if(isset($_GET['product_id'])){
         var maxQty = parseInt(input.getAttribute('max'));
 
         if (enteredQty > maxQty) {
-            alert("Quantity not available");
+            alert("Sorry, Requested quantity not available!");
             input.value = maxQty; // Set the input value to the maximum allowed quantity
         }
     }

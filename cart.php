@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include('Includes/connection.php');
 // Check if 'cart' is set in $_SESSION
 if (!isset($_SESSION['cart']) || !is_array($_SESSION['cart'])) {
     $_SESSION['cart'] = array();
@@ -22,7 +22,6 @@ if (isset($_POST['add_to_cart'])) {
             'product_name' => htmlspecialchars($_POST['product_name']), 
             'product_price' => $_POST['product_price'],
             'product_quantity' => $_POST['product_quantity']
-            
         );
 
         $_SESSION['cart'][$product_id] = $product_array;
@@ -30,36 +29,44 @@ if (isset($_POST['add_to_cart'])) {
         echo '<script>alert ("Product was already added"); </script>';
     }
 
-    // calculate total
+    // Calculate total
     calculatecart();
 } elseif (isset($_POST['remove_product'])) {
     $product_id = $_POST['product_id'];
     // Check if the cart is set and is an array
     if (isset($_SESSION['cart']) && is_array($_SESSION['cart']) && isset($_SESSION['cart'][$product_id])) {
         unset($_SESSION['cart'][$product_id]);
-        
     }
 
-    // calculate total
+    // Calculate total
     calculatecart();
 } elseif (isset($_POST['edit_quantity'])) {
     $product_id = $_POST['product_id'];
     $product_quantity = $_POST['product_quantity'];
 
+    // Fetch available quantity from the database using your function
+    $available_qty = getAvailableQuantity($product_id);
+
     // Check if the cart is set and is an array
     if (isset($_SESSION['cart']) && is_array($_SESSION['cart']) && isset($_SESSION['cart'][$product_id])) {
-        $product_array = $_SESSION['cart'][$product_id];
-        $product_array['product_quantity'] = $product_quantity;
-        $_SESSION['cart'][$product_id] = $product_array;
-    }
+        // Check if the entered quantity is less than or equal to available_qty
+        if ($product_quantity <= $available_qty) {
+            $product_array = $_SESSION['cart'][$product_id];
+            $product_array['product_quantity'] = $product_quantity;
+            $_SESSION['cart'][$product_id] = $product_array;
 
-    // calculate total
-    calculatecart();
-} else {
+            // Calculate total
+            calculatecart();
+        } else {
+            echo '<script>alert("Sorry, Requested quantity not available!");</script>';
+        }
+    }
+}
+ else {
     // header("location:index.php");
 }
 
-// cart Total
+// Cart Total
 function calculatecart()
 {
     $total = 0;
@@ -94,6 +101,21 @@ function calculateTotalItems($cart)
         }
     }
     return $totalQuantity;
+}
+
+// Function to get available quantity from the database (replace this with your actual function)
+function getAvailableQuantity($product_id) {
+    // Assuming you have a database connection
+    global $conn;
+
+    $stmt = $conn->prepare("SELECT available_qty FROM products WHERE product_id = ?");
+    $stmt->bind_param("i", $product_id);
+    $stmt->execute();
+    $stmt->bind_result($available_quantity);
+    $stmt->fetch();
+    $stmt->close();
+
+    return $available_quantity;
 }
 
 // Initialize total_items even if 'cart' is not set or not an array
