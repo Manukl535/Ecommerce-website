@@ -1,15 +1,14 @@
-
 <?php
-// Check if the user is logged in as an admin, you may implement your own authentication logic
 session_start();
 if (!isset($_SESSION['admin_name'])) {
-    header('Location: login.php'); // Redirect to login page if not logged in as admin
+    header('Location: login.php');
     exit();
 }
 
-
+// Include the database connection
 include('../Includes/connection.php');
 
+// Function to get products from the database
 function getProducts($conn)
 {
     $productStmt = $conn->prepare("SELECT * FROM products");
@@ -20,7 +19,9 @@ function getProducts($conn)
     return $products;
 }
 
+// Check if the add product form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
+    // Extract form data
     $gender = $_POST['Gender'];
     $product_name = $_POST['product_name'];
     $product_category = $_POST['product_category'];
@@ -29,23 +30,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
     $product_price = $_POST['product_price'];
     $product_special_offer = $_POST['product_special_offer'];
     $product_color = $_POST['product_color'];
+    $available_qty = $_POST['available_qty'];
 
-    $addProductStmt = $conn->prepare("INSERT INTO products (Gender, product_name, product_category, product_description, product_image, product_price, product_special_offer, product_color) 
-                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $addProductStmt->bind_param('ssssssss', $gender, $product_name, $product_category, $product_description, $product_image, $product_price, $product_special_offer, $product_color);
+    // Prepare and execute the INSERT query
+    $addProductStmt = $conn->prepare("INSERT INTO products (Gender, product_name, product_category, product_description, product_image, product_price, product_special_offer, product_color, available_qty) 
+                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $addProductStmt->bind_param('ssssssssi', $gender, $product_name, $product_category, $product_description, $product_image, $product_price, $product_special_offer, $product_color, $available_qty);
     $addProductStmt->execute();
     $addProductStmt->close();
 }
 
+// Check if the update product form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_product'])) {
+    // Extract form data
+    $updateProductId = $_POST['product_id'];
+    $newQuantity = $_POST['available_qty'];
+
+    // Prepare and execute the UPDATE query
+    $updateProductStmt = $conn->prepare("UPDATE products SET available_qty = ? WHERE product_id = ?");
+    $updateProductStmt->bind_param('ii', $newQuantity, $updateProductId);
+    $updateProductStmt->execute();
+    $updateProductStmt->close();
+}
+
+// Check if the delete product is requested
 if (isset($_GET['delete_product'])) {
+    // Extract product ID
     $deleteProductId = $_GET['delete_product'];
 
+    // Prepare and execute the DELETE query
     $deleteProductStmt = $conn->prepare("DELETE FROM products WHERE product_id = ?");
     $deleteProductStmt->bind_param('s', $deleteProductId);
     $deleteProductStmt->execute();
     $deleteProductStmt->close();
 }
 
+// Fetch products using the getProducts function
 $products = getProducts($conn);
 ?>
 
@@ -144,20 +164,28 @@ $products = getProducts($conn);
             text-decoration: underline;
         }
 
-        /* Additional styles for the export button */
-        #export-btn {
+        .update-btn {
             background-color: #008CBA;
             color: #fff;
-            padding: 10px;
+            padding: 5px;
             border: none;
             cursor: pointer;
-            border-radius: 5px;
-            margin-top: 10px;
+            border-radius: 3px;
         }
 
-        #export-btn:hover {
+        .update-btn:hover {
             background-color: #00587a;
         }
+
+        .update-row {
+            display: none;
+        }
+
+        .editable-qty input {
+            width: 60px;
+            margin-right: 10px;
+        }
+
     </style>
 </head>
 
@@ -179,6 +207,9 @@ $products = getProducts($conn);
 
                 <label for="product_description">Product Description:</label>
                 <input name="product_description" style="resize: none;">
+
+                <label for="available_qty">Available Quantity:</label>
+                <input type="text" name="available_qty" required>
             </div>
 
             <div>
@@ -193,15 +224,12 @@ $products = getProducts($conn);
 
                 <label for="product_color">Product Color:</label>
                 <input type="text" name="product_color">
-            </div>
 
-            <div style="text-align: center; margin: 5px auto;">
-                <button type="submit" name="add_product">Add Product</button>
+                <div style="text-align: center; margin: 5px auto;">
+                    <button type="submit" name="add_product">Add Product</button>
+                </div>
             </div>
         </form>
-
-        <!-- Export button -->
-        <button id="export-btn" onclick="exportToExcel()">Export To Excel</button>
 
         <div>
             <h2>Product List</h2>
@@ -217,6 +245,7 @@ $products = getProducts($conn);
                         <th>Product Price</th>
                         <th>Product Special Offer</th>
                         <th>Product Color</th>
+                        <th>Available Quantity</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -231,9 +260,22 @@ $products = getProducts($conn);
                             <td><?php echo $row['product_image']; ?></td>
                             <td><?php echo $row['product_price']; ?></td>
                             <td><?php echo $row['product_special_offer'] ?? 'N/A'; ?></td>
-                            <td><?php echo $row['product_color']; ?></td>
+                            <td><?php echo $row['product_color'] ?? 'N/A'; ?></td>
+                            <td class="editable-qty">
+                            <span><?php echo $row['available_qty']; ?></span>
+                                <br>
+                                 <button type="button" class="update-btn" data-product-id="<?php echo $row['product_id']; ?>">Update</button>
+                        </td>
                             <td>
                                 <a href="?delete_product=<?php echo $row['product_id']; ?>" onclick="return confirm('Are you sure you want to delete this product?')">Delete</a>
+                            </td>
+                        </tr>
+                        <tr class="update-row" data-product-id="<?php echo $row['product_id']; ?>">
+                            <td colspan="5">
+                                
+                                <input type="text" name="available_qty" placeholder="New Quantity" style="width: 20%;">
+
+                                <button type="button" class="update-btn" data-product-id="<?php echo $row['product_id']; ?>">Save</button>
                             </td>
                         </tr>
                     <?php } ?>
@@ -242,22 +284,38 @@ $products = getProducts($conn);
         </div>
     </div>
 
-    <!-- Include the SheetJS library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
-
     <script>
-        function exportToExcel() {
-            /* Get table data */
-            var table = document.querySelector('#product-table');
+        document.addEventListener('DOMContentLoaded', function () {
+            var updateButtons = document.querySelectorAll('.update-btn');
+            updateButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var productId = this.getAttribute('data-product-id');
+                    var updateRow = document.querySelector('.update-row[data-product-id="' + productId + '"]');
+                    updateRow.style.display = 'table-row';
 
-            /* Create a workbook containing the table data */
-            var ws = XLSX.utils.table_to_sheet(table);
-            var wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+                    // Add click event listener for the "Save" button in the update row
+                    var saveButton = updateRow.querySelector('.update-btn');
+                    saveButton.addEventListener('click', function () {
+                        var newQuantityInput = updateRow.querySelector('input[name="available_qty"]');
+                        var newQuantity = newQuantityInput.value;
 
-            /* Save the workbook to a file */
-            XLSX.writeFile(wb, 'products.xlsx');
-        }
+                        // Send the updated quantity to the server using AJAX
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', 'update_quantity.php', true);
+                        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState == 4 && xhr.status == 200) {
+                                // Handle the response from the server if needed
+                                alert(xhr.responseText);
+                                // Reload the page after updating the quantity
+                                location.reload();
+                            }
+                        };
+                        xhr.send('product_id=' + productId + '&new_quantity=' + newQuantity);
+                    });
+                });
+            });
+        });
     </script>
 </body>
 
