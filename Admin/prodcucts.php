@@ -186,6 +186,18 @@ $products = getProducts($conn);
             margin-right: 10px;
         }
 
+        .export-btn {
+            background-color: #337ab7;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .export-btn:hover {
+            background-color: #286090;
+        }
     </style>
 </head>
 
@@ -233,6 +245,10 @@ $products = getProducts($conn);
 
         <div>
             <h2>Product List</h2>
+
+            <!-- Export to Excel button -->
+            <button class="export-btn" onclick="exportToExcel('product-table')">Export to Excel</button>
+
             <table id="product-table">
                 <thead>
                     <tr>
@@ -262,19 +278,17 @@ $products = getProducts($conn);
                             <td><?php echo $row['product_special_offer'] ?? 'N/A'; ?></td>
                             <td><?php echo $row['product_color'] ?? 'N/A'; ?></td>
                             <td class="editable-qty">
-                            <span><?php echo $row['available_qty']; ?></span>
+                                <span><?php echo $row['available_qty']; ?></span>
                                 <br>
-                                 <button type="button" class="update-btn" data-product-id="<?php echo $row['product_id']; ?>">Update</button>
-                        </td>
+                                <button type="button" class="update-btn" data-product-id="<?php echo $row['product_id']; ?>">Update</button>
+                            </td>
                             <td>
                                 <a href="?delete_product=<?php echo $row['product_id']; ?>" onclick="return confirm('Are you sure you want to delete this product?')">Delete</a>
                             </td>
                         </tr>
                         <tr class="update-row" data-product-id="<?php echo $row['product_id']; ?>">
                             <td colspan="5">
-                                
                                 <input type="text" name="available_qty" placeholder="New Quantity" style="width: 20%;">
-
                                 <button type="button" class="update-btn" data-product-id="<?php echo $row['product_id']; ?>">Save</button>
                             </td>
                         </tr>
@@ -285,6 +299,40 @@ $products = getProducts($conn);
     </div>
 
     <script>
+        // Function to export table data to Excel
+        function exportToExcel(tableId) {
+            var tab_text = "<table border='2px'><tr>";
+            var textRange; var j = 0;
+            tab = document.getElementById(tableId); // id of table
+
+            for (j = 0; j < tab.rows.length; j++) {
+                tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
+                //tab_text=tab_text+"</tr>";
+            }
+
+            tab_text = tab_text + "</table>";
+            tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+            tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+            tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+            var ua = window.navigator.userAgent;
+            var msie = ua.indexOf("MSIE ");
+
+            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+            {
+                txtArea1.document.open("txt/html", "replace");
+                txtArea1.document.write(tab_text);
+                txtArea1.document.close();
+                txtArea1.focus();
+                sa = txtArea1.document.execCommand("SaveAs", true, "Say Thanks to Sumit.xls");
+            }
+            else {
+                sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+            }
+
+            return (sa);
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             var updateButtons = document.querySelectorAll('.update-btn');
             updateButtons.forEach(function (button) {
