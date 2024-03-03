@@ -237,10 +237,11 @@ $products = getProducts($conn);
                 <label for="product_color">Product Color:</label>
                 <input type="text" name="product_color">
 
-                <div style="text-align: center; margin: 5px auto;">
-                    <button type="submit" name="add_product">Add Product</button>
-                </div>
+                
             </div>
+            <div style="text-align: center; margin: 5px auto;">
+                    <button type="submit" name="add_product" onclick="return confirm('Are you sure about adding the product?')">Add Product</button>
+                </div>
         </form>
 
         <div>
