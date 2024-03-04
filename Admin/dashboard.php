@@ -43,14 +43,21 @@
     $totalAmountReceived = $amountReceivedResult->fetch_assoc()['totalAmountReceived'];
     $amountReceivedStmt->close();
     
-    //product count
-    $stmt = $conn->prepare("SELECT COUNT(*) as totalProducts FROM products");
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
+    //product quantity 
+    $stmtQuantity = $conn->prepare("SELECT SUM(available_qty) as quantity FROM products");
+    $stmtQuantity->execute();
+    $resultQuantity = $stmtQuantity->get_result();
+    $rowQuantity = $resultQuantity->fetch_assoc();
 
-$totalProducts = $row['totalProducts'];
-    // Fetch total refund amount
+    //product count
+    $stmtCount = $conn->prepare("SELECT COUNT(*) as totalProducts FROM products");
+    $stmtCount->execute();
+    $resultCount = $stmtCount->get_result();
+    $rowCount = $resultCount->fetch_assoc();
+
+    $totalProducts = $rowCount['totalProducts'];
+    $totalQuantity = $rowQuantity['quantity'];
+ // Fetch total refund amount
     $refundAmountStmt = $conn->prepare("SELECT SUM(product_price) AS totalRefundAmount FROM return_requests");
     $refundAmountStmt->execute();
     $refundAmountResult = $refundAmountStmt->get_result();
@@ -71,6 +78,7 @@ $totalProducts = $row['totalProducts'];
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
     <style>
         html,
         body,
@@ -124,8 +132,8 @@ $totalProducts = $row['totalProducts'];
 
             <div style="margin-top: 10px;"></div> <!-- Add space between menu items -->
 
-            <a href="prodcucts.php" class="w3-bar-item w3-button w3-padding w3-orange"><i class="fa fa-cube fa-fw"></i>&nbsp; Inventory (<?php echo $totalProducts; ?>)</a>
-
+            <a href="prodcucts.php" class="w3-bar-item w3-button w3-padding w3-orange"><i class="fa fa-cube fa-fw"></i>&nbsp; Products (<?php echo $totalProducts; ?>)</a>
+            
             <div style="margin-top: 10px;"></div> <!-- Add space between menu items -->
             
             <a href="returns.php" class="w3-bar-item w3-button w3-padding w3-pink">
@@ -208,15 +216,27 @@ $totalProducts = $row['totalProducts'];
         <hr>
             
         <div class="w3-quarter" style="margin:10px 0.1px 10px 0">
-    <div class="w3-container w3-blue w3-padding-16">
-        <div class="w3-left"><i class="fa fa-cubes" style="font-size:36px"></i></div>
+    <div class="w3-container w3-light-blue w3-padding-16">
+        <div class="w3-left"><img src="../Assets/product.png" alt=""></div>
         <div class="w3-right">
             <h3><?php echo $totalProducts; ?></h3>
         </div>
         <div class="w3-clear"></div>
-        <h4>Inventory</h4>
+        <h4>Total Products</h4>
     </div>
 </div>
+<div class="w3-quarter" style="margin:10px 0.1px 10px 0">
+    <div class="w3-container w3-yellow w3-padding-16">
+        <div class="w3-left"><i class="fa fa-cubes" style="font-size:36px"></i></div>
+        <div class="w3-right">
+            <h3><?php echo $totalQuantity ?></h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Inventory Stock</h4>
+    </div>
+</div>
+
+
 <!-- Balance section -->
 <div class="w3-quarter" style="margin:10px 20px 10px 0">
     <div class="w3-container w3-purple w3-padding-16">
