@@ -330,7 +330,7 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
              
 </section>
 
-            
+<?php if (!empty($_SESSION['cart'])) { ?>     
     <section id="cart" class="section-p1">
         <table width="100%">
             <thead>
@@ -369,24 +369,26 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
                 <?php } ?>
             </tbody>
         </table>
-    </section><br><br>
+    </section>
+    <?php }?>
+    
 
-    <div class="centered">
+    <div class="centered" style="padding: 200px;;">
         <?php
         // Check if the total items are zero and display message
         if (!isset($_SESSION['cart']) || empty($_SESSION['cart']) || $_SESSION['total_items'] === 0) {
             echo '<html>
-                    <body>
-                    <div style="text-align: center;">
-                        <img src="Assets/empty_cart.png" alt="Empty Cart Image" style="display: block; margin: 0 auto;">
-                    </div>
-                    <br>
-                    <div style="text-align: center;">
-                        <h3>Your cart is empty!</h3>
-                    </div>
-                    
-                    </body>
-                </html>';
+            <body>
+                
+                <div style="text-align: center;">
+                    <img src="Assets/empty_cart.png" alt="Empty Cart Image" style="display: block; margin: 0 auto;">
+                </div>
+                <br>
+                <div style="text-align: center;">
+                    <h3>Your cart is empty!</h3>
+                </div>
+            </body>
+        </html>';
     // Set total to 0
     $_SESSION['total'] = 0;
         }

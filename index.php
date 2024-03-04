@@ -120,6 +120,31 @@
       <!-- Footer -->
     
       <?php include_once("includes/footer.html"); ?> 
+      <?php
+// File to store the visitor count
+$counterFile = "visitor_count.txt";
+
+// Function to increment the visitor count
+function incrementCounter($counterFile) {
+    $count = (file_exists($counterFile)) ? (int)file_get_contents($counterFile) : 0;
+    $count++;
+    file_put_contents($counterFile, $count);
+}
+
+// Increment the counter when the page is visited
+incrementCounter($counterFile);
+?>
+
+
+<!-- Footer -->
+
+<?php include_once("includes/footer.html"); ?>
+
+<!-- Display the visitor count in the footer -->
+<footer>
+    <p style="display:none;">Total Visitors: <?php echo (file_exists($counterFile)) ? file_get_contents($counterFile) : 0; ?></p>
+</footer>
+
             
 </body>
 </html>

@@ -8,7 +8,7 @@
 
 include('../Includes/connection.php');
 
-$stmt = $conn->prepare("SELECT * FROM return_requests");
+$stmt = $conn->prepare("SELECT * FROM feedback");
 $stmt->execute();
 $orders = $stmt->get_result();
 $stmt->close();
@@ -69,35 +69,33 @@ $stmt->close();
         background-color: #0056b3;
     }
     </style>
-    <title>Admin Panel - Returns</title>
+    <title>Admin Panel - Feedback</title>
 </head>
 
 <body>
 
     <div class="profile-section">
     <button onclick="exportToExcel()">Export to Excel</button>
-        <h4 class="orders-heading">Returns</h4>
+        <h4 class="orders-heading">Feedback</h4>
 
         <div class="order-box">
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th style="text-align: center;">Order ID</th>
-                            <th style="text-align: center;">Product_id</th>
-                            <th style="text-align: center;">Reason</th>
-                            <th style="text-align: center;">Product Price</th>
-                            <th style="text-align: center;">Refund Status</th>
+                            <th style="text-align: center;">Name</th>
+                            <th style="text-align: center;">Email</th>
+                            <th style="text-align: center;">Phone</th>
+                            <th style="text-align: center;">Feedback</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php while ($row = $orders->fetch_assoc()) { ?>
                             <tr>
-                                <td style="text-align: center;">ODR<?php echo str_pad($row['order_id'], 3, '0', STR_PAD_LEFT); ?></td>
-                                <td style="text-align: center;"><?php echo $row['product_id']; ?></td>
-                                <td style="text-align: center;"><?php echo $row['reason']; ?></td>
-                                <td style="text-align: center;"><?php echo $row['product_price']; ?></td>
-                                <td style="text-align: center;color:green"><strong>Settled</strong></td>
+                                <td style="text-align: center;"><?php echo $row['name']; ?></td>
+                                <td style="text-align: center;"><?php echo $row['email']; ?></td>
+                                <td style="text-align: center;"><?php echo $row['phone']; ?></td>
+                                <td style="text-align: center;"><?php echo $row['feedback']; ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>

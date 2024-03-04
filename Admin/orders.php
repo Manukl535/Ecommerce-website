@@ -91,7 +91,7 @@ button:hover {
 
 </style>
     
-    <title>Orders</title>
+    <title>Admin Panel - Orders</title>
 </head>
 
 <body>
