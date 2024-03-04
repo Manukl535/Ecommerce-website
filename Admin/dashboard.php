@@ -57,7 +57,8 @@
 
     $totalProducts = $rowCount['totalProducts'];
     $totalQuantity = $rowQuantity['quantity'];
- // Fetch total refund amount
+    
+    // Fetch total refund amount
     $refundAmountStmt = $conn->prepare("SELECT SUM(product_price) AS totalRefundAmount FROM return_requests");
     $refundAmountStmt->execute();
     $refundAmountResult = $refundAmountStmt->get_result();

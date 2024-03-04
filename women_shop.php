@@ -201,42 +201,11 @@
                   <?php } ?> 
                   </section>
 
-                  <!-- polo_tshirts -->
                   
-                  <section id="topproduct" class="section-p1">
-                  
-                
-                  <div class="Collection">
-                      <?php include('Includes/men_up.php'); ?>
-                      <?php while($row = $croptop->fetch_assoc()) { ?>
-                          <div class="product">
-                             
-                             <a href="<?php echo "single_product_app.php?product_id=".$row['product_id']; ?>"> <img src="Assets/<?php echo $row['product_image']; ?>"></a>
-                              <div class="description">
-                              <span>Posh</span>
-                                  <h5><?php echo $row['product_name']; ?></h5>
-  
-                                  <div class="rating">
-                                          <span class="fa fa-star checked"></span>
-                                          <span class="fa fa-star checked"></span>
-                                          <span class="fa fa-star checked"></span>
-                                          <span class="fa fa-star checked"></span>
-                                          <span class="fa fa-star checked"></span>
-                                  </div>
-  
-                              <h4>&#8377; <?php echo $row['product_price']; ?></h4>
-                              </div>
-  
-                           
-                    
-                  </div>
-                  <?php } ?> 
-                  </section>
-
                   
                   
                    
-
+<!-- 
                 <section id="topproduct" class="section-p1">
                   
                 
@@ -266,11 +235,11 @@
                   </div>
                   <?php } ?> 
                   </section>
-                      </section>
+                      </section> -->
 
                        <!-- women tshirts -->
 
-            <section id="topproduct" class="section-p1">
+            <!-- <section id="topproduct" class="section-p1">
                   
                 
                   <div class="Collection">
@@ -298,12 +267,12 @@
                     
                   </div>
                   <?php } ?> 
-                  </section>
+                  </section> 
 
-                  <section id="topproduct" class="section-p1">
+                  <section id="topproduct" class="section-p1"> -->
                   
                 
-                  <div class="Collection">
+                  <!-- <div class="Collection">
                       <?php include('Includes/women_up.php'); ?>
                       <?php while($row = $tshirt2->fetch_assoc()) { ?>
                           <div class="product">
@@ -331,7 +300,7 @@
                   </section>
 
                  
-           
+            -->
 
                       <section id="section2">
                   <center><h1>Footwears</h1></center>
