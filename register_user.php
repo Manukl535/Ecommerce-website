@@ -22,7 +22,7 @@ if (isset($_POST['register-btn'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
-
+    $phone = "+91" . $phone;
     // Password confirmation
     if ($password !== $confirm_password) {
         header('location:register_user.php?error=Password did not match');
@@ -193,7 +193,7 @@ if (isset($_POST['register-btn'])) {
 				<input type="text" class="form-control" name="name" placeholder="Name" required="required">        
             </div>
             <div class="form-group">
-         <input type="tel" class="form-control" name="phone" pattern="(\+?\d{1,4}[\s-]?)?\d{10}" placeholder="+917022015320" required="required">
+         <input type="tel" class="form-control" name="phone" pattern="(\+?\d{1,4}[\s-]?)?\d{10}" placeholder="7022015320" required="required">
         </div>
 
         <div class="form-group">

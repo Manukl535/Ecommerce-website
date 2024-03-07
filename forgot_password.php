@@ -1,32 +1,30 @@
 <?php
 session_start();
-// Include database connection
 include('Includes/connection.php');
 
 function function_alert($message, $redirectUrl) {
-    // Display the alert box
     echo "<script>alert('$message');</script>";
-    // Redirect to the specified URL after the alert is closed
     echo "<script>window.location.href = '$redirectUrl';</script>";
-    // Ensure no further code is executed
     exit();
 }
 
-// Include Twilio dependencies
 require_once 'C:\xampp\htdocs\twilio-php-main\src\Twilio\autoload.php';
 use Twilio\Rest\Client;
 
-// Your Twilio credentials
 $sid = "ACc52a9ad7912313f3a2fac31a004cb494";
 $token = "dd17626c541f7546c284653c62e085da";
-$twilioPhoneNumber = '+15169798118'; // Replace with your Twilio phone number
+$twilioPhoneNumber = '+15169798118';
 $twilio = new Client($sid, $token);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['submit']) && isset($_POST['phone'])) {
-        // Generate OTP (You may use a library or your own method)
         $otp = rand(100000, 999999);
         $phone = $_POST['phone'];
+
+        // Check if the phone number starts with +91
+        if (strpos($phone, '+91') !== 0) {
+            function_alert("Please enter a valid phone number starting with +91.", "forgot_password.php");
+        }
 
         // Update the database with the generated OTP
         $updateQuery = "UPDATE users SET otp = '$otp' WHERE phone = '$phone'";
@@ -37,18 +35,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Send OTP to the registered mobile number using Twilio
         $message = $twilio->messages
-            ->create($phone, // To
-                [
-                    'from' => $twilioPhoneNumber,
-                    'body' => "Your OTP is: $otp",
-                ]
-            );
+            ->create($phone, [
+                'from' => $twilioPhoneNumber,
+                'body' => "Your OTP is: $otp",
+            ]);
 
         // Redirect to OTP verification page
         header("Location: forgot_password.php?verify=true&phone=" . urlencode($phone));
         exit();
     } elseif (isset($_POST['verify']) && isset($_POST['otp']) && isset($_POST['phone'])) {
-        // Verify OTP logic
         $enteredOtp = $_POST['otp'];
         $phone = $_POST['phone'];
 
@@ -75,7 +70,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (isset($_POST['Change_Password'])) {
-        // Ensure that the session variable is set
         if (!isset($_SESSION['phone'])) {
             function_alert("Session phone not set. Please try again.", "forgot_password.php");
         }
@@ -84,20 +78,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $confirm_password = $_POST['confirm_password'];
         $phone = $_SESSION['phone'];
 
-        // Length of pass
         if (strlen($password) < 6) {
-            function_alert("Password must have 6 characters", "forgot_password.php");
-        }
-        // Pass_confirm pass
-        elseif ($password !== $confirm_password) {
+            function_alert("Password must have at least 6 characters", "forgot_password.php");
+        } elseif ($password !== $confirm_password) {
             function_alert("Passwords didn't match. Try Again", "forgot_password.php");
-        }
-        // If all correct
-        else {
+        } else {
             $stmt = $conn->prepare("UPDATE users SET password=? WHERE phone=?");
-
             $stmt->bind_param('ss', $password, $phone);
-
             if ($stmt->execute()) {
                 function_alert("Password changed successfully!\\nRedirecting to Login page", "login_user.php");
             } else {
@@ -107,6 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -187,8 +176,6 @@ button:hover {
         <?php elseif (isset($_GET['change']) && $_GET['change'] == 'true'): ?>
 
             <div class="profile-section" style="flex: 1;">
-            <!-- Change password -->
-            <!-- <div class="container" style="height: 55vh;"> -->
                 <center>
                     <h3>Change Password</h3>
                     <p style="color:red;"><?php if (isset($_GET['error'])) { echo $_GET['error']; } ?></p>
