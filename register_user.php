@@ -31,7 +31,14 @@ if (isset($_POST['register-btn'])) {
         header('location:register_user.php?error=Password must have 6 characters');
         exit;
     }
+    // phone length
+    if (strlen($phone) < 10) {
+        header('location:register_user.php?error=Phone number should be 10 digits.');
+        exit;
+    }else{
+       
 
+    }
     // Validate email format
     $emailPattern = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/";
     if (!filter_var($email, FILTER_VALIDATE_EMAIL) || !preg_match($emailPattern, $email)) {
