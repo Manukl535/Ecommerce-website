@@ -206,11 +206,11 @@ $products = getProducts($conn);
     <div class="main-content">
         
 
-    <a href="#" onclick="window.history.back(); return false;"><i style="font-size:24px" class="fa">&#xf190;</i></a>
+    <a href="#" onclick="window.history.back(); return false;"><i style="font-size:24px;color:blue" class="fa">&#xf190;</i></a>
 
     &nbsp;
     
-    <a href="dashboard.php"><i style="font-size:24px" class="fa">&#xf015;</i></a>
+    <a href="dashboard.php"><i style="font-size:24px;color:blue" class="fa">&#xf015;</i></a>
 
     
         <h2>Manage Products</h2>

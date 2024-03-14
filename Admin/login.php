@@ -159,9 +159,9 @@ if(isset($_POST['login-btn'])){
             
             <a href="forgot_pass.php" class="forgot-link">Forgot Password?</a>
         </div> 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <a href="../index.php" class="go_back"><center><i style="font-size:20px" class="fa">&#xf015;</i> Go To Home</center></a>
-        </div>
+        </div> -->
 
         
         <input type="submit" class="btn btn-primary btn-block btn-lg" name="login-btn" value="Login">              

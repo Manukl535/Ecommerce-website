@@ -24,10 +24,13 @@
     $returnCountResult = $returnStmt->get_result();
     $returnCount = $returnCountResult->fetch_assoc()['returnCount'];
     $returnStmt->close();
-
-    $salesPercentage = ($orderCount - $returnCount) / $orderCount * 100;
-    $salesPercentage = number_format($salesPercentage, 2);
-
+    
+    if ($orderCount != 0) {
+        $salesPercentage = ($orderCount - $returnCount) / $orderCount * 100;
+    } else {
+        $salesPercentage = 0; 
+     }
+    
     $amountReceivedStmt = $conn->prepare("SELECT SUM(product_price) AS totalAmountReceived FROM order_item");
     $amountReceivedStmt->execute();
     $amountReceivedResult = $amountReceivedStmt->get_result();

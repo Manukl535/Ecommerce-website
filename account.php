@@ -40,23 +40,23 @@ if (isset($_POST['Change_Password'])) {
     $stmtUsers->execute();
     $stmtUsers->close();
 
-    // Delete from the orders table
-    $stmtOrders = $conn->prepare("DELETE FROM orders WHERE user_id=?");
-    $stmtOrders->bind_param('i', $user_id);
-    $stmtOrders->execute();
-    $stmtOrders->close();
+    // // Delete from the orders table
+    // $stmtOrders = $conn->prepare("DELETE FROM orders WHERE user_id=?");
+    // $stmtOrders->bind_param('i', $user_id);
+    // $stmtOrders->execute();
+    // $stmtOrders->close();
 
-    // Delete from the order_item table
-    $stmtOrderItems = $conn->prepare("DELETE FROM order_item WHERE user_id=?");
-    $stmtOrderItems->bind_param('i', $user_id);
-    $stmtOrderItems->execute();
-    $stmtOrderItems->close();
+    // // Delete from the order_item table
+    // $stmtOrderItems = $conn->prepare("DELETE FROM order_item WHERE user_id=?");
+    // $stmtOrderItems->bind_param('i', $user_id);
+    // $stmtOrderItems->execute();
+    // $stmtOrderItems->close();
 
-    // Delete from the return_requests table
-    $stmtOrderItems = $conn->prepare("DELETE FROM return_requests WHERE user_id=?");
-    $stmtOrderItems->bind_param('i', $user_id);
-    $stmtOrderItems->execute();
-    $stmtOrderItems->close();
+    // // Delete from the return_requests table
+    // $stmtOrderItems = $conn->prepare("DELETE FROM return_requests WHERE user_id=?");
+    // $stmtOrderItems->bind_param('i', $user_id);
+    // $stmtOrderItems->execute();
+    // $stmtOrderItems->close();
 
     // Logout the user
     session_unset();

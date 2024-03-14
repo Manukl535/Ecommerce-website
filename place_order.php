@@ -31,7 +31,7 @@ if (isset($_POST['place_order'])) {
             $product_id = $product['product_id'];
             $product_name = $product['product_name'];
             $product_image = $product['product_image'];
-            $product_price = $product['product_price'];
+            $order_cost = $_SESSION['total'];
             $product_quantity = $product['product_quantity'];
 
             // Update available_qty in products table
@@ -41,7 +41,7 @@ if (isset($_POST['place_order'])) {
 
             // Insert into order_item table
             $stmt1 = $conn->prepare("INSERT INTO order_item (order_id, product_id, product_name, product_image, product_price, product_quantity, user_id, order_date, dod) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt1->bind_param('isssiisss', $order_id, $product_id, $product_name, $product_image, $product_price, $product_quantity, $user_id, $order_date, $dod);
+            $stmt1->bind_param('isssiisss', $order_id, $product_id, $product_name, $product_image,  $order_cost , $product_quantity, $user_id, $order_date, $dod);
             $stmt1->execute();
         }
     }

@@ -373,7 +373,7 @@ $_SESSION['total_items'] = calculateTotalItems(isset($_SESSION['cart']) && is_ar
     <?php }?>
     
 
-    <div class="centered" style="padding: 200px;;">
+    <div class="centered" style="padding: 20px;">
         <?php
         // Check if the total items are zero and display message
         if (!isset($_SESSION['cart']) || empty($_SESSION['cart']) || $_SESSION['total_items'] === 0) {
