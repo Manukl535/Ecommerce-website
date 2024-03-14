@@ -92,11 +92,24 @@ button:hover {
 </style>
     
     <title>Admin Panel - Orders</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
 
+
+
+  
+
     <div class="profile-section">
+
+                <a href="#" onclick="window.history.back(); return false;"><i style="font-size:24px" class="fa">&#xf190;</i></a>
+
+            &nbsp;
+
+            <a href="dashboard.php"><i style="font-size:24px" class="fa">&#xf015;</i></a>
+
+            <br/>
     <button onclick="exportToExcel()">Export to Excel</button>
         <h4 class="orders-heading">Orders</h4>
     

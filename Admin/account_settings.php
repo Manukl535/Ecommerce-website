@@ -53,9 +53,22 @@
         }
     </style>
 </head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <body>
 
 <div class="container">
+      
+
+<center>
+
+<a href="#" onclick="window.history.back(); return false;"><i style="font-size:24px" class="fa">&#xf190;</i></a>
+
+&nbsp;
+
+<a href="dashboard.php"><i style="font-size:24px;color:blue;" class="fa">&#xf015;</i></a>
+
+<br/>
+</center>
     <h2>Account Settings</h2>
     <?php
   
