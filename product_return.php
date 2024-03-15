@@ -12,6 +12,7 @@ if (isset($_SESSION['shipped_address'])) {
 if (isset($_POST['return-btn'])) {
     $reason = isset($_POST['reason']) ? htmlspecialchars($_POST['reason']) : '';
     $comments = isset($_POST['comments']) ? htmlspecialchars($_POST['comments']) : '';
+    $returning_qty = isset($_POST['returning_qty']) ? intval($_POST['returning_qty']) : 1;
     $status = 'Yes';
 
     $order_id = isset($_SESSION['order_id']) ? $_SESSION['order_id'] : null;
@@ -33,8 +34,8 @@ if (isset($_POST['return-btn'])) {
     $product_price = $priceResult->fetch_assoc()['product_price'];
     $priceStmt->close();
 
-    $stmt = $conn->prepare("INSERT INTO return_requests (order_id, user_id, product_id, product_price, reason, comments, user_name, user_phone, user_address, user_city, user_state, return_status, bank, account_number, ifsc_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param('iiissssssssssss', $order_id, $user_id, $current_product_id, $product_price, $reason, $comments, $shipped_address['user_name'], $shipped_address['user_phone'], $shipped_address['user_address'], $shipped_address['user_city'], $shipped_address['user_state'], $status, $bank, $account_number, $ifsc_code);
+    $stmt = $conn->prepare("INSERT INTO return_requests (order_id, user_id, product_id, product_price, reason, comments, returning_qty, user_name, user_phone, user_address, user_city, user_state, return_status, bank, account_number, ifsc_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param('iiisssssssssssss', $order_id, $user_id, $current_product_id, $product_price, $reason, $comments, $returning_qty, $shipped_address['user_name'], $shipped_address['user_phone'], $shipped_address['user_address'], $shipped_address['user_city'], $shipped_address['user_state'], $status, $bank, $account_number, $ifsc_code);
 
     if ($stmt->execute()) {
         echo '<script>';
@@ -150,9 +151,32 @@ if (isset($_POST['return-btn'])) {
     transform: scale(1.05);
 }
 
+.return-quantity {
+            width: 60px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+.return-quantity:focus {
+            outline: none;
+            border-color: #4d90fe;
+            box-shadow: 0 0 5px #4d90fe;
+        }
+
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+
+<a href="#" onclick="window.history.back(); return false;"><i style="font-size:30px" class="fa">&#xf190;</i></a>
+&nbsp;
+
+<a href="index.php"><i style="font-size:30px;color:blue" class="fa">&#xf015;</i></a>
+
+<br/>
 
 <div class="container">
     <form action="product_return.php" method="post">
@@ -165,7 +189,12 @@ if (isset($_POST['return-btn'])) {
         </div>
 
         <div class="comment-header">Comments</div>
-        <textarea name="comments" class="comment-box" placeholder="Explain the problem..." required></textarea>
+        <textarea name="comments" class="comment-box" placeholder="Explain the problem..."  style="resize:none;" required></textarea>
+
+        <label for="returning_qty"><h3>Returning Qty:</label>
+        <input type="number" id="returning_qty" name="returning_qty" value="1" min="1" class="return-quantity" required> </h3>       
+
+
 
         <div class="bank-details">
             <label for="bank">Select Bank  For Refund:</label>

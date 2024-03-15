@@ -40,23 +40,23 @@ if (isset($_POST['Change_Password'])) {
     $stmtUsers->execute();
     $stmtUsers->close();
 
-    // // Delete from the orders table
-    // $stmtOrders = $conn->prepare("DELETE FROM orders WHERE user_id=?");
-    // $stmtOrders->bind_param('i', $user_id);
-    // $stmtOrders->execute();
-    // $stmtOrders->close();
+    // Delete from the orders table
+    $stmtOrders = $conn->prepare("DELETE FROM orders WHERE user_id=?");
+    $stmtOrders->bind_param('i', $user_id);
+    $stmtOrders->execute();
+    $stmtOrders->close();
 
-    // // Delete from the order_item table
-    // $stmtOrderItems = $conn->prepare("DELETE FROM order_item WHERE user_id=?");
-    // $stmtOrderItems->bind_param('i', $user_id);
-    // $stmtOrderItems->execute();
-    // $stmtOrderItems->close();
+    // Delete from the order_item table
+    $stmtOrderItems = $conn->prepare("DELETE FROM order_item WHERE user_id=?");
+    $stmtOrderItems->bind_param('i', $user_id);
+    $stmtOrderItems->execute();
+    $stmtOrderItems->close();
 
-    // // Delete from the return_requests table
-    // $stmtOrderItems = $conn->prepare("DELETE FROM return_requests WHERE user_id=?");
-    // $stmtOrderItems->bind_param('i', $user_id);
-    // $stmtOrderItems->execute();
-    // $stmtOrderItems->close();
+    // Delete from the return_requests table
+    $stmtOrderItems = $conn->prepare("DELETE FROM return_requests WHERE user_id=?");
+    $stmtOrderItems->bind_param('i', $user_id);
+    $stmtOrderItems->execute();
+    $stmtOrderItems->close();
 
     // Logout the user
     session_unset();
@@ -524,7 +524,7 @@ else {
                     <th>Order Date</th>
                     <th>Order Status</th>
                     <th>Order Cost</th>
-                    <th>Order Details</th>
+                    <th>Return</th>
                     <th>Invoice</th>
                     
                 </tr>
@@ -554,7 +554,7 @@ else {
             <input type="hidden" value="<?php echo $row['product_id']; ?>" name="product_id">
             <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
             <button <?php if ($isDelivered) echo 'enabled'; else echo 'disabled'; ?> style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="orders_btn">
-                Order Details
+                Return
             </button>
         </form>
     </td>
@@ -563,6 +563,7 @@ else {
         <form method="GET" action="invoice.php">
             
             <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
+            
             <button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="invoice_btn">
                 <i class="fa fa-print"></i> Invoice
             </button>

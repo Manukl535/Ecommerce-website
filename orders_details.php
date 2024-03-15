@@ -8,7 +8,7 @@ if (isset($_GET['orders_btn']) && isset($_GET['order_id']) && isset($_GET['produ
     $product_id = $_GET['product_id'];
 
     // Retrieve order details for the specific product
-    $stmt = $conn->prepare("SELECT order_item.*, orders.user_id, orders.order_date, orders.dod, product_image, product_price, product_id
+    $stmt = $conn->prepare("SELECT order_item.*, orders.user_id, orders.order_date, orders.dod, product_image, product_price, product_quantity, product_id
     FROM order_item 
     JOIN orders ON order_item.order_id = orders.order_id
     WHERE order_item.order_id=? AND orders.user_id=? AND order_item.product_id=?");
@@ -130,8 +130,17 @@ button {
 }
 
     </style>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+
+<a href="#" onclick="window.history.back(); return false;"><i style="font-size:30px" class="fa">&#xf190;</i></a>
+&nbsp;
+
+<a href="index.php"><i style="font-size:30px;color:blue" class="fa">&#xf015;</i></a>
+
+<br/>
 
 <h1>Order Details</h1>
 
@@ -203,6 +212,7 @@ foreach ($order_details_array as $row) {
     $productDescriptions[] = isset($row['product_name']) ? $row['product_name'] : '';
     $productPrices[] = isset($row['product_price']) ? $row['product_price'] : '';
     $productid[] = isset($row['product_id']) ? $row['product_id'] : '';
+    $productqty[] = isset($row['product_quantity']) ? $row['product_quantity'] : '';
 
     // Add the product ID to the session variable with a consistent prefix
     $_SESSION['product_ids'][] = 'ProductID_' . $row['product_id'];
@@ -238,8 +248,16 @@ foreach ($order_details_array as $row) {
         <!-- Display product details for the current product -->
         <div class="product-description">
             <p><?= end($productDescriptions); ?></p>
-            <span class="product-price"><?php echo 'Price: &#8377; ' . end($productPrices); ?></span>
+
+            <span class="product-price"><?php echo 'Ordered Qty: ' . end($productqty); ?></span>
+
+            <br/><br/>
+            <span class="product-price"><?php echo 'Total Price: &#8377; ' . end($productPrices); ?></span>
+
+            
+
             <span style="display:none;">Product ID:<?php echo end($productid); ?></span>
+            
         </div>
 
         <div>Delivered On: <?= date('d-m-Y', strtotime($row['dod'])); ?></div>

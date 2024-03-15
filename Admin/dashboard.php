@@ -27,9 +27,11 @@
     
     if ($orderCount != 0) {
         $salesPercentage = ($orderCount - $returnCount) / $orderCount * 100;
+        $salesPercentage = number_format($salesPercentage, 2); 
     } else {
         $salesPercentage = 0; 
-     }
+    }
+    
     
     $amountReceivedStmt = $conn->prepare("SELECT SUM(product_price) AS totalAmountReceived FROM order_item");
     $amountReceivedStmt->execute();

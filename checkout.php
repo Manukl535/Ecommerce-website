@@ -147,8 +147,9 @@ $randomDate = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)))
     <div class="container">
         <h2>Checkout</h2>
         <form action="place_order.php" method="POST">
-            <button onclick="history.back()" style='background-color:white'><span
-                    style='font-size:20px; background-color:white'>&#129092;</span></button>
+            
+        <a href="#" onclick="window.history.back(); return false;"><i style="font-size:30px" class="fa">&#xf190;</i></a>
+
             <div class="row">
                 <div class="col-50">
                     <h3>Shipping Address</h3>
