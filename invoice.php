@@ -168,14 +168,14 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
 
                 <table class="invoice-table">
                     <thead>
-                        <tr style="text-align: center;">
-                            <th>Product Name</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Total (Included Tax)</th>
+                        <tr>
+                            <th  style="text-align: center;">Product Name</th>
+                            <th  style="text-align: center;">Quantity</th>
+                            <th  style="text-align: center;">Price</th>
+                            <th  style="text-align: center;">Total (Included Tax)</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody >
                         <center><p><b>Order Number: ODR<?php echo str_pad($row['order_id'], 3, '0', STR_PAD_LEFT); ?></b></p></center><br/>
                         <?php 
                         // Check if there are items in the order_details
@@ -184,11 +184,11 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
                                 // Calculate total for each item
                                 $total = $row['product_quantity'] * $row['product_price'];
                         ?>
-                                <tr>
-                                    <td><?php echo $row['product_name']; ?></td>
-                                    <td><?php echo $row['product_quantity']; ?></td>
-                                    <td><?php echo $row['product_price']; ?></td>
-                                    <td><?php echo $total; ?></td>
+                                <tr >
+                                    <td  style="text-align: center;"><?php echo $row['product_name']; ?></td>
+                                    <td  style="text-align: center;"><?php echo $row['product_quantity']; ?></td>
+                                    <td  style="text-align: center;"><?php echo $row['product_price']; ?></td>
+                                    <td  style="text-align: center;"><?php echo $total; ?></td>
                                 </tr>
                         <?php 
                             }

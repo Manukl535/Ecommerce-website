@@ -131,6 +131,10 @@
             <a href="feedback.php" class="w3-bar-item w3-button w3-padding w3-yellow"><i class="fa fa-bell fa-fw"></i>&nbsp; Notifications (<?php echo $feedCount; ?>)</a>
 
             <div style="margin-top: 10px;"></div>
+            
+            <a href="http://127.0.0.1/phpmyadmin/index.php?route=/database/structure&db=ecom" class="w3-bar-item w3-button w3-padding w3-red"><i class="fa fa-database fa-fw"></i>&nbsp;Database</a>
+
+            <div style="margin-top: 10px;"></div>
 
             <a href="account_settings.php" class="w3-bar-item w3-button w3-padding w3-light-blue"><i class="fa fa-cog fa-fw"></i>&nbsp; Account Settings</a>
         </div>
@@ -224,7 +228,7 @@
         </div>
     </div>
     <div class="w3-quarter">
-        <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-container w3-cyan w3-padding-16">
             <div class="w3-left"><i class="fa fa-bell w3-xxlarge"></i></div>
             <div class="w3-right">
                 <h3><?php echo $feedCount; ?></h3>
