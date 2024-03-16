@@ -553,9 +553,10 @@ else {
         <form method="GET" action="orders_details.php">
             <input type="hidden" value="<?php echo $row['product_id']; ?>" name="product_id">
             <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
-            <button <?php if ($isDelivered) echo 'enabled'; else echo 'disabled'; ?> style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="orders_btn">
-                Return
+            <button <?php if ($isDelivered) echo 'enabled'; else echo 'disabled'; ?> style="background-color: rgb(81, 182, 81); color: black; width: 80%; height: 50px; font-weight: bold; border: none; border-radius: 25px; cursor: pointer; outline: none; margin-left: 17px;" type="submit" name="orders_btn">
+            <i style="font-size:px" class="fa">&#xf0e2;</i> Return
             </button>
+
         </form>
     </td>
 
@@ -564,7 +565,7 @@ else {
             
             <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
             
-            <button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 90%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="invoice_btn">
+            <button style="background-color: rgb(81, 182, 81); color: black; width: 80%; height: 50px; font-weight: bold; border: none; border-radius: 25px; cursor: pointer; outline: none; margin-left: 17px;" type="submit" name="invoice_btn">
                 <i class="fa fa-print"></i> Invoice
             </button>
         </form>

@@ -125,10 +125,13 @@ button {
       border-radius: 4px;
       cursor: pointer;
       width: 50%;
+      font-weight:bold;
     }
     button:hover {
-      background-color: #45a049;
-    }
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
     
 .return-button-disabled {
     background-color: #dddddd;
@@ -167,7 +170,7 @@ button {
 
 <form method="GET" action="invoice.php">
             <input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
-            <button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 10%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px;" type="submit" name="invoice_btn">
+            <button style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 10%; height: 7vh; color: black; font-weight: bold;  border-radius: 50px;" type="submit" name="invoice_btn">
                 <i class="fa fa-print"></i> Invoice
             </button>  
 </form>
@@ -320,8 +323,8 @@ foreach ($order_details_array as $row) {
     }
 </style>
 
-<button type="button" id="returnButton" style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 10%; height: 7vh; color: black; font-weight: bold; border: 1px solid black; border-radius: 50px; margin-left: 1190px;">
-    <img src="Assets/return_btn.png" style="width: 20px; height: 15px; padding-top: -3px;" alt="Return"> Return
+<button type="button" id="returnButton" style="background-color: rgb(81, 182, 81); text-decoration: none; font-weight: 30px; width: 10%; height: 7vh; color: black; font-weight: bold;  border-radius: 50px; margin-left: 1190px;">
+<i style="font-size:px" class="fa">&#xf0e2;</i> Return
 </button>
 
 <script>

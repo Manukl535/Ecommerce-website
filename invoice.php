@@ -12,8 +12,9 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
     }
 
     // Retrieve order details along with user_id
-    $stmt = $conn->prepare("SELECT order_item.*, orders.user_id 
+    $stmt = $conn->prepare("SELECT order_item.*, products.product_name, products.product_price 
                             FROM order_item 
+                            JOIN products ON order_item.product_id = products.product_id
                             JOIN orders ON order_item.order_id = orders.order_id
                             WHERE order_item.order_id=? AND orders.user_id=?");
 
@@ -65,8 +66,6 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
             margin-bottom: 20px;
             margin-right:10px;
             font-weight:bold;
-            
-            
         }
         .invoice-header h1 {
             margin: 0;
@@ -84,11 +83,11 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
             color: #333;
         }
         .invoice-table {
-        width: 100%; 
-        border-collapse: collapse;
-        margin: 0 auto; 
-        margin-top: 10px;
-    }
+            width: 100%; 
+            border-collapse: collapse;
+            margin: 0 auto; 
+            margin-top: 10px;
+        }
         .invoice-table th, .invoice-table td {
             border: 1px solid #ccc;
             padding: 10px;
@@ -113,8 +112,28 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
             margin: 5px 0;
             color: #333;
         }
+        .invoice-table th,
+        .invoice-table td {
+            padding: 10px;
+            text-align: left;
+        }
+        .invoice-table th:nth-child(1),
+        .invoice-table td:nth-child(1) {
+            width: 25%;
+        }
+        .invoice-table th:nth-child(2),
+        .invoice-table td:nth-child(2) {
+            width: 25%;
+        }
+        .invoice-table th:nth-child(3),
+        .invoice-table td:nth-child(3) {
+            width: 25%;
+        }
+        .invoice-table th:nth-child(4),
+        .invoice-table td:nth-child(4) {
+            width: 25%;
+        }
     </style>
-   
 </head>
 <body>
 
@@ -132,7 +151,7 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
                 ?></p>
             </div>
             <div class="company-profile">
-                <h2>Posh Botique</h2>
+                <h2>Posh Boutique</h2>
                 <p>223 Main Street,</p>
                 <p>Electronic City,</p> Bengaluru-07,
                 <p>posh.com</p>
@@ -148,35 +167,37 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
                 <p><?php echo $order_info['user_phone']; ?></p><br/>
 
                 <table class="invoice-table">
-    <thead>
-        <tr>
-            <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Total (Included Tax)</th>
-        </tr>
-    </thead>
-    <tbody>
-        <center><p><b>Order Number: ODR<?php echo str_pad($row['order_id'], 3, '0', STR_PAD_LEFT); ?></b></p></center><br/>
-        <?php 
-        // Check if there are items in the order_details
-        if ($order_details->num_rows > 0) {
-            while($row = $order_details->fetch_assoc()) { 
-        ?>
-                <tr>
-                    <td><?php echo $row['product_name']; ?></td>
-                    <td><?php echo $row['product_quantity']; ?></td>
-                    <td><?php echo $row['product_price']; ?></td>
-                    <td><?php echo $row['product_quantity'] * $row['product_price']; ?></td>
-                </tr>
-        <?php 
-            }
-        } else {
-            echo "<tr><td colspan='4'>No items in the order</td></tr>";
-        }
-        ?>
-    </tbody>
-</table>
+                    <thead>
+                        <tr style="text-align: center;">
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total (Included Tax)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <center><p><b>Order Number: ODR<?php echo str_pad($row['order_id'], 3, '0', STR_PAD_LEFT); ?></b></p></center><br/>
+                        <?php 
+                        // Check if there are items in the order_details
+                        if ($order_details->num_rows > 0) {
+                            while($row = $order_details->fetch_assoc()) { 
+                                // Calculate total for each item
+                                $total = $row['product_quantity'] * $row['product_price'];
+                        ?>
+                                <tr>
+                                    <td><?php echo $row['product_name']; ?></td>
+                                    <td><?php echo $row['product_quantity']; ?></td>
+                                    <td><?php echo $row['product_price']; ?></td>
+                                    <td><?php echo $total; ?></td>
+                                </tr>
+                        <?php 
+                            }
+                        } else {
+                            echo "<tr><td colspan='4'>No items in the order</td></tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
 
                 <div class="invoice-total">
                     <?php
@@ -200,9 +221,7 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
     <div class="footer" style="text-align: center; margin-top: 20px; border-top: 1px solid #ccc; padding-top: 20px;">
         <p>Thank you for shopping with Posh Boutique!</p>
         <p>For any inquiries, please contact support @ <a href="contact.php" style="text-decoration: none; color: black;">posh.com</a></p>
-        
     </div>
- 
 </div>
 
 <center>
@@ -226,4 +245,4 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
 </script>
 
 </body>
-</html> 
+</html>
