@@ -52,8 +52,18 @@ if (isset($_GET['orders_btn']) && isset($_GET['order_id']) && isset($_GET['produ
     header('location: product_return.php');
     exit();
 }
-?>
 
+// Check if the order_id is the same for the previous return
+if (!empty($order_details_array)) {
+    $current_product_id = $order_details_array[0]['product_id'];
+
+    // Fetch the sum of returning quantity for the same order ID and product ID
+    $return_qty_stmt = $conn->prepare("SELECT SUM(returning_qty) AS total_return_qty, account_number FROM return_requests WHERE order_id=? AND product_id=? GROUP BY account_number");
+    $return_qty_stmt->bind_param('ii', $order_id, $current_product_id);
+    $return_qty_stmt->execute();
+    $return_qty_result = $return_qty_stmt->get_result();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -173,37 +183,72 @@ if (isset($return_status) && $return_status === 'Yes') {
 // Fetch the return status and account number for the first product in the order
 if (!empty($order_details_array)) {
     $first_product_id = $order_details_array[0]['product_id'];
-    $return_status_query = $conn->prepare("SELECT return_status, account_number FROM return_requests WHERE order_id=? AND user_id=? AND product_id=?");
+    $return_status_query = $conn->prepare("SELECT return_status, account_number, returning_qty, product_price, bank FROM return_requests WHERE order_id=? AND user_id=? AND product_id=?");
     $return_status_query->bind_param('iii', $order_id, $_SESSION['user_id'], $first_product_id);
     $return_status_query->execute();
-    $return_status_query->bind_result($return_status, $account_number);
+    $return_status_query->bind_result($return_status, $account_number, $returning_qty, $product_price, $bank_name);
 
-    // Fetch the return status and account number
-    $return_status_query->fetch();
+    // Initialize arrays to store refund information
+    $refund_info = array();
 
-    // Check if the checkbox is disabled
-    $checkbox_disabled = ($return_status === 'Returned') ? 'disabled' : '';
+    // Fetch the return status, account number, returning quantity, product price, and bank name
+    while ($return_status_query->fetch()) {
+        // Store refund information based on bank name and account number
+        $refund_key = $bank_name . '_' . $account_number;
+        if (!isset($refund_info[$refund_key])) {
+            $refund_info[$refund_key] = array(
+                'refund_amount' => 0,
+                'account_number' => $account_number
+            );
+        }
+        
+        // Aggregate refund amount for the same bank and account number
+        $refund_info[$refund_key]['refund_amount'] += $returning_qty * $product_price;
+    }
 
-    // Fetch the product price from the order details array
-    $product_price = $order_details_array[0]['product_price'];
+    // Close the return status query
+    $return_status_query->close();
+
+    // Fetch the sum of returning quantity for the given order_id
+    $returning_qty_stmt = $conn->prepare("SELECT SUM(returning_qty) AS total_return_qty FROM return_requests WHERE order_id=? AND product_id=?");
+    $returning_qty_stmt->bind_param('ii', $order_id, $first_product_id);
+    $returning_qty_stmt->execute();
+    $returning_qty_result = $returning_qty_stmt->get_result();
+
+    // Initialize total return quantity to 0
+    $total_return_qty = 0;
+
+    // Check if there are any returning quantities
+    if ($returning_qty_result && $returning_qty_row = $returning_qty_result->fetch_assoc()) {
+        // Retrieve the total returning quantity
+        $total_return_qty = $returning_qty_row['total_return_qty'];
+    }
+
+    // Close the returning quantity statement
+    $returning_qty_stmt->close();
+
+    // Calculate the ordered quantity (assuming it's available in the order_details_array)
+    $ordered_qty = $order_details_array[0]['product_quantity'];
 
     // Display appropriate message based on return status
     if ($return_status === 'Yes') {
         // Display the image and refund message
         echo '<center><img src="Assets/returned.png" style="max-width: 5%; margin: 1px auto;"></center>';
         echo '<div class="refund-message">';
-        echo 'Refund amount &#8377; ' . $product_price . ' transferred to Account Number ending with: ';
-        echo ($checkbox_disabled) ? $account_number : substr($account_number, -4);
+        
+        // Display refund information for each bank and account number
+        foreach ($refund_info as $refund_key => $info) {
+            $bank_info = explode('_', $refund_key);
+            echo 'Refund amount &#8377; ' . $info['refund_amount'] . ' transferred to Account Number ending with: ' . substr($info['account_number'], -4) . ' (' . $bank_info[0] . ')';
+            echo '<br/>'; // Add a line break between each bank's refund information
+        }
+
+        echo '<br/>';
+        echo '<div>
+        Returned Qty: ' . $total_return_qty . '/' . $ordered_qty . '</div>';
         echo '</div>';
     }
-    
-    $return_status_query->close();
 }
-?>        
-
-       
-<?php
-$productImages = $productDescriptions = $productPrices = $productid = array();
 
 // Iterate over the stored order details array
 foreach ($order_details_array as $row) {
@@ -279,7 +324,6 @@ foreach ($order_details_array as $row) {
     <img src="Assets/return_btn.png" style="width: 20px; height: 15px; padding-top: -3px;" alt="Return"> Return
 </button>
 
-
 <script>
     var returnButtonClickCount = 0;
 
@@ -314,30 +358,65 @@ foreach ($order_details_array as $row) {
         });
 
         if (allCheckboxesDisabled) {
-            // All checkboxes are disabled, display alert and navigate to account.php after a short delay
-            alert('Product has been returned.');
-            setTimeout(function() {
-                window.location.href = 'account.php';
-            }, 0); 
-           
+            // All checkboxes are disabled
+            if (document.querySelectorAll('.hidden-checkbox').length > 0) {
+                // If there are checkboxes available, check if ordered qty matches returned qty
+                var checkboxes = document.querySelectorAll('.hidden-checkbox');
+                var allProductsReturned = true;
+
+                checkboxes.forEach(function(checkbox) {
+                    if (!checkbox.checked) {
+                        allProductsReturned = false;
+                    }
+                });
+
+                if (allProductsReturned) {
+                    // If all products have been returned, display an alert and navigate to account.php after a short delay
+                    alert('All products have been returned.');
+                    setTimeout(function() {
+                        window.location.href = 'account.php';
+                    }, 0);
+                } else {
+                    // If not all products have been returned, check if the returned quantity matches the ordered quantity
+                    var orderedQty = <?php echo json_encode($ordered_qty); ?>;
+                    var returnedQty = <?php echo json_encode($returning_qty); ?>;
+
+                    if (orderedQty === returnedQty) {
+                        // Alert when returned quantity equals ordered quantity
+                        alert('Product(s) have been returned.');
+                        // Navigate to account.php after the alert is closed
+                        window.location.href = 'account.php';
+                    }
+                }
+            }
         }
-        
     });
+
+    // Check if the ordered qty is not equal to the returned qty
+    var orderedQty = <?php echo json_encode($ordered_qty); ?>;
+    var returnedQty = <?php echo json_encode($returning_qty); ?>;
+
+    if (orderedQty !== returnedQty) {
+        // Enable checkboxes for return
+        var checkboxes = document.querySelectorAll('.hidden-checkbox');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.disabled = false;
+        });
+    }
 </script>
 
 <script>
-   
+    // Check if today is more than 2 days after the delivered date
     var deliveredDate = new Date('<?= date('Y-m-d', strtotime($row['dod'])) ?>');
     var currentDate = new Date();
     var twoDaysAfterDelivered = new Date(deliveredDate);
     twoDaysAfterDelivered.setDate(deliveredDate.getDate() + 2);
 
-    // Check if today is more than 2 days after the delivered date
     if (currentDate > twoDaysAfterDelivered) {
         // Today is more than 2 days after the delivered date, disable the return button
         document.getElementById('returnButton').disabled = true;
     }
-
+    
 </script>
 
 

@@ -119,6 +119,8 @@ button:hover {
                     <thead>
                         <tr>
                             <th style="text-align: center;">Order ID</th>
+                            <th style="text-align: center;">Product ID</th>
+                            <th style="text-align: center;">Ordered Qty</th>
                             <th style="text-align: center;">Order Date</th>
                             <th style="text-align: center;">Order Status</th>
                             <th style="text-align: center;">Order Cost</th>
@@ -128,8 +130,10 @@ button:hover {
                         <?php while ($row = $orders->fetch_assoc()) { ?>
                             <tr>
                                 <td style="text-align: center;">ODR<?php echo str_pad($row['order_id'], 3, '0', STR_PAD_LEFT); ?></td>
+                                <td style="text-align: center;"><?php echo $row['product_id']; ?></td>
+                                <td style="text-align: center;"><?php echo $row['product_quantity']; ?></td>
                                 <td style="text-align: center;"><?php echo date('d-m-Y', strtotime($row['order_date'])); ?></td>
-
+                                
                                    <?php
                                     $dod = $row['dod'];
                                     $formatted_date = date('d-m-Y', strtotime($dod));
@@ -157,36 +161,34 @@ button:hover {
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
 
-<script>
+    <script>
     function exportToExcel() {
-    /* Get table data */
-    var table = document.querySelector('.table');
+        /* Get table data */
+        var table = document.querySelector('.table');
 
-    /* Remove the rupee icon from the cost cells */
-    var costCells = table.querySelectorAll('tbody td:nth-child(4)');
-    costCells.forEach(function (cell) {
-        var costText = cell.innerText.trim();
-        cell.innerText = costText.replace('₹', ''); // Remove the rupee icon
-    });
+        /* Remove the rupee icon from the cost cells */
+        var costCells = table.querySelectorAll('tbody td:nth-child(6)'); // Select the cells containing the cost
+        costCells.forEach(function (cell) {
+            var costText = cell.innerText.trim();
+            cell.innerText = costText.replace('₹', ''); // Remove the rupee icon
+        });
 
-    /* Modify the cell content for delivery status */
-    var rows = table.querySelectorAll('tbody tr');
-    rows.forEach(function (row) {
-        var statusCell = row.querySelector('td:nth-child(3)');
-        var statusText = statusCell.innerText.split(':')[0].trim();
-        statusCell.innerText = statusText;
-    });
+        /* Modify the cell content for delivery status */
+        var rows = table.querySelectorAll('tbody tr');
+        rows.forEach(function (row) {
+            var statusCell = row.querySelector('td:nth-child(5)');
+            var statusText = statusCell.innerText.split(':')[0].trim();
+            statusCell.innerText = statusText;
+        });
 
-    /* Create a workbook containing the modified table data */
-    var ws = XLSX.utils.table_to_sheet(table);
-    var wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        /* Create a workbook containing the modified table data */
+        var ws = XLSX.utils.table_to_sheet(table);
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-    /* Save the workbook to a file */
-    XLSX.writeFile(wb, 'orders.xlsx');
-}
-
-
+        /* Save the workbook to a file */
+        XLSX.writeFile(wb, 'orders.xlsx');
+    }
 </script>
 
 </body>

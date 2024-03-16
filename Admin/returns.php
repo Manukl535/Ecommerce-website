@@ -1,10 +1,10 @@
 <?php
-    // Check if the user is logged in as an admin, you may implement your own authentication logic
-    session_start();
-    if (!isset($_SESSION['admin_name'])) {
-        header('Location: login.php'); // Redirect to login page if not logged in as admin
-        exit();
-    }
+// Check if the user is logged in as an admin, you may implement your own authentication logic
+session_start();
+if (!isset($_SESSION['admin_name'])) {
+    header('Location: login.php'); // Redirect to login page if not logged in as admin
+    exit();
+}
 
 include('../Includes/connection.php');
 
@@ -95,9 +95,10 @@ $stmt->close();
                     <thead>
                         <tr>
                             <th style="text-align: center;">Order ID</th>
-                            <th style="text-align: center;">Product_id</th>
+                            <th style="text-align: center;">Product ID</th>
+                            <th style="text-align: center;">Returned Qty</th>
                             <th style="text-align: center;">Reason</th>
-                            <th style="text-align: center;">Product Price</th>
+                            <th style="text-align: center;">Refund Amount</th>
                             <th style="text-align: center;">Refund Status</th>
                         </tr>
                     </thead>
@@ -106,8 +107,9 @@ $stmt->close();
                             <tr>
                                 <td style="text-align: center;">ODR<?php echo str_pad($row['order_id'], 3, '0', STR_PAD_LEFT); ?></td>
                                 <td style="text-align: center;"><?php echo $row['product_id']; ?></td>
+                                <td style="text-align: center;"><?php echo $row['returning_qty']; ?></td>
                                 <td style="text-align: center;"><?php echo $row['reason']; ?></td>
-                                <td style="text-align: center;"><?php echo $row['product_price']; ?></td>
+                                <td style="text-align: center;"><?php echo $row['product_price'] * $row['returning_qty']; ?></td>
                                 <td style="text-align: center;color:green"><strong>Settled</strong></td>
                             </tr>
                         <?php } ?>

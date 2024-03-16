@@ -308,74 +308,39 @@ $products = getProducts($conn);
             </table>
         </div>
     </div>
+<script>
+    function exportToExcel(tableId) {
+        var tab_text = "<table border='2px'><tr>";
+        var textRange;
+        var j = 0;
+        tab = document.getElementById(tableId); // id of table
 
-    <script>
-        // Function to export table data to Excel
-        function exportToExcel(tableId) {
-            var tab_text = "<table border='2px'><tr>";
-            var textRange; var j = 0;
-            tab = document.getElementById(tableId); // id of table
-
-            for (j = 0; j < tab.rows.length; j++) {
-                tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
-                //tab_text=tab_text+"</tr>";
-            }
-
-            tab_text = tab_text + "</table>";
-            tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
-            tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
-            tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
-
-            var ua = window.navigator.userAgent;
-            var msie = ua.indexOf("MSIE ");
-
-            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
-            {
-                txtArea1.document.open("txt/html", "replace");
-                txtArea1.document.write(tab_text);
-                txtArea1.document.close();
-                txtArea1.focus();
-                sa = txtArea1.document.execCommand("SaveAs", true, "Say Thanks to Sumit.xls");
-            }
-            else {
-                sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
-            }
-
-            return (sa);
+        for (j = 0; j < tab.rows.length; j++) {
+            tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            var updateButtons = document.querySelectorAll('.update-btn');
-            updateButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    var productId = this.getAttribute('data-product-id');
-                    var updateRow = document.querySelector('.update-row[data-product-id="' + productId + '"]');
-                    updateRow.style.display = 'table-row';
+        tab_text = tab_text + "</table>";
+        tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, ""); // remove if you want links in your table
+        tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if you want images in your table
+        tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // remove input fields
 
-                    // Add click event listener for the "Save" button in the update row
-                    var saveButton = updateRow.querySelector('.update-btn');
-                    saveButton.addEventListener('click', function () {
-                        var newQuantityInput = updateRow.querySelector('input[name="available_qty"]');
-                        var newQuantity = newQuantityInput.value;
+        // Create a Blob containing the table data
+        var blob = new Blob([tab_text], { type: 'application/vnd.ms-excel' });
 
-                        // Send the updated quantity to the server using AJAX
-                        var xhr = new XMLHttpRequest();
-                        xhr.open('POST', 'update_quantity.php', true);
-                        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                        xhr.onreadystatechange = function () {
-                            if (xhr.readyState == 4 && xhr.status == 200) {
-                                // Handle the response from the server if needed
-                                alert(xhr.responseText);
-                                // Reload the page after updating the quantity
-                                location.reload();
-                            }
-                        };
-                        xhr.send('product_id=' + productId + '&new_quantity=' + newQuantity);
-                    });
-                });
-            });
-        });
-    </script>
+        // Create a link element to trigger the download
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'products.xls'; // Set the file name with .xls extension
+
+        // Append the link to the body and click it to trigger the download
+        document.body.appendChild(link);
+        link.click();
+
+        // Cleanup
+        document.body.removeChild(link);
+    }
+</script>
+
 </body>
 
 </html>
