@@ -39,8 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'from' => $twilioPhoneNumber,
                 'body' => "Your OTP is: $otp",
             ]);
-
-        // Redirect to OTP verification page
+        
+        // Show OTP verification form
         header("Location: forgot_password.php?verify=true&phone=" . urlencode($phone));
         exit();
     } elseif (isset($_POST['verify']) && isset($_POST['otp']) && isset($_POST['phone'])) {
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: forgot_password.php?change=true&phone=" . urlencode($phone));
                 exit();
             } else {
-                function_alert("Invalid OTP. Please try again.", "forgot_password.php");
+                function_alert("Invalid OTP. Please try again.", "forgot_password.php?verify=true&phone=" . urlencode($phone));
             }
         } else {
             function_alert("User not found!.", "index.php");
@@ -95,8 +95,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -106,66 +104,74 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Forgot Password</title>
     <style>
     body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
 
-.container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px; /* Increased border-radius for a softer look */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Increased box-shadow for depth */
-    width: 300px; /* Set a fixed width for better readability */
-}
+    .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        width: 300px;
+    }
 
-form {
-    display: flex;
-    flex-direction: column;
-}
+    form {
+        display: flex;
+        flex-direction: column;
+    }
 
-label {
-    margin-bottom: 15px; /* Increased margin for better spacing */
-    font-size: 16px; /* Adjusted font size for better visibility */
-    font-weight: bold; /* Added bold font weight for emphasis */
-}
+    label {
+        margin-bottom: 15px;
+        font-size: 16px;
+        font-weight: bold;
+    }
 
-input {
-    padding: 12px; /* Increased padding for better input field appearance */
-    margin-bottom: 20px; /* Increased margin for better spacing */
-    border: 1px solid #ccc; /* Added a subtle border for input fields */
-    border-radius: 5px; /* Added border-radius for rounded corners */
-    transition: border-color 0.3s ease; /* Smooth transition for better interactivity */
-}
+    input {
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        transition: border-color 0.3s ease;
+    }
 
-input:focus {
-    outline: none; /* Remove default focus outline */
-    border-color: #4caf50; /* Change border color on focus */
-}
+    input:focus {
+        outline: none;
+        border-color: #4caf50;
+    }
 
-button {
-    background-color: #4caf50;
-    color: #fff;
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Smooth transition for better interactivity */
-}
+    button {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
 
-button:hover {
-    background-color: #45a049;
-}
-</style>
+    button:hover {
+        background-color: #45a049;
+    }
+    </style>
 </head>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <body>
     <div class="container">
         <?php if (isset($_GET['verify']) && $_GET['verify'] == 'true'): ?>
             <form action="forgot_password.php" method="post">
+                <center>
+                    <a href="#" onclick="window.history.back(); return false;"><i style="font-size:24px" class="fa">&#xf190;</i></a>
+                    &nbsp;
+                    <a href="index.php"><i style="font-size:24px;color:blue;" class="fa">&#xf015;</i></a>
+                    <br/>
+                </center>
                 <h2>Verify OTP</h2>
                 <label for="otp">Enter OTP:</label>
                 <input type="text" name="otp" required>
@@ -176,6 +182,12 @@ button:hover {
         <?php elseif (isset($_GET['change']) && $_GET['change'] == 'true'): ?>
 
             <div class="profile-section" style="flex: 1;">
+            <center>
+        <a href="#" onclick="window.history.back(); return false;"><i style="font-size:24px" class="fa">&#xf190;</i></a>
+        &nbsp;
+        <a href="index.php"><i style="font-size:24px;color:blue;" class="fa">&#xf015;</i></a>
+        <br/>
+    </center>
                 <center>
                     <h3>Change Password</h3>
                     <p style="color:red;"><?php if (isset($_GET['error'])) { echo $_GET['error']; } ?></p>
@@ -195,13 +207,41 @@ button:hover {
                     if (window.location.hash === '#changePassword') {
                         document.getElementById('account-form').style.display = 'block';
                     }
+                    // JavaScript for password mismatch alert
+                    var form = document.getElementById('account-form');
+                    form.addEventListener('submit', function(event) {
+                        var newPassword = document.getElementById('new_password').value;
+                        var confirmPassword = document.getElementById('confirm_password').value;
+                        if (newPassword !== confirmPassword) {
+                            alert("Passwords didn't match. Try Again");
+                            event.preventDefault();
+                        }
+                    });
                 </script>
+  <script>
+    // JavaScript for form submission and password validation
+    var form = document.getElementById('account-form');
+    form.addEventListener('submit', function(event) {
+        var newPassword = document.getElementById('new_password').value;
+        if (newPassword.length < 6) {
+            alert("Password must have at least 6 characters");
+            event.preventDefault(); // Prevent form submission
+        }
+    });
+</script>
+
+
             </div>
         </div>
     </div>
-
         <?php else: ?>
             <form action="forgot_password.php" method="post">
+                <center>
+                    <a href="#" onclick="window.history.back(); return false;"><i style="font-size:24px" class="fa">&#xf190;</i></a>
+                    &nbsp;
+                    <a href="index.php"><i style="font-size:24px;color:blue;" class="fa">&#xf015;</i></a>
+                    <br/>
+                </center>
                 <h2>Forgot Password?</h2>
                 <label for="phone">Mobile Number (With +91):</label>
                 <input type="text" name="phone" placeholder="+917022015320" required>

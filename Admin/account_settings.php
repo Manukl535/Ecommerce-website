@@ -5,7 +5,12 @@
         header('Location: login.php'); // Redirect to login page if not logged in as admin
         exit();
     }
+
+    // Password constraints
+    $passwordMinLength = 6; // Minimum password length
+    $passwordMaxLength = 20; // Maximum password length
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,49 +62,55 @@
 <body>
 
 <div class="container">
-      
-
-<center>
-
-<a href="#" onclick="window.history.back(); return false;"><i style="font-size:24px" class="fa">&#xf190;</i></a>
-
-&nbsp;
-
-<a href="dashboard.php"><i style="font-size:24px;color:blue;" class="fa">&#xf015;</i></a>
-
-<br/>
-</center>
+    <center>
+        <a href="#" onclick="window.history.back(); return false;"><i style="font-size:24px" class="fa">&#xf190;</i></a>
+        &nbsp;
+        <a href="dashboard.php"><i style="font-size:24px;color:blue;" class="fa">&#xf015;</i></a>
+        <br/>
+    </center>
     <h2>Account Settings</h2>
     <?php
-  
-    include('../Includes/connection.php'); 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Retrieve form data
-        $newPassword = $_POST['new_password'];
-        $newName = $_POST['new_name'];
-        $newEmail = $_POST['new_email'];
-        $newphone = $_POST['new_phone'];
-        
-        // Update the admin table
-        $updateStmt = $conn->prepare("UPDATE admin SET password = ?, admin_name = ?, email = ?,phone= ? WHERE admin_id = ?");
-        $updateStmt->bind_param("ssssi", $newPassword, $newName, $newEmail, $newphone,$_SESSION['admin_id']);
+        include('../Includes/connection.php'); 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Retrieve form data
+            $newPassword = $_POST['new_password'];
+            $confirmPassword = $_POST['confirm_password'];
+            $newName = $_POST['new_name'];
+            $newEmail = $_POST['new_email'];
+            $newPhone = "+91" . $_POST['new_phone']; // Append +91 to the phone number
+            
+            // Password validation
+            if ($newPassword !== $confirmPassword) {
+                echo '<p style="color: red;text-align:center">Passwords do not match.</p>';
+            } elseif (strlen($newPassword) < $passwordMinLength || strlen($newPassword) > $passwordMaxLength) {
+                echo '<p style="color: red;text-align:center">Password must have '.$passwordMinLength.' characters.</p>';
+            } else {
+                // Update the admin table
+                $updateStmt = $conn->prepare("UPDATE admin SET password = ?, admin_name = ?, email = ?, phone = ? WHERE admin_id = ?");
+                $updateStmt->bind_param("ssssi", $newPassword, $newName, $newEmail, $newPhone, $_SESSION['admin_id']);
 
-        if ($updateStmt->execute()) {
-            echo '<p style="color: green;">Account updated successfully!</p>';
-            echo '<script>alert("Account info updated!"); window.location.href = "dashboard.php";</script>';
-            exit; // To prevent further execution
-        } else {
-            echo '<p style="color: red;">Error updating account. Please try again.</p>';
+                if ($updateStmt->execute()) {
+                    echo '<p style="color: green;">Account updated successfully!</p>';
+                    echo '<script>alert("Account info updated!\nLogging out."); window.location.href = "logout.php";</script>';
+                    exit; // To prevent further execution
+                } else {
+                    echo '<p style="color: red;">Error updating account. Please try again.</p>';
+                }
+
+                $updateStmt->close();
+            }
         }
-
-        $updateStmt->close();
-    }
     ?>
 
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <div class="form-group">
             <label for="new_password">New Password:</label>
             <input type="password" name="new_password" required>
+        </div>
+
+        <div class="form-group">
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" name="confirm_password" required>
         </div>
 
         <div class="form-group">
@@ -114,7 +125,7 @@
 
         <div class="form-group">
             <label for="new_phone">New Phone:</label>
-            <input type="phone" name="new_phone" required>
+            <input type="tel" name="new_phone" required>
         </div>
 
         <button type="submit">Update Account</button>

@@ -199,10 +199,21 @@ $products = getProducts($conn);
             background-color: #286090;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
     <div class="main-content">
+        
+    <div class="profile-section">
+
+<a href="#" onclick="window.history.back(); return false;"><i style="font-size:24px;color:blue;" class="fa">&#xf190;</i></a>
+
+&nbsp;
+
+<a href="dashboard.php"><i style="font-size:24px;color:blue;" class="fa">&#xf015;</i></a>
+
+<br/>
         <h2>Manage Products</h2>
 
         <form method="post" action="" style="border: 1px solid #ddd; padding: 20px; border-radius: 5px;">

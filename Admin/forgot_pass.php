@@ -1,32 +1,30 @@
 <?php
 session_start();
-// Include database connection
 include('../Includes/connection.php');
 
 function function_alert($message, $redirectUrl) {
-    // Display the alert box
     echo "<script>alert('$message');</script>";
-    // Redirect to the specified URL after the alert is closed
     echo "<script>window.location.href = '$redirectUrl';</script>";
-    // Ensure no further code is executed
     exit();
 }
 
-// Include Twilio dependencies
 require_once 'C:\xampp\htdocs\twilio-php-main\src\Twilio\autoload.php';
 use Twilio\Rest\Client;
 
-// Your Twilio credentials
 $sid = "ACc52a9ad7912313f3a2fac31a004cb494";
 $token = "dd17626c541f7546c284653c62e085da";
-$twilioPhoneNumber = '+15169798118'; // Replace with your Twilio phone number
+$twilioPhoneNumber = '+15169798118';
 $twilio = new Client($sid, $token);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['submit']) && isset($_POST['phone'])) {
-        // Generate OTP (You may use a library or your own method)
         $otp = rand(100000, 999999);
         $phone = $_POST['phone'];
+
+        // Check if the phone number starts with +91
+        if (strpos($phone, '+91') !== 0) {
+            function_alert("Please enter a valid phone number starting with +91.", "forgot_pass.php");
+        }
 
         // Update the database with the generated OTP
         $updateQuery = "UPDATE admin SET otp = '$otp' WHERE phone = '$phone'";
@@ -37,18 +35,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Send OTP to the registered mobile number using Twilio
         $message = $twilio->messages
-            ->create($phone, // To
-                [
-                    'from' => $twilioPhoneNumber,
-                    'body' => "Your OTP is: $otp",
-                ]
-            );
-
-        // Redirect to OTP verification page
+            ->create($phone, [
+                'from' => $twilioPhoneNumber,
+                'body' => "Your OTP is: $otp",
+            ]);
+        
+        // Show OTP verification form
         header("Location: forgot_pass.php?verify=true&phone=" . urlencode($phone));
         exit();
     } elseif (isset($_POST['verify']) && isset($_POST['otp']) && isset($_POST['phone'])) {
-        // Verify OTP logic
         $enteredOtp = $_POST['otp'];
         $phone = $_POST['phone'];
 
@@ -67,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: forgot_pass.php?change=true&phone=" . urlencode($phone));
                 exit();
             } else {
-                function_alert("Invalid OTP. Please try again.", "forgot_pass.php");
+                function_alert("Invalid OTP. Please try again.", "forgot_pass.php?verify=true&phone=" . urlencode($phone));
             }
         } else {
             function_alert("User not found!.", "index.php");
@@ -75,7 +70,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (isset($_POST['Change_Password'])) {
-        // Ensure that the session variable is set
         if (!isset($_SESSION['phone'])) {
             function_alert("Session phone not set. Please try again.", "forgot_pass.php");
         }
@@ -84,20 +78,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $confirm_password = $_POST['confirm_password'];
         $phone = $_SESSION['phone'];
 
-        // Length of pass
         if (strlen($password) < 6) {
-            function_alert("Password must have 6 characters", "forgot_pass.php");
-        }
-        // Pass_confirm pass
-        elseif ($password !== $confirm_password) {
+            function_alert("Password must have at least 6 characters", "forgot_pass.php");
+        } elseif ($password !== $confirm_password) {
             function_alert("Passwords didn't match. Try Again", "forgot_pass.php");
-        }
-        // If all correct
-        else {
+        } else {
             $stmt = $conn->prepare("UPDATE admin SET password=? WHERE phone=?");
-
             $stmt->bind_param('ss', $password, $phone);
-
             if ($stmt->execute()) {
                 function_alert("Password changed successfully!\\nRedirecting to Login page", "../admin/login.php");
             } else {
@@ -117,66 +104,74 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Forgot Password</title>
     <style>
     body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
 
-.container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px; /* Increased border-radius for a softer look */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Increased box-shadow for depth */
-    width: 300px; /* Set a fixed width for better readability */
-}
+    .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        width: 300px;
+    }
 
-form {
-    display: flex;
-    flex-direction: column;
-}
+    form {
+        display: flex;
+        flex-direction: column;
+    }
 
-label {
-    margin-bottom: 15px; /* Increased margin for better spacing */
-    font-size: 16px; /* Adjusted font size for better visibility */
-    font-weight: bold; /* Added bold font weight for emphasis */
-}
+    label {
+        margin-bottom: 15px;
+        font-size: 16px;
+        font-weight: bold;
+    }
 
-input {
-    padding: 12px; /* Increased padding for better input field appearance */
-    margin-bottom: 20px; /* Increased margin for better spacing */
-    border: 1px solid #ccc; /* Added a subtle border for input fields */
-    border-radius: 5px; /* Added border-radius for rounded corners */
-    transition: border-color 0.3s ease; /* Smooth transition for better interactivity */
-}
+    input {
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        transition: border-color 0.3s ease;
+    }
 
-input:focus {
-    outline: none; /* Remove default focus outline */
-    border-color: #4caf50; /* Change border color on focus */
-}
+    input:focus {
+        outline: none;
+        border-color: #4caf50;
+    }
 
-button {
-    background-color: #4caf50;
-    color: #fff;
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Smooth transition for better interactivity */
-}
+    button {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
 
-button:hover {
-    background-color: #45a049;
-}
-</style>
+    button:hover {
+        background-color: #45a049;
+    }
+    </style>
 </head>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <body>
     <div class="container">
         <?php if (isset($_GET['verify']) && $_GET['verify'] == 'true'): ?>
             <form action="forgot_pass.php" method="post">
+                <center>
+                    <a href="#" onclick="window.history.back(); return false;"><i style="font-size:24px" class="fa">&#xf190;</i></a>
+                    &nbsp;
+                    <a href="../admin/index.php"><i style="font-size:24px;color:blue;" class="fa">&#xf015;</i></a>
+                    <br/>
+                </center>
                 <h2>Verify OTP</h2>
                 <label for="otp">Enter OTP:</label>
                 <input type="text" name="otp" required>
@@ -187,8 +182,12 @@ button:hover {
         <?php elseif (isset($_GET['change']) && $_GET['change'] == 'true'): ?>
 
             <div class="profile-section" style="flex: 1;">
-            <!-- Change password -->
-            <!-- <div class="container" style="height: 55vh;"> -->
+            <center>
+        <a href="#" onclick="window.history.back(); return false;"><i style="font-size:24px" class="fa">&#xf190;</i></a>
+        &nbsp;
+        <a href="../admin/index.php"><i style="font-size:24px;color:blue;" class="fa">&#xf015;</i></a>
+        <br/>
+    </center>
                 <center>
                     <h3>Change Password</h3>
                     <p style="color:red;"><?php if (isset($_GET['error'])) { echo $_GET['error']; } ?></p>
@@ -208,13 +207,39 @@ button:hover {
                     if (window.location.hash === '#changePassword') {
                         document.getElementById('account-form').style.display = 'block';
                     }
+                    // JavaScript for password mismatch alert
+                    var form = document.getElementById('account-form');
+                    form.addEventListener('submit', function(event) {
+                        var newPassword = document.getElementById('new_password').value;
+                        var confirmPassword = document.getElementById('confirm_password').value;
+                        if (newPassword !== confirmPassword) {
+                            alert("Passwords didn't match. Try Again");
+                            event.preventDefault();
+                        }
+                    });
                 </script>
+  <script>
+    // JavaScript for form submission and password validation
+    var form = document.getElementById('account-form');
+    form.addEventListener('submit', function(event) {
+        var newPassword = document.getElementById('new_password').value;
+        if (newPassword.length < 6) {
+            alert("Password must have at least 6 characters");
+            event.preventDefault(); // Prevent form submission
+        }
+    });
+</script>
             </div>
         </div>
     </div>
-
         <?php else: ?>
             <form action="forgot_pass.php" method="post">
+                <center>
+                    <a href="#" onclick="window.history.back(); return false;"><i style="font-size:24px" class="fa">&#xf190;</i></a>
+                    &nbsp;
+                    <a href="../admin/index.php"><i style="font-size:24px;color:blue;" class="fa">&#xf015;</i></a>
+                    <br/>
+                </center>
                 <h2>Forgot Password?</h2>
                 <label for="phone">Mobile Number (With +91):</label>
                 <input type="text" name="phone" placeholder="+917022015320" required>
