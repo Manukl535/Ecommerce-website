@@ -112,7 +112,7 @@ if (!empty($bank) && !empty($account_number) && !empty($ifsc_code)) {
     $updateBankStmt->bind_param("sssi", $bank, $account_number, $ifsc_code, $user_id);
     
     if ($updateBankStmt->execute()) {
-        echo '<script>alert("Bank details updated successfully.");</script>';
+        // echo '<script>alert("Bank details updated successfully.");</script>';
     } else {
         echo '<script>alert("Failed to update bank details. Please try again.");</script>';
     }
