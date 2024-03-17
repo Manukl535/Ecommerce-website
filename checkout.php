@@ -188,21 +188,22 @@ $randomDate = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)))
                     <label for="phone">Phone</label>
                     <input type="text" id="phone" name="phone" placeholder="93425 32878" pattern="[0-9]{10}" title="Enter the Mobile number" required>
                 </div>
-            </div>
+            </div><div style="display: flex; justify-content: space-between; align-items: center;">
+    <?php echo "<h4 style='text-align: left; margin: 8px;'>Total cart Qty: " . $_SESSION['total_items'] . "</h4>"; ?>
 
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <?php echo "<h4 style='text-align: left; margin: 8px;'>Total cart Qty: " . $_SESSION['total_items'] . "</h4>"; ?>
-
-                <label for="total_amount"><b>Total Amount: &#8377; <?php echo $_SESSION['total']; ?></b></label>
-
-                <label id="deliveryDateLabel" style="display: none;" for="dod">Delivery by <span><?php echo date('D F j', strtotime($randomDate)); ?></span></label>
-            </div>
+    <label id="deliveryDateLabel" style="display: none;" for="dod">Delivery by <span id="deliveryDateSpan"><?php echo date('D F j', strtotime($randomDate)); ?></span> | Total Amount: &#8377; <?php echo $_SESSION['total']; ?></label>
+</div>
 
             <center>
                 <input type="submit" value="Place Order" name="place_order" class="btn" data-target="#paymentModal" data-toggle="modal">
             </center>
         </form>
     </div>
+
+
+
+
+
 
     <script>
     function populateCities() {
@@ -219,37 +220,68 @@ $randomDate = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)))
             }
         }
 
-        // Check if both state and city are selected
-        var selectedCity = citySelect.options[citySelect.selectedIndex].value;
+        // Trigger delivery date population
+        populateDeliveryDate();
+    }
+
+    function populateDeliveryDate() {
         var deliveryDateLabel = document.getElementById("deliveryDateLabel");
         var deliveryDateSpan = document.getElementById("deliveryDateSpan");
 
-        if (selectedState !== "" && selectedCity !== "") {
+        var selectedCity = document.getElementById("cities").value;
+
+        if (selectedCity) {
             // Show the delivery date label
             deliveryDateLabel.style.display = "block";
 
             // Set the available delivery dates
             var today = new Date();
-            var startDate = new Date(today);
-            startDate.setDate(today.getDate() + 2); // Start from the day after tomorrow
+            var tomorrow = new Date(today);
+            tomorrow.setDate(today.getDate() + 1); // Tomorrow's date
 
-            var endDate = new Date(today);
-            endDate.setDate(today.getDate() + 7); // 1 week from tomorrow
+            var endOfWeek = new Date(today);
+            endOfWeek.setDate(today.getDate() + (6 - today.getDay())); // End of the week (Saturday)
 
-            deliveryDateSpan.innerHTML = startDate.toLocaleDateString() + " to " + endDate.toLocaleDateString();
+            var randomDate;
+            do {
+                randomDate = generateRandomDate(tomorrow, endOfWeek);
+            } while (randomDate <= today); // Ensure the generated date is after today
+
+            deliveryDateSpan.innerHTML = randomDate.toLocaleDateString();
         } else {
-            // Hide the delivery date label
+            // Hide the delivery date label if no city is selected
             deliveryDateLabel.style.display = "none";
         }
     }
 
-    // Trigger populateCities() on state and city change
-    document.getElementById("states").addEventListener("change", populateCities);
-    document.getElementById("cities").addEventListener("change", populateCities);
+    function generateRandomDate(startDate, endDate) {
+        var startTimestamp = startDate.getTime();
+        var endTimestamp = endDate.getTime();
+        var randomTimestamp = startTimestamp + Math.random() * (endTimestamp - startTimestamp);
+        return new Date(randomTimestamp);
+    }
 
-    // Trigger populateCities() once on page load to handle initial state
+    // Trigger populateCities() on state change
+    document.getElementById("states").addEventListener("change", populateCities);
+
+    // Trigger populateDeliveryDate() on city change
+    document.getElementById("cities").addEventListener("change", populateDeliveryDate);
+
+    // Trigger population of cities and delivery date once on page load to handle initial state
     populateCities();
+    populateDeliveryDate();
 </script>
+
+
+
+
+
+
+
+
+
+
+
 
     <center>
         <div class="copyright">
