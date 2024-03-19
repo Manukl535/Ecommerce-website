@@ -31,22 +31,22 @@ if (isset($_POST['register-btn'])) {
         header('location:register_user.php?error=Password must have 6 characters');
         exit;
     }
-    // phone length
-    if (strlen($phone) !== 12) {
-        header('location:register_user.php?error=Phone number should be 10 digits.');
+    // Phone length
+    if (strlen($phone) !== 10) {
+        header('location:register_user.php?error=Phone number should be exactly 10 digits.');
         exit;
     }
-    else{
+else{
        
 
     }
-    // Validate email format
-    $emailPattern = "/^[a-zA-Z0-9._%+-]+@(gmail|email|yahoo)\.com$/i";
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL) || !preg_match($emailPattern, $email)) {
-        $error_message = "Invalid email format. Example: abc@gmail.com";
-        header("location:register_user.php?error=" . urlencode($error_message));
-        exit;
-    }
+     // Validate email format
+     $emailPattern = "/^[a-zA-Z0-9._%+-]+@(gmail|email|yahoo)\.com$/i";
+     if (!filter_var($email, FILTER_VALIDATE_EMAIL) || !preg_match($emailPattern, $email)) {
+         $error_message = "Invalid email format. Example: abc@gmail.com";
+         header("location:register_user.php?error=" . urlencode($error_message));
+         exit;
+     }
 
     // Check for existing email
     $stmt1 = $conn->prepare("SELECT COUNT(*) FROM users WHERE email=?");
