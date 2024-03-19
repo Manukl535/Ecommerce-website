@@ -191,7 +191,7 @@ $randomDate = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)))
             </div><div style="display: flex; justify-content: space-between; align-items: center;">
     <?php echo "<h4 style='text-align: left; margin: 8px;'>Total cart Qty: " . $_SESSION['total_items'] . "</h4>"; ?>
 
-    <label id="deliveryDateLabel" style="display: none;" for="dod">Delivery by <span id="deliveryDateSpan"><?php echo date('D F j', strtotime($randomDate)); ?></span> | Total Amount: &#8377; <?php echo $_SESSION['total']; ?></label>
+    <label id="deliveryDateLabel" style="display: none;" for="dod">Delivery by <span id="deliveryDateSpan" name="dod"><?php echo date('D F j', strtotime($randomDate)); ?></span> | Total Amount: &#8377; <?php echo $_SESSION['total']; ?></label>
 </div>
 
             <center>

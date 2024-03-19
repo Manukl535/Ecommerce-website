@@ -22,7 +22,7 @@ if (isset($_POST['register-btn'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
-    $phone = "+91" . $phone;
+    // $phone = "+91" . $phone;
     // Password confirmation
     if ($password !== $confirm_password) {
         header('location:register_user.php?error=Password did not match');
@@ -32,15 +32,16 @@ if (isset($_POST['register-btn'])) {
         exit;
     }
     // phone length
-    if (strlen($phone) < 10) {
+    if (strlen($phone) !== 12) {
         header('location:register_user.php?error=Phone number should be 10 digits.');
         exit;
-    }else{
+    }
+    else{
        
 
     }
     // Validate email format
-    $emailPattern = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/";
+    $emailPattern = "/^[a-zA-Z0-9._%+-]+@(gmail|email|yahoo)\.com$/i";
     if (!filter_var($email, FILTER_VALIDATE_EMAIL) || !preg_match($emailPattern, $email)) {
         $error_message = "Invalid email format. Example: abc@gmail.com";
         header("location:register_user.php?error=" . urlencode($error_message));
