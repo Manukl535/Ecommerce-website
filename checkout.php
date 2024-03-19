@@ -188,11 +188,11 @@ $randomDate = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)))
                     <label for="phone">Phone</label>
                     <input type="text" id="phone" name="phone" placeholder="93425 32878" pattern="[0-9]{10}" title="Enter the Mobile number" required>
                 </div>
-            </div><div style="display: flex; justify-content: space-between; align-items: center;">
-    <?php echo "<h4 style='text-align: left; margin: 8px;'>Total cart Qty: " . $_SESSION['total_items'] . "</h4>"; ?>
-
-    <label id="deliveryDateLabel" style="display: none;" for="dod">Delivery by <span id="deliveryDateSpan" name="dod"><?php echo date('D F j', strtotime($randomDate)); ?></span> | Total Amount: &#8377; <?php echo $_SESSION['total']; ?></label>
-</div>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label for="cart_ety">Total Cart Qty: <span id=""><?php echo strtoupper($_SESSION['total_items']); ?></span></label>
+            <label id="deliveryDateLabel" style="display: none;" for="dod">Delivery by <span id="deliveryDateSpan" name="dod"><?php echo date('D F j', strtotime($randomDate)); ?></span> | Total Amount: &#8377; <?php echo $_SESSION['total']; ?></label>
+            </div>
 
             <center>
                 <input type="submit" value="Place Order" name="place_order" class="btn" data-target="#paymentModal" data-toggle="modal">
