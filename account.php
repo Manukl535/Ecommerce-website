@@ -374,7 +374,7 @@ else {
               <div class="acct-links-container" style="display: flex;justify-content: center;">
     <div class="acct-userbox">
       <p><img src="Assets/user_icon.png" alt="user_icon"></p>
-      <p>Hello, <b><?php if(isset($_SESSION['user_name'])){echo $_SESSION['user_name']; } ?></b></p>
+      <p>Hello, <b><?php if(isset($_SESSION['user_name'])){echo strtoupper($_SESSION['user_name']);} ?></b></p>
    
     </div>
   </div>
@@ -387,9 +387,9 @@ else {
                 </center>
 
             <div id="userInfoDisplay">
-              <p><label for="email">Name: <?php if(isset($_SESSION['user_name'])){echo $_SESSION['user_name']; } ?></label></p>
-              <p><label for="email">Email: <?php if(isset($_SESSION['email'])){echo $_SESSION['email']; } ?></label> </p> 
-              <p><label for="phone">Phone: <?php if(isset($_SESSION['phone'])){echo $_SESSION['phone']; } ?></label></p>
+            <p><label for="email">Name: <?php if(isset($_SESSION['user_name'])){echo strtoupper($_SESSION['user_name']); } ?></label></p>
+            <p><label for="email">Email: <?php if(isset($_SESSION['email'])){echo strtoupper($_SESSION['email']); } ?></label> </p>
+            <p><label for="phone">Phone: <?php if(isset($_SESSION['phone'])){echo $_SESSION['phone']; } ?></label></p>
             </div>
 
 

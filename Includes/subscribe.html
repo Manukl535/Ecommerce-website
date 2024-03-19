@@ -15,13 +15,19 @@
 <script>
     function validateEmail() {
         var emailInput = document.getElementById("emailInput");
-        var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        var emailPattern = /^[a-zA-Z0-9._%+-]+@(gmail|email|yahoo)\.com$/i;
+
+        // Convert email input to uppercase
+        emailInput.value = emailInput.value.toUpperCase();
 
         if (!emailPattern.test(emailInput.value)) {
             alert("Please enter a valid email address.");
             return false; // Prevent form submission
         }
 
-        return true; // Allow form submission
+        // If the email is valid, proceed with form submission
+        return true;
     }
 </script>
+
+
