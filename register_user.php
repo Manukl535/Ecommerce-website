@@ -18,11 +18,21 @@ if (isset($_SESSION['logged-in'])) {
 if (isset($_POST['register-btn'])) {
 
     $name = $_POST['name'];
-    $phone = $_POST['phone'];
+    $phone = trim($_POST['phone']); // Trim any extra spaces
+
+    // Check if the length of the phone number is not 10 digits
+    if (strlen($phone) !== 10) {
+        // Redirect with an error message
+        header('location:register_user.php?error=Phone number should be exactly 10 digits.');
+        exit;
+    } else {
+        $phone = "+91" . $phone; // Append +91 if the length is exactly 10 digits
+    }
+
     $email = $_POST['email'];
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
-    // $phone = "+91" . $phone;
+
     // Password confirmation
     if ($password !== $confirm_password) {
         header('location:register_user.php?error=Password did not match');
@@ -31,22 +41,14 @@ if (isset($_POST['register-btn'])) {
         header('location:register_user.php?error=Password must have 6 characters');
         exit;
     }
-    // Phone length
-    if (strlen($phone) !== 10) {
-        header('location:register_user.php?error=Phone number should be exactly 10 digits.');
+
+    // Validate email format
+    $emailPattern = "/^[a-zA-Z0-9._%+-]+@(gmail|email|yahoo)\.com$/i";
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL) || !preg_match($emailPattern, $email)) {
+        $error_message = "Invalid email format. Example: abc@gmail.com";
+        header("location:register_user.php?error=" . urlencode($error_message));
         exit;
     }
-else{
-       
-
-    }
-     // Validate email format
-     $emailPattern = "/^[a-zA-Z0-9._%+-]+@(gmail|email|yahoo)\.com$/i";
-     if (!filter_var($email, FILTER_VALIDATE_EMAIL) || !preg_match($emailPattern, $email)) {
-         $error_message = "Invalid email format. Example: abc@gmail.com";
-         header("location:register_user.php?error=" . urlencode($error_message));
-         exit;
-     }
 
     // Check for existing email
     $stmt1 = $conn->prepare("SELECT COUNT(*) FROM users WHERE email=?");
@@ -180,49 +182,39 @@ else{
 		text-decoration: underline;
 	} 
     </style>
+</head>
 <body>
 <div class="signup-form">
-        <form id="register-form" action="register_user.php" method="POST">
-            <h2>Register</h2>
-            <p class="hint-text">Create your account. It's free and only takes a minute.</p>
-            <center><p style="color:red;"><?php if(isset($_GET['error'])) { echo $_GET['error']; } ?></p></center>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-xs-6">  </div>
-                                  
-                </div>  
-				<input type="text" class="form-control" name="name" placeholder="Name" required="required">        
-            </div>
-            <div class="form-group">
-         <input type="tel" class="form-control" name="phone" placeholder="7022015320" required="required">
-        </div>
-
+    <form id="register-form" action="register_user.php" method="POST">
+        <h2>Register</h2>
+        <p class="hint-text">Create your account. It's free and only takes a minute.</p>
+        <center><p style="color:red;"><?php if(isset($_GET['error'])) { echo $_GET['error']; } ?></p></center>
         <div class="form-group">
-        	<input type="email" class="form-control" name="email" placeholder="Email" required="required">
+            <input type="text" class="form-control" name="name" placeholder="Name" required="required">
         </div>
-		<div class="form-group">
+        <div class="form-group">
+            <input type="tel" class="form-control" name="phone" placeholder="Phone" required="required">
+        </div>
+        <div class="form-group">
+            <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+        </div>
+        <div class="form-group">
             <input type="password" class="form-control" name="password" placeholder="Password" required="required">
         </div>
-			<div class="form-group">
-				<input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">
-			</div>        
         <div class="form-group">
-			<label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="T&C.html">Terms of Use &amp; Privacy Policy</a></label>
-		</div>
-		<div class="form-group">
+            <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">
+        </div>
+        <div class="form-group">
+            <label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="T&C.html">Terms of Use &amp; Privacy Policy</a></label>
+        </div>
+        <div class="form-group">
             <button type="submit"  class="btn btn-success btn-lg btn-block" name="register-btn">Register Now</button>
         </div>
     </form>
-	<div class="text-center">Already have an account? <a href="login_user.php">Sign in</a></div>
+    <div class="text-center">Already have an account? <a href="login_user.php">Sign in</a></div>
 </div>
 
+<!-- Your footer HTML -->
 
-<center>
-<footer class="section-p1">
-    <div class="copyright">
-        <p>2023 &#169; All Rights Reserved</p><p>Designed and Maintained by <b>Manu </b>and <b>Srisha</b></p>
-    </div>
-
-</footer></center>
 </body>
 </html>
