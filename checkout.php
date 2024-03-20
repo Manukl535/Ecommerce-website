@@ -37,7 +37,7 @@ $randomDate = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)))
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style>
-         body {
+        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 16px;
             line-height: 1.6;
@@ -87,7 +87,6 @@ $randomDate = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)))
         input[type=text],
         input[type=email],
         input[type=date],
-      
         select {
             width: 100%;
             padding: 12px;
@@ -131,7 +130,7 @@ $randomDate = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)))
         }
 
         .btn:hover {
-          background-color:#45a049;
+            background-color: #45a049;
         }
 
         .copyright {
@@ -147,8 +146,8 @@ $randomDate = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)))
     <div class="container">
         <h2>Checkout</h2>
         <form action="place_order.php" method="POST">
-            
-        <a href="#" onclick="window.history.back(); return false;"><i style="font-size:30px" class="fa">&#xf190;</i></a>
+
+            <a href="#" onclick="window.history.back(); return false;"><i style="font-size:30px" class="fa">&#xf190;</i></a>
 
             <div class="row">
                 <div class="col-50">
@@ -166,32 +165,33 @@ $randomDate = date('Y-m-d', mt_rand(strtotime($startDate), strtotime($endDate)))
                 <div class="col-50">
                     <label for="states">State</label>
                     <select type="select" id="states" name="state" onchange="populateCities()" required>
-    <option value="" disabled selected>Select State</option>
-    <option value="Karnataka">KARNATAKA</option>
-    <option value="Maharashtra">MAHARASHTRA</option>
-    <!-- Add more states as needed -->
-</select>
-<label for="states">City</label>
-<select id="cities" name="city" required>
-    <option value="" disabled selected>Select City</option>
-    <!-- Cities for Karnataka -->
-    <option value="Bengaluru" data-state="Karnataka">BENGALURU</option>
-    <option value="Mysuru" data-state="Karnataka">MYSURU</option>
-    <!-- Cities for Maharashtra -->
-    <option value="Mumbai" data-state="Maharashtra">MUMBAI</option>
-    <option value="Pune" data-state="Maharashtra">PUNE</option>
-    <!-- Add more cities as needed -->
-</select>
+                        <option value="" disabled selected>Select State</option>
+                        <option value="Karnataka">KARNATAKA</option>
+                        <option value="Maharashtra">MAHARASHTRA</option>
+                        <!-- Add more states as needed -->
+                    </select>
+                    <label for="cities">City</label>
+                    <select id="cities" name="city" required>
+                        <option value="" disabled selected>Select City</option>
+                        <!-- Cities for Karnataka -->
+                        <option value="Bengaluru" data-state="Karnataka">BENGALURU</option>
+                        <option value="Mysuru" data-state="Karnataka">MYSURU</option>
+                        <!-- Cities for Maharashtra -->
+                        <option value="Mumbai" data-state="Maharashtra">MUMBAI</option>
+                        <option value="Pune" data-state="Maharashtra">PUNE</option>
+                        <!-- Add more cities as needed -->
+                    </select>
 
-                    <input type="date" id="deliverydate" name="dod" style="display: none;" value="<?php echo $randomDate; ?>" required>
+                    <input type="date" id="deliverydate" name="dod" style="display: none;" required>
 
                     <label for="phone">Phone</label>
                     <input type="text" id="phone" name="phone" placeholder="93425 32878" pattern="[0-9]{10}" title="Enter the Mobile number" required>
                 </div>
             </div>
             <div style="display: flex; justify-content: space-between; align-items: center;">
-            <label for="cart_ety">Total Cart Qty: <span id=""><?php echo strtoupper($_SESSION['total_items']); ?></span></label>
-            <label id="deliveryDateLabel" style="display: none;" for="dod">Delivery by <span id="deliveryDateSpan" name="dod"><?php echo date('D F j', strtotime($randomDate)); ?></span> | Total Amount: &#8377; <?php echo $_SESSION['total']; ?></label>
+                <label for="cart_ety">Total Cart Qty: <span id=""><?php echo strtoupper($_SESSION['total_items']); ?></span></label>
+                <input id="deliveryDateInput" type="date" name="dod" style="display: none;" required>
+                <label id="deliveryDateLabel" style="display: none;">Delivery by <span id="deliveryDateSpan"><?php echo date('D F j', strtotime($randomDate)); ?></span> | Total Amount: &#8377; <?php echo $_SESSION['total']; ?></label>
             </div>
 
             <center>

@@ -136,7 +136,12 @@ if (isset($_GET['invoice_btn']) && isset($_GET['order_id'])) {
     </style>
 </head>
 <body>
+<a href="#" onclick="window.history.back(); return false;"><i style="font-size:30px" class="fa">&#xf190;</i></a>
+&nbsp;
 
+<a href="index.php"><i style="font-size:30px;color:blue" class="fa">&#xf015;</i></a>
+
+<br/>
 <div><img src="Assets/paid.png" alt=""></div>
 <div class="invoice">
     <?php while($row = $order_details->fetch_assoc()) { ?>

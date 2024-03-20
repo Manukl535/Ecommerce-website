@@ -559,7 +559,6 @@ else {
 
         </form>
     </td>
-
     <td>
         <form method="GET" action="invoice.php">
             
@@ -578,10 +577,13 @@ else {
         </div>
 
         <script>
-            function redirectToInvoice(orderId) {
-                window.location.href = "invoice.php?order_id=" + orderId;
-            }
-        </script>
+    function redirectToInvoice(orderId) {
+        alert("Please open a new browser window and navigate to: invoice.php?order_id=" + orderId);
+    }
+</script>
+
+
+
 
         <?php
         if ($orders->num_rows > 0) {
