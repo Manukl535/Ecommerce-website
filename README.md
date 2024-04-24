@@ -46,3 +46,7 @@ We express our appreciation to the faculty members, batch mates, lab staff, tech
 Contact
 If anything goes wrong, or for further inquiries, contact us @ +91 70220 15320 or wa.me/+917022015320.
 
+Images:
+![manprod](https://github.com/Manukl535/Ecom/assets/120451566/eb7e38fd-ac1f-4394-a6e3-ba734bc906bd)
+
+
