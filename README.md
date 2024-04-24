@@ -10,16 +10,18 @@ Features
 License
 Credits
 Contact
+
 Installation
 Follow these steps to set up Posh on your local environment:
 
-Install XAMPP package along with any editor or IDE such as VS Code or Notepad++ with any browser like Chrome.
-Download the project using git bash or download as a Zip file.
-Extract the whole project into C:/xampp/htdocs/Ecom.
-Start the XAMPP control panel and start the Apache and MySQL.
-Open phpMyAdmin using 127.0.0.1/phpmyadmin or from Admin in XAMPP (MySQL).
-Create the new database "ecom" and import the SQL file from Ecom/Database/ecom.sql.
-Type localhost/ecom/ or 127.0.0.1/ecom/ to access the index page.
+Step 1: Install XAMPP package along with any editor or IDE such as VS Code or Notepad++ with any browser like Chrome.
+Step 2: Download the project using git bash or download as a Zip file.
+Step 3: Extract the whole project into C:/xampp/htdocs/Ecom.
+Step 4: Start the XAMPP control panel and start the Apache and MySQL.
+Step 5: Open phpMyAdmin using 127.0.0.1/phpmyadmin or from Admin in XAMPP (MySQL).
+Step 6: Create the new database "ecom" and import the SQL file from Ecom/Database/ecom.sql.
+Step 7: Type localhost/ecom/ or 127.0.0.1/ecom/ in browser to access the index page.
+
 Note: Full Project is not uploaded. If you want the full project + Report, contact us @ +91 70220 15320 or wa.me/+917022015320.
 
 Usage
